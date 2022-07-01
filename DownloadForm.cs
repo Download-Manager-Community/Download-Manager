@@ -33,7 +33,6 @@ namespace DownloadManager
             Logging.Log("Downloads folder: " + downloadsFolder, Color.Black);
             InitializeComponent();
             textBox2.Text = downloadsFolder;
-            logging.Show();
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 10, 10));
         }
 
@@ -83,6 +82,12 @@ namespace DownloadManager
             {
                 progressBar1.Style = ProgressBarStyle.Blocks;
             }
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            // Debug log
+            logging.Show();
         }
     }
 }
