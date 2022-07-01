@@ -48,13 +48,14 @@
             // 
             // kryptonLabel1
             // 
-            this.kryptonLabel1.Location = new System.Drawing.Point(12, 8);
+            this.kryptonLabel1.Location = new System.Drawing.Point(14, 9);
+            this.kryptonLabel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.kryptonLabel1.Name = "kryptonLabel1";
             this.kryptonLabel1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.kryptonLabel1.Size = new System.Drawing.Size(113, 16);
             this.kryptonLabel1.StateCommon.LongText.Color1 = System.Drawing.SystemColors.Control;
             this.kryptonLabel1.StateCommon.ShortText.Color1 = System.Drawing.SystemColors.Control;
-            this.kryptonLabel1.StateCommon.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kryptonLabel1.StateCommon.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.kryptonLabel1.TabIndex = 1;
             this.kryptonLabel1.Values.Text = "Download Progress";
             this.kryptonLabel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
@@ -67,8 +68,9 @@
             this.panel1.Controls.Add(this.kryptonLabel1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(544, 32);
+            this.panel1.Size = new System.Drawing.Size(635, 37);
             this.panel1.TabIndex = 4;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             // 
@@ -81,9 +83,10 @@
             this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ControlDark;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.ForeColor = System.Drawing.SystemColors.Control;
-            this.button2.Location = new System.Drawing.Point(496, 0);
+            this.button2.Location = new System.Drawing.Point(579, 0);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(24, 32);
+            this.button2.Size = new System.Drawing.Size(28, 37);
             this.button2.TabIndex = 17;
             this.button2.Text = "_";
             this.button2.UseVisualStyleBackColor = false;
@@ -98,9 +101,10 @@
             this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.ForeColor = System.Drawing.SystemColors.Control;
-            this.button1.Location = new System.Drawing.Point(520, 0);
+            this.button1.Location = new System.Drawing.Point(607, 0);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(24, 32);
+            this.button1.Size = new System.Drawing.Size(28, 37);
             this.button1.TabIndex = 16;
             this.button1.Text = "X";
             this.button1.UseVisualStyleBackColor = false;
@@ -108,52 +112,58 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(66, 38);
+            this.textBox1.Location = new System.Drawing.Point(77, 44);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(466, 20);
+            this.textBox1.Size = new System.Drawing.Size(543, 23);
             this.textBox1.TabIndex = 5;
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(66, 64);
+            this.progressBar1.Location = new System.Drawing.Point(77, 74);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(466, 23);
+            this.progressBar1.Size = new System.Drawing.Size(544, 27);
             this.progressBar1.TabIndex = 6;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 41);
+            this.label1.Location = new System.Drawing.Point(14, 47);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 13);
+            this.label1.Size = new System.Drawing.Size(28, 15);
             this.label1.TabIndex = 7;
             this.label1.Text = "URL";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 67);
+            this.label2.Location = new System.Drawing.Point(14, 77);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 13);
+            this.label2.Size = new System.Drawing.Size(52, 15);
             this.label2.TabIndex = 8;
             this.label2.Text = "Progress";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 90);
+            this.label3.Location = new System.Drawing.Point(10, 104);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(144, 13);
+            this.label3.Size = new System.Drawing.Size(158, 15);
             this.label3.TabIndex = 9;
             this.label3.Text = "Percentage Complete: 0.00%";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 106);
+            this.label4.Location = new System.Drawing.Point(10, 122);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(86, 13);
+            this.label4.Size = new System.Drawing.Size(91, 15);
             this.label4.TabIndex = 10;
             this.label4.Text = "File Size: 0 bytes";
             // 
@@ -163,9 +173,10 @@
             this.checkBox1.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(12, 122);
+            this.checkBox1.Location = new System.Drawing.Point(14, 141);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(58, 17);
+            this.checkBox1.Size = new System.Drawing.Size(63, 19);
             this.checkBox1.TabIndex = 11;
             this.checkBox1.Text = "On top";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -173,9 +184,10 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(457, 115);
+            this.button3.Location = new System.Drawing.Point(533, 133);
+            this.button3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.Size = new System.Drawing.Size(88, 27);
             this.button3.TabIndex = 12;
             this.button3.Text = "Cancel";
             this.button3.UseVisualStyleBackColor = true;
@@ -187,19 +199,19 @@
             this.checkBox2.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.checkBox2.Checked = true;
             this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.Location = new System.Drawing.Point(338, 119);
+            this.checkBox2.Location = new System.Drawing.Point(394, 137);
+            this.checkBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(113, 17);
+            this.checkBox2.Size = new System.Drawing.Size(125, 19);
             this.checkBox2.TabIndex = 13;
             this.checkBox2.Text = "Close on complete";
             this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
-            // progress
+            // DownloadProgress
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(544, 150);
+            this.ClientSize = new System.Drawing.Size(635, 173);
             this.ControlBox = false;
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.button3);
@@ -212,9 +224,10 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "progress";
+            this.Name = "DownloadProgress";
             this.ShowIcon = false;
             this.Text = "Download Progress";
             this.TopMost = true;

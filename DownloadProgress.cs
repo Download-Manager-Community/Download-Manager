@@ -31,7 +31,6 @@ namespace DownloadManager
         int authType;
         bool isUrlInvalid = false;
         bool downloading = true;
-        bool closeOnComplete = false;
         WebClient client = new WebClient();
 
         public DownloadProgress(string urlArg, string locationArg, string authUserArg, string authPassArg, int authTypeArg)
@@ -215,10 +214,11 @@ namespace DownloadManager
                 {
                     checkBox2.Enabled = false;
                     button2.Enabled = false;
+                    button3.Enabled = false;
                     downloading = false;
                     DownloadForm.downloadsAmount -= 1;
                     Log("Finished downloading file.", Color.Black);
-                    if (closeOnComplete == true)
+                    if (checkBox2.Checked == true)
                     {
                         client.Dispose();
                         this.Close();
@@ -252,19 +252,6 @@ namespace DownloadManager
             else
             {
                 TopMost = false;
-            }
-        }
-
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
-        {
-            // Close on complete
-            if (checkBox2.Checked == true)
-            {
-                closeOnComplete = true;
-            }
-            else
-            {
-                closeOnComplete = false;
             }
         }
 
