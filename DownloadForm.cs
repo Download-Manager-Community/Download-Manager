@@ -24,6 +24,7 @@ namespace DownloadManager
         public static readonly string installationPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\";
         public static DownloadForm _instance;
         public Logging logging = new Logging();
+        Settings settings = new Settings();
         public static int downloadsAmount = 0;
         public static string downloadsFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop).Replace("Desktop", "Downloads") + "\\";
 
@@ -88,6 +89,11 @@ namespace DownloadManager
         {
             // Debug log
             logging.Show();
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            settings.Show();
         }
     }
 }
