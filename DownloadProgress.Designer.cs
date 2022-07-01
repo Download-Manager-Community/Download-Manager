@@ -197,8 +197,6 @@
             // 
             this.checkBox2.AutoSize = true;
             this.checkBox2.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBox2.Checked = true;
-            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox2.Location = new System.Drawing.Point(394, 137);
             this.checkBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBox2.Name = "checkBox2";
