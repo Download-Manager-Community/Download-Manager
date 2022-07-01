@@ -60,4 +60,67 @@
   <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAHRwAAAEAIABIDQAAFgAAACgAAAAdAAAAOAAAAAEAIAAAAAAAsAwAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAA/wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAP8ABP//////////////////////////////////////////////////////////////
+        /////////////////////////////////////////wAE/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAD/AAT//wAE////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////AAT//wAE/wAAAAAAAAAAAAAAAAAAAAAAAAAA/wAE//8A
+        BP//AAT/////////////AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP////////////8ABP//AAT//wAE/wAAAAAAAAAAAAAAAP8ABP//AAT//wAE//8A
+        BP////////////8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP///////wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE/////////////wAE//8ABP//AAT//wAE/wAAAAD/AAT//wAE//8ABP//AAT//wAE////
+        /////////wAE//8ABP//AAT//wAE//8ABP////////////////////////////8ABP//AAT//wAE//8A
+        BP//AAT/////////////AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT/////////
+        ////AAT//wAE//8ABP//AAT///////////////////////////////////////8ABP//AAT//wAE//8A
+        BP////////////8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP////////////8A
+        BP//AAT//wAE//////////////////////////////////////////////////8ABP//AAT//wAE////
+        /////////wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE/////////////wAE//8A
+        BP////////////////////////////////////////////////////////////8ABP//AAT/////////
+        ////AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT/////////////AAT/////////
+        //////////////////////////////////////////////////////////////8ABP////////////8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//////////////
+        /////////////////////////////////////////////////////////wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP////////////////////////////8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE////
+        /////////////////////////wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT/////////
+        ////////////////////AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//////////////
+        //////////////8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE////////////////////
+        /////////wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT/////////////////////////
+        ////AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP////////////////////////////8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE/////////////////////////////wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT/////////////////////////////AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP////////////////////////////8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE/wAAAAD/AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE/////////////////////////////wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP8AAAAAAAAAAAAAAAD/AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT/////////////////////////////AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT/AAAAAAAAAAAAAAAAAAAAAAAAAAD/AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP////////////////////////////8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE/////////////////////////////wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT/AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE/wAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAPwAAfj4AAD48AAAeOAAADjAAAAYgAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAIwAAAGOAAADjwAAB4+AAA+PwA
+        Afg=
+</value>
+  </data>
 </root>

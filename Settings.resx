@@ -65,12 +65,75 @@
 If this option is unchecked then the downloads progress window will not close once the download has completed.
 The default option for this settings is OFF.</value>
   </data>
-  <metadata name="folderBrowserDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>114, 17</value>
-  </metadata>
   <data name="label4.ToolTip" xml:space="preserve">
     <value>If this option is checked then the download progress window will stay above all other open windows.
 If this option is unchecked then the download progress window will act like a normal window.
 The default option for this settings is ON.</value>
+  </data>
+  <metadata name="folderBrowserDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>114, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAHRwAAAEAIABIDQAAFgAAACgAAAAdAAAAOAAAAAEAIAAAAAAAsAwAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAA/wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAP8ABP//////////////////////////////////////////////////////////////
+        /////////////////////////////////////////wAE/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAD/AAT//wAE////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////AAT//wAE/wAAAAAAAAAAAAAAAAAAAAAAAAAA/wAE//8A
+        BP//AAT/////////////AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP////////////8ABP//AAT//wAE/wAAAAAAAAAAAAAAAP8ABP//AAT//wAE//8A
+        BP////////////8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP///////wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE/////////////wAE//8ABP//AAT//wAE/wAAAAD/AAT//wAE//8ABP//AAT//wAE////
+        /////////wAE//8ABP//AAT//wAE//8ABP////////////////////////////8ABP//AAT//wAE//8A
+        BP//AAT/////////////AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT/////////
+        ////AAT//wAE//8ABP//AAT///////////////////////////////////////8ABP//AAT//wAE//8A
+        BP////////////8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP////////////8A
+        BP//AAT//wAE//////////////////////////////////////////////////8ABP//AAT//wAE////
+        /////////wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE/////////////wAE//8A
+        BP////////////////////////////////////////////////////////////8ABP//AAT/////////
+        ////AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT/////////////AAT/////////
+        //////////////////////////////////////////////////////////////8ABP////////////8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//////////////
+        /////////////////////////////////////////////////////////wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP////////////////////////////8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE////
+        /////////////////////////wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT/////////
+        ////////////////////AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//////////////
+        //////////////8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE////////////////////
+        /////////wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT/////////////////////////
+        ////AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP////////////////////////////8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE/////////////////////////////wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT/////////////////////////////AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP////////////////////////////8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE/wAAAAD/AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE/////////////////////////////wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP8AAAAAAAAAAAAAAAD/AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT/////////////////////////////AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT/AAAAAAAAAAAAAAAAAAAAAAAAAAD/AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP////////////////////////////8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE/////////////////////////////wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8A
+        BP8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT/AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/AAT//wAE//8ABP//AAT//wAE//8A
+        BP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE//8ABP//AAT//wAE/wAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAPwAAfj4AAD48AAAeOAAADjAAAAYgAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAIwAAAGOAAADjwAAB4+AAA+PwA
+        Afg=
+</value>
   </data>
 </root>

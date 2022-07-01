@@ -39,6 +39,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.help1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button5 = new System.Windows.Forms.Button();
@@ -46,7 +47,6 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -183,6 +183,18 @@
             this.label2.Text = "?";
             this.toolTip1.SetToolTip(this.label2, resources.GetString("label2.ToolTip"));
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Cursor = System.Windows.Forms.Cursors.Help;
+            this.label4.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.label4.Location = new System.Drawing.Point(179, 149);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(12, 15);
+            this.label4.TabIndex = 26;
+            this.label4.Text = "?";
+            this.toolTip1.SetToolTip(this.label4, resources.GetString("label4.ToolTip"));
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -242,18 +254,6 @@
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Cursor = System.Windows.Forms.Cursors.Help;
-            this.label4.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.label4.Location = new System.Drawing.Point(179, 149);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(12, 15);
-            this.label4.TabIndex = 26;
-            this.label4.Text = "?";
-            this.toolTip1.SetToolTip(this.label4, resources.GetString("label4.ToolTip"));
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -280,6 +280,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Settings";
             this.Text = "Settings";
             this.Load += new System.EventHandler(this.Settings_Load);
