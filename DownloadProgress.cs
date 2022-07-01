@@ -107,6 +107,7 @@ namespace DownloadManager
                     }
                     else
                     {
+                        Log("Failed to determine whether URL is http:// or https://", Color.Red);
                         MessageBox.Show("Failed to determine whether URL is http:// or https://", "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         client.Dispose();
                         this.Close();
@@ -124,6 +125,7 @@ namespace DownloadManager
                     }
                     else
                     {
+                        Log("Failed to determine whether URL is http:// or https://", Color.Red);
                         MessageBox.Show("Failed to determine whether URL is http:// or https://", "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         client.Dispose();
                         this.Close();
@@ -140,12 +142,14 @@ namespace DownloadManager
                 string fileName = System.IO.Path.GetFileName(uri.AbsolutePath);
                 Action action1 = () => progressBar1.Style = ProgressBarStyle.Blocks;
                 this.Invoke(action1);
+                Log("Downloading file " + uri + " to " + location + fileName, Color.Black);
                 try
                 {
                     client.DownloadFileAsync(uri, location + fileName);
                 }
                 catch (Exception ex)
                 {
+                    Log(ex.Message, Color.Red);
                     MessageBox.Show(ex.Message, "Download Manager - Download Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Invoke(new MethodInvoker(delegate ()
                     {
@@ -185,6 +189,7 @@ namespace DownloadManager
                             {
                                 isUrlInvalid = true;
                                 DownloadForm.downloadsAmount -= 1;
+                                Log(ex.Message, Color.Red);
                                 MessageBox.Show(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 client.Dispose();
                                 this.Close();
@@ -212,6 +217,7 @@ namespace DownloadManager
                     button2.Enabled = false;
                     downloading = false;
                     DownloadForm.downloadsAmount -= 1;
+                    Log("Finished downloading file.", Color.Black);
                     if (closeOnComplete == true)
                     {
                         client.Dispose();
@@ -271,7 +277,7 @@ namespace DownloadManager
             }
             else
             {
-                DialogResult result = MessageBox.Show("Are you sure you want to cancel the download?", "Jarvis Download Manager", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                DialogResult result = MessageBox.Show("Are you sure you want to cancel the download?", "Download Manager", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                 if (result == DialogResult.OK)
                 {
                     client.Dispose();
