@@ -40,7 +40,7 @@ namespace DownloadManager
         private void button1_Click(object sender, EventArgs e)
         {
             // Close
-            this.Hide();
+            Application.Exit();
         }
 
         private void button2_Click(object sender, EventArgs e)
