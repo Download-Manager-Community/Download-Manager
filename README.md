@@ -3,6 +3,8 @@
 
 A fast download manager for Windows to download your files.
 
+If there are any issues with the application please make an [issue](https://github.com/Soniczac7/Download-Manager/issues/new/choose).
+
 ## Installation Instructions
 1) Download the latest version from the [releases](https://github.com/Soniczac7/Download-Manager/releases) page.
 2) Extract the zip to the installation location.
