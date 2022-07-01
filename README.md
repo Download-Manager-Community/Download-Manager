@@ -1,6 +1,7 @@
 # Download Manager
-A fast download manager to download your files.
+A fast download manager for Windows to download your files.
 
 ## Installation Instructions
-Build the solution and run the executable.
-A pre-release build will be released soon.
+1) Extract the zip to the installation location.
+2) (Optional) Create a shortcut to the desktop for `DownloadManager.exe`
+3) Run the executable
