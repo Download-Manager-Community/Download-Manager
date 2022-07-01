@@ -49,6 +49,8 @@ namespace DownloadManager
         private void progress_Load(object sender, EventArgs e)
         {
             Log("Preparing to start downloading...", Color.Black);
+            checkBox2.Checked = Settings1.Default.closeOnComplete;
+            checkBox1.Checked = Settings1.Default.keepOnTop;
             progressBar1.Style = ProgressBarStyle.Marquee;
             Thread thread = new Thread(() =>
             {

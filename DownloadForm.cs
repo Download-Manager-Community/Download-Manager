@@ -33,7 +33,7 @@ namespace DownloadManager
             _instance = this;
             Logging.Log("Downloads folder: " + downloadsFolder, Color.Black);
             InitializeComponent();
-            textBox2.Text = downloadsFolder;
+            textBox2.Text = Settings1.Default.defaultDownload;
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 10, 10));
         }
 

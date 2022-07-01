@@ -30,7 +30,7 @@ namespace DownloadManager
         private void button1_Click(object sender, EventArgs e)
         {
             // Close
-            Application.Exit();
+            this.Hide();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -44,6 +44,50 @@ namespace DownloadManager
             // Titlebar Drag
             ReleaseCapture();
             SendMessage(Handle, 0x112, 0xf012, 0);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            // Browse default download location
+            DialogResult result = folderBrowserDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                textBox1.Text = folderBrowserDialog1.SelectedPath + @"\";
+            }
+        }
+
+        private void Settings_Load(object sender, EventArgs e)
+        {
+            // Load settings
+            if (Settings1.Default.defaultDownload == "" || Settings1.Default.defaultDownload == null)
+            {
+                Settings1.Default.defaultDownload = DownloadForm.downloadsFolder;
+                Settings1.Default.Save();
+            }
+            textBox1.Text = Settings1.Default.defaultDownload;
+            checkBox1.Checked = Settings1.Default.closeOnComplete;
+            checkBox2.Checked = Settings1.Default.keepOnTop;
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            // Default download location
+            Settings1.Default.defaultDownload = textBox1.Text;
+            Settings1.Default.Save();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            // Close progress window on complete
+            Settings1.Default.closeOnComplete = checkBox1.Checked;
+            Settings1.Default.Save();
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            // Keep progress window on top
+            Settings1.Default.keepOnTop = checkBox2.Checked;
+            Settings1.Default.Save();
         }
     }
 }
