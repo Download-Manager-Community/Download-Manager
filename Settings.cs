@@ -74,6 +74,7 @@ namespace DownloadManager
             // Default download location
             Settings1.Default.defaultDownload = textBox1.Text;
             Settings1.Default.Save();
+            DownloadForm._instance.textBox2.Text = textBox1.Text;
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
