@@ -43,13 +43,7 @@ namespace DownloadManager
         private void button1_Click(object sender, EventArgs e)
         {
             // Close
-            browserIntercept.httpServer.Close();
-            try
-            {
-                browserIntercept.thread.Abort();
-            }
-            catch { }
-            Process.GetCurrentProcess().Kill();
+            this.Hide();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -103,6 +97,41 @@ namespace DownloadManager
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
             settings.Show();
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            // Open Form
+            this.Show();
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            // Report a bug
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = "https://github.com/Soniczac7/Download-Manager/issues/new?assignees=&labels=bug&template=bug_report.md&title=",
+                Arguments = "",
+                UseShellExecute = true,
+                RedirectStandardOutput = false,
+                RedirectStandardError = false,
+                RedirectStandardInput = false
+            };
+            Process process = new Process();
+            process.StartInfo = startInfo;
+            process.Start();
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            // Exit
+            browserIntercept.httpServer.Close();
+            try
+            {
+                browserIntercept.thread.Abort();
+            }
+            catch { }
+            Process.GetCurrentProcess().Kill();
         }
     }
 }
