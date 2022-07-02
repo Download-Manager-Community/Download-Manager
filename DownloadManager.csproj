@@ -13,6 +13,10 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Soniczac7/Download-Manager</RepositoryUrl>
     <PackageLicenseFile>D:\DownloadManager\LICENSE.txt</PackageLicenseFile>
+    <Authors>Soniczac7</Authors>
+    <Company>Soniczac7</Company>
+    <Product>Download Manager</Product>
+    <PackageProjectUrl>https://github.com/Soniczac7/Download-Manager/tree/dev</PackageProjectUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

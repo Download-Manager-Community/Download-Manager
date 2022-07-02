@@ -70,6 +70,12 @@ The default option for this settings is OFF.</value>
 If this option is unchecked then the download progress window will act like a normal window.
 The default option for this settings is ON.</value>
   </data>
+  <data name="label6.ToolTip" xml:space="preserve">
+    <value>The port for the internal server to be hosted locally.
+This cannot be changed at the moment as the browser extention does not yet support this feature.
+This feature may become available in the future.
+The default value for this setting is 65535.</value>
+  </data>
   <metadata name="folderBrowserDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>114, 17</value>
   </metadata>

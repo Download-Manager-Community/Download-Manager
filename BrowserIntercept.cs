@@ -73,7 +73,7 @@ namespace DownloadManager
                 {
                     Logging._instance.Invoke((MethodInvoker)delegate
                     {
-                        Log("Request recieved for URL: " + url, Color.Black);
+                        Log("Request received for URL: " + url, Color.Black);
                         DownloadProgress downloadProgress = new DownloadProgress(url, Settings1.Default.defaultDownload, "", "", 0);
                         downloadProgress.Show();
                         //Log("--- Start Request ---", Color.Black);
@@ -89,6 +89,8 @@ namespace DownloadManager
                 client.SendTo(resData, client.RemoteEndPoint);
                 client.Close();
             }
+            Log("Internal server stopped unexpectedly. Restarting server...", Color.Red);
+            ConnectionThreadMethod();
         }
     }
 }
