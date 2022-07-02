@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace DownloadManager
 {
@@ -25,6 +26,7 @@ namespace DownloadManager
         public static DownloadForm _instance;
         public Logging logging = new Logging();
         Settings settings = new Settings();
+        BrowserIntercept browserIntercept = new BrowserIntercept();
         public static int downloadsAmount = 0;
         public static string downloadsFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop).Replace("Desktop", "Downloads") + "\\";
 
@@ -33,6 +35,7 @@ namespace DownloadManager
             _instance = this;
             Logging.Log("Downloads folder: " + downloadsFolder, Color.Black);
             InitializeComponent();
+            browserIntercept.StartServer();
             textBox2.Text = Settings1.Default.defaultDownload;
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 10, 10));
         }
@@ -40,7 +43,13 @@ namespace DownloadManager
         private void button1_Click(object sender, EventArgs e)
         {
             // Close
-            Application.Exit();
+            browserIntercept.httpServer.Close();
+            try
+            {
+                browserIntercept.thread.Abort();
+            }
+            catch { }
+            Process.GetCurrentProcess().Kill();
         }
 
         private void button2_Click(object sender, EventArgs e)
