@@ -1,0 +1,23 @@
+{
+  "name": "Download Manager",
+  "version": "1.0.0.0",
+  "manifest_version": 2,
+  "description": "Download Manager browser extension to download files.",
+  "icons": {
+    "16": "icons/icon.png",
+    "32": "icons/icon.png",
+    "48": "icons/icon.png",
+    "128": "icons/icon.png"
+  },
+  "permissions":[
+    "webRequest",
+    "webRequestBlocking",
+    "<all_urls>"
+  ],
+  "browser_action": {
+    "default_popup": "popup/popup.html"
+  },
+  "background":{
+    "scripts": ["scripts/background.js"]
+  }
+}
