@@ -18,9 +18,9 @@ namespace DownloadManager
             Log("Starting internal server...", Color.Black);
             try
             {
-                httpServer = new Socket(SocketType.Stream, ProtocolType.Tcp);
                 thread = new Thread(new ThreadStart(ConnectionThreadMethod));
                 thread.Start();
+                Log("Internal server started. Listening for connections on port " + serverPort + ".", Color.Green);
             }
             catch (Exception ex)
             {
@@ -32,6 +32,7 @@ namespace DownloadManager
         {
             try
             {
+                httpServer = new Socket(SocketType.Stream, ProtocolType.Tcp);
                 IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, serverPort);
                 httpServer.Bind(endPoint);
                 httpServer.Listen(1);
@@ -45,7 +46,6 @@ namespace DownloadManager
 
         private void ListenForConnections()
         {
-            Log("Internal server started. Listening for connections on port " + serverPort + ".", Color.Green);
             while (true)
             {
                 String data = "";
@@ -88,8 +88,10 @@ namespace DownloadManager
                 byte[] resData = Encoding.ASCII.GetBytes(resStr);
                 client.SendTo(resData, client.RemoteEndPoint);
                 client.Close();
+                httpServer.Close();
+                ConnectionThreadMethod();
             }
-            Log("Internal server stopped unexpectedly. Restarting server...", Color.Red);
+            httpServer.Close();
             ConnectionThreadMethod();
         }
     }

@@ -133,5 +133,21 @@ namespace DownloadManager
             catch { }
             Process.GetCurrentProcess().Kill();
         }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = "http://example.com",
+                Arguments = "",
+                UseShellExecute = true,
+                RedirectStandardError = false,
+                RedirectStandardInput = false,
+                RedirectStandardOutput = false
+            };
+            Process process = new Process();
+            process.StartInfo = startInfo;
+            process.Start();
+        }
     }
 }

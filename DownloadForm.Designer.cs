@@ -55,6 +55,7 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -200,7 +201,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 408);
+            this.label3.Location = new System.Drawing.Point(10, 393);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(120, 15);
@@ -302,12 +303,24 @@
             this.toolStripMenuItem3.Text = "Exit";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(10, 408);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(159, 15);
+            this.linkLabel1.TabIndex = 13;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Download Browser Extention";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
             // DownloadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 447);
             this.ControlBox = false;
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button4);
@@ -363,5 +376,6 @@
         private ToolStripMenuItem toolStripMenuItem1;
         private ToolStripMenuItem toolStripMenuItem2;
         private ToolStripMenuItem toolStripMenuItem3;
+        private LinkLabel linkLabel1;
     }
 }
