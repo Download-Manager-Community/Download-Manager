@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace DownloadManager
 {
@@ -25,6 +26,7 @@ namespace DownloadManager
         public static DownloadForm _instance;
         public Logging logging = new Logging();
         Settings settings = new Settings();
+        BrowserIntercept browserIntercept = new BrowserIntercept();
         public static int downloadsAmount = 0;
         public static string downloadsFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop).Replace("Desktop", "Downloads") + "\\";
 
@@ -33,6 +35,7 @@ namespace DownloadManager
             _instance = this;
             Logging.Log("Downloads folder: " + downloadsFolder, Color.Black);
             InitializeComponent();
+            browserIntercept.StartServer();
             textBox2.Text = Settings1.Default.defaultDownload;
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 10, 10));
         }
@@ -40,7 +43,7 @@ namespace DownloadManager
         private void button1_Click(object sender, EventArgs e)
         {
             // Close
-            Application.Exit();
+            this.Hide();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -94,6 +97,57 @@ namespace DownloadManager
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
             settings.Show();
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            // Open Form
+            this.Show();
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            // Report a bug
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = "https://github.com/Soniczac7/Download-Manager/issues/new?assignees=&labels=bug&template=bug_report.md&title=",
+                Arguments = "",
+                UseShellExecute = true,
+                RedirectStandardOutput = false,
+                RedirectStandardError = false,
+                RedirectStandardInput = false
+            };
+            Process process = new Process();
+            process.StartInfo = startInfo;
+            process.Start();
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            // Exit
+            browserIntercept.httpServer.Close();
+            try
+            {
+                browserIntercept.thread.Abort();
+            }
+            catch { }
+            Process.GetCurrentProcess().Kill();
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = "http://example.com",
+                Arguments = "",
+                UseShellExecute = true,
+                RedirectStandardError = false,
+                RedirectStandardInput = false,
+                RedirectStandardOutput = false
+            };
+            Process process = new Process();
+            process.StartInfo = startInfo;
+            process.Start();
         }
     }
 }
