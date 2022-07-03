@@ -83,7 +83,7 @@ namespace DownloadManager
                 }
 
                 String resHeader = "HTTP/1.1 200 OK\nServer: DownloadManager_Internal\nContent-Type: text/html; charset: UTF-8\n\n";
-                String resBody = "<!DOCTYPE html> <head><title>Download Manager</title></head><body><p>Please do not manually send requests to the internal server.<br>If a request is sent incorrectly the internal server may crash. If this occurs please restart the Download Manager application.</p></body>";
+                String resBody = "<!DOCTYPE html><html><head><title>Download Manager</title><style>body{background-color: rgb(18, 22, 58);color: white;font-family: Arial, Helvetica, sans-serif;}h1{font-size: 30px;}</style></head><body><h1>Download Manager</h1><hr><p>Please do not manually send requests to the internal server.</p><p>If a request is sent incorrectly the internal server may crash.If this occurs please restart the Download Manager application.</p></body></html>";
                 String resStr = resHeader + resBody;
                 byte[] resData = Encoding.ASCII.GetBytes(resStr);
                 client.SendTo(resData, client.RemoteEndPoint);
@@ -91,8 +91,6 @@ namespace DownloadManager
                 httpServer.Close();
                 ConnectionThreadMethod();
             }
-            httpServer.Close();
-            ConnectionThreadMethod();
         }
     }
 }
