@@ -1,7 +1,7 @@
 chrome.webRequest.onHeadersReceived.addListener(function(details) {
   // ... your code that checks whether the request should be blocked ...
   //  (omitted for brevity)
-  if(!details.url.indexOf("www.bing.com/vs/ec/stop.mp3") >=0 || !details.url.indexOf("www.bing.com/vs/ec/start.mp3") >=0){
+  if(details.url.indexOf("www.bing.com/vs/ec/stop.mp3") >=0 || details.url.indexOf("www.bing.com/vs/ec/start.mp3") >=0){
     console.warn("Could not download. Download url is in URL blacklist.");
   }
   else{
