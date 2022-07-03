@@ -2,14 +2,24 @@
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Soniczac7/Download-Manager/.NET%20Core%20Desktop) ![GitHub issues](https://img.shields.io/github/issues/Soniczac7/Download-Manager) ![GitHub all releases](https://img.shields.io/github/downloads/Soniczac7/Download-Manager/total) ![GitHub](https://img.shields.io/github/license/Soniczac7/Download-Manager)
 
 A fast download manager for Windows to download your files.
+Download Manager now contains a browser extention to help you download your files as easily as possible.
+Just install the extention and download a file!
+For requests for file extentions please make a [Feature Request](https://github.com/Soniczac7/Download-Manager/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=).
 
 If there are any issues with the application please make an [issue](https://github.com/Soniczac7/Download-Manager/issues/new/choose).
 
 ## Installation Instructions
-1) Download the latest version from the [releases](https://github.com/Soniczac7/Download-Manager/releases) page.
+1) Download the latest version from the [releases page](https://github.com/Soniczac7/Download-Manager/releases).
 2) Extract the zip to the installation location.
 3) (Optional) Create a shortcut to the desktop for `DownloadManager.exe`.
 4) Run the executable.
+
+## Installation of the Browser Extention Instructions (Optional)
+1) Install the latest version of the Download Manager from the [releases page](https://github.com/Soniczac7/Download-Manager/releases).
+2) Extract the zip to the installation location.
+3) In Google Chrome or Microsoft Edge go to Manage Extentions.
+4) Drag and drop the folder `Extention` into the Manage Extentions tab.
+5) Enable the extention.
 
 ## Contribution
 Any contribution will be appreciated. To contribute to this repository:
