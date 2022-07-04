@@ -15,6 +15,7 @@ If there are any issues with the application please make an [issue](https://gith
 4) Run the executable.
 
 ## Installation of the Browser Extention Instructions (Optional)
+> This way of installation is a temporary workaround and will be changed in the future.
 1) Install the latest version of the Download Manager from the [releases page](https://github.com/Soniczac7/Download-Manager/releases).
 2) Extract the zip to the installation location.
 3) In Google Chrome or Microsoft Edge go to Manage Extentions.
