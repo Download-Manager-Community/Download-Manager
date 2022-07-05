@@ -1,13 +1,15 @@
-chrome.webRequest.onHeadersReceived.addListener(function(details) {
+chrome.webRequest.onHeadersReceived.addListener(function (details) {
   // ... your code that checks whether the request should be blocked ...
   //  (omitted for brevity)
-  if(details.url.indexOf("www.bing.com/vs/ec/stop.mp3") >=0 || 
-  details.url.indexOf("www.bing.com/vs/ec/start.mp3") >=0 ||
-  details.url.indexOf("mp3+") >=0 ||
-  details.url.indexOf("mp3&") >=0 ||
-  details.url.indexOf("upload.") >=0 ||
-  details.url.indexOf("partner.microsoft.com") >=0){
-    console.warn("Could not download. Download url is in URL blacklist.");
+    if (details.url.indexOf("www.bing.com/vs/ec/stop.mp3") >= 0 ||
+        details.url.indexOf("www.bing.com/vs/ec/start.mp3") >= 0 ||
+        details.url.indexOf("mp3+") >= 0 ||
+        details.url.indexOf("mp3&") >= 0 ||
+        details.url.indexOf("upload.") >= 0 ||
+        details.url.indexOf("partner.microsoft.com") >= 0 ||
+        details.url.indexOf("adfoc.us") >= 0 ||
+        details.url.indexOf("adloadx") >= 0) {
+      console.warn("Could not download. Download url is in URL blacklist.");
   }
   else{
     if(details.url.indexOf(".zip") >=0){
@@ -29,6 +31,10 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
     else if(details.url.indexOf(".exe") >=0){
       console.log("Blocking request.");
       return {redirectUrl: "http://robwu.nl/204" };
+    }
+    else if (details.url.indexOf(".jar") >= 0) {
+        console.log("Blocking request.");
+        return { redirectUrl: "http://robwu.nl/204" };
     }
     else if(details.url.indexOf(".msi") >=0){
       console.log("Blocking request.");
@@ -100,12 +106,14 @@ chrome.webRequest.onBeforeRequest.addListener(
     function(details)
     {
       console.log (details.url);
-      if(details.url.indexOf("www.bing.com/vs/ec/stop.mp3") >=0 || 
-      details.url.indexOf("www.bing.com/vs/ec/start.mp3") >=0 ||
-      details.url.indexOf("mp3+") >=0 ||
-      details.url.indexOf("mp3&") >=0 ||
-      details.url.indexOf("upload.") >=0 ||
-      details.url.indexOf("partner.microsoft.com") >=0){
+        if (details.url.indexOf("www.bing.com/vs/ec/stop.mp3") >= 0 ||
+            details.url.indexOf("www.bing.com/vs/ec/start.mp3") >= 0 ||
+            details.url.indexOf("mp3+") >= 0 ||
+            details.url.indexOf("mp3&") >= 0 ||
+            details.url.indexOf("upload.") >= 0 ||
+            details.url.indexOf("partner.microsoft.com") >= 0 ||
+            details.url.indexOf("adfoc.us") >= 0 ||
+            details.url.indexOf("adloadx") >= 0) {
         console.warn("Could not download " + details.url + ". Download url is in URL blacklist.");
       }
       else{
@@ -128,6 +136,10 @@ chrome.webRequest.onBeforeRequest.addListener(
         else if(details.url.indexOf(".exe") >=0){
           console.log("Request url contains .exe which is a download type. Sending to Download Manager.");
           httpGet('http://localhost:65535/?url="' + details.url + '"');
+        }
+        else if (details.url.indexOf(".jar") >= 0) {
+            console.log("Request url contains .jar which is a download type. Sending to Download Manager.");
+            httpGet('http://localhost:65535/?url="' + details.url + '"');
         }
         else if(details.url.indexOf(".msi") >=0){
           console.log("Request url contains .msi which is a download type. Sending to Download Manager.");
