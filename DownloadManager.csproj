@@ -26,6 +26,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DownloadManagerInstaller\**" />
+    <EmbeddedResource Remove="DownloadManagerInstaller\**" />
+    <None Remove="DownloadManagerInstaller\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Resources\icon.ico" />
   </ItemGroup>
 
