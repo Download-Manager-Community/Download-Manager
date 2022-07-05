@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace DownloadManager
 {
@@ -61,9 +62,8 @@ namespace DownloadManager
 
         private void button4_Click(object sender, EventArgs e)
         {
-            DownloadProgress downloadProgress = new DownloadProgress(textBox1.Text, textBox2.Text, "", "", 0);
+            DownloadProgress downloadProgress = new DownloadProgress(textBox1.Text, textBox2.Text, Encoding.Default.GetBytes(textBox3.Text));
             downloadProgress.Show();
-            //string urlArg, string locationArg, string authUserArg, string authPassArg, int authTypeArg
         }
 
         private void button3_Click(object sender, EventArgs e)
