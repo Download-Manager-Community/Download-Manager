@@ -29,29 +29,22 @@ namespace DownloadManager
         string url;
         string location;
         string fileName;
-        byte[] md5Hash;
+        string md5Hash;
         bool isUrlInvalid = false;
         bool downloading = true;
         bool doFileVerify = false;
         WebClient client = new WebClient();
 
-        public DownloadProgress(string urlArg, string locationArg, byte[]? md5HashArg)
+        public DownloadProgress(string urlArg, string locationArg, string md5HashArg)
         {
             InitializeComponent();
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 10, 10));
             md5Hash = md5HashArg;
-            if (md5Hash != null)
+            if (md5Hash != "")
             {
-                textBox2.Text = Encoding.Default.GetString(md5Hash);
-                if (textBox2.Text == "" || textBox2.Text == "System.Byte[]")
-                {
-                    textBox2.Text = "MD5 hash is set but could not find such hash!";
-                }
-                else
-                {
-                    doFileVerify = true;
-                    this.Size = new System.Drawing.Size(635, 203);
-                }
+                textBox2.Text = md5Hash;
+                doFileVerify = true;
+                this.Size = new System.Drawing.Size(635, 203);
             }
             else
             {
@@ -192,7 +185,14 @@ namespace DownloadManager
                             {
                                 byte[] fileData = File.ReadAllBytes(location + fileName);
                                 byte[] myHash = MD5.Create().ComputeHash(fileData);
-                                if (myHash.SequenceEqual(md5Hash))
+                                StringBuilder result = new StringBuilder(myHash.Length * 2);
+
+                                for (int i = 0; i < myHash.Length; i++)
+                                {
+                                    result.Append(myHash[i].ToString(false ? "X2" : "x2"));
+                                }
+
+                                if (result.ToString() == md5Hash)
                                 {
                                     Log("File verification OK.", Color.Black);
                                     checkBox2.Enabled = false;

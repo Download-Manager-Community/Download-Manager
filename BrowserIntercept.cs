@@ -74,8 +74,7 @@ namespace DownloadManager
                     Logging._instance.Invoke((MethodInvoker)delegate
                     {
                         Log("Request received for URL: " + url, Color.Black);
-                        byte[]? md5Hash = null;
-                        DownloadProgress downloadProgress = new DownloadProgress(url, Settings1.Default.defaultDownload, md5Hash);
+                        DownloadProgress downloadProgress = new DownloadProgress(url, Settings1.Default.defaultDownload, "");
                         downloadProgress.Show();
                         //Log("--- Start Request ---", Color.Black);
                         //Log(data, Color.Black);

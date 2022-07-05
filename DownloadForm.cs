@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace DownloadManager
 {
@@ -62,7 +61,7 @@ namespace DownloadManager
 
         private void button4_Click(object sender, EventArgs e)
         {
-            DownloadProgress downloadProgress = new DownloadProgress(textBox1.Text, textBox2.Text, Encoding.Default.GetBytes(textBox3.Text));
+            DownloadProgress downloadProgress = new DownloadProgress(textBox1.Text, textBox2.Text, textBox3.Text);
             downloadProgress.Show();
         }
 
@@ -96,7 +95,26 @@ namespace DownloadManager
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
+            // Settings
             settings.Show();
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            // Calculate MD5 of a file
+            DialogResult result = openFileDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                try
+                {
+                    MD5Calculator md5Calc = new MD5Calculator(openFileDialog1.FileName);
+                    md5Calc.Show();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
