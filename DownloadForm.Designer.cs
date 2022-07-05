@@ -56,6 +56,10 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -314,12 +318,52 @@
             this.linkLabel1.Text = "Download Browser Extention";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(16, 221);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(905, 23);
+            this.textBox3.TabIndex = 15;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 203);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(91, 15);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "File Hash (MD5)";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Cursor = System.Windows.Forms.Cursors.Help;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label5.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.label5.Location = new System.Drawing.Point(104, 203);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(12, 15);
+            this.label5.TabIndex = 16;
+            this.label5.Text = "?";
+            this.toolTip1.SetToolTip(this.label5, resources.GetString("label5.ToolTip"));
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.IsBalloon = true;
+            this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.toolTip1.ToolTipTitle = "Help";
+            // 
             // DownloadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 447);
             this.ControlBox = false;
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.label3);
@@ -377,5 +421,9 @@
         private ToolStripMenuItem toolStripMenuItem2;
         private ToolStripMenuItem toolStripMenuItem3;
         private LinkLabel linkLabel1;
+        private TextBox textBox3;
+        private Label label4;
+        private Label label5;
+        private ToolTip toolTip1;
     }
 }
