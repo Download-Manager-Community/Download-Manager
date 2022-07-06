@@ -118,7 +118,7 @@ namespace DownloadManagerInstaller
                     _instance.Invoke(increaseProgress20);
 
                     // Put zip in directory
-                    File.WriteAllBytes(path + "install.zip", Properties.Resources.Download_Manager);
+                    File.WriteAllBytes(path + "install.zip", Properties.Resources.install);
 
                     _instance.Invoke(increaseProgress20);
 
