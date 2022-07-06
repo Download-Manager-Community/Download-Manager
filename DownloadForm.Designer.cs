@@ -62,6 +62,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -256,12 +257,12 @@
             // toolStripButton3
             // 
             this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton3.Image = global::DownloadManager.Properties.Resources.MD5;
+            this.toolStripButton3.Image = global::DownloadManager.Properties.Resources.hash;
             this.toolStripButton3.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
             this.toolStripButton3.Size = new System.Drawing.Size(36, 36);
-            this.toolStripButton3.Text = "Calculate MD5 hash of a file";
+            this.toolStripButton3.Text = "Calculate hash of a file";
             this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
             // notifyIcon1
@@ -337,7 +338,7 @@
             this.textBox3.Location = new System.Drawing.Point(16, 221);
             this.textBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(905, 23);
+            this.textBox3.Size = new System.Drawing.Size(809, 23);
             this.textBox3.TabIndex = 15;
             // 
             // label4
@@ -346,9 +347,9 @@
             this.label4.Location = new System.Drawing.Point(12, 203);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(91, 15);
+            this.label4.Size = new System.Drawing.Size(55, 15);
             this.label4.TabIndex = 14;
-            this.label4.Text = "File Hash (MD5)";
+            this.label4.Text = "File Hash";
             // 
             // label5
             // 
@@ -356,7 +357,7 @@
             this.label5.Cursor = System.Windows.Forms.Cursors.Help;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label5.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.label5.Location = new System.Drawing.Point(104, 203);
+            this.label5.Location = new System.Drawing.Point(66, 203);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(12, 15);
             this.label5.TabIndex = 16;
@@ -374,12 +375,29 @@
             this.openFileDialog1.DefaultExt = "*.*";
             this.openFileDialog1.Filter = "All files|*.*";
             // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "MD5",
+            "SHA-1",
+            "SHA-256",
+            "SHA-384",
+            "SHA-512"});
+            this.comboBox1.Location = new System.Drawing.Point(832, 221);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(89, 23);
+            this.comboBox1.TabIndex = 17;
+            this.comboBox1.ValueMember = "0";
+            // 
             // DownloadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 447);
             this.ControlBox = false;
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.label4);
@@ -446,5 +464,6 @@
         private ToolTip toolTip1;
         private ToolStripButton toolStripButton3;
         private OpenFileDialog openFileDialog1;
+        private ComboBox comboBox1;
     }
 }

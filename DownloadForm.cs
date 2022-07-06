@@ -35,6 +35,7 @@ namespace DownloadManager
             _instance = this;
             Logging.Log("Downloads folder: " + downloadsFolder, Color.Black);
             InitializeComponent();
+            comboBox1.SelectedIndex = 0;
             browserIntercept.StartServer();
             textBox2.Text = Settings1.Default.defaultDownload;
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 10, 10));
@@ -61,7 +62,7 @@ namespace DownloadManager
 
         private void button4_Click(object sender, EventArgs e)
         {
-            DownloadProgress downloadProgress = new DownloadProgress(textBox1.Text, textBox2.Text, textBox3.Text);
+            DownloadProgress downloadProgress = new DownloadProgress(textBox1.Text, textBox2.Text, textBox3.Text, comboBox1.SelectedIndex);
             downloadProgress.Show();
         }
 
@@ -105,15 +106,8 @@ namespace DownloadManager
             DialogResult result = openFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                try
-                {
-                    MD5Calculator md5Calc = new MD5Calculator(openFileDialog1.FileName);
-                    md5Calc.Show();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                HashCalculator hashCalc = new HashCalculator(openFileDialog1.FileName);
+                hashCalc.Show();
             }
         }
 
