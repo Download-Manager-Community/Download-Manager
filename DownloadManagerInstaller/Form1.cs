@@ -74,6 +74,20 @@ namespace DownloadManagerInstaller
             }
         }
 
+        public void LicenseFailed()
+        {
+            DialogResult result = MessageBox.Show("The MD5 verification of the license failed.\nRetry Download?", "Download Manager - Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+            if (result == DialogResult.Yes)
+            {
+                DownloadProgress progress = new DownloadProgress("https://raw.githubusercontent.com/Soniczac7/Download-Manager/master/LICENSE.txt", System.IO.Path.GetTempPath());
+                progress.ShowDialog();
+            }
+            else
+            {
+                Process.GetCurrentProcess().Kill();
+            }
+        }
+
         public void Install()
         {
             installing = true;

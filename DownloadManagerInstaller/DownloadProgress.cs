@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace DownloadManagerInstaller
 {
@@ -163,14 +165,40 @@ namespace DownloadManagerInstaller
                 {
                     Invoke(new MethodInvoker(delegate ()
                     {
-                        progressBar1.Style = ProgressBarStyle.Blocks;
-                        progressBar1.Value = 100;
-                        client.CancelAsync();
-                        client.Dispose();
-                        Form1._instance.LicenseDownloaded(System.IO.Path.GetTempPath() + fileName);
-                        this.Close();
-                        this.Dispose();
-                        return;
+                        byte[] fileData = File.ReadAllBytes(location + fileName);
+                        byte[] myHash = MD5.Create().ComputeHash(fileData);
+                        StringBuilder result = new StringBuilder(myHash.Length * 2);
+
+                        for (int i = 0; i < myHash.Length; i++)
+                        {
+                            result.Append(myHash[i].ToString(false ? "X2" : "x2"));
+                        }
+
+                        if (result.ToString() == "16bea09b03d106138b4aaad4e7a42829")
+                        {
+                            // Success
+                            downloading = false;
+                            progressBar1.Style = ProgressBarStyle.Blocks;
+                            progressBar1.Value = 100;
+                            client.CancelAsync();
+                            client.Dispose();
+                            Form1._instance.LicenseDownloaded(System.IO.Path.GetTempPath() + fileName);
+                            this.Close();
+                            this.Dispose();
+                            return;
+                        }
+                        else
+                        {
+                            // Fail
+                            Form1._instance.LicenseFailed();
+                            client.CancelAsync();
+                            client.Dispose();
+                            this.Close();
+                            this.Dispose();
+                            return;
+                        }
+
+
                     }));
                 }
                 catch (Exception ex)
