@@ -23,137 +23,177 @@ namespace DownloadManager
         );
         #endregion
 
+        HashCalculator _instance;
+
         public HashCalculator(string file)
         {
+            _instance = this;
             InitializeComponent();
+            this.Size = new System.Drawing.Size(462, 396);
             textBox1.Text = file;
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 10, 10));
             if (File.Exists(file))
             {
-                // MD5
-                try
+                Thread thread = new Thread(() =>
                 {
-                    byte[] myHash;
-                    using (var md5 = MD5.Create())
-                    using (var stream = File.OpenRead(file))
+                    ShowProgressBar(true);
+                    // MD5
+                    try
                     {
-                        myHash = md5.ComputeHash(stream);
-                        stream.Close();
+                        byte[] myHash;
+                        using (var md5 = MD5.Create())
+                        using (var stream = File.OpenRead(file))
+                        {
+                            myHash = md5.ComputeHash(stream);
+                            stream.Close();
+                        }
+
+                        StringBuilder result = new StringBuilder(myHash.Length * 2);
+
+                        for (int i = 0; i < myHash.Length; i++)
+                        {
+                            result.Append(myHash[i].ToString(false ? "X2" : "x2"));
+                        }
+                        Action action = () => textBox2.Text = result.ToString();
+                        _instance.Invoke(action);
+                    }
+                    catch (Exception ex)
+                    {
+                        Action action = () => textBox2.Text = ex.Message;
+                        _instance.Invoke(action);
                     }
 
-                    StringBuilder result = new StringBuilder(myHash.Length * 2);
-
-                    for (int i = 0; i < myHash.Length; i++)
+                    // SHA-1
+                    try
                     {
-                        result.Append(myHash[i].ToString(false ? "X2" : "x2"));
+                        byte[] myHash;
+                        using (var hash = SHA1.Create())
+                        using (var stream = File.OpenRead(file))
+                        {
+                            myHash = hash.ComputeHash(stream);
+                            stream.Close();
+                        }
+
+                        StringBuilder result = new StringBuilder(myHash.Length * 2);
+
+                        for (int i = 0; i < myHash.Length; i++)
+                        {
+                            result.Append(myHash[i].ToString(false ? "X2" : "x2"));
+                        }
+                        Action action = () => textBox3.Text = result.ToString();
+                        _instance.Invoke(action);
                     }
-                    textBox2.Text = result.ToString();
-                }
-                catch (Exception ex)
-                {
-                    textBox2.Text = ex.Message;
-                }
-
-                // SHA-1
-                try
-                {
-                    byte[] myHash;
-                    using (var hash = SHA1.Create())
-                    using (var stream = File.OpenRead(file))
+                    catch (Exception ex)
                     {
-                        myHash = hash.ComputeHash(stream);
-                        stream.Close();
-                    }
-
-                    StringBuilder result = new StringBuilder(myHash.Length * 2);
-
-                    for (int i = 0; i < myHash.Length; i++)
-                    {
-                        result.Append(myHash[i].ToString(false ? "X2" : "x2"));
-                    }
-                    textBox3.Text = result.ToString();
-                }
-                catch (Exception ex)
-                {
-                    textBox3.Text = ex.Message;
-                }
-
-                // SHA-256
-                try
-                {
-                    byte[] myHash;
-                    using (var hash = SHA256.Create())
-                    using (var stream = File.OpenRead(file))
-                    {
-                        myHash = hash.ComputeHash(stream);
-                        stream.Close();
+                        Action action = () => textBox3.Text = ex.Message;
+                        _instance.Invoke(action);
                     }
 
-                    StringBuilder result = new StringBuilder(myHash.Length * 2);
-
-                    for (int i = 0; i < myHash.Length; i++)
+                    // SHA-256
+                    try
                     {
-                        result.Append(myHash[i].ToString(false ? "X2" : "x2"));
+                        byte[] myHash;
+                        using (var hash = SHA256.Create())
+                        using (var stream = File.OpenRead(file))
+                        {
+                            myHash = hash.ComputeHash(stream);
+                            stream.Close();
+                        }
+
+                        StringBuilder result = new StringBuilder(myHash.Length * 2);
+
+                        for (int i = 0; i < myHash.Length; i++)
+                        {
+                            result.Append(myHash[i].ToString(false ? "X2" : "x2"));
+                        }
+                        Action action = () => textBox4.Text = result.ToString();
+                        _instance.Invoke(action);
                     }
-                    textBox4.Text = result.ToString();
-                }
-                catch (Exception ex)
-                {
-                    textBox4.Text = ex.Message;
-                }
-
-                // SHA-384
-                try
-                {
-                    byte[] myHash;
-                    using (var hash = SHA384.Create())
-                    using (var stream = File.OpenRead(file))
+                    catch (Exception ex)
                     {
-                        myHash = hash.ComputeHash(stream);
-                        stream.Close();
-                    }
-
-                    StringBuilder result = new StringBuilder(myHash.Length * 2);
-
-                    for (int i = 0; i < myHash.Length; i++)
-                    {
-                        result.Append(myHash[i].ToString(false ? "X2" : "x2"));
-                    }
-                    textBox6.Text = result.ToString();
-                }
-                catch (Exception ex)
-                {
-                    textBox6.Text = ex.Message;
-                }
-
-                // SHA-512
-                try
-                {
-                    byte[] myHash;
-                    using (var hash = SHA512.Create())
-                    using (var stream = File.OpenRead(file))
-                    {
-                        myHash = hash.ComputeHash(stream);
-                        stream.Close();
+                        Action action = () => textBox4.Text = ex.Message;
+                        _instance.Invoke(action);
                     }
 
-                    StringBuilder result = new StringBuilder(myHash.Length * 2);
-
-                    for (int i = 0; i < myHash.Length; i++)
+                    // SHA-384
+                    try
                     {
-                        result.Append(myHash[i].ToString(false ? "X2" : "x2"));
+                        byte[] myHash;
+                        using (var hash = SHA384.Create())
+                        using (var stream = File.OpenRead(file))
+                        {
+                            myHash = hash.ComputeHash(stream);
+                            stream.Close();
+                        }
+
+                        StringBuilder result = new StringBuilder(myHash.Length * 2);
+
+                        for (int i = 0; i < myHash.Length; i++)
+                        {
+                            result.Append(myHash[i].ToString(false ? "X2" : "x2"));
+                        }
+                        Action action = () => textBox6.Text = result.ToString();
+                        _instance.Invoke(action);
                     }
-                    textBox5.Text = result.ToString();
-                }
-                catch (Exception ex)
-                {
-                    textBox5.Text = ex.Message;
-                }
+                    catch (Exception ex)
+                    {
+                        Action action = () => textBox6.Text = ex.Message;
+                        _instance.Invoke(action);
+                    }
+
+                    // SHA-512
+                    try
+                    {
+                        byte[] myHash;
+                        using (var hash = SHA512.Create())
+                        using (var stream = File.OpenRead(file))
+                        {
+                            myHash = hash.ComputeHash(stream);
+                            stream.Close();
+                        }
+
+                        StringBuilder result = new StringBuilder(myHash.Length * 2);
+
+                        for (int i = 0; i < myHash.Length; i++)
+                        {
+                            result.Append(myHash[i].ToString(false ? "X2" : "x2"));
+                        }
+                        Action action = () => textBox5.Text = result.ToString();
+                        _instance.Invoke(action);
+                    }
+                    catch (Exception ex)
+                    {
+                        Action action = () => textBox5.Text = ex.Message;
+                        _instance.Invoke(action);
+                    }
+                    ShowProgressBar(false);
+                });
+                thread.Start();
             }
             else
             {
                 MessageBox.Show("File not found!", "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
+            }
+        }
+
+        internal void ShowProgressBar(bool show)
+        {
+            if (show)
+            {
+                Invoke(new MethodInvoker(delegate ()
+                {
+                    progressBar1.Visible = true;
+                    this.Size = new System.Drawing.Size(462, 401);
+                }));
+            }
+            else
+            {
+                Invoke(new MethodInvoker(delegate ()
+                {
+                    progressBar1.Visible = false;
+                    this.Size = new System.Drawing.Size(462, 396);
+                }));
             }
         }
 

@@ -186,298 +186,340 @@ namespace DownloadManager
                         {
                             if (doFileVerify)
                             {
-                                //MD5
-                                if (hashType == 1)
+                                Thread thread = new Thread(() =>
                                 {
-                                    byte[] myHash;
-                                    using (var hash = MD5.Create())
-                                    using (var stream = File.OpenRead(location + fileName))
+                                    //MD5
+                                    if (hashType == 1)
                                     {
-                                        myHash = hash.ComputeHash(stream);
-                                        stream.Close();
-                                    }
-                                    StringBuilder result = new StringBuilder(myHash.Length * 2);
-
-                                    for (int i = 0; i < myHash.Length; i++)
-                                    {
-                                        result.Append(myHash[i].ToString(false ? "X2" : "x2"));
-                                    }
-
-                                    if (result.ToString() == hash)
-                                    {
-                                        Log("File verification OK.", Color.Black);
-                                        checkBox2.Enabled = false;
-                                        button2.Enabled = false;
-                                        button3.Enabled = false;
-                                        downloading = false;
-                                        DownloadForm.downloadsAmount -= 1;
-                                        Log("Finished downloading file.", Color.Black);
-                                        progressBar1.Value = 100;
-                                        progressBar1.Style = ProgressBarStyle.Blocks;
-                                        if (checkBox2.Checked == true)
+                                        byte[] myHash;
+                                        using (var hash = MD5.Create())
+                                        using (var stream = File.OpenRead(location + fileName))
                                         {
-                                            client.Dispose();
-                                            this.Close();
-                                            this.Dispose();
+                                            myHash = hash.ComputeHash(stream);
+                                            stream.Close();
+                                        }
+                                        StringBuilder result = new StringBuilder(myHash.Length * 2);
+
+                                        for (int i = 0; i < myHash.Length; i++)
+                                        {
+                                            result.Append(myHash[i].ToString(false ? "X2" : "x2"));
+                                        }
+
+                                        if (result.ToString() == hash)
+                                        {
+                                            Log("File verification OK.", Color.Black);
+                                            downloading = false;
+                                            DownloadForm.downloadsAmount -= 1;
+                                            Log("Finished downloading file.", Color.Black);
+                                            Invoke(new MethodInvoker(delegate ()
+                                            {
+                                                checkBox2.Enabled = false;
+                                                button2.Enabled = false;
+                                                button3.Enabled = false;
+                                                progressBar1.Value = 100;
+                                                progressBar1.Style = ProgressBarStyle.Blocks;
+                                                if (checkBox2.Checked == true)
+                                                {
+                                                    client.Dispose();
+                                                    this.Close();
+                                                    this.Dispose();
+                                                    return;
+                                                }
+                                            }));
+                                        }
+                                        else
+                                        {
+                                            Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
+                                            DownloadForm.downloadsAmount -= 1;
+                                            hashType -= 1;
+                                            DownloadProgress download = new DownloadProgress(url, location, hash, hashType);
+                                            download.Show();
+                                            Invoke(new MethodInvoker(delegate ()
+                                            {
+                                                client.CancelAsync();
+                                                client.Dispose();
+                                                this.Close();
+                                                this.Dispose();
+                                            }));
                                             return;
                                         }
                                     }
-                                    else
+                                    // SHA-1
+                                    else if (hashType == 2)
                                     {
-                                        Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
-                                        DownloadForm.downloadsAmount -= 1;
-                                        hashType -= 1;
-                                        DownloadProgress download = new DownloadProgress(url, location, hash, hashType);
-                                        download.Show();
-                                        client.CancelAsync();
-                                        client.Dispose();
-                                        this.Close();
-                                        this.Dispose();
-                                        return;
-                                    }
-                                }
-                                // SHA-1
-                                else if (hashType == 2)
-                                {
-                                    byte[] myHash;
-                                    using (var hash = SHA1.Create())
-                                    using (var stream = File.OpenRead(location + fileName))
-                                    {
-                                        myHash = hash.ComputeHash(stream);
-                                        stream.Close();
-                                    }
-                                    StringBuilder result = new StringBuilder(myHash.Length * 2);
-
-                                    for (int i = 0; i < myHash.Length; i++)
-                                    {
-                                        result.Append(myHash[i].ToString(false ? "X2" : "x2"));
-                                    }
-
-                                    if (result.ToString() == hash)
-                                    {
-                                        Log("File verification OK.", Color.Black);
-                                        checkBox2.Enabled = false;
-                                        button2.Enabled = false;
-                                        button3.Enabled = false;
-                                        downloading = false;
-                                        DownloadForm.downloadsAmount -= 1;
-                                        Log("Finished downloading file.", Color.Black);
-                                        progressBar1.Value = 100;
-                                        progressBar1.Style = ProgressBarStyle.Blocks;
-                                        if (checkBox2.Checked == true)
+                                        byte[] myHash;
+                                        using (var hash = SHA1.Create())
+                                        using (var stream = File.OpenRead(location + fileName))
                                         {
-                                            client.Dispose();
-                                            this.Close();
-                                            this.Dispose();
+                                            myHash = hash.ComputeHash(stream);
+                                            stream.Close();
+                                        }
+                                        StringBuilder result = new StringBuilder(myHash.Length * 2);
+
+                                        for (int i = 0; i < myHash.Length; i++)
+                                        {
+                                            result.Append(myHash[i].ToString(false ? "X2" : "x2"));
+                                        }
+
+                                        if (result.ToString() == hash)
+                                        {
+                                            Log("File verification OK.", Color.Black);
+                                            downloading = false;
+                                            DownloadForm.downloadsAmount -= 1;
+                                            Log("Finished downloading file.", Color.Black);
+                                            Invoke(new MethodInvoker(delegate ()
+                                            {
+                                                checkBox2.Enabled = false;
+                                                button2.Enabled = false;
+                                                button3.Enabled = false;
+                                                progressBar1.Value = 100;
+                                                progressBar1.Style = ProgressBarStyle.Blocks;
+                                                if (checkBox2.Checked == true)
+                                                {
+                                                    client.Dispose();
+                                                    this.Close();
+                                                    this.Dispose();
+                                                    return;
+                                                }
+                                            }));
+                                        }
+                                        else
+                                        {
+                                            Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
+                                            DownloadForm.downloadsAmount -= 1;
+                                            hashType -= 1;
+                                            DownloadProgress download = new DownloadProgress(url, location, hash, hashType);
+                                            download.Show();
+                                            Invoke(new MethodInvoker(delegate ()
+                                            {
+                                                client.CancelAsync();
+                                                client.Dispose();
+                                                this.Close();
+                                                this.Dispose();
+                                            }));
                                             return;
                                         }
                                     }
-                                    else
+                                    // SHA-256
+                                    else if (hashType == 3)
                                     {
-                                        Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
-                                        DownloadForm.downloadsAmount -= 1;
-                                        hashType -= 1;
-                                        DownloadProgress download = new DownloadProgress(url, location, hash, hashType);
-                                        download.Show();
-                                        client.CancelAsync();
-                                        client.Dispose();
-                                        this.Close();
-                                        this.Dispose();
-                                        return;
-                                    }
-                                }
-                                // SHA-256
-                                else if (hashType == 3)
-                                {
-                                    byte[] myHash;
-                                    using (var hash = SHA256.Create())
-                                    using (var stream = File.OpenRead(location + fileName))
-                                    {
-                                        myHash = hash.ComputeHash(stream);
-                                        stream.Close();
-                                    }
-                                    StringBuilder result = new StringBuilder(myHash.Length * 2);
-
-                                    for (int i = 0; i < myHash.Length; i++)
-                                    {
-                                        result.Append(myHash[i].ToString(false ? "X2" : "x2"));
-                                    }
-
-                                    if (result.ToString() == hash)
-                                    {
-                                        Log("File verification OK.", Color.Black);
-                                        checkBox2.Enabled = false;
-                                        button2.Enabled = false;
-                                        button3.Enabled = false;
-                                        downloading = false;
-                                        DownloadForm.downloadsAmount -= 1;
-                                        Log("Finished downloading file.", Color.Black);
-                                        progressBar1.Value = 100;
-                                        progressBar1.Style = ProgressBarStyle.Blocks;
-                                        if (checkBox2.Checked == true)
+                                        byte[] myHash;
+                                        using (var hash = SHA256.Create())
+                                        using (var stream = File.OpenRead(location + fileName))
                                         {
-                                            client.Dispose();
-                                            this.Close();
-                                            this.Dispose();
+                                            myHash = hash.ComputeHash(stream);
+                                            stream.Close();
+                                        }
+                                        StringBuilder result = new StringBuilder(myHash.Length * 2);
+
+                                        for (int i = 0; i < myHash.Length; i++)
+                                        {
+                                            result.Append(myHash[i].ToString(false ? "X2" : "x2"));
+                                        }
+
+                                        if (result.ToString() == hash)
+                                        {
+                                            Log("File verification OK.", Color.Black);
+                                            downloading = false;
+                                            DownloadForm.downloadsAmount -= 1;
+                                            Log("Finished downloading file.", Color.Black);
+                                            Invoke(new MethodInvoker(delegate ()
+                                            {
+                                                checkBox2.Enabled = false;
+                                                button2.Enabled = false;
+                                                button3.Enabled = false;
+                                                progressBar1.Value = 100;
+                                                progressBar1.Style = ProgressBarStyle.Blocks;
+                                                if (checkBox2.Checked == true)
+                                                {
+                                                    client.Dispose();
+                                                    this.Close();
+                                                    this.Dispose();
+                                                    return;
+                                                }
+                                            }));
+                                        }
+                                        else
+                                        {
+                                            Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
+                                            DownloadForm.downloadsAmount -= 1;
+                                            hashType -= 1;
+                                            DownloadProgress download = new DownloadProgress(url, location, hash, hashType);
+                                            download.Show();
+                                            Invoke(new MethodInvoker(delegate ()
+                                            {
+                                                client.CancelAsync();
+                                                client.Dispose();
+                                                this.Close();
+                                                this.Dispose();
+                                            }));
                                             return;
                                         }
                                     }
-                                    else
+                                    // SHA-384
+                                    else if (hashType == 4)
                                     {
-                                        Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
-                                        DownloadForm.downloadsAmount -= 1;
-                                        hashType -= 1;
-                                        DownloadProgress download = new DownloadProgress(url, location, hash, hashType);
-                                        download.Show();
-                                        client.CancelAsync();
-                                        client.Dispose();
-                                        this.Close();
-                                        this.Dispose();
-                                        return;
-                                    }
-                                }
-                                // SHA-384
-                                else if (hashType == 4)
-                                {
-                                    byte[] myHash;
-                                    using (var hash = SHA384.Create())
-                                    using (var stream = File.OpenRead(location + fileName))
-                                    {
-                                        myHash = hash.ComputeHash(stream);
-                                        stream.Close();
-                                    }
-                                    StringBuilder result = new StringBuilder(myHash.Length * 2);
-
-                                    for (int i = 0; i < myHash.Length; i++)
-                                    {
-                                        result.Append(myHash[i].ToString(false ? "X2" : "x2"));
-                                    }
-
-                                    if (result.ToString() == hash)
-                                    {
-                                        Log("File verification OK.", Color.Black);
-                                        checkBox2.Enabled = false;
-                                        button2.Enabled = false;
-                                        button3.Enabled = false;
-                                        downloading = false;
-                                        DownloadForm.downloadsAmount -= 1;
-                                        Log("Finished downloading file.", Color.Black);
-                                        progressBar1.Value = 100;
-                                        progressBar1.Style = ProgressBarStyle.Blocks;
-                                        if (checkBox2.Checked == true)
+                                        byte[] myHash;
+                                        using (var hash = SHA384.Create())
+                                        using (var stream = File.OpenRead(location + fileName))
                                         {
-                                            client.Dispose();
-                                            this.Close();
-                                            this.Dispose();
+                                            myHash = hash.ComputeHash(stream);
+                                            stream.Close();
+                                        }
+                                        StringBuilder result = new StringBuilder(myHash.Length * 2);
+
+                                        for (int i = 0; i < myHash.Length; i++)
+                                        {
+                                            result.Append(myHash[i].ToString(false ? "X2" : "x2"));
+                                        }
+
+                                        if (result.ToString() == hash)
+                                        {
+                                            Log("File verification OK.", Color.Black);
+                                            downloading = false;
+                                            DownloadForm.downloadsAmount -= 1;
+                                            Log("Finished downloading file.", Color.Black);
+                                            Invoke(new MethodInvoker(delegate ()
+                                            {
+                                                checkBox2.Enabled = false;
+                                                button2.Enabled = false;
+                                                button3.Enabled = false;
+                                                progressBar1.Value = 100;
+                                                progressBar1.Style = ProgressBarStyle.Blocks;
+                                                if (checkBox2.Checked == true)
+                                                {
+                                                    client.Dispose();
+                                                    this.Close();
+                                                    this.Dispose();
+                                                    return;
+                                                }
+                                            }));
+                                        }
+                                        else
+                                        {
+                                            Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
+                                            DownloadForm.downloadsAmount -= 1;
+                                            hashType -= 1;
+                                            DownloadProgress download = new DownloadProgress(url, location, hash, hashType);
+                                            download.Show();
+                                            Invoke(new MethodInvoker(delegate ()
+                                            {
+                                                client.CancelAsync();
+                                                client.Dispose();
+                                                this.Close();
+                                                this.Dispose();
+                                            }));
                                             return;
                                         }
                                     }
-                                    else
+                                    // SHA-512
+                                    else if (hashType == 5)
                                     {
-                                        Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
-                                        DownloadForm.downloadsAmount -= 1;
-                                        hashType -= 1;
-                                        DownloadProgress download = new DownloadProgress(url, location, hash, hashType);
-                                        download.Show();
-                                        client.CancelAsync();
-                                        client.Dispose();
-                                        this.Close();
-                                        this.Dispose();
-                                        return;
-                                    }
-                                }
-                                // SHA-512
-                                else if (hashType == 5)
-                                {
-                                    byte[] myHash;
-                                    using (var hash = SHA512.Create())
-                                    using (var stream = File.OpenRead(location + fileName))
-                                    {
-                                        myHash = hash.ComputeHash(stream);
-                                        stream.Close();
-                                    }
-                                    StringBuilder result = new StringBuilder(myHash.Length * 2);
-
-                                    for (int i = 0; i < myHash.Length; i++)
-                                    {
-                                        result.Append(myHash[i].ToString(false ? "X2" : "x2"));
-                                    }
-
-                                    //Log("Provided Hash: " + hash + Environment.NewLine + "Generated Hash: " + result.ToString(), Color.Black);
-
-                                    if (result.ToString() == hash)
-                                    {
-                                        Log("File verification OK.", Color.Black);
-                                        checkBox2.Enabled = false;
-                                        button2.Enabled = false;
-                                        button3.Enabled = false;
-                                        downloading = false;
-                                        DownloadForm.downloadsAmount -= 1;
-                                        Log("Finished downloading file.", Color.Black);
-                                        progressBar1.Value = 100;
-                                        progressBar1.Style = ProgressBarStyle.Blocks;
-                                        if (checkBox2.Checked == true)
+                                        byte[] myHash;
+                                        using (var hash = SHA512.Create())
+                                        using (var stream = File.OpenRead(location + fileName))
                                         {
-                                            client.Dispose();
-                                            this.Close();
-                                            this.Dispose();
+                                            myHash = hash.ComputeHash(stream);
+                                            stream.Close();
+                                        }
+                                        StringBuilder result = new StringBuilder(myHash.Length * 2);
+
+                                        for (int i = 0; i < myHash.Length; i++)
+                                        {
+                                            result.Append(myHash[i].ToString(false ? "X2" : "x2"));
+                                        }
+
+                                        //Log("Provided Hash: " + hash + Environment.NewLine + "Generated Hash: " + result.ToString(), Color.Black);
+
+                                        if (result.ToString() == hash)
+                                        {
+                                            Log("File verification OK.", Color.Black);
+                                            downloading = false;
+                                            DownloadForm.downloadsAmount -= 1;
+                                            Log("Finished downloading file.", Color.Black);
+                                            Invoke(new MethodInvoker(delegate ()
+                                            {
+                                                checkBox2.Enabled = false;
+                                                button2.Enabled = false;
+                                                button3.Enabled = false;
+                                                progressBar1.Value = 100;
+                                                progressBar1.Style = ProgressBarStyle.Blocks;
+                                                if (checkBox2.Checked == true)
+                                                {
+                                                    client.Dispose();
+                                                    this.Close();
+                                                    this.Dispose();
+                                                    return;
+                                                }
+                                            }));
+                                        }
+                                        else
+                                        {
+                                            Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
+                                            DownloadForm.downloadsAmount -= 1;
+                                            hashType -= 1;
+                                            DownloadProgress download = new DownloadProgress(url, location, hash, hashType);
+                                            download.Show();
+                                            Invoke(new MethodInvoker(delegate ()
+                                            {
+                                                client.CancelAsync();
+                                                client.Dispose();
+                                                this.Close();
+                                                this.Dispose();
+                                            }));
                                             return;
                                         }
                                     }
+                                    // Invalid
                                     else
                                     {
-                                        Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
-                                        DownloadForm.downloadsAmount -= 1;
-                                        hashType -= 1;
-                                        DownloadProgress download = new DownloadProgress(url, location, hash, hashType);
-                                        download.Show();
-                                        client.CancelAsync();
-                                        client.Dispose();
-                                        this.Close();
-                                        this.Dispose();
+                                        Log("Invalid hash type '" + hashType + "'. The file could not be verified.", Color.Red);
+                                        MessageBox.Show("Invalid hash type '" + hashType + "'. The file could not be verified.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        Invoke(new MethodInvoker(delegate ()
+                                        {
+                                            client.CancelAsync();
+                                            client.Dispose();
+                                            this.Close();
+                                            this.Dispose();
+                                        }));
                                         return;
                                     }
-                                }
-                                // Invalid
-                                else
-                                {
-                                    Log("Invalid hash type '" + hashType + "'. The file could not be verified.", Color.Red);
-                                    MessageBox.Show("Invalid hash type '" + hashType + "'. The file could not be verified.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    client.CancelAsync();
-                                    client.Dispose();
-                                    this.Close();
-                                    this.Dispose();
-                                    return;
-                                }
+                                });
+                                thread.Start();
                             }
                             else
                             {
-                                checkBox2.Enabled = false;
-                                button2.Enabled = false;
-                                button3.Enabled = false;
                                 downloading = false;
                                 DownloadForm.downloadsAmount -= 1;
                                 Log("Finished downloading file.", Color.Black);
-                                progressBar1.Value = 100;
-                                progressBar1.Style = ProgressBarStyle.Blocks;
-                                if (checkBox2.Checked == true)
+                                Invoke(new MethodInvoker(delegate ()
                                 {
-                                    client.Dispose();
-                                    this.Close();
-                                    this.Dispose();
-                                    return;
-                                }
+                                    checkBox2.Enabled = false;
+                                    button2.Enabled = false;
+                                    button3.Enabled = false;
+                                    progressBar1.Value = 100;
+                                    progressBar1.Style = ProgressBarStyle.Blocks;
+                                    if (checkBox2.Checked == true)
+                                    {
+                                        client.Dispose();
+                                        this.Close();
+                                        this.Dispose();
+                                        return;
+                                    }
+                                }));
                             }
                         }
                         else
                         {
                             Log("Download failed.", Color.Red);
-                            progressBar1.Value = 0;
-                            client.CancelAsync();
-                            client.Dispose();
-                            this.Close();
-                            this.Dispose();
-                            return;
+                            Invoke(new MethodInvoker(delegate ()
+                            {
+                                progressBar1.Value = 0;
+                                client.CancelAsync();
+                                client.Dispose();
+                                this.Close();
+                                this.Dispose();
+                            }));
                         }
                     }));
                 }
