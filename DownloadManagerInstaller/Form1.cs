@@ -61,14 +61,28 @@ namespace DownloadManagerInstaller
                 Install();
                 installStage += 1;
             }
+            else
+            {
+                if (checkBox4.Checked)
+                {
+                    ProcessStartInfo info = new ProcessStartInfo();
+                    info.FileName = path + "DownloadManager.exe";
+                    Process.Start(info);
+                }
+
+                Process.GetCurrentProcess().Kill();
+            }
         }
 
         public void Install()
         {
             installing = true;
             path = textBox1.Text;
-            progressBar1.Style = ProgressBarStyle.Blocks;
-
+            Invoke(new MethodInvoker(delegate ()
+            {
+                progressBar1.Value = 0;
+                progressBar1.Style = ProgressBarStyle.Blocks;
+            }));
 
             Thread thread = new Thread(() =>
             {
@@ -84,20 +98,8 @@ namespace DownloadManagerInstaller
                     }
                     else
                     {
-                        DirectoryInfo di = new DirectoryInfo(path);
-                        foreach (DirectoryInfo dir in di.GetDirectories())
-                        {
-                            foreach (FileInfo file in dir.GetFiles())
-                            {
-                                file.Delete();
-                            }
-                            dir.Delete(true);
-                            System.IO.Directory.Delete(path);
-                            System.IO.Directory.CreateDirectory(path);
-                        }
-                        string[] filePaths = Directory.GetFiles(path);
-                        foreach (string filePath in filePaths)
-                            File.Delete(filePath);
+                        System.IO.Directory.Delete(path, true);
+                        System.IO.Directory.CreateDirectory(path);
                     }
                     _instance.Invoke(increaseProgress20);
 
@@ -155,6 +157,14 @@ namespace DownloadManagerInstaller
                     }
 
                     _instance.Invoke(increaseProgress10);
+
+                    Invoke(new MethodInvoker(delegate ()
+                    {
+                        label5.Text = "Download Manager has installed successfully.";
+                        checkBox4.Visible = true;
+                        button1.Enabled = true;
+                        installing = false;
+                    }));
                 }
                 catch (Exception ex)
                 {
