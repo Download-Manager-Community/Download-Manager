@@ -1,6 +1,6 @@
 {
   "name": "Download Manager",
-  "version": "1.0.0.0",
+  "version": "1.0.0.1",
   "manifest_version": 2,
   "description": "Download Manager browser extension to download files.",
   "icons": {

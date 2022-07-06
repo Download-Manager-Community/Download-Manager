@@ -35,6 +35,7 @@ namespace DownloadManager
             _instance = this;
             Logging.Log("Downloads folder: " + downloadsFolder, Color.Black);
             InitializeComponent();
+            comboBox1.SelectedIndex = 0;
             browserIntercept.StartServer();
             textBox2.Text = Settings1.Default.defaultDownload;
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 10, 10));
@@ -61,9 +62,8 @@ namespace DownloadManager
 
         private void button4_Click(object sender, EventArgs e)
         {
-            DownloadProgress downloadProgress = new DownloadProgress(textBox1.Text, textBox2.Text, "", "", 0);
+            DownloadProgress downloadProgress = new DownloadProgress(textBox1.Text, textBox2.Text, textBox3.Text, comboBox1.SelectedIndex);
             downloadProgress.Show();
-            //string urlArg, string locationArg, string authUserArg, string authPassArg, int authTypeArg
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -96,7 +96,19 @@ namespace DownloadManager
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
+            // Settings
             settings.Show();
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            // Calculate MD5 of a file
+            DialogResult result = openFileDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                HashCalculator hashCalc = new HashCalculator(openFileDialog1.FileName);
+                hashCalc.Show();
+            }
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
@@ -138,8 +150,8 @@ namespace DownloadManager
         {
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
-                FileName = "http://example.com",
-                Arguments = "",
+                FileName = "explorer.exe",
+                Arguments = installationPath,
                 UseShellExecute = true,
                 RedirectStandardError = false,
                 RedirectStandardInput = false,
@@ -148,6 +160,9 @@ namespace DownloadManager
             Process process = new Process();
             process.StartInfo = startInfo;
             process.Start();
+
+            InstallExtention installGuide = new InstallExtention();
+            installGuide.Show();
         }
     }
 }

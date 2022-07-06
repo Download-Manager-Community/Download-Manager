@@ -48,6 +48,7 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
@@ -56,6 +57,12 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -215,7 +222,8 @@
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton1,
-            this.toolStripButton2});
+            this.toolStripButton2,
+            this.toolStripButton3});
             this.toolStrip1.Location = new System.Drawing.Point(0, 37);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -245,6 +253,17 @@
             this.toolStripButton2.Size = new System.Drawing.Size(36, 36);
             this.toolStripButton2.Text = "Settings";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton3.Image = global::DownloadManager.Properties.Resources.hash;
+            this.toolStripButton3.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(36, 36);
+            this.toolStripButton3.Text = "Calculate hash of a file";
+            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
             // notifyIcon1
             // 
@@ -308,11 +327,70 @@
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Location = new System.Drawing.Point(10, 408);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(159, 15);
+            this.linkLabel1.Size = new System.Drawing.Size(136, 15);
             this.linkLabel1.TabIndex = 13;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Download Browser Extention";
+            this.linkLabel1.Text = "Install Browser Extention";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(16, 221);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(809, 23);
+            this.textBox3.TabIndex = 15;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 203);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(55, 15);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "File Hash";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Cursor = System.Windows.Forms.Cursors.Help;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label5.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.label5.Location = new System.Drawing.Point(66, 203);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(12, 15);
+            this.label5.TabIndex = 16;
+            this.label5.Text = "?";
+            this.toolTip1.SetToolTip(this.label5, resources.GetString("label5.ToolTip"));
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.IsBalloon = true;
+            this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.toolTip1.ToolTipTitle = "Help";
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.DefaultExt = "*.*";
+            this.openFileDialog1.Filter = "All files|*.*";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DisplayMember = "0";
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "MD5",
+            "SHA-1",
+            "SHA-256",
+            "SHA-384",
+            "SHA-512"});
+            this.comboBox1.Location = new System.Drawing.Point(832, 221);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(89, 23);
+            this.comboBox1.TabIndex = 17;
+            this.comboBox1.ValueMember = "0";
             // 
             // DownloadForm
             // 
@@ -320,6 +398,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 447);
             this.ControlBox = false;
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.label3);
@@ -377,5 +459,12 @@
         private ToolStripMenuItem toolStripMenuItem2;
         private ToolStripMenuItem toolStripMenuItem3;
         private LinkLabel linkLabel1;
+        private TextBox textBox3;
+        private Label label4;
+        private Label label5;
+        private ToolTip toolTip1;
+        private ToolStripButton toolStripButton3;
+        private OpenFileDialog openFileDialog1;
+        private ComboBox comboBox1;
     }
 }
