@@ -150,8 +150,8 @@ namespace DownloadManager
         {
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
-                FileName = "http://example.com",
-                Arguments = "",
+                FileName = "explorer.exe",
+                Arguments = installationPath,
                 UseShellExecute = true,
                 RedirectStandardError = false,
                 RedirectStandardInput = false,
@@ -160,6 +160,9 @@ namespace DownloadManager
             Process process = new Process();
             process.StartInfo = startInfo;
             process.Start();
+
+            InstallExtention installGuide = new InstallExtention();
+            installGuide.Show();
         }
     }
 }
