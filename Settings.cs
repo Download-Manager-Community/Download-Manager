@@ -1,4 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿using IWshRuntimeLibrary;
+using System.Runtime.InteropServices;
+using File = System.IO.File;
 
 namespace DownloadManager
 {
@@ -25,6 +27,32 @@ namespace DownloadManager
         {
             InitializeComponent();
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 10, 10));
+
+            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu) + "\\Programs\\Download Manager\\Download Manager.lnk"))
+            {
+                label8.Text = "Start Menu Shortcut: " + Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu) + "\\Programs\\Download Manager\\Download Manager.lnk";
+                button6.Enabled = false;
+                button7.Enabled = true;
+            }
+            else
+            {
+                label8.Text = "Start Menu Shortcut: None Set";
+                button6.Enabled = true;
+                button7.Enabled = false;
+            }
+
+            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory) + "\\Download Manager.lnk"))
+            {
+                label9.Text = "Desktop Shortcut: " + Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory) + "\\Download Manager.lnk";
+                button8.Enabled = true;
+                button9.Enabled = false;
+            }
+            else
+            {
+                label9.Text = "Desktop Shortcut: None Set";
+                button8.Enabled = false;
+                button9.Enabled = true;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -89,6 +117,128 @@ namespace DownloadManager
             // Keep progress window on top
             Settings1.Default.keepOnTop = checkBox2.Checked;
             Settings1.Default.Save();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            // Remove Start Menu Shortcut
+            try
+            {
+                File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu) + "\\Programs\\Download Manager\\Download Manager.lnk");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+
+            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu) + "\\Programs\\Download Manager\\Download Manager.lnk"))
+            {
+                label8.Text = "Start Menu Shortcut: " + Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu) + "\\Programs\\Download Manager\\Download Manager.lnk";
+                button6.Enabled = false;
+                button7.Enabled = true;
+            }
+            else
+            {
+                label8.Text = "Start Menu Shortcut: None Set";
+                button6.Enabled = true;
+                button7.Enabled = false;
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            // Create Start Menu Shortcut
+            try
+            {
+                string pathToExe = DownloadForm.installationPath + "DownloadManager.exe";
+                string commonStartMenuPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu);
+                string appStartMenuPath = Path.Combine(commonStartMenuPath, "Programs", "Download Manager");
+
+                if (!Directory.Exists(appStartMenuPath))
+                    Directory.CreateDirectory(appStartMenuPath);
+
+                string shortcutLocation = Path.Combine(appStartMenuPath, "Download Manager" + ".lnk");
+                WshShell shell = new WshShell();
+                IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutLocation);
+
+                shortcut.Description = "Download Manager helps you download your files faster.";
+                shortcut.TargetPath = pathToExe;
+                shortcut.Save();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+
+            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu) + "\\Programs\\Download Manager\\Download Manager.lnk"))
+            {
+                label8.Text = "Start Menu Shortcut: " + Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu) + "\\Programs\\Download Manager\\Download Manager.lnk";
+                button6.Enabled = false;
+                button7.Enabled = true;
+            }
+            else
+            {
+                label8.Text = "Start Menu Shortcut: None Set";
+                button6.Enabled = true;
+                button7.Enabled = false;
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            // Remove Desktop Shortcut
+            try
+            {
+                File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory) + "\\Download Manager.lnk");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+
+            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory) + "\\Download Manager.lnk"))
+            {
+                label9.Text = "Desktop Shortcut: " + Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory) + "\\Download Manager.lnk";
+                button8.Enabled = true;
+                button9.Enabled = false;
+            }
+            else
+            {
+                label9.Text = "Desktop Shortcut: None Set";
+                button8.Enabled = false;
+                button9.Enabled = true;
+            }
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            // Create Desktop Shortcut
+            string pathToExe = DownloadForm.installationPath + "DownloadManager.exe";
+            string commonDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory);
+
+            if (!Directory.Exists(commonDesktopPath))
+                Directory.CreateDirectory(commonDesktopPath);
+
+            string shortcutLocation = Path.Combine(commonDesktopPath, "Download Manager" + ".lnk");
+            WshShell shell = new WshShell();
+            IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutLocation);
+
+            shortcut.Description = "Download Manager helps you download your files faster.";
+            shortcut.TargetPath = pathToExe;
+            shortcut.Save();
+
+            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory) + "\\Download Manager.lnk"))
+            {
+                label9.Text = "Desktop Shortcut: " + Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory) + "\\Download Manager.lnk";
+                button8.Enabled = true;
+                button9.Enabled = false;
+            }
+            else
+            {
+                label9.Text = "Desktop Shortcut: None Set";
+                button8.Enabled = false;
+                button9.Enabled = true;
+            }
         }
     }
 }
