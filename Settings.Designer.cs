@@ -281,7 +281,8 @@
             this.label11.Size = new System.Drawing.Size(12, 15);
             this.label11.TabIndex = 39;
             this.label11.Text = "?";
-            this.toolTip1.SetToolTip(this.label11, "When checked Download Manager will run when the computer starts.");
+            this.toolTip1.SetToolTip(this.label11, "When checked Download Manager will run for all users when the computer starts.\r\nN" +
+        "ote: This option requires administrator permissions.");
             // 
             // label1
             // 
@@ -415,12 +416,12 @@
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Enabled = false;
             this.checkBox3.Location = new System.Drawing.Point(18, 321);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(15, 14);
             this.checkBox3.TabIndex = 38;
             this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
             // Settings
             // 

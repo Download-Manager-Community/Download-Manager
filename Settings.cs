@@ -1,5 +1,7 @@
 ﻿using IWshRuntimeLibrary;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Security.Principal;
 using File = System.IO.File;
 
 namespace DownloadManager
@@ -28,6 +30,7 @@ namespace DownloadManager
             InitializeComponent();
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 10, 10));
 
+            // Start menu shortcut
             if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu) + "\\Programs\\Download Manager\\Download Manager.lnk"))
             {
                 label8.Text = "Start Menu Shortcut: " + Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu) + "\\Programs\\Download Manager\\Download Manager.lnk";
@@ -41,6 +44,7 @@ namespace DownloadManager
                 button7.Enabled = false;
             }
 
+            // Desktop shortcut
             if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory) + "\\Download Manager.lnk"))
             {
                 label9.Text = "Desktop Shortcut: " + Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory) + "\\Download Manager.lnk";
@@ -52,6 +56,19 @@ namespace DownloadManager
                 label9.Text = "Desktop Shortcut: None Set";
                 button8.Enabled = false;
                 button9.Enabled = true;
+            }
+
+            Debug.WriteLine(Environment.GetFolderPath(Environment.SpecialFolder.CommonStartup));
+
+            // Startup shortcut
+            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.CommonStartup) + "\\Download Manager.lnk"))
+            {
+                checkBox3.Checked = true;
+            }
+
+            if (IsAdministrator() == false)
+            {
+                checkBox3.Enabled = false;
             }
         }
 
@@ -239,6 +256,56 @@ namespace DownloadManager
                 button8.Enabled = false;
                 button9.Enabled = true;
             }
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            string commonStartupPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonStartup);
+            try
+            {
+                if (checkBox3.Checked)
+                {
+                    string pathToExe = DownloadForm.installationPath + "DownloadManager.exe";
+
+                    if (!Directory.Exists(commonStartupPath))
+                        Directory.CreateDirectory(commonStartupPath);
+
+                    string shortcutLocation = Path.Combine(commonStartupPath, "Download Manager" + ".lnk");
+                    WshShell shell = new WshShell();
+                    IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutLocation);
+
+                    shortcut.Description = "Download Manager helps you download your files faster.";
+                    shortcut.TargetPath = pathToExe;
+                    shortcut.Save();
+                }
+                else
+                {
+                    if (File.Exists(commonStartupPath + "\\Download Manager.lnk"))
+                    {
+                        try
+                        {
+                            File.Delete(commonStartupPath + "\\Download Manager.lnk");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error: " + ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Could not delete startup shortcut. No such file exists.", "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("ERROR: " + ex.Message + Environment.NewLine + ex.StackTrace);
+            }
+        }
+
+        public static bool IsAdministrator()
+        {
+            return (new WindowsPrincipal(WindowsIdentity.GetCurrent())).IsInRole(WindowsBuiltInRole.Administrator);
         }
     }
 }
