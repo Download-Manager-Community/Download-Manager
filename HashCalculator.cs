@@ -181,19 +181,25 @@ namespace DownloadManager
         {
             if (show)
             {
-                Invoke(new MethodInvoker(delegate ()
+                if (this.IsHandleCreated)
                 {
-                    progressBar1.Visible = true;
-                    this.Size = new System.Drawing.Size(462, 401);
-                }));
+                    Invoke(new MethodInvoker(delegate ()
+                    {
+                        progressBar1.Visible = true;
+                        this.Size = new System.Drawing.Size(462, 401);
+                    }));
+                }
             }
             else
             {
-                Invoke(new MethodInvoker(delegate ()
+                if (this.IsHandleCreated)
                 {
-                    progressBar1.Visible = false;
-                    this.Size = new System.Drawing.Size(462, 396);
-                }));
+                    Invoke(new MethodInvoker(delegate ()
+                    {
+                        progressBar1.Visible = false;
+                        this.Size = new System.Drawing.Size(462, 396);
+                    }));
+                }
             }
         }
 

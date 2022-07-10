@@ -106,8 +106,15 @@ namespace DownloadManager
             DialogResult result = openFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                HashCalculator hashCalc = new HashCalculator(openFileDialog1.FileName);
-                hashCalc.Show();
+                try
+                {
+                    HashCalculator hashCalc = new HashCalculator(openFileDialog1.FileName);
+                    hashCalc.Show();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
