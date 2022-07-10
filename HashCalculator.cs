@@ -36,6 +36,7 @@ namespace DownloadManager
             {
                 Thread thread = new Thread(() =>
                 {
+                    Thread.Sleep(1000);
                     ShowProgressBar(true);
                     // MD5
                     try
