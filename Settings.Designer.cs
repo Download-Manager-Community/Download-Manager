@@ -41,6 +41,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button5 = new System.Windows.Forms.Button();
@@ -53,13 +58,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.label11 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -174,6 +174,7 @@
             // 
             this.help1.AutoSize = true;
             this.help1.Cursor = System.Windows.Forms.Cursors.Help;
+            this.help1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.help1.ForeColor = System.Drawing.SystemColors.GrayText;
             this.help1.Location = new System.Drawing.Point(166, 47);
             this.help1.Name = "help1";
@@ -188,6 +189,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Cursor = System.Windows.Forms.Cursors.Help;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label2.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label2.Location = new System.Drawing.Point(270, 101);
             this.label2.Name = "label2";
@@ -200,6 +202,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Cursor = System.Windows.Forms.Cursors.Help;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label4.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label4.Location = new System.Drawing.Point(177, 149);
             this.label4.Name = "label4";
@@ -221,6 +224,64 @@
             this.label6.TabIndex = 30;
             this.label6.Text = "?";
             this.toolTip1.SetToolTip(this.label6, resources.GetString("label6.ToolTip"));
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(744, 247);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(43, 23);
+            this.button6.TabIndex = 33;
+            this.button6.Text = "Set";
+            this.toolTip1.SetToolTip(this.button6, "Creates the start menu shortcut for Download Manager.");
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(679, 247);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(59, 23);
+            this.button7.TabIndex = 34;
+            this.button7.Text = "Remove";
+            this.toolTip1.SetToolTip(this.button7, "Removes the start menu shortcut for Download Manager.");
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(679, 273);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(59, 23);
+            this.button8.TabIndex = 36;
+            this.button8.Text = "Remove";
+            this.toolTip1.SetToolTip(this.button8, "Removes the desktop shortcut for Download Manager.");
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(744, 273);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(43, 23);
+            this.button9.TabIndex = 35;
+            this.button9.Text = "Set";
+            this.toolTip1.SetToolTip(this.button9, "Creates the desktop shortcut for Download Manager.");
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Cursor = System.Windows.Forms.Cursors.Help;
+            this.label11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label11.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.label11.Location = new System.Drawing.Point(95, 303);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(12, 15);
+            this.label11.TabIndex = 39;
+            this.label11.Text = "?";
+            this.toolTip1.SetToolTip(this.label11, "When checked Download Manager will run when the computer starts.");
             // 
             // label1
             // 
@@ -342,50 +403,6 @@
             this.label9.TabIndex = 32;
             this.label9.Text = "Desktop Shortcut: null";
             // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(744, 247);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(43, 23);
-            this.button6.TabIndex = 33;
-            this.button6.Text = "Set";
-            this.toolTip1.SetToolTip(this.button6, "Creates the start menu shortcut for Download Manager.");
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(679, 247);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(59, 23);
-            this.button7.TabIndex = 34;
-            this.button7.Text = "Remove";
-            this.toolTip1.SetToolTip(this.button7, "Removes the start menu shortcut for Download Manager.");
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
-            // button8
-            // 
-            this.button8.Location = new System.Drawing.Point(679, 273);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(59, 23);
-            this.button8.TabIndex = 36;
-            this.button8.Text = "Remove";
-            this.toolTip1.SetToolTip(this.button8, "Removes the desktop shortcut for Download Manager.");
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // button9
-            // 
-            this.button9.Location = new System.Drawing.Point(744, 273);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(43, 23);
-            this.button9.TabIndex = 35;
-            this.button9.Text = "Set";
-            this.toolTip1.SetToolTip(this.button9, "Creates the desktop shortcut for Download Manager.");
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -404,20 +421,6 @@
             this.checkBox3.Size = new System.Drawing.Size(15, 14);
             this.checkBox3.TabIndex = 38;
             this.checkBox3.UseVisualStyleBackColor = true;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Cursor = System.Windows.Forms.Cursors.Help;
-            this.label11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label11.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.label11.Location = new System.Drawing.Point(95, 303);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(12, 15);
-            this.label11.TabIndex = 39;
-            this.label11.Text = "?";
-            this.toolTip1.SetToolTip(this.label11, "When checked Donwload Manager will run when the computer starts.");
             // 
             // Settings
             // 
