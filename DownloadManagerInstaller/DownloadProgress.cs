@@ -49,6 +49,7 @@ namespace DownloadManagerInstaller
         public DownloadProgress(string urlArg, string locationArg, string hashArg)
         {
             InitializeComponent();
+            client.Headers.Add("Cache-Control", "no-cache");
             client.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.NoCacheNoStore);
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 10, 10));
             textBox1.Text = urlArg;

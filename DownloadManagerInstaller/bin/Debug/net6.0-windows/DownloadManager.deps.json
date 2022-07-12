@@ -14,7 +14,6 @@
           "ComponentFactory.Krypton.Ribbon": "4.6.0.0",
           "ComponentFactory.Krypton.Toolkit": "4.6.0.0",
           "ComponentFactory.Krypton.Workspace": "4.6.0.0",
-          "Interop.IWshRuntimeLibrary": "1.0.0.0",
           "runtimepack.Microsoft.Windows.SDK.NET.Ref": "10.0.22000.24"
         },
         "runtime": {
@@ -80,14 +79,6 @@
             "fileVersion": "4.6.0.0"
           }
         }
-      },
-      "Interop.IWshRuntimeLibrary/1.0.0.0": {
-        "runtime": {
-          "Interop.IWshRuntimeLibrary.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
       }
     }
   },
@@ -128,11 +119,6 @@
       "sha512": ""
     },
     "ComponentFactory.Krypton.Workspace/4.6.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Interop.IWshRuntimeLibrary/1.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

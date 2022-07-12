@@ -315,8 +315,30 @@ namespace DownloadManager
         {
             // Check for updates
             Logging.Log("Checking for updates...", Color.Black);
-            // https://github.com/Soniczac7/app-update/raw/main/DownloadManager.xml
-            Logging.Log("Update check complete.", Color.Black);
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.FileName = "pwsh.exe";
+            startInfo.Arguments = @"-Command .\DownloadManagerInstaller.exe --update";
+            startInfo.UseShellExecute = true;
+            startInfo.WorkingDirectory = DownloadForm.installationPath;
+            startInfo.CreateNoWindow = false;
+            Process process = new Process();
+            process.StartInfo = startInfo;
+
+            Thread thread = new Thread(() =>
+            {
+                try
+                {
+                    process.Start();
+                    process.WaitForExit();
+                    Logging.Log("Update check complete.", Color.Black);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Download Manager - Update Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Logging.Log("The setup application encountered a fatal error.", Color.Red);
+                }
+            });
+            thread.Start();
         }
     }
 }
