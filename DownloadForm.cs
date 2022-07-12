@@ -144,21 +144,15 @@ namespace DownloadManager
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
             // Exit
-            browserIntercept.httpServer.Close();
-            try
-            {
-                browserIntercept.thread.Abort();
-            }
-            catch { }
-            Process.GetCurrentProcess().Kill();
+            Environment.Exit(0);
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
-                FileName = "explorer.exe",
-                Arguments = installationPath,
+                FileName = "https://microsoftedge.microsoft.com/addons/detail/download-manager/facopbimneimllhcabghncloejfeficd?hl=en-GB",
+                Arguments = "",
                 UseShellExecute = true,
                 RedirectStandardError = false,
                 RedirectStandardInput = false,
@@ -167,9 +161,6 @@ namespace DownloadManager
             Process process = new Process();
             process.StartInfo = startInfo;
             process.Start();
-
-            InstallExtention installGuide = new InstallExtention();
-            installGuide.Show();
         }
     }
 }

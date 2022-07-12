@@ -1,5 +1,6 @@
 ﻿using IWshRuntimeLibrary;
 using System.Diagnostics;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
 using File = System.IO.File;
@@ -29,6 +30,8 @@ namespace DownloadManager
         {
             InitializeComponent();
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 10, 10));
+
+            label12.Text = "Version: " + Assembly.GetEntryAssembly().GetName().Version;
 
             // Start menu shortcut
             if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu) + "\\Programs\\Download Manager\\Download Manager.lnk"))
@@ -306,6 +309,14 @@ namespace DownloadManager
         public static bool IsAdministrator()
         {
             return (new WindowsPrincipal(WindowsIdentity.GetCurrent())).IsInRole(WindowsBuiltInRole.Administrator);
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            // Check for updates
+            Logging.Log("Checking for updates...", Color.Black);
+            // https://github.com/Soniczac7/app-update/raw/main/DownloadManager.xml
+            Logging.Log("Update check complete.", Color.Black);
         }
     }
 }

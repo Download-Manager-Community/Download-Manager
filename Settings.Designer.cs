@@ -60,6 +60,8 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.button10 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -423,11 +425,32 @@
             this.checkBox3.UseVisualStyleBackColor = true;
             this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(14, 426);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(71, 15);
+            this.label12.TabIndex = 40;
+            this.label12.Text = "Version: null";
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(668, 415);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(120, 23);
+            this.button10.TabIndex = 41;
+            this.button10.Text = "Check for updates";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button10);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.label10);
@@ -496,5 +519,7 @@
         private Label label10;
         private CheckBox checkBox3;
         private Label label11;
+        private Label label12;
+        private Button button10;
     }
 }

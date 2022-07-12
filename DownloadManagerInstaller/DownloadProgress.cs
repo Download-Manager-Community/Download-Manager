@@ -26,6 +26,7 @@ namespace DownloadManagerInstaller
         );
         #endregion
 
+        string hash;
         string url;
         string location;
         string fileName;
@@ -45,7 +46,7 @@ namespace DownloadManagerInstaller
             }
         }
 
-        public DownloadProgress(string urlArg, string locationArg)
+        public DownloadProgress(string urlArg, string locationArg, string hashArg)
         {
             InitializeComponent();
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 10, 10));
@@ -59,6 +60,7 @@ namespace DownloadManagerInstaller
                 location = locationArg;
             }
             url = urlArg;
+            hash = hashArg;
         }
 
         private void progress_Load(object sender, EventArgs e)
@@ -159,52 +161,70 @@ namespace DownloadManagerInstaller
 
         private void Client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
-            if (this.IsHandleCreated)
+            if (hash != "" && hash != null)
             {
-                try
+                if (this.IsHandleCreated)
                 {
-                    Invoke(new MethodInvoker(delegate ()
+                    try
                     {
-                        byte[] fileData = File.ReadAllBytes(location + fileName);
-                        byte[] myHash = MD5.Create().ComputeHash(fileData);
-                        StringBuilder result = new StringBuilder(myHash.Length * 2);
-
-                        for (int i = 0; i < myHash.Length; i++)
+                        Invoke(new MethodInvoker(delegate ()
                         {
-                            result.Append(myHash[i].ToString(false ? "X2" : "x2"));
-                        }
+                            byte[] fileData = File.ReadAllBytes(location + fileName);
+                            byte[] myHash = MD5.Create().ComputeHash(fileData);
+                            StringBuilder result = new StringBuilder(myHash.Length * 2);
 
-                        if (result.ToString() == "16bea09b03d106138b4aaad4e7a42829")
-                        {
-                            // Success
-                            downloading = false;
-                            progressBar1.Style = ProgressBarStyle.Blocks;
-                            progressBar1.Value = 100;
-                            client.CancelAsync();
-                            client.Dispose();
-                            Form1._instance.LicenseDownloaded(System.IO.Path.GetTempPath() + fileName);
-                            this.Close();
-                            this.Dispose();
-                            return;
-                        }
-                        else
-                        {
-                            // Fail
-                            Form1._instance.LicenseFailed();
-                            client.CancelAsync();
-                            client.Dispose();
-                            this.Close();
-                            this.Dispose();
-                            return;
-                        }
+                            for (int i = 0; i < myHash.Length; i++)
+                            {
+                                result.Append(myHash[i].ToString(false ? "X2" : "x2"));
+                            }
+
+                            if (result.ToString() == hash)
+                            {
+                                // Success
+                                downloading = false;
+                                progressBar1.Style = ProgressBarStyle.Blocks;
+                                progressBar1.Value = 100;
+                                client.CancelAsync();
+                                client.Dispose();
+                                Form1._instance.LicenseDownloaded(System.IO.Path.GetTempPath() + fileName);
+                                this.Close();
+                                this.Dispose();
+                                return;
+                            }
+                            else
+                            {
+                                // Fail
+                                Form1._instance.LicenseFailed();
+                                client.CancelAsync();
+                                client.Dispose();
+                                this.Close();
+                                this.Dispose();
+                                return;
+                            }
 
 
-                    }));
+                        }));
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                catch (Exception ex)
+            }
+            else
+            {
+                Invoke(new MethodInvoker(delegate ()
                 {
-                    MessageBox.Show(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                    // Success
+                    downloading = false;
+                    progressBar1.Style = ProgressBarStyle.Blocks;
+                    progressBar1.Value = 100;
+                    client.CancelAsync();
+                    client.Dispose();
+                    this.Close();
+                    this.Dispose();
+                    return;
+                }));
             }
         }
 
