@@ -46,6 +46,7 @@
             // 
             this.progressBar1.Location = new System.Drawing.Point(12, 27);
             this.progressBar1.MarqueeAnimationSpeed = 1;
+            this.progressBar1.Maximum = 3;
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(315, 23);
             this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
@@ -65,6 +66,7 @@
             this.Name = "UpdateForm";
             this.ShowIcon = false;
             this.Text = "Download Manager Setup - Update";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.UpdateForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
