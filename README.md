@@ -18,6 +18,7 @@ If you are experiecing display issues with download manager please use the follo
 1) Download the latest version from the [releases page](https://github.com/Soniczac7/Download-Manager/releases).
 2) Extract the zip anywhere.
 4) Run the executable `DownloadManagerInstaller.exe`.
+5) You can also install the browser extention [here](https://microsoftedge.microsoft.com/addons/detail/download-manager/facopbimneimllhcabghncloejfeficd?hl=en-GB).
 
 ## Contribution
 Any contribution will be appreciated. To contribute to this repository:
@@ -26,3 +27,11 @@ Any contribution will be appreciated. To contribute to this repository:
 3) When you are ready request `Soniczac7` as a reviewer.
 4) If the pull request is ok it will be merged with the `dev` branch.
 5) If there are improvements that need to be made before the branch can be merged, make them and request `Soniczac7` as a reviewer again.
+
+## Silent Install
+If you choose to install the program silently using the `--install` tag please refer to the following exit codes:
+ - `0` - The installation completed successfully.
+ - `1` - The default drive `C:\` could not be found.
+ - `2` - The installer could not install due to unauthorised access.
+ - `3` - The installer could not install due to a IO error.
+ - `4` - The installer could not install due to an unknown exception.
