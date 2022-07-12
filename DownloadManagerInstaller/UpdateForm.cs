@@ -94,7 +94,6 @@ namespace DownloadManagerInstaller
             }
             else
             {
-                MessageBox.Show("You are currently running version " + version + " of this program.\nYou are running the latest version.", "Download Manager Setup - Latest Version", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Environment.Exit(1);
             }
         }

@@ -330,7 +330,6 @@ namespace DownloadManager
                 {
                     process.Start();
                     process.WaitForExit();
-                    Logging.Log("Update check complete.", Color.Black);
                 }
                 catch (Exception ex)
                 {
