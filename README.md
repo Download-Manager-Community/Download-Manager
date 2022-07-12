@@ -27,3 +27,9 @@ Any contribution will be appreciated. To contribute to this repository:
 3) When you are ready request `Soniczac7` as a reviewer.
 4) If the pull request is ok it will be merged with the `dev` branch.
 5) If there are improvements that need to be made before the branch can be merged, make them and request `Soniczac7` as a reviewer again.
+
+## Silent Install
+If you choose to install the program silently using the `--install` tag please refer to the following exit codes:
+ - `0` - The installation completed successfully
+ 
+This section will be updated in the future with more exit codes.
