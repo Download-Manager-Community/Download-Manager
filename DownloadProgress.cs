@@ -39,6 +39,7 @@ namespace DownloadManager
         public DownloadProgress(string urlArg, string locationArg, string hashArg, int hashTypeArg)
         {
             InitializeComponent();
+            client.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.NoCacheNoStore);
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 10, 10));
             hashType = hashTypeArg;
             hashType += 1;
