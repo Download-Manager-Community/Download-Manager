@@ -18,6 +18,7 @@ If you are experiecing display issues with download manager please use the follo
 1) Download the latest version from the [releases page](https://github.com/Soniczac7/Download-Manager/releases).
 2) Extract the zip anywhere.
 4) Run the executable `DownloadManagerInstaller.exe`.
+5) You can also install the browser extention [here](https://microsoftedge.microsoft.com/addons/detail/download-manager/facopbimneimllhcabghncloejfeficd?hl=en-GB).
 
 ## Contribution
 Any contribution will be appreciated. To contribute to this repository:
