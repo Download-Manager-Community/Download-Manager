@@ -30,6 +30,8 @@ Any contribution will be appreciated. To contribute to this repository:
 
 ## Silent Install
 If you choose to install the program silently using the `--install` tag please refer to the following exit codes:
- - `0` - The installation completed successfully
- 
-This section will be updated in the future with more exit codes.
+ - `0` - The installation completed successfully.
+ - `1` - The default drive `C:\` could not be found.
+ - `2` - The installer could not install due to unauthorised access.
+ - `3` - The installer could not install due to a IO error.
+ - `4` - The installer could not install due to an unknown exception.
