@@ -37,6 +37,7 @@ namespace DownloadManagerInstaller
             string url = "";
             string mandatory = "";
 
+
             try
             {
                 XmlDocument xml = new XmlDocument();
@@ -44,6 +45,7 @@ namespace DownloadManagerInstaller
                 version = xml.DocumentElement.ParentNode.ChildNodes.Item(1).ChildNodes.Item(0).InnerText;
                 url = xml.DocumentElement.ParentNode.ChildNodes.Item(1).ChildNodes.Item(1).InnerText;
                 mandatory = xml.DocumentElement.ParentNode.ChildNodes.Item(1).ChildNodes.Item(2).InnerText;
+
             }
             catch
             {
@@ -59,7 +61,9 @@ namespace DownloadManagerInstaller
             try
             {
                 fileVersion = FileVersionInfo.GetVersionInfo(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\DownloadManager.exe").FileVersion;
+
                 Debug.WriteLine(version + Environment.NewLine + url + Environment.NewLine + mandatory + Environment.NewLine + fileVersion);
+
             }
             catch
             {
@@ -69,22 +73,29 @@ namespace DownloadManagerInstaller
                 MessageBox.Show("Setup could not retrieve the version of the existing Download Manager installation.\nEnsure setup is in the same directory as Download Manager and try again.", "Download Manager Setup", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(5);
             }
-
-            if (fileVersion != version)
+            MessageBox.Show(fileVersion + Environment.NewLine + version);
+            if (fileVersion != version) // Crash
             {
+                MessageBox.Show("");
                 if (mandatory == "true")
                 {
+
                     DialogResult result = MessageBox.Show("A important update is available: " + version + ".\nThe current installed version is: " + fileVersion + ".\nPress OK to continue.", "Download Manager Setup - Mandatory Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                     if (result == DialogResult.OK)
                     {
+
                         Update(url);
                     }
                 }
                 else
                 {
+
                     DialogResult result = MessageBox.Show("Version " + version + " is available.\nWould you like to install it?", "Download Manager Setup - Update Available", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
                     if (result == DialogResult.Yes)
                     {
+
                         Update(url);
                     }
                     else

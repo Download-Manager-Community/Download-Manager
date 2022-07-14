@@ -319,10 +319,9 @@ namespace DownloadManager
             Logging.Log("Checking for updates...", Color.Black);
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.FileName = "updateHandler.bat";
-            startInfo.Arguments = DownloadForm.installationPath;
+            startInfo.Arguments = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             startInfo.UseShellExecute = true;
-            startInfo.WorkingDirectory = DownloadForm.installationPath;
-            startInfo.CreateNoWindow = true;
+            startInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             startInfo.Verb = "runas";
             Process process = new Process();
             process.StartInfo = startInfo;
