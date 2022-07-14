@@ -56,12 +56,12 @@ namespace DownloadManager
                             result.Append(myHash[i].ToString(false ? "X2" : "x2"));
                         }
                         Action action = () => textBox2.Text = result.ToString();
-                        _instance.Invoke(action);
+                        if (this.IsHandleCreated) { _instance.Invoke(action); }
                     }
                     catch (Exception ex)
                     {
                         Action action = () => textBox2.Text = ex.Message;
-                        _instance.Invoke(action);
+                        if (this.IsHandleCreated) { _instance.Invoke(action); }
                     }
 
                     // SHA-1
@@ -82,12 +82,12 @@ namespace DownloadManager
                             result.Append(myHash[i].ToString(false ? "X2" : "x2"));
                         }
                         Action action = () => textBox3.Text = result.ToString();
-                        _instance.Invoke(action);
+                        if (this.IsHandleCreated) { _instance.Invoke(action); }
                     }
                     catch (Exception ex)
                     {
                         Action action = () => textBox3.Text = ex.Message;
-                        _instance.Invoke(action);
+                        if (this.IsHandleCreated) { _instance.Invoke(action); }
                     }
 
                     // SHA-256
@@ -108,12 +108,12 @@ namespace DownloadManager
                             result.Append(myHash[i].ToString(false ? "X2" : "x2"));
                         }
                         Action action = () => textBox4.Text = result.ToString();
-                        _instance.Invoke(action);
+                        if (this.IsHandleCreated) { _instance.Invoke(action); }
                     }
                     catch (Exception ex)
                     {
                         Action action = () => textBox4.Text = ex.Message;
-                        _instance.Invoke(action);
+                        if (this.IsHandleCreated) { _instance.Invoke(action); }
                     }
 
                     // SHA-384
@@ -134,12 +134,12 @@ namespace DownloadManager
                             result.Append(myHash[i].ToString(false ? "X2" : "x2"));
                         }
                         Action action = () => textBox6.Text = result.ToString();
-                        _instance.Invoke(action);
+                        if (this.IsHandleCreated) { _instance.Invoke(action); }
                     }
                     catch (Exception ex)
                     {
                         Action action = () => textBox6.Text = ex.Message;
-                        _instance.Invoke(action);
+                        if (this.IsHandleCreated) { _instance.Invoke(action); }
                     }
 
                     // SHA-512
@@ -160,12 +160,12 @@ namespace DownloadManager
                             result.Append(myHash[i].ToString(false ? "X2" : "x2"));
                         }
                         Action action = () => textBox5.Text = result.ToString();
-                        _instance.Invoke(action);
+                        if (this.IsHandleCreated) { _instance.Invoke(action); }
                     }
                     catch (Exception ex)
                     {
                         Action action = () => textBox5.Text = ex.Message;
-                        _instance.Invoke(action);
+                        if (this.IsHandleCreated) { _instance.Invoke(action); }
                     }
                     ShowProgressBar(false);
                 });

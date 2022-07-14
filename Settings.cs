@@ -322,7 +322,7 @@ namespace DownloadManager
             startInfo.Arguments = DownloadForm.installationPath;
             startInfo.UseShellExecute = true;
             startInfo.WorkingDirectory = DownloadForm.installationPath;
-            startInfo.CreateNoWindow = false;
+            startInfo.CreateNoWindow = true;
             startInfo.Verb = "runas";
             Process process = new Process();
             process.StartInfo = startInfo;
@@ -337,7 +337,7 @@ namespace DownloadManager
                     // Check exit code
                     if (process.ExitCode == 0 || process.ExitCode == 1)
                     {
-                        Logging.Log("Finished checking for updates!", Color.Green);
+                        Logging.Log("Checking for updates succeeded with exit code: " + process.ExitCode, Color.Green);
                     }
                     else if (process.ExitCode == 2)
                     {

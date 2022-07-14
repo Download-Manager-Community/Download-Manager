@@ -3,7 +3,9 @@
 cls
 title Download Manager Update Handler
 echo.
-echo Please Wait...
+echo This window is to start the Download Manager Installer with arguments "--update".
+echo Once the process has exited it will send the exit code to Download Manager to log.
+echo Please do not close this window. It will automatically close once setup has completed.
 echo.
 cd %1
 set ERRORLEVEL=0
