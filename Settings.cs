@@ -26,6 +26,8 @@ namespace DownloadManager
         );
         #endregion
 
+        public static readonly string installationPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\";
+
         public Settings()
         {
             InitializeComponent();
@@ -316,11 +318,12 @@ namespace DownloadManager
             // Check for updates
             Logging.Log("Checking for updates...", Color.Black);
             ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.FileName = "pwsh.exe";
-            startInfo.Arguments = @"-Command .\DownloadManagerInstaller.exe --update";
+            startInfo.FileName = "updateHandler.bat";
+            startInfo.Arguments = DownloadForm.installationPath;
             startInfo.UseShellExecute = true;
             startInfo.WorkingDirectory = DownloadForm.installationPath;
             startInfo.CreateNoWindow = false;
+            startInfo.Verb = "runas";
             Process process = new Process();
             process.StartInfo = startInfo;
 
@@ -330,6 +333,32 @@ namespace DownloadManager
                 {
                     process.Start();
                     process.WaitForExit();
+
+                    // Check exit code
+                    if (process.ExitCode == 0 || process.ExitCode == 1)
+                    {
+                        Logging.Log("Finished checking for updates!", Color.Green);
+                    }
+                    else if (process.ExitCode == 2)
+                    {
+                        Logging.Log("Update error: Setup exited before the installation could complete.", Color.Red);
+                    }
+                    else if (process.ExitCode == 3)
+                    {
+                        Logging.Log("Update error: The update XML file is malformed.", Color.Red);
+                    }
+                    else if (process.ExitCode == 4)
+                    {
+                        Logging.Log("Update error: The update failed due to an error during the installation process.", Color.Red);
+                    }
+                    else if (process.ExitCode == 5)
+                    {
+                        Logging.Log("Update error: Setup could not retrieve the existing Download Manager installation. Ensure setup is in the same path as Download Manager and try again.", Color.Red);
+                    }
+                    else
+                    {
+                        Logging.Log("Update error: An unknown error occurred while checking for updates.", Color.Red);
+                    }
                 }
                 catch (Exception ex)
                 {

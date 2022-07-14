@@ -32,6 +32,7 @@ namespace DownloadManagerInstaller
         string fileName;
         bool isUrlInvalid = false;
         public bool downloading = true;
+        public bool error = false;
         WebClient client = new WebClient();
 
         //Disable close button
@@ -77,6 +78,8 @@ namespace DownloadManagerInstaller
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Download Manager - Error Fetching File", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    error = true;
+                    downloading = false;
                     if (this.IsHandleCreated == true)
                     {
                         Invoke(new MethodInvoker(delegate ()
@@ -107,6 +110,8 @@ namespace DownloadManagerInstaller
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Download Manager - Download Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    error = true;
+                    downloading = false;
                     Invoke(new MethodInvoker(delegate ()
                     {
                         client.CancelAsync();
@@ -143,7 +148,9 @@ namespace DownloadManagerInstaller
                             if (isUrlInvalid == false)
                             {
                                 isUrlInvalid = true;
+                                error = true;
                                 MessageBox.Show(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                downloading = false;
                                 client.Dispose();
                                 this.Close();
                                 this.Dispose();
@@ -196,6 +203,7 @@ namespace DownloadManagerInstaller
                             else
                             {
                                 // Fail
+                                downloading = false;
                                 Form1._instance.LicenseFailed();
                                 client.CancelAsync();
                                 client.Dispose();
@@ -209,7 +217,9 @@ namespace DownloadManagerInstaller
                     }
                     catch (Exception ex)
                     {
+                        error = true;
                         MessageBox.Show(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        downloading = false;
                     }
                 }
             }

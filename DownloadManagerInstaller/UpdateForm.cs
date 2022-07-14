@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO.Compression;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Xml;
 
@@ -113,6 +114,23 @@ namespace DownloadManagerInstaller
             {
                 try
                 {
+                    // Download the update
+                    DownloadProgress progress = new DownloadProgress(url, System.IO.Path.GetTempPath(), "");
+                    progress.ShowDialog();
+
+                    while (progress.downloading)
+                    {
+                        Application.DoEvents();
+                    }
+
+                    if (progress.error == true)
+                    {
+                        progressBar1.Value = 3;
+                        throw new WebException("Failed to download: " + url);
+                    }
+
+                    progressBar1.Value = 1;
+
                     // Check if DownloadManager.exe is running
                     Process[] processes = Process.GetProcessesByName("DownloadManager");
                     if (processes.Length > 0)
@@ -122,17 +140,6 @@ namespace DownloadManagerInstaller
                             Application.DoEvents();
                             process.Kill();
                         }
-                    }
-
-                    progressBar1.Value = 1;
-
-                    // Download the update
-                    DownloadProgress progress = new DownloadProgress(url, System.IO.Path.GetTempPath(), "");
-                    progress.ShowDialog();
-
-                    while (progress.downloading)
-                    {
-                        Application.DoEvents();
                     }
 
                     progressBar1.Value = 2;
