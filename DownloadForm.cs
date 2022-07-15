@@ -37,6 +37,14 @@ namespace DownloadManager
             InitializeComponent();
             comboBox1.SelectedIndex = 0;
             browserIntercept.StartServer();
+            if (Settings1.Default.downloadHistory != null)
+            {
+                foreach (var item in Settings1.Default.downloadHistory)
+                {
+                    Application.DoEvents();
+                    textBox1.Items.Add(item);
+                }
+            }
             textBox2.Text = Settings1.Default.defaultDownload;
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 10, 10));
         }
@@ -62,8 +70,15 @@ namespace DownloadManager
 
         private void button4_Click(object sender, EventArgs e)
         {
+            if (!textBox1.Items.Contains(textBox1.Text))
+            {
+                textBox1.Items.Add(textBox1.Text);
+                Settings1.Default.downloadHistory.Add(textBox1.Text);
+                Settings1.Default.Save();
+            }
             DownloadProgress downloadProgress = new DownloadProgress(textBox1.Text, textBox2.Text, textBox3.Text, comboBox1.SelectedIndex);
             downloadProgress.Show();
+            textBox1.Text = "";
         }
 
         private void button3_Click(object sender, EventArgs e)

@@ -9,7 +9,8 @@ echo Please do not close this window. It will automatically close once setup has
 echo.
 cd %1
 set ERRORLEVEL=0
-start "" /wait %1\DownloadManagerInstaller.exe --update
+echo %1%2%3%4%5%6%7%8%9\DownloadManagerInstaller.exe --update
+start "" /wait %1%2%3%4%5%6%7%8%9\DownloadManagerInstaller.exe --update
 if %ERRORLEVEL% == 0 goto success
 if %ERRORLEVEL%==1 goto success1
 if %$ERRORLEVEL%==2 goto error1

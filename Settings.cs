@@ -367,5 +367,17 @@ namespace DownloadManager
             });
             thread.Start();
         }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            // Clear download history
+            foreach (var item in DownloadForm._instance.textBox1.Items)
+            {
+                Application.DoEvents();
+                DownloadForm._instance.textBox1.Items.Remove(item);
+            }
+            Settings1.Default.downloadHistory = new System.Collections.Specialized.StringCollection();
+            Settings1.Default.Save();
+        }
     }
 }

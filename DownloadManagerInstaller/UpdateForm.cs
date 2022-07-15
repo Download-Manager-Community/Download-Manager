@@ -74,7 +74,7 @@ namespace DownloadManagerInstaller
                 Environment.Exit(5);
             }
             MessageBox.Show(fileVersion + Environment.NewLine + version);
-            if (fileVersion != version) // Crash
+            if (fileVersion != version) // TODO: Fix Crash
             {
                 MessageBox.Show("");
                 if (mandatory == "true")
