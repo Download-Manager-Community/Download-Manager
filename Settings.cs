@@ -27,6 +27,7 @@ namespace DownloadManager
         #endregion
 
         public static readonly string installationPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\";
+        HistoryEditor historyEditor = new HistoryEditor();
 
         public Settings()
         {
@@ -378,6 +379,12 @@ namespace DownloadManager
             }
             Settings1.Default.downloadHistory = new System.Collections.Specialized.StringCollection();
             Settings1.Default.Save();
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            // Open history editor
+            historyEditor.Show();
         }
     }
 }
