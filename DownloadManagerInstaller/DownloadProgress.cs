@@ -132,33 +132,36 @@ namespace DownloadManagerInstaller
             {
                 try
                 {
-                    Invoke(new MethodInvoker(delegate ()
+                    if (IsHandleCreated)
                     {
-                        progressBar1.Minimum = 0;
-                        double receive = double.Parse(e.BytesReceived.ToString());
-                        double total = double.Parse(e.TotalBytesToReceive.ToString());
-                        double percentage = receive / total * 100;
-                        label3.Text = "Percentage Complete: " + $"{string.Format("{0:0.##}", percentage)}%";
-                        try
+                        Invoke(new MethodInvoker(delegate ()
                         {
-                            progressBar1.Value = int.Parse(Math.Truncate(percentage).ToString());
-                        }
-                        catch (Exception ex)
-                        {
-                            if (isUrlInvalid == false)
+                            progressBar1.Minimum = 0;
+                            double receive = double.Parse(e.BytesReceived.ToString());
+                            double total = double.Parse(e.TotalBytesToReceive.ToString());
+                            double percentage = receive / total * 100;
+                            label3.Text = "Percentage Complete: " + $"{string.Format("{0:0.##}", percentage)}%";
+                            try
                             {
-                                isUrlInvalid = true;
-                                error = true;
-                                MessageBox.Show(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                downloading = false;
-                                client.Dispose();
-                                this.Close();
-                                this.Dispose();
-                                return;
+                                progressBar1.Value = int.Parse(Math.Truncate(percentage).ToString());
                             }
-                            else { }
-                        }
-                    }));
+                            catch (Exception ex)
+                            {
+                                if (isUrlInvalid == false)
+                                {
+                                    isUrlInvalid = true;
+                                    error = true;
+                                    MessageBox.Show(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    downloading = false;
+                                    client.Dispose();
+                                    this.Close();
+                                    this.Dispose();
+                                    return;
+                                }
+                                else { }
+                            }
+                        }));
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -211,8 +214,6 @@ namespace DownloadManagerInstaller
                                 this.Dispose();
                                 return;
                             }
-
-
                         }));
                     }
                     catch (Exception ex)

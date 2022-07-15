@@ -73,10 +73,9 @@ namespace DownloadManagerInstaller
                 MessageBox.Show("Setup could not retrieve the version of the existing Download Manager installation.\nEnsure setup is in the same directory as Download Manager and try again.", "Download Manager Setup", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(5);
             }
-            MessageBox.Show(fileVersion + Environment.NewLine + version);
-            if (fileVersion != version) // TODO: Fix Crash
+
+            if (fileVersion != version)
             {
-                MessageBox.Show("");
                 if (mandatory == "true")
                 {
 
@@ -106,6 +105,7 @@ namespace DownloadManagerInstaller
             }
             else
             {
+                MessageBox.Show("You are on the latest version of Download Manager.", "Download Manager Setup", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Environment.Exit(1);
             }
         }
