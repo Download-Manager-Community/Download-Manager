@@ -26,10 +26,13 @@ namespace DownloadManager
             InitializeComponent();
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 10, 10));
 
-            foreach (var item in Settings1.Default.downloadHistory)
+            if (Settings1.Default.downloadHistory != null)
             {
-                Application.DoEvents();
-                listBox1.Items.Add(item);
+                foreach (var item in Settings1.Default.downloadHistory)
+                {
+                    Application.DoEvents();
+                    listBox1.Items.Add(item);
+                }
             }
         }
 
@@ -76,10 +79,13 @@ namespace DownloadManager
         {
             // Refresh
             listBox1.Items.Clear();
-            foreach (var item in Settings1.Default.downloadHistory)
+            if (Settings1.Default.downloadHistory != null)
             {
-                Application.DoEvents();
-                listBox1.Items.Add(item);
+                foreach (var item in Settings1.Default.downloadHistory)
+                {
+                    Application.DoEvents();
+                    listBox1.Items.Add(item);
+                }
             }
         }
 

@@ -188,12 +188,15 @@ namespace DownloadManager
                 }
                 catch (Exception ex)
                 {
-                    Invoke(new MethodInvoker(delegate
+                    if (this.IsDisposed == false)
                     {
-                        progressBar1.Style = ProgressBarStyle.Blocks;
-                        progressBar1.Value = 100;
-                        ProgressBarColor.SetState(progressBar1, 2);
-                    }));
+                        Invoke(new MethodInvoker(delegate
+                        {
+                            progressBar1.Style = ProgressBarStyle.Blocks;
+                            progressBar1.Value = 100;
+                            ProgressBarColor.SetState(progressBar1, 2);
+                        }));
+                    }
                     Log(ex.Message + Environment.NewLine + ex.StackTrace, Color.Red);
                 }
             }
