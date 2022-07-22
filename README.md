@@ -8,6 +8,8 @@ For requests for file extentions please make a [Feature Request](https://github.
 
 If there are any issues with the application please make an [issue](https://github.com/Soniczac7/Download-Manager/issues/new/choose).
 
+*To check for any updates regarding the next update of Download Manager go to the [Discussions](https://github.com/Soniczac7/Download-Manager/discussions).*
+
 ## Compatability
 Download Manager does not currently support high DPI monitors.
 If you are experiecing display issues with download manager please use the following compatability settings:
