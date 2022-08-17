@@ -9,7 +9,7 @@ namespace DownloadManager
     {
         public BrowserIntercept _instance;
         public Socket httpServer;
-        private int serverPort = 65535;
+        private int serverPort = Settings1.Default.serverPort;
         public Thread thread;
 
         public void StartServer()

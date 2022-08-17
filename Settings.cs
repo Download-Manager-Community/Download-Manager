@@ -36,6 +36,9 @@ namespace DownloadManager
 
             label12.Text = "Version: " + Assembly.GetEntryAssembly().GetName().Version;
 
+            numericUpDown1.Value = Settings1.Default.serverPort;
+            label15.Visible = false;
+
             // Start menu shortcut
             if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu) + "\\Programs\\Download Manager\\Download Manager.lnk"))
             {
@@ -385,6 +388,21 @@ namespace DownloadManager
         {
             // Open history editor
             historyEditor.Show();
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                Settings1.Default.serverPort = Convert.ToInt32(numericUpDown1.Value);
+                Settings1.Default.Save();
+                label15.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                Logging.Log(ex.Message + Environment.NewLine + ex.StackTrace, Color.Red);
+                MessageBox.Show(ex.Message + "\nSee the debug log for more information.", "Download Manager Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

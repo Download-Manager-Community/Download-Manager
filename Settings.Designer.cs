@@ -66,6 +66,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.button11 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
+            this.label15 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -373,7 +374,6 @@
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Enabled = false;
             this.numericUpDown1.Location = new System.Drawing.Point(14, 214);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             65535,
@@ -381,12 +381,11 @@
             0,
             0});
             this.numericUpDown1.Minimum = new decimal(new int[] {
-            65535,
+            1025,
             0,
             0,
             0});
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.ReadOnly = true;
             this.numericUpDown1.Size = new System.Drawing.Size(773, 23);
             this.numericUpDown1.TabIndex = 29;
             this.numericUpDown1.Value = new decimal(new int[] {
@@ -394,6 +393,7 @@
             0,
             0,
             0});
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // label7
             // 
@@ -490,11 +490,23 @@
             this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.ForeColor = System.Drawing.Color.Red;
+            this.label15.Location = new System.Drawing.Point(142, 196);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(394, 15);
+            this.label15.TabIndex = 47;
+            this.label15.Text = "You may need to restart Download Manager for the change to take effect.";
+            this.label15.Visible = false;
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label15);
             this.Controls.Add(this.button12);
             this.Controls.Add(this.button11);
             this.Controls.Add(this.label13);
@@ -575,5 +587,6 @@
         private Label label14;
         private Button button11;
         private Button button12;
+        private Label label15;
     }
 }

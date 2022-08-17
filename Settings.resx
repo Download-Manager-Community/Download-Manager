@@ -72,8 +72,7 @@ The default option for this settings is ON.</value>
   </data>
   <data name="label6.ToolTip" xml:space="preserve">
     <value>The port for the internal server to be hosted locally.
-This cannot be changed at the moment as the browser extention does not yet support this feature.
-This feature may become available in the future.
+The extention must also be set up with your specified port number for the extention to properly communicate to Download Manager.
 The default value for this setting is 65535.</value>
   </data>
   <data name="label13.ToolTip" xml:space="preserve">
