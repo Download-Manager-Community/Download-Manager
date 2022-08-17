@@ -14,21 +14,21 @@
           "ComponentFactory.Krypton.Ribbon": "4.6.0.0",
           "ComponentFactory.Krypton.Toolkit": "4.6.0.0",
           "ComponentFactory.Krypton.Workspace": "4.6.0.0",
-          "runtimepack.Microsoft.Windows.SDK.NET.Ref": "10.0.22000.24"
+          "runtimepack.Microsoft.Windows.SDK.NET.Ref": "10.0.22000.26"
         },
         "runtime": {
           "DownloadManager.dll": {}
         }
       },
-      "runtimepack.Microsoft.Windows.SDK.NET.Ref/10.0.22000.24": {
+      "runtimepack.Microsoft.Windows.SDK.NET.Ref/10.0.22000.26": {
         "runtime": {
           "Microsoft.Windows.SDK.NET.dll": {
             "assemblyVersion": "10.0.22000.24",
-            "fileVersion": "10.0.22000.24"
+            "fileVersion": "10.0.22000.26"
           },
           "WinRT.Runtime.dll": {
             "assemblyVersion": "1.6.0.0",
-            "fileVersion": "1.6.1.38391"
+            "fileVersion": "1.6.4.39141"
           }
         }
       },
@@ -88,7 +88,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "runtimepack.Microsoft.Windows.SDK.NET.Ref/10.0.22000.24": {
+    "runtimepack.Microsoft.Windows.SDK.NET.Ref/10.0.22000.26": {
       "type": "runtimepack",
       "serviceable": false,
       "sha512": ""

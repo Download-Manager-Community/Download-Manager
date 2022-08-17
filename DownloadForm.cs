@@ -34,6 +34,11 @@ namespace DownloadManager
         {
             _instance = this;
             Logging.Log("Downloads folder: " + downloadsFolder, Color.Black);
+            if (Settings1.Default.downloadHistory == null)
+            {
+                Logging.Log("Download History is null. Performing first time setup.", Color.Orange);
+                Settings1.Default.downloadHistory = new System.Collections.Specialized.StringCollection { };
+            }
             InitializeComponent();
             comboBox1.SelectedIndex = 0;
             browserIntercept.StartServer();
