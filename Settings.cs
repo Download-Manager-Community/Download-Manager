@@ -26,6 +26,7 @@ namespace DownloadManager
         );
         #endregion
 
+        readonly Region _client;
         public static readonly string installationPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\";
         HistoryEditor historyEditor = new HistoryEditor();
 
@@ -33,6 +34,7 @@ namespace DownloadManager
         {
             InitializeComponent();
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 10, 10));
+            _client = Region.FromHrgn(CreateRoundRectRgn(1, 1, Width - 1, Height - 1, 10, 10));
 
             label12.Text = "Version: " + Assembly.GetEntryAssembly().GetName().Version;
 
@@ -79,6 +81,15 @@ namespace DownloadManager
             {
                 checkBox3.Enabled = false;
             }
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            // FillRectangle is faster than FillRegion for drawing outer bigger region
+            // and it's actually not needed, you can simply set form BackColor to wanted border color
+            // e.Graphics.FillRectangle(Brushes.Red, ClientRectangle);
+            e.Graphics.FillRegion(Brushes.Black, _client);
         }
 
         private void button1_Click(object sender, EventArgs e)
