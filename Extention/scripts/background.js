@@ -1,106 +1,113 @@
 chrome.webRequest.onHeadersReceived.addListener(function (details) {
   // ... your code that checks whether the request should be blocked ...
   //  (omitted for brevity)
-    if (details.url.indexOf("www.bing.com/vs/ec/stop.mp3") >= 0 ||
-        details.url.indexOf("www.bing.com/vs/ec/start.mp3") >= 0 ||
-        details.url.indexOf("mp3+") >= 0 ||
-        details.url.indexOf("mp3&") >= 0 ||
-        details.url.indexOf("upload.") >= 0 ||
-        details.url.indexOf("partner.microsoft.com") >= 0 ||
-        details.url.indexOf("adfoc.us") >= 0 ||
-        details.url.indexOf("adloadx") >= 0) {
+  chrome.storage.local.get(['extToggle'], function(result) {
+    if(result.extToggle == true){
+    if(details.url.indexOf("www.bing.com/vs/ec/stop.mp3") >= 0 ||
+      details.url.indexOf("www.bing.com/vs/ec/start.mp3") >= 0 ||
+      details.url.indexOf("mp3+") >= 0 ||
+      details.url.indexOf("mp3&") >= 0 ||
+      details.url.indexOf("upload.") >= 0 ||
+      details.url.indexOf("partner.microsoft.com") >= 0 ||
+      details.url.indexOf("adfoc.us") >= 0 ||
+      details.url.indexOf("adloadx") >= 0) {
       console.warn("Could not download. Download url is in URL blacklist.");
-  }
-  else{
-    if(details.url.indexOf(".zip") >=0){
-      console.log("Blocking request.");
-      return {redirectUrl: "http://robwu.nl/204" };
     }
-    else if(details.url.indexOf(".7z") >=0){
-      console.log("Blocking request.");
-      return {redirectUrl: "http://robwu.nl/204" };
-    }
-    else if(details.url.indexOf(".rar") >=0){
-      console.log("Blocking request.");
-      return {redirectUrl: "http://robwu.nl/204" };
-    }
-    else if(details.url.indexOf(".iso") >=0){
-      console.log("Blocking request.");
-      return {redirectUrl: "http://robwu.nl/204" };
-    }
-    else if (details.url.indexOf(".img") >= 0) {
-        console.log("Blocking request.");
-        return { redirectUrl: "http://robwu.nl/204" };
-    }
-    else if(details.url.indexOf(".exe") >=0){
-      console.log("Blocking request.");
-      return {redirectUrl: "http://robwu.nl/204" };
-    }
-    else if (details.url.indexOf(".jar") >= 0) {
-        console.log("Blocking request.");
-        return { redirectUrl: "http://robwu.nl/204" };
-    }
-    else if(details.url.indexOf(".msi") >=0){
-      console.log("Blocking request.");
-      return {redirectUrl: "http://robwu.nl/204" };
-    }
-    else if(details.url.indexOf(".aif") >=0){
-      console.log("Blocking request.");
-      return {redirectUrl: "http://robwu.nl/204" };
-    }
-    else if(details.url.indexOf(".cda") >=0){
-      console.log("Blocking request.");
-      return {redirectUrl: "http://robwu.nl/204" };
-    }
-    else if(details.url.indexOf(".mid") >=0){
-      console.log("Blocking request.");
-      return {redirectUrl: "http://robwu.nl/204" };
-    }
-    else if(details.url.indexOf(".midi") >=0){
-      console.log("Blocking request.");
-      return {redirectUrl: "http://robwu.nl/204" };
-    }
-    else if(details.url.indexOf(".mp3") >=0){
-      console.log("Blocking request.");
-      return {redirectUrl: "http://robwu.nl/204" };
-    }
-    else if(details.url.indexOf(".mpa") >=0){
-      console.log("Blocking request.");
-      return {redirectUrl: "http://robwu.nl/204" };
-    }
-    else if(details.url.indexOf(".ogg") >=0){
-      console.log("Blocking request.");
-      return {redirectUrl: "http://robwu.nl/204" };
-    }
-    else if(details.url.indexOf(".wav") >=0){
-      console.log("Blocking request.");
-      return {redirectUrl: "http://robwu.nl/204" };
-    }
-    else if(details.url.indexOf(".wma") >=0){
-      console.log("Blocking request.");
-      return {redirectUrl: "http://robwu.nl/204" };
-    }
-    else if(details.url.indexOf(".wpl") >=0){
-      console.log("Blocking request.");
-      return {redirectUrl: "http://robwu.nl/204" };
-    }
-    else if(details.url.indexOf(".mp4") >=0){
-      console.log("Blocking request.");
-      return {redirectUrl: "http://robwu.nl/204" };
-    }
-    else if(details.url.indexOf(".bin") >=0){
-      if(details.url.indexOf(".bing") >=0){
-        console.warn("URLs containing .bin like .bing will be picked up as a download. If this happens please file a bug report.");
-      }
-      else{
+    else{
+      if(details.url.indexOf(".zip") >=0){
         console.log("Blocking request.");
         return {redirectUrl: "http://robwu.nl/204" };
       }
-    }
-    else{
-      console.log("Request does not contain any download type so has not been blocked.");
+      else if(details.url.indexOf(".7z") >=0){
+        console.log("Blocking request.");
+        return {redirectUrl: "http://robwu.nl/204" };
+      }
+      else if(details.url.indexOf(".rar") >=0){
+        console.log("Blocking request.");
+        return {redirectUrl: "http://robwu.nl/204" };
+      }
+      else if(details.url.indexOf(".iso") >=0){
+        console.log("Blocking request.");
+        return {redirectUrl: "http://robwu.nl/204" };
+      }
+      else if (details.url.indexOf(".img") >= 0) {
+        console.log("Blocking request.");
+        return { redirectUrl: "http://robwu.nl/204" };
+      }
+      else if(details.url.indexOf(".exe") >=0){
+        console.log("Blocking request.");
+        return {redirectUrl: "http://robwu.nl/204" };
+      }
+      else if (details.url.indexOf(".jar") >= 0) {
+        console.log("Blocking request.");
+        return { redirectUrl: "http://robwu.nl/204" };
+      }
+      else if(details.url.indexOf(".msi") >=0){
+        console.log("Blocking request.");
+        return {redirectUrl: "http://robwu.nl/204" };
+      }
+      else if(details.url.indexOf(".aif") >=0){
+        console.log("Blocking request.");
+        return {redirectUrl: "http://robwu.nl/204" };
+      }
+      else if(details.url.indexOf(".cda") >=0){
+        console.log("Blocking request.");
+        return {redirectUrl: "http://robwu.nl/204" };
+      }
+      else if(details.url.indexOf(".mid") >=0){
+        console.log("Blocking request.");
+        return {redirectUrl: "http://robwu.nl/204" };
+      }
+      else if(details.url.indexOf(".midi") >=0){
+        console.log("Blocking request.");
+        return {redirectUrl: "http://robwu.nl/204" };
+      }
+      else if(details.url.indexOf(".mp3") >=0){
+        console.log("Blocking request.");
+        return {redirectUrl: "http://robwu.nl/204" };
+      }
+      else if(details.url.indexOf(".mpa") >=0){
+        console.log("Blocking request.");
+        return {redirectUrl: "http://robwu.nl/204" };
+      }
+      else if(details.url.indexOf(".ogg") >=0){
+        console.log("Blocking request.");
+        return {redirectUrl: "http://robwu.nl/204" };
+      }
+      else if(details.url.indexOf(".wav") >=0){
+        console.log("Blocking request.");
+        return {redirectUrl: "http://robwu.nl/204" };
+      }
+      else if(details.url.indexOf(".wma") >=0){
+        console.log("Blocking request.");
+        return {redirectUrl: "http://robwu.nl/204" };
+      }
+      else if(details.url.indexOf(".wpl") >=0){
+        console.log("Blocking request.");
+        return {redirectUrl: "http://robwu.nl/204" };
+      }
+      else if(details.url.indexOf(".mp4") >=0){
+        console.log("Blocking request.");
+        return {redirectUrl: "http://robwu.nl/204" };
+      }
+      else if(details.url.indexOf(".bin") >=0){
+        if(details.url.indexOf(".bing") >=0){
+          console.warn("URLs containing .bin like .bing will be picked up as a download. If this happens please file a bug report.");
+        }
+        else{
+          console.log("Blocking request.");
+          return {redirectUrl: "http://robwu.nl/204" };
+        }
+      }
+      else{
+        console.log("Request does not contain any download type so has not been blocked.");
+      }
     }
   }
+  else{
+    console.log("Extention is disabled. Request has not been blocked.");
+  }
+  });
 }, {
   urls: ["<all_urls>"],
   types: ["main_frame", "sub_frame"]
@@ -110,6 +117,8 @@ chrome.webRequest.onBeforeRequest.addListener(
     function(details)
     {
       console.log (details.url);
+      chrome.storage.local.get(['extToggle'], function(result) {  
+        if(result.extToggle == true){
         if (details.url.indexOf("www.bing.com/vs/ec/stop.mp3") >= 0 ||
             details.url.indexOf("www.bing.com/vs/ec/start.mp3") >= 0 ||
             details.url.indexOf("mp3+") >= 0 ||
@@ -267,6 +276,11 @@ chrome.webRequest.onBeforeRequest.addListener(
           }
         }
       }
+    }
+    else{
+      console.log("Extention is disabled. Not sending to Download Manager.");
+    }
+    });
     },
   
     {urls: ["<all_urls>"]},
