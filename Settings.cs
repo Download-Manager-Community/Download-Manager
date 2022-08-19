@@ -10,31 +10,22 @@ namespace DownloadManager
     public partial class Settings : Form
     {
         #region DLL Import
-        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
-        private extern static void ReleaseCapture();
-        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
-        private extern static void SendMessage(System.IntPtr one, int two, int three, int four);
-        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
-        private static extern IntPtr CreateRoundRectRgn
-        (
-            int nLeftRect,     // x-coordinate of upper-left corner
-            int nTopRect,      // y-coordinate of upper-left corner
-            int nRightRect,    // x-coordinate of lower-right corner
-            int nBottomRect,   // y-coordinate of lower-right corner
-            int nWidthEllipse, // width of ellipse
-            int nHeightEllipse // height of ellipse
-        );
+        [DllImport("DwmApi")]
+        private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, int[] attrValue, int attrSize);
+
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            if (DwmSetWindowAttribute(Handle, 19, new[] { 1 }, 4) != 0)
+                DwmSetWindowAttribute(Handle, 20, new[] { 1 }, 4);
+        }
         #endregion
 
-        readonly Region _client;
         public static readonly string installationPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\";
         HistoryEditor historyEditor = new HistoryEditor();
 
         public Settings()
         {
             InitializeComponent();
-            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 10, 10));
-            _client = Region.FromHrgn(CreateRoundRectRgn(1, 1, Width - 1, Height - 1, 10, 10));
 
             label12.Text = "Version: " + Assembly.GetEntryAssembly().GetName().Version;
 
@@ -81,34 +72,6 @@ namespace DownloadManager
             {
                 checkBox3.Enabled = false;
             }
-        }
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-            // FillRectangle is faster than FillRegion for drawing outer bigger region
-            // and it's actually not needed, you can simply set form BackColor to wanted border color
-            // e.Graphics.FillRectangle(Brushes.Red, ClientRectangle);
-            e.Graphics.FillRegion(Brushes.Black, _client);
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            // Close
-            this.Hide();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            // Minimize
-            this.WindowState = FormWindowState.Minimized;
-        }
-
-        private void panel1_MouseDown(object sender, MouseEventArgs e)
-        {
-            // Titlebar Drag
-            ReleaseCapture();
-            SendMessage(Handle, 0x112, 0xf012, 0);
         }
 
         private void button5_Click(object sender, EventArgs e)

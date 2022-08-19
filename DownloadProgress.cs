@@ -10,23 +10,16 @@ namespace DownloadManager
     public partial class DownloadProgress : Form
     {
         #region DLL Import
-        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
-        private extern static void ReleaseCapture();
-        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
-        private extern static void SendMessage(System.IntPtr one, int two, int three, int four);
-        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
-        private static extern IntPtr CreateRoundRectRgn
-        (
-            int nLeftRect,     // x-coordinate of upper-left corner
-            int nTopRect,      // y-coordinate of upper-left corner
-            int nRightRect,    // x-coordinate of lower-right corner
-            int nBottomRect,   // y-coordinate of lower-right corner
-            int nWidthEllipse, // width of ellipse
-            int nHeightEllipse // height of ellipse
-        );
+        [DllImport("DwmApi")]
+        private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, int[] attrValue, int attrSize);
+
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            if (DwmSetWindowAttribute(Handle, 19, new[] { 1 }, 4) != 0)
+                DwmSetWindowAttribute(Handle, 20, new[] { 1 }, 4);
+        }
         #endregion
 
-        readonly Region _client;
         string url;
         string location;
         string fileName;
@@ -42,8 +35,6 @@ namespace DownloadManager
             InitializeComponent();
             client.Headers.Add("Cache-Control", "no-cache");
             client.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.NoCacheNoStore);
-            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 10, 10));
-            _client = Region.FromHrgn(CreateRoundRectRgn(1, 1, Width - 1, Height - 1, 10, 10));
             hashType = hashTypeArg;
             hashType += 1;
             hash = hashArg;
@@ -51,14 +42,14 @@ namespace DownloadManager
             {
                 textBox2.Text = hash;
                 doFileVerify = true;
-                this.Size = new System.Drawing.Size(635, 203);
+                this.Size = new System.Drawing.Size(651, 212);
             }
             else
             {
                 doFileVerify = false;
                 textBox2.Visible = false;
                 label5.Visible = false;
-                this.Size = new System.Drawing.Size(635, 173);
+                this.Size = new System.Drawing.Size(651, 183);
             }
             DownloadForm.downloadsAmount += 1;
             textBox1.Text = urlArg;
@@ -71,15 +62,6 @@ namespace DownloadManager
                 location = locationArg;
             }
             url = urlArg;
-        }
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-            // FillRectangle is faster than FillRegion for drawing outer bigger region
-            // and it's actually not needed, you can simply set form BackColor to wanted border color
-            // e.Graphics.FillRectangle(Brushes.Red, ClientRectangle);
-            e.Graphics.FillRegion(Brushes.Black, _client);
         }
 
         private void progress_Load(object sender, EventArgs e)
@@ -104,6 +86,7 @@ namespace DownloadManager
                     }));
 
                     MessageBox.Show(ex.Message, "Download Manager - Error Fetching File", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    downloading = false;
                     if (this.IsHandleCreated == true)
                     {
                         Invoke(new MethodInvoker(delegate ()
@@ -144,6 +127,7 @@ namespace DownloadManager
 
                     Log(ex.Message, Color.Red);
                     MessageBox.Show(ex.Message, "Download Manager - Download Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    downloading = false;
                     Invoke(new MethodInvoker(delegate ()
                     {
                         DownloadForm.downloadsAmount -= 1;
@@ -188,6 +172,7 @@ namespace DownloadManager
                                     ProgressBarColor.SetState(progressBar1, 2);
                                 }));
                                 MessageBox.Show(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                downloading = false;
                                 client.Dispose();
                                 this.Close();
                                 this.Dispose();
@@ -258,7 +243,6 @@ namespace DownloadManager
                                             Invoke(new MethodInvoker(delegate ()
                                             {
                                                 checkBox2.Enabled = false;
-                                                button2.Enabled = false;
                                                 button3.Enabled = false;
                                                 progressBar1.Value = 100;
                                                 progressBar1.Style = ProgressBarStyle.Blocks;
@@ -320,7 +304,6 @@ namespace DownloadManager
                                             Invoke(new MethodInvoker(delegate ()
                                             {
                                                 checkBox2.Enabled = false;
-                                                button2.Enabled = false;
                                                 button3.Enabled = false;
                                                 progressBar1.Value = 100;
                                                 progressBar1.Style = ProgressBarStyle.Blocks;
@@ -382,7 +365,6 @@ namespace DownloadManager
                                             Invoke(new MethodInvoker(delegate ()
                                             {
                                                 checkBox2.Enabled = false;
-                                                button2.Enabled = false;
                                                 button3.Enabled = false;
                                                 progressBar1.Value = 100;
                                                 progressBar1.Style = ProgressBarStyle.Blocks;
@@ -444,7 +426,6 @@ namespace DownloadManager
                                             Invoke(new MethodInvoker(delegate ()
                                             {
                                                 checkBox2.Enabled = false;
-                                                button2.Enabled = false;
                                                 button3.Enabled = false;
                                                 progressBar1.Value = 100;
                                                 progressBar1.Style = ProgressBarStyle.Blocks;
@@ -508,7 +489,6 @@ namespace DownloadManager
                                             Invoke(new MethodInvoker(delegate ()
                                             {
                                                 checkBox2.Enabled = false;
-                                                button2.Enabled = false;
                                                 button3.Enabled = false;
                                                 progressBar1.Value = 100;
                                                 progressBar1.Style = ProgressBarStyle.Blocks;
@@ -575,7 +555,6 @@ namespace DownloadManager
                                 Invoke(new MethodInvoker(delegate ()
                                 {
                                     checkBox2.Enabled = false;
-                                    button2.Enabled = false;
                                     button3.Enabled = false;
                                     progressBar1.Value = 100;
                                     progressBar1.Style = ProgressBarStyle.Blocks;
@@ -625,19 +604,6 @@ namespace DownloadManager
             }
         }
 
-        private void panel1_MouseDown(object sender, MouseEventArgs e)
-        {
-            // Title-bar Drag
-            ReleaseCapture();
-            SendMessage(Handle, 0x112, 0xf012, 0);
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            // Minimize
-            WindowState = FormWindowState.Minimized;
-        }
-
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             // TopMost
@@ -662,15 +628,38 @@ namespace DownloadManager
             }
             else
             {
-                DialogResult result = MessageBox.Show("Are you sure you want to cancel the download?", "Download Manager", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                if (result == DialogResult.OK)
+                DialogResult result = MessageBox.Show("Are you sure you want to cancel the download?", "Download Manager", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
                 {
+                    downloading = false;
                     DownloadForm.downloadsAmount -= 1;
                     client.CancelAsync();
                     client.Dispose();
                     this.Close();
                     this.Dispose();
                 }
+            }
+        }
+
+        private void DownloadProgress_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (downloading == true)
+            {
+                DialogResult result = MessageBox.Show("Are you sure you want to cancel the download?", "Download Manager", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    DownloadForm.downloadsAmount -= 1;
+                    client.CancelAsync();
+                    e.Cancel = false;
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            }
+            else
+            {
+                e.Cancel = false;
             }
         }
     }
