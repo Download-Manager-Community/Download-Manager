@@ -66,7 +66,7 @@ namespace DownloadManager
 
         private void progress_Load(object sender, EventArgs e)
         {
-            Log("Preparing to start downloading...", Color.Black);
+            Log("Preparing to start downloading...", Color.White);
             checkBox2.Checked = Settings1.Default.closeOnComplete;
             checkBox1.Checked = Settings1.Default.keepOnTop;
             progressBar1.Style = ProgressBarStyle.Marquee;
@@ -111,7 +111,7 @@ namespace DownloadManager
                 fileName = System.IO.Path.GetFileName(uri.AbsolutePath);
                 Action action1 = () => progressBar1.Style = ProgressBarStyle.Blocks;
                 this.Invoke(action1);
-                Log("Downloading file " + uri + " to " + location + fileName, Color.Black);
+                Log("Downloading file " + uri + " to " + location + fileName, Color.White);
                 try
                 {
                     client.DownloadFileAsync(uri, location + fileName);
@@ -236,10 +236,10 @@ namespace DownloadManager
 
                                         if (result.ToString() == hash)
                                         {
-                                            Log("File verification OK.", Color.Black);
+                                            Log("File verification OK.", Color.White);
                                             downloading = false;
                                             DownloadForm.downloadsAmount -= 1;
-                                            Log("Finished downloading file.", Color.Black);
+                                            Log("Finished downloading file.", Color.White);
                                             Invoke(new MethodInvoker(delegate ()
                                             {
                                                 checkBox2.Enabled = false;
@@ -297,10 +297,10 @@ namespace DownloadManager
 
                                         if (result.ToString() == hash)
                                         {
-                                            Log("File verification OK.", Color.Black);
+                                            Log("File verification OK.", Color.White);
                                             downloading = false;
                                             DownloadForm.downloadsAmount -= 1;
-                                            Log("Finished downloading file.", Color.Black);
+                                            Log("Finished downloading file.", Color.White);
                                             Invoke(new MethodInvoker(delegate ()
                                             {
                                                 checkBox2.Enabled = false;
@@ -358,10 +358,10 @@ namespace DownloadManager
 
                                         if (result.ToString() == hash)
                                         {
-                                            Log("File verification OK.", Color.Black);
+                                            Log("File verification OK.", Color.White);
                                             downloading = false;
                                             DownloadForm.downloadsAmount -= 1;
-                                            Log("Finished downloading file.", Color.Black);
+                                            Log("Finished downloading file.", Color.White);
                                             Invoke(new MethodInvoker(delegate ()
                                             {
                                                 checkBox2.Enabled = false;
@@ -419,10 +419,10 @@ namespace DownloadManager
 
                                         if (result.ToString() == hash)
                                         {
-                                            Log("File verification OK.", Color.Black);
+                                            Log("File verification OK.", Color.White);
                                             downloading = false;
                                             DownloadForm.downloadsAmount -= 1;
-                                            Log("Finished downloading file.", Color.Black);
+                                            Log("Finished downloading file.", Color.White);
                                             Invoke(new MethodInvoker(delegate ()
                                             {
                                                 checkBox2.Enabled = false;
@@ -478,14 +478,14 @@ namespace DownloadManager
                                             result.Append(myHash[i].ToString(false ? "X2" : "x2"));
                                         }
 
-                                        //Log("Provided Hash: " + hash + Environment.NewLine + "Generated Hash: " + result.ToString(), Color.Black);
+                                        //Log("Provided Hash: " + hash + Environment.NewLine + "Generated Hash: " + result.ToString(), Color.White);
 
                                         if (result.ToString() == hash)
                                         {
-                                            Log("File verification OK.", Color.Black);
+                                            Log("File verification OK.", Color.White);
                                             downloading = false;
                                             DownloadForm.downloadsAmount -= 1;
-                                            Log("Finished downloading file.", Color.Black);
+                                            Log("Finished downloading file.", Color.White);
                                             Invoke(new MethodInvoker(delegate ()
                                             {
                                                 checkBox2.Enabled = false;
@@ -551,7 +551,7 @@ namespace DownloadManager
                             {
                                 downloading = false;
                                 DownloadForm.downloadsAmount -= 1;
-                                Log("Finished downloading file.", Color.Black);
+                                Log("Finished downloading file.", Color.White);
                                 Invoke(new MethodInvoker(delegate ()
                                 {
                                     checkBox2.Enabled = false;

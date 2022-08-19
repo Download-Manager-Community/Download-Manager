@@ -27,7 +27,7 @@ namespace DownloadManager
         public DownloadForm()
         {
             _instance = this;
-            Logging.Log("Downloads folder: " + downloadsFolder, Color.Black);
+            Logging.Log("Downloads folder: " + downloadsFolder, Color.White);
             if (Settings1.Default.downloadHistory == null)
             {
                 Logging.Log("Download History is null. Performing first time setup.", Color.Orange);

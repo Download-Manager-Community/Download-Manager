@@ -294,7 +294,7 @@ namespace DownloadManager
         private void button10_Click(object sender, EventArgs e)
         {
             // Check for updates
-            Logging.Log("Checking for updates...", Color.Black);
+            Logging.Log("Checking for updates...", Color.White);
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.FileName = "updateHandler.bat";
             startInfo.Arguments = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);

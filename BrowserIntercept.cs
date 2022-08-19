@@ -15,7 +15,7 @@ namespace DownloadManager
         public void StartServer()
         {
             _instance = this;
-            Log("Starting internal server...", Color.Black);
+            Log("Starting internal server...", Color.White);
             try
             {
                 thread = new Thread(new ThreadStart(ConnectionThreadMethod));
@@ -73,7 +73,7 @@ namespace DownloadManager
                 {
                     Logging._instance.Invoke((MethodInvoker)delegate
                     {
-                        Log("Request received for URL: " + url, Color.Black);
+                        Log("Request received for URL: " + url, Color.White);
                         if (Settings1.Default.downloadHistory.Contains(url) == false)
                         {
                             DownloadForm._instance.textBox1.Items.Add(url);
@@ -82,9 +82,9 @@ namespace DownloadManager
                         }
                         DownloadProgress downloadProgress = new DownloadProgress(url, Settings1.Default.defaultDownload, "", 0);
                         downloadProgress.Show();
-                        //Log("--- Start Request ---", Color.Black);
-                        //Log(data, Color.Black);
-                        //Log("--- End Request ---", Color.Black);
+                        //Log("--- Start Request ---", Color.White);
+                        //Log(data, Color.White);
+                        //Log("--- End Request ---", Color.White);
                     });
                 }
 
