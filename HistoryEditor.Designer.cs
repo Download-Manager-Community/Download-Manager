@@ -97,6 +97,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "HistoryEditor";
             this.Text = "History Editor";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.HistoryEditor_FormClosing);
             this.ResumeLayout(false);
 
         }

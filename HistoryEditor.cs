@@ -71,5 +71,11 @@ namespace DownloadManager
             DownloadForm._instance.textBox1.Items.Clear();
             listBox1.Items.Clear();
         }
+
+        private void HistoryEditor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
+        }
     }
 }

@@ -378,5 +378,11 @@ namespace DownloadManager
                 MessageBox.Show(ex.Message + "\nSee the debug log for more information.", "Download Manager Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void Settings_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
+        }
     }
 }
