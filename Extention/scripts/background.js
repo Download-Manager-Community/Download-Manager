@@ -1,3 +1,14 @@
+chrome.contextMenus.create({
+  "title": "Download with Download Manager",
+  "contexts": ["link"],
+  "onclick": function(info, tab) {
+    chrome.storage.local.get(['port'], function(result) {
+      alert('http://localhost:' + result.port + '/?url="' + info.linkUrl + '"');
+      httpGet('http://localhost:' + result.port + '/?url="' + info.linkUrl + '"');
+    });
+  }
+});
+
 chrome.webRequest.onHeadersReceived.addListener(function (details) {
   // ... your code that checks whether the request should be blocked ...
   //  (omitted for brevity)

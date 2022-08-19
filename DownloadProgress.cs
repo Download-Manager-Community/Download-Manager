@@ -26,6 +26,7 @@ namespace DownloadManager
         );
         #endregion
 
+        readonly Region _client;
         string url;
         string location;
         string fileName;
@@ -42,6 +43,7 @@ namespace DownloadManager
             client.Headers.Add("Cache-Control", "no-cache");
             client.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.NoCacheNoStore);
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 10, 10));
+            _client = Region.FromHrgn(CreateRoundRectRgn(1, 1, Width - 1, Height - 1, 10, 10));
             hashType = hashTypeArg;
             hashType += 1;
             hash = hashArg;
@@ -69,6 +71,15 @@ namespace DownloadManager
                 location = locationArg;
             }
             url = urlArg;
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            // FillRectangle is faster than FillRegion for drawing outer bigger region
+            // and it's actually not needed, you can simply set form BackColor to wanted border color
+            // e.Graphics.FillRectangle(Brushes.Red, ClientRectangle);
+            e.Graphics.FillRegion(Brushes.Black, _client);
         }
 
         private void progress_Load(object sender, EventArgs e)

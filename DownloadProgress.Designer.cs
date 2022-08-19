@@ -46,6 +46,7 @@
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.splitter1 = new System.Windows.Forms.Splitter();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -69,11 +70,10 @@
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.kryptonLabel1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Location = new System.Drawing.Point(1, 1);
             this.panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(635, 37);
+            this.panel1.Size = new System.Drawing.Size(632, 37);
             this.panel1.TabIndex = 4;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             // 
@@ -86,7 +86,7 @@
             this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ControlDark;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.ForeColor = System.Drawing.SystemColors.Control;
-            this.button2.Location = new System.Drawing.Point(579, 0);
+            this.button2.Location = new System.Drawing.Point(576, 0);
             this.button2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(28, 37);
@@ -104,7 +104,7 @@
             this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.ForeColor = System.Drawing.SystemColors.Control;
-            this.button1.Location = new System.Drawing.Point(607, 0);
+            this.button1.Location = new System.Drawing.Point(604, 0);
             this.button1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(28, 37);
@@ -115,6 +115,9 @@
             // 
             // textBox1
             // 
+            this.textBox1.BackColor = System.Drawing.Color.Black;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox1.ForeColor = System.Drawing.Color.White;
             this.textBox1.Location = new System.Drawing.Point(77, 44);
             this.textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBox1.Name = "textBox1";
@@ -125,16 +128,19 @@
             // progressBar1
             // 
             this.progressBar1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.progressBar1.Location = new System.Drawing.Point(77, 104);
+            this.progressBar1.Location = new System.Drawing.Point(78, 104);
             this.progressBar1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.progressBar1.MarqueeAnimationSpeed = 1;
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(544, 27);
+            this.progressBar1.Size = new System.Drawing.Size(544, 24);
             this.progressBar1.TabIndex = 6;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Black;
+            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(14, 47);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
@@ -146,6 +152,9 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Black;
+            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(14, 107);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
@@ -157,6 +166,9 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Black;
+            this.label3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(10, 134);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
@@ -168,6 +180,9 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Black;
+            this.label4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(10, 152);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
@@ -179,45 +194,57 @@
             // 
             this.checkBox1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.checkBox1.AutoSize = true;
+            this.checkBox1.BackColor = System.Drawing.Color.Black;
             this.checkBox1.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBox1.ForeColor = System.Drawing.Color.White;
             this.checkBox1.Location = new System.Drawing.Point(14, 171);
             this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(63, 19);
+            this.checkBox1.Size = new System.Drawing.Size(60, 19);
             this.checkBox1.TabIndex = 11;
             this.checkBox1.Text = "On top";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.UseVisualStyleBackColor = false;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // button3
             // 
             this.button3.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.button3.BackColor = System.Drawing.Color.Black;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.ForeColor = System.Drawing.Color.White;
             this.button3.Location = new System.Drawing.Point(533, 163);
             this.button3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(88, 27);
             this.button3.TabIndex = 12;
             this.button3.Text = "Cancel";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button1_Click);
             // 
             // checkBox2
             // 
             this.checkBox2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.checkBox2.AutoSize = true;
+            this.checkBox2.BackColor = System.Drawing.Color.Black;
             this.checkBox2.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBox2.ForeColor = System.Drawing.Color.White;
             this.checkBox2.Location = new System.Drawing.Point(394, 167);
             this.checkBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(125, 19);
+            this.checkBox2.Size = new System.Drawing.Size(122, 19);
             this.checkBox2.TabIndex = 13;
             this.checkBox2.Text = "Close on complete";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.UseVisualStyleBackColor = false;
             // 
             // textBox2
             // 
+            this.textBox2.BackColor = System.Drawing.Color.Black;
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox2.ForeColor = System.Drawing.Color.White;
             this.textBox2.Location = new System.Drawing.Point(77, 75);
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
@@ -227,18 +254,32 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Black;
+            this.label5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(14, 78);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(34, 15);
             this.label5.TabIndex = 15;
             this.label5.Text = "Hash";
             // 
+            // splitter1
+            // 
+            this.splitter1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.splitter1.Location = new System.Drawing.Point(0, 202);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(635, 1);
+            this.splitter1.TabIndex = 16;
+            this.splitter1.TabStop = false;
+            // 
             // DownloadProgress
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(635, 203);
             this.ControlBox = false;
+            this.Controls.Add(this.splitter1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.checkBox2);
@@ -286,5 +327,6 @@
         private System.Windows.Forms.CheckBox checkBox2;
         private TextBox textBox2;
         private Label label5;
+        private Splitter splitter1;
     }
 }
