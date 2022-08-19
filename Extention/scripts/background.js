@@ -3,7 +3,6 @@ chrome.contextMenus.create({
   "contexts": ["link"],
   "onclick": function(info, tab) {
     chrome.storage.local.get(['port'], function(result) {
-      alert('http://localhost:' + result.port + '/?url="' + info.linkUrl + '"');
       httpGet('http://localhost:' + result.port + '/?url="' + info.linkUrl + '"');
     });
   }
