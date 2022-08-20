@@ -44,7 +44,7 @@ namespace DownloadManager
                     }
                     catch (Exception err)
                     {
-                        MessageBox.Show("A error occurred and logging cannot continue.\nError Details:\n" + err.Message + "\n" + err.StackTrace, "Download Manager - Logging - Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        DarkMessageBox msg = new DarkMessageBox("A error occurred and logging cannot continue.\nError Details:\n" + err.Message + "\n" + err.StackTrace, "Download Manager - Logging - Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
                     }
                 }
                 if (_instance.richTextBox1.InvokeRequired)

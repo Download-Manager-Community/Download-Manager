@@ -107,7 +107,8 @@ namespace DownloadManager
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DarkMessageBox msg = new DarkMessageBox(ex.Message + Environment.NewLine + ex.StackTrace, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                    msg.ShowDialog();
                 }
             }
         }

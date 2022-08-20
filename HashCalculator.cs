@@ -166,7 +166,8 @@ namespace DownloadManager
             }
             else
             {
-                MessageBox.Show("File not found!", "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DarkMessageBox msg = new DarkMessageBox("File not found!", "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                msg.ShowDialog();
                 this.Close();
             }
         }

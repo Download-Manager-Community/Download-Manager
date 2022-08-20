@@ -34,11 +34,13 @@ namespace DownloadManager
             // Remove Item
             if (listBox1.Items.Count < 1)
             {
-                MessageBox.Show("Cannot remove an item that does not exist!", "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DarkMessageBox msg = new DarkMessageBox("Cannot remove an item that does not exist!", "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                msg.ShowDialog();
             }
             else if (listBox1.SelectedIndex == -1)
             {
-                MessageBox.Show("No item selected.", "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DarkMessageBox msg = new DarkMessageBox("No item selected.", "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                msg.ShowDialog();
             }
             else
             {

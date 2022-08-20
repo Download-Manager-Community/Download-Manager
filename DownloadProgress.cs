@@ -85,7 +85,8 @@ namespace DownloadManager
                         ProgressBarColor.SetState(progressBar1, 2);
                     }));
 
-                    MessageBox.Show(ex.Message, "Download Manager - Error Fetching File", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DarkMessageBox msg = new DarkMessageBox(ex.Message, "Download Manager - Error Fetching File", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                    msg.ShowDialog();
                     downloading = false;
                     if (this.IsHandleCreated == true)
                     {
@@ -126,7 +127,8 @@ namespace DownloadManager
                     }));
 
                     Log(ex.Message, Color.Red);
-                    MessageBox.Show(ex.Message, "Download Manager - Download Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DarkMessageBox msg = new DarkMessageBox(ex.Message, "Download Manager - Download Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                    msg.ShowDialog();
                     downloading = false;
                     Invoke(new MethodInvoker(delegate ()
                     {
@@ -171,7 +173,8 @@ namespace DownloadManager
                                 {
                                     ProgressBarColor.SetState(progressBar1, 2);
                                 }));
-                                MessageBox.Show(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                DarkMessageBox msg = new DarkMessageBox(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                                msg.ShowDialog();
                                 downloading = false;
                                 client.Dispose();
                                 this.Close();
@@ -534,7 +537,7 @@ namespace DownloadManager
                                             ProgressBarColor.SetState(progressBar1, 2);
                                         }));
                                         Log("Invalid hash type '" + hashType + "'. The file could not be verified.", Color.Red);
-                                        MessageBox.Show("Invalid hash type '" + hashType + "'. The file could not be verified.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        DarkMessageBox msg = new DarkMessageBox("Invalid hash type '" + hashType + "'. The file could not be verified.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
                                         Invoke(new MethodInvoker(delegate ()
                                         {
                                             client.CancelAsync();
@@ -599,7 +602,8 @@ namespace DownloadManager
                     }));
 
                     Log(ex.Message + Environment.NewLine + ex.StackTrace, Color.Red);
-                    MessageBox.Show(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DarkMessageBox msg = new DarkMessageBox(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                    msg.ShowDialog();
                 }
             }
         }
@@ -628,7 +632,8 @@ namespace DownloadManager
             }
             else
             {
-                DialogResult result = MessageBox.Show("Are you sure you want to cancel the download?", "Download Manager", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DarkMessageBox msg = new DarkMessageBox("Are you sure you want to cancel the download?", "Download Manager", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, false);
+                DialogResult result = msg.ShowDialog();
                 if (result == DialogResult.Yes)
                 {
                     downloading = false;
@@ -645,7 +650,8 @@ namespace DownloadManager
         {
             if (downloading == true)
             {
-                DialogResult result = MessageBox.Show("Are you sure you want to cancel the download?", "Download Manager", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DarkMessageBox msg = new DarkMessageBox("Are you sure you want to cancel the download?", "Download Manager", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, false);
+                DialogResult result = msg.ShowDialog();
                 if (result == DialogResult.Yes)
                 {
                     DownloadForm.downloadsAmount -= 1;

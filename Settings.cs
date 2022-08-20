@@ -128,7 +128,8 @@ namespace DownloadManager
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                DarkMessageBox msg = new DarkMessageBox("An error occurred while saving your settings:\n" + ex.Message, "Settings Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                msg.ShowDialog();
             }
 
             if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu) + "\\Programs\\Download Manager\\Download Manager.lnk"))
@@ -167,7 +168,8 @@ namespace DownloadManager
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                DarkMessageBox msg = new DarkMessageBox("An error occurred while saving your settings:\n" + ex.Message, "Settings Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                msg.ShowDialog();
             }
 
             if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu) + "\\Programs\\Download Manager\\Download Manager.lnk"))
@@ -193,7 +195,8 @@ namespace DownloadManager
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                DarkMessageBox msg = new DarkMessageBox("An error occurred while saving your settings:\n" + ex.Message, "Settings Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                msg.ShowDialog();
             }
 
             if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory) + "\\Download Manager.lnk"))
@@ -271,12 +274,14 @@ namespace DownloadManager
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Error: " + ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            DarkMessageBox msg = new DarkMessageBox("An error occurred while saving your settings:\n" + ex.Message, "Settings Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                            msg.ShowDialog();
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Could not delete startup shortcut. No such file exists.", "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        DarkMessageBox msg = new DarkMessageBox("Could not delete startup shortcut. No such file exists.", "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                        msg.Show();
                     }
                 }
             }
@@ -339,7 +344,8 @@ namespace DownloadManager
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Download Manager - Update Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DarkMessageBox msg = new DarkMessageBox(ex.Message, "Download Manager - Update Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                    msg.ShowDialog();
                     Logging.Log("The setup application encountered a fatal error.", Color.Red);
                 }
             });
@@ -375,7 +381,8 @@ namespace DownloadManager
             catch (Exception ex)
             {
                 Logging.Log(ex.Message + Environment.NewLine + ex.StackTrace, Color.Red);
-                MessageBox.Show(ex.Message + "\nSee the debug log for more information.", "Download Manager Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DarkMessageBox msg = new DarkMessageBox(ex.Message + "\nSee the debug log for more information.", "Download Manager Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                msg.ShowDialog();
             }
         }
 
