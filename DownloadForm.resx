@@ -145,6 +145,9 @@ If the file does not match the provided hash it will be downloaded and verified 
 This is optional and not required for the download. If you do not have a file hash leave this option blank and no file verification will take place.
 If you do have a file hash ensure the combo-box has the correct value or file verification will fail.</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>733, 17</value>
+  </metadata>
   <metadata name="openFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>830, 17</value>
   </metadata>
