@@ -191,7 +191,7 @@ namespace DownloadManager
                     Invoke(new MethodInvoker(delegate ()
                     {
                         progressBar1.Visible = false;
-                        this.Size = new System.Drawing.Size(478, 388);
+                        this.Size = new System.Drawing.Size(478, 390);
                     }));
                 }
             }
