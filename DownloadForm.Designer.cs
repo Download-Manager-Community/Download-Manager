@@ -59,6 +59,7 @@
             this.toolStripButton3 = new System.Windows.Forms.Button();
             this.toolStripButton1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.toolStripButton4 = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -350,6 +351,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.panel1.Controls.Add(this.toolStripButton4);
             this.panel1.Controls.Add(this.toolStripButton1);
             this.panel1.Controls.Add(this.toolStripButton3);
             this.panel1.Controls.Add(this.toolStripButton2);
@@ -358,6 +360,21 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(933, 39);
             this.panel1.TabIndex = 24;
+            // 
+            // toolStripButton4
+            // 
+            this.toolStripButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.toolStripButton4.BackgroundImage = global::DownloadManager.Properties.Resources.error;
+            this.toolStripButton4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.toolStripButton4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.toolStripButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.toolStripButton4.ForeColor = System.Drawing.Color.White;
+            this.toolStripButton4.Location = new System.Drawing.Point(78, 0);
+            this.toolStripButton4.Name = "toolStripButton4";
+            this.toolStripButton4.Size = new System.Drawing.Size(39, 39);
+            this.toolStripButton4.TabIndex = 24;
+            this.toolStripButton4.UseVisualStyleBackColor = false;
+            this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
             // 
             // DownloadForm
             // 
@@ -424,5 +441,6 @@
         private Button toolStripButton3;
         private Button toolStripButton1;
         private Panel panel1;
+        private Button toolStripButton4;
     }
 }

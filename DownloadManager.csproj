@@ -48,6 +48,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="YoutubeExplode" Version="6.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="ComponentFactory.Krypton.Design">
       <HintPath>Krypton\Bin\ComponentFactory.Krypton.Design.dll</HintPath>
     </Reference>

@@ -21,6 +21,7 @@ namespace DownloadManager
         public Logging logging = new Logging();
         Settings settings = new Settings();
         BrowserIntercept browserIntercept = new BrowserIntercept();
+        YouTubeDownloadForm ytDownload = new YouTubeDownloadForm();
         public static int downloadsAmount = 0;
         public static string downloadsFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop).Replace("Desktop", "Downloads") + "\\";
 
@@ -162,6 +163,12 @@ namespace DownloadManager
         {
             e.Cancel = true;
             this.Hide();
+        }
+
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {
+            // Open youtube download form
+            ytDownload.Show();
         }
     }
 }
