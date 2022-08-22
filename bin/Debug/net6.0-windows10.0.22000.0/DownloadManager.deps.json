@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "DownloadManager/1.0.0": {
         "dependencies": {
+          "Microsoft.Web.WebView2": "1.0.1293.44",
           "YoutubeExplode": "6.2.1",
           "ComponentFactory.Krypton.Design": "4.6.0.0",
           "ComponentFactory.Krypton.Docking": "4.6.0.0",
@@ -46,6 +47,39 @@
         }
       },
       "Microsoft.NETCore.Platforms/5.0.0": {},
+      "Microsoft.Web.WebView2/1.0.1293.44": {
+        "runtime": {
+          "lib/netcoreapp3.0/Microsoft.Web.WebView2.Core.dll": {
+            "assemblyVersion": "1.0.1293.44",
+            "fileVersion": "1.0.1293.44"
+          },
+          "lib/netcoreapp3.0/Microsoft.Web.WebView2.WinForms.dll": {
+            "assemblyVersion": "1.0.1293.44",
+            "fileVersion": "1.0.1293.44"
+          },
+          "lib/netcoreapp3.0/Microsoft.Web.WebView2.Wpf.dll": {
+            "assemblyVersion": "1.0.1293.44",
+            "fileVersion": "1.0.1293.44"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win-arm64/native/WebView2Loader.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "1.0.1293.44"
+          },
+          "runtimes/win-x64/native/WebView2Loader.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "1.0.1293.44"
+          },
+          "runtimes/win-x86/native/WebView2Loader.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "1.0.1293.44"
+          }
+        }
+      },
       "System.Buffers/4.5.1": {},
       "System.Text.Encoding.CodePages/5.0.0": {
         "dependencies": {
@@ -137,6 +171,13 @@
       "sha512": "sha512-VyPlqzH2wavqquTcYpkIIAQ6WdenuKoFN0BdYBbCWsclXacSOHNQn66Gt4z5NBqEYW0FAPm5rlvki9ZiCij5xQ==",
       "path": "microsoft.netcore.platforms/5.0.0",
       "hashPath": "microsoft.netcore.platforms.5.0.0.nupkg.sha512"
+    },
+    "Microsoft.Web.WebView2/1.0.1293.44": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4CDT6MiyBvliOciFhCVhLTMfz8mYhkj99lqpcQ90fToZTk5t94dJaJgMWNfH9IUJ46frb8U0IUSg7rI109M5Bg==",
+      "path": "microsoft.web.webview2/1.0.1293.44",
+      "hashPath": "microsoft.web.webview2.1.0.1293.44.nupkg.sha512"
     },
     "System.Buffers/4.5.1": {
       "type": "package",

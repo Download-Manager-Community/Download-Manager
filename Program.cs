@@ -20,7 +20,15 @@ namespace DownloadManager
                 MessageBox.Show("Debug mode is on. You can now attach a debugger.\nTo turn it off, go to Program.cs and set DEBUG to false.\nPress OK to continue...", "Download Manager - DEBUG", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
-            Application.Run(new DownloadForm());
+            try
+            {
+                Application.Run(new DownloadForm());
+            }
+            catch (Exception ex)
+            {
+                DarkMessageBox msg = new DarkMessageBox("An unhanded exception occurred and Download Manager has to restart.\nPlease file a bug report at: https://github.com/Soniczac7/Download-Manager/issues/new?assignees=&labels=bug&template=bug_report.md&title=\nError details:\n" + ex.Message + Environment.NewLine + ex.StackTrace, "Download Manager - Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error, false);
+                msg.ShowDialog();
+            }
         }
     }
 }

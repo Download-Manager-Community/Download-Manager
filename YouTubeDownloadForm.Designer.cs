@@ -36,7 +36,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -49,7 +48,9 @@
             this.button3 = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.label11 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.webView1 = new Microsoft.Web.WebView2.WinForms.WebView2();
+            ((System.ComponentModel.ISupportInitialize)(this.webView1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -68,7 +69,7 @@
             this.textBox1.ForeColor = System.Drawing.Color.White;
             this.textBox1.Location = new System.Drawing.Point(12, 27);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(436, 23);
+            this.textBox1.Size = new System.Drawing.Size(317, 23);
             this.textBox1.TabIndex = 1;
             // 
             // button1
@@ -117,14 +118,6 @@
             this.label5.Size = new System.Drawing.Size(53, 15);
             this.label5.TabIndex = 6;
             this.label5.Text = "Duration";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(380, 65);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(112, 60);
-            this.pictureBox1.TabIndex = 7;
-            this.pictureBox1.TabStop = false;
             // 
             // progressBar1
             // 
@@ -249,12 +242,44 @@
             this.label11.TabIndex = 18;
             this.label11.Text = "Download Type";
             // 
+            // comboBox2
+            // 
+            this.comboBox2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.comboBox2.BackColor = System.Drawing.Color.Black;
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBox2.ForeColor = System.Drawing.Color.White;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "Video",
+            "Playlist"});
+            this.comboBox2.Location = new System.Drawing.Point(335, 28);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(113, 23);
+            this.comboBox2.TabIndex = 20;
+            // 
+            // webView1
+            // 
+            this.webView1.AllowExternalDrop = true;
+            this.webView1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.webView1.CreationProperties = null;
+            this.webView1.DefaultBackgroundColor = System.Drawing.Color.Black;
+            this.webView1.Location = new System.Drawing.Point(379, 65);
+            this.webView1.Name = "webView1";
+            this.webView1.Size = new System.Drawing.Size(113, 60);
+            this.webView1.Source = new System.Uri("https://raw.githubusercontent.com/Soniczac7/Download-Manager/master/Resources/err" +
+        "or.png", System.UriKind.Absolute);
+            this.webView1.TabIndex = 21;
+            this.webView1.ZoomFactor = 1D;
+            // 
             // YouTubeDownloadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(504, 260);
+            this.Controls.Add(this.webView1);
+            this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.textBox2);
@@ -266,7 +291,6 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -281,7 +305,8 @@
             this.Name = "YouTubeDownloadForm";
             this.Text = "YouTube Downloader";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.YouTubeDownloadForm_FormClosing);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.Load += new System.EventHandler(this.YouTubeDownloadForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.webView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -296,7 +321,6 @@
         private Label label3;
         private Label label4;
         private Label label5;
-        private PictureBox pictureBox1;
         private ProgressBar progressBar1;
         private Label label6;
         private Label label7;
@@ -309,5 +333,7 @@
         private Button button3;
         private FolderBrowserDialog folderBrowserDialog1;
         private Label label11;
+        private ComboBox comboBox2;
+        private Microsoft.Web.WebView2.WinForms.WebView2 webView1;
     }
 }

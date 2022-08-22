@@ -364,7 +364,7 @@
             // toolStripButton4
             // 
             this.toolStripButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.toolStripButton4.BackgroundImage = global::DownloadManager.Properties.Resources.error;
+            this.toolStripButton4.BackgroundImage = global::DownloadManager.Properties.Resources.yt;
             this.toolStripButton4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.toolStripButton4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.toolStripButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
