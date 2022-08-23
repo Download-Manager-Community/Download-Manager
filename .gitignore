@@ -16,6 +16,19 @@
 # Mono auto generated files
 mono_crash.*
 
+# WebView2 Auto-Generated files
+data_0
+data_1
+data_3
+LOG
+LOG.old
+settings.dat
+Network Persistent State
+History
+Preferences
+CrashpadMetrics-active.pma
+Local State
+
 # Build results
 [Dd]ebugPublic/
 [Rr]elease/
