@@ -264,9 +264,9 @@
             this.webView1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.webView1.CreationProperties = null;
             this.webView1.DefaultBackgroundColor = System.Drawing.Color.Black;
-            this.webView1.Location = new System.Drawing.Point(379, 65);
+            this.webView1.Location = new System.Drawing.Point(386, 65);
             this.webView1.Name = "webView1";
-            this.webView1.Size = new System.Drawing.Size(113, 60);
+            this.webView1.Size = new System.Drawing.Size(106, 60);
             this.webView1.Source = new System.Uri("https://raw.githubusercontent.com/Soniczac7/Download-Manager/master/Resources/err" +
         "or.png", System.UriKind.Absolute);
             this.webView1.TabIndex = 21;
