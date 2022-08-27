@@ -189,7 +189,7 @@
             // 
             // toolStripMenuItem1
             // 
-            this.toolStripMenuItem1.Image = global::DownloadManager.Properties.Resources.icon;
+            this.toolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem1.Image")));
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(171, 22);
             this.toolStripMenuItem1.Text = "Open";
@@ -197,7 +197,7 @@
             // 
             // toolStripMenuItem2
             // 
-            this.toolStripMenuItem2.Image = global::DownloadManager.Properties.Resources.bugReport;
+            this.toolStripMenuItem2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem2.Image")));
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(171, 22);
             this.toolStripMenuItem2.Text = "Report a bug";
@@ -205,7 +205,7 @@
             // 
             // toolStripMenuItem3
             // 
-            this.toolStripMenuItem3.Image = global::DownloadManager.Properties.Resources.exit;
+            this.toolStripMenuItem3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem3.Image")));
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.Size = new System.Drawing.Size(171, 22);
             this.toolStripMenuItem3.Text = "Exit";
@@ -213,14 +213,17 @@
             // 
             // linkLabel1
             // 
+            this.linkLabel1.ActiveLinkColor = System.Drawing.Color.Blue;
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.BackColor = System.Drawing.Color.Black;
+            this.linkLabel1.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(255)))));
             this.linkLabel1.Location = new System.Drawing.Point(10, 374);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(136, 15);
             this.linkLabel1.TabIndex = 13;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Install Browser Extention";
+            this.linkLabel1.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(195)))), ((int)(((byte)(255)))));
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // textBox3
@@ -306,7 +309,7 @@
             // 
             this.toolStripButton2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.toolStripButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.toolStripButton2.BackgroundImage = global::DownloadManager.Properties.Resources.settings;
+            this.toolStripButton2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.BackgroundImage")));
             this.toolStripButton2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.toolStripButton2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.toolStripButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -321,7 +324,7 @@
             // toolStripButton3
             // 
             this.toolStripButton3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.toolStripButton3.BackgroundImage = global::DownloadManager.Properties.Resources.hash1;
+            this.toolStripButton3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.BackgroundImage")));
             this.toolStripButton3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.toolStripButton3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.toolStripButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -336,7 +339,7 @@
             // toolStripButton1
             // 
             this.toolStripButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.toolStripButton1.BackgroundImage = global::DownloadManager.Properties.Resources.logging;
+            this.toolStripButton1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.BackgroundImage")));
             this.toolStripButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.toolStripButton1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.toolStripButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -364,7 +367,7 @@
             // toolStripButton4
             // 
             this.toolStripButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.toolStripButton4.BackgroundImage = global::DownloadManager.Properties.Resources.yt;
+            this.toolStripButton4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.BackgroundImage")));
             this.toolStripButton4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.toolStripButton4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.toolStripButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;

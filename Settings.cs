@@ -391,5 +391,30 @@ namespace DownloadManager
             e.Cancel = true;
             this.Hide();
         }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Report a bug
+            Process.Start("https://github.com/Soniczac7/Download-Manager/issues/new?assignees=&labels=bug&template=bug_report.yml");
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Request a feature
+            Process.Start("https://github.com/Soniczac7/Download-Manager/issues/new?assignees=&labels=feature&template=feature_request.yml");
+        }
+
+        private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Open contributors webView window
+            WebViewWindow webView = new WebViewWindow("https://github.com/Soniczac7/Download-Manager/graphs/contributors", "Download Manager Contributors");
+            webView.Show();
+        }
+
+        private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Open documentation webView window
+
+        }
     }
 }

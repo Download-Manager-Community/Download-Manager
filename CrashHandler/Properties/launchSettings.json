@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CrashHandler": {
+      "commandName": "Project",
+      "commandLineArgs": "\"Exception\"\r\n\"Test Exception\"\r\n\" at: <External Code>\"\r\n\" at: Application.Run(new CrashMessage(args)) line: 14 col: 5\""
+    }
+  }
+}
