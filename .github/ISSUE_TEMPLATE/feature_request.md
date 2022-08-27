@@ -1,6 +1,9 @@
+---
 name: Feature Request
 description: Suggest an idea for Download Manager.
 labels: [enhancement]
+---
+
 body:
   - type: textarea
     attributes:
