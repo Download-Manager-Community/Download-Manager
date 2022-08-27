@@ -10,27 +10,21 @@
         "dependencies": {
           "Microsoft.Web.WebView2": "1.0.1293.44",
           "YoutubeExplode": "6.2.1",
-          "ComponentFactory.Krypton.Design": "4.6.0.0",
-          "ComponentFactory.Krypton.Docking": "4.6.0.0",
-          "ComponentFactory.Krypton.Navigator": "4.6.0.0",
-          "ComponentFactory.Krypton.Ribbon": "4.6.0.0",
-          "ComponentFactory.Krypton.Toolkit": "4.6.0.0",
-          "ComponentFactory.Krypton.Workspace": "4.6.0.0",
-          "runtimepack.Microsoft.Windows.SDK.NET.Ref": "10.0.22000.26"
+          "runtimepack.Microsoft.Windows.SDK.NET.Ref": "10.0.22000.24"
         },
         "runtime": {
           "DownloadManager.dll": {}
         }
       },
-      "runtimepack.Microsoft.Windows.SDK.NET.Ref/10.0.22000.26": {
+      "runtimepack.Microsoft.Windows.SDK.NET.Ref/10.0.22000.24": {
         "runtime": {
           "Microsoft.Windows.SDK.NET.dll": {
             "assemblyVersion": "10.0.22000.24",
-            "fileVersion": "10.0.22000.26"
+            "fileVersion": "10.0.22000.24"
           },
           "WinRT.Runtime.dll": {
             "assemblyVersion": "1.6.0.0",
-            "fileVersion": "1.6.4.39141"
+            "fileVersion": "1.6.1.38391"
           }
         }
       },
@@ -96,54 +90,6 @@
             "fileVersion": "6.2.1.0"
           }
         }
-      },
-      "ComponentFactory.Krypton.Design/4.6.0.0": {
-        "runtime": {
-          "ComponentFactory.Krypton.Design.dll": {
-            "assemblyVersion": "4.6.0.0",
-            "fileVersion": "4.6.0.0"
-          }
-        }
-      },
-      "ComponentFactory.Krypton.Docking/4.6.0.0": {
-        "runtime": {
-          "ComponentFactory.Krypton.Docking.dll": {
-            "assemblyVersion": "4.6.0.0",
-            "fileVersion": "4.6.0.0"
-          }
-        }
-      },
-      "ComponentFactory.Krypton.Navigator/4.6.0.0": {
-        "runtime": {
-          "ComponentFactory.Krypton.Navigator.dll": {
-            "assemblyVersion": "4.6.0.0",
-            "fileVersion": "4.6.0.0"
-          }
-        }
-      },
-      "ComponentFactory.Krypton.Ribbon/4.6.0.0": {
-        "runtime": {
-          "ComponentFactory.Krypton.Ribbon.dll": {
-            "assemblyVersion": "4.6.0.0",
-            "fileVersion": "4.6.0.0"
-          }
-        }
-      },
-      "ComponentFactory.Krypton.Toolkit/4.6.0.0": {
-        "runtime": {
-          "ComponentFactory.Krypton.Toolkit.dll": {
-            "assemblyVersion": "4.6.0.0",
-            "fileVersion": "4.6.0.0"
-          }
-        }
-      },
-      "ComponentFactory.Krypton.Workspace/4.6.0.0": {
-        "runtime": {
-          "ComponentFactory.Krypton.Workspace.dll": {
-            "assemblyVersion": "4.6.0.0",
-            "fileVersion": "4.6.0.0"
-          }
-        }
       }
     }
   },
@@ -153,7 +99,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "runtimepack.Microsoft.Windows.SDK.NET.Ref/10.0.22000.26": {
+    "runtimepack.Microsoft.Windows.SDK.NET.Ref/10.0.22000.24": {
       "type": "runtimepack",
       "serviceable": false,
       "sha512": ""
@@ -199,36 +145,6 @@
       "sha512": "sha512-VL8EzTwe8ttO0mGWh5EGGsK7A6mDUS71Ayl8mjS+oj/36W8kaWikMeOvcUyUko0Iy5X4atGcL76TMWDcc4Kj9g==",
       "path": "youtubeexplode/6.2.1",
       "hashPath": "youtubeexplode.6.2.1.nupkg.sha512"
-    },
-    "ComponentFactory.Krypton.Design/4.6.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "ComponentFactory.Krypton.Docking/4.6.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "ComponentFactory.Krypton.Navigator/4.6.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "ComponentFactory.Krypton.Ribbon/4.6.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "ComponentFactory.Krypton.Toolkit/4.6.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "ComponentFactory.Krypton.Workspace/4.6.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
     }
   }
 }
