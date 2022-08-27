@@ -1,6 +1,6 @@
 name: Bug Report
 description: Report a bug in Download Manager.
-labels: [type: bug]
+labels: [bug]
 body:
   - type: textarea
     attributes:
