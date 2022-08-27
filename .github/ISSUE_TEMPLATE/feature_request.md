@@ -1,62 +1,20 @@
 ---
-name: Feature Request
-title: Feature Request
-description: Suggest an idea for Download Manager.
-labels: [enhancement]
+name: Feature request
+about: Suggest an idea for this project
+title: ''
+labels: enhancement
+assignees: ''
+
 ---
 
-body:
-  - type: textarea
-    attributes:
-      label: What's the Problem?
-      description: If your feature request is related to a problem, describe it clearly.
-  - type: textarea
-    attributes:
-      label: Solution/Idea
-      description: Describe your solution/idea.
-    validations:
-      required: true
-  - type: textarea
-    attributes:
-      label: Alternatives
-      description: Describe alternatives you've considered
-    validations:
-      required: true
-  - type: markdown
-    attributes:
-      value: |
-        ---
+**Is your feature request related to a problem? Please describe.**
+A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
 
-        Please include a list of the priority of each goal in the table below.
+**Describe the solution you'd like**
+A clear and concise description of what you want to happen.
 
-        'Highest' implies that the feature should not ship without this capability.
-        'High' is something we should push hard for, but is not absolutely required to ship.
-        'Medium' is a nice-to-have; a good stretch goal that isn't painful if we don't achieve it.
-        'Low' is a clear statement that the proposal/feature will intentionally not have that capability.
-        
-  - type: textarea
-    attributes:
-      label: Priorities
-      description: describe all the elements of your idea and how important they are.
-      value: |
-        | Capability | Priority |
-        | :---------- | :------- |
-        | This proposal will allow developers to accomplish W | Must |
-        | This proposal will allow end users to accomplish X | Should |
-        | This proposal will allow developers to accomplish Y | Could |
-        | This proposal will allow end users to accomplish Z | Won't |
-  - type: input
-    id: manager-version
-    attributes:
-      label: Download Manager Version
-      description: Which version of Download Manager are you using?
-      placeholder: 'Version: 2.0.36.0'
-  - type: input
-    attributes:
-      label: Windows Version
-      description: Which version of Windows are you using? Press <kbd>Win</kbd> + <kbd>Pause/Break</kbd> and copy.
-      placeholder: e.g. Windows 11 21H2 22000.194
-  - type: textarea
-    attributes:
-      label: Comments
-      description: Additional information, comments or screenshots about the feature request.
+**Describe alternatives you've considered**
+A clear and concise description of any alternative solutions or features you've considered.
+
+**Additional context**
+Add any other context or screenshots about the feature request here.
