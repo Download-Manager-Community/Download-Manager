@@ -1,5 +1,6 @@
 ---
 name: Feature Request
+title: Feature Request
 description: Suggest an idea for Download Manager.
 labels: [enhancement]
 ---
