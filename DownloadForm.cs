@@ -46,6 +46,7 @@ namespace DownloadManager
                 }
             }
             textBox2.Text = Settings1.Default.defaultDownload;
+            MessageBox.Show("test");
         }
 
         private void button4_Click(object sender, EventArgs e)
