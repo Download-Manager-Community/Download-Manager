@@ -27,6 +27,18 @@ namespace DownloadManager
         {
             InitializeComponent();
 
+            // Set download sound checkbox
+            if (Settings1.Default.soundOnComplete == false)
+            {
+                checkBox4.Checked = false;
+            }
+
+            // Set messagebox sound checkbox
+            if (Settings1.Default.soundOnMessage == false)
+            {
+                checkBox5.Checked = false;
+            }
+
             label12.Text = "Version: " + Assembly.GetEntryAssembly().GetName().Version;
 
             numericUpDown1.Value = Settings1.Default.serverPort;
@@ -427,7 +439,22 @@ namespace DownloadManager
 
         private void linkLabel6_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            // Browser extention page
             Process.Start(new ProcessStartInfo("https://microsoftedge.microsoft.com/addons/detail/download-manager/facopbimneimllhcabghncloejfeficd?hl=en-GB") { UseShellExecute = true });
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            // Sound on download complete
+            Settings1.Default.soundOnComplete = checkBox4.Checked;
+            Settings1.Default.Save();
+        }
+
+        private void checkBox5_CheckedChanged(object sender, EventArgs e)
+        {
+            // Sound on messagebox open
+            Settings1.Default.soundOnMessage = checkBox5.Checked;
+            Settings1.Default.Save();
         }
     }
 }

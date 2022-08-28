@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Media;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
@@ -29,6 +30,7 @@ namespace DownloadManager
         bool downloading = true;
         bool doFileVerify = false;
         WebClient client = new WebClient();
+        SoundPlayer complete = new SoundPlayer(@"C:\WINDOWS\Media\tada.wav");
 
         public DownloadProgress(string urlArg, string locationArg, string hashArg, int hashTypeArg)
         {
@@ -243,6 +245,8 @@ namespace DownloadManager
                                             downloading = false;
                                             DownloadForm.downloadsAmount -= 1;
                                             Log("Finished downloading file.", Color.White);
+                                            if (Settings1.Default.soundOnComplete == true)
+                                                complete.Play();
                                             Invoke(new MethodInvoker(delegate ()
                                             {
                                                 checkBox2.Enabled = false;
@@ -304,6 +308,8 @@ namespace DownloadManager
                                             downloading = false;
                                             DownloadForm.downloadsAmount -= 1;
                                             Log("Finished downloading file.", Color.White);
+                                            if (Settings1.Default.soundOnComplete == true)
+                                                complete.Play();
                                             Invoke(new MethodInvoker(delegate ()
                                             {
                                                 checkBox2.Enabled = false;
@@ -365,6 +371,8 @@ namespace DownloadManager
                                             downloading = false;
                                             DownloadForm.downloadsAmount -= 1;
                                             Log("Finished downloading file.", Color.White);
+                                            if (Settings1.Default.soundOnComplete == true)
+                                                complete.Play();
                                             Invoke(new MethodInvoker(delegate ()
                                             {
                                                 checkBox2.Enabled = false;
@@ -426,6 +434,8 @@ namespace DownloadManager
                                             downloading = false;
                                             DownloadForm.downloadsAmount -= 1;
                                             Log("Finished downloading file.", Color.White);
+                                            if (Settings1.Default.soundOnComplete == true)
+                                                complete.Play();
                                             Invoke(new MethodInvoker(delegate ()
                                             {
                                                 checkBox2.Enabled = false;
@@ -489,6 +499,8 @@ namespace DownloadManager
                                             downloading = false;
                                             DownloadForm.downloadsAmount -= 1;
                                             Log("Finished downloading file.", Color.White);
+                                            if (Settings1.Default.soundOnComplete == true)
+                                                complete.Play();
                                             Invoke(new MethodInvoker(delegate ()
                                             {
                                                 checkBox2.Enabled = false;
@@ -555,6 +567,8 @@ namespace DownloadManager
                                 downloading = false;
                                 DownloadForm.downloadsAmount -= 1;
                                 Log("Finished downloading file.", Color.White);
+                                if (Settings1.Default.soundOnComplete == true)
+                                    complete.Play();
                                 Invoke(new MethodInvoker(delegate ()
                                 {
                                     checkBox2.Enabled = false;
