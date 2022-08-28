@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace DownloadManager
 {
     internal static class Program
@@ -26,8 +28,9 @@ namespace DownloadManager
             }
             catch (Exception ex)
             {
-                DarkMessageBox msg = new DarkMessageBox("An unhanded exception occurred and Download Manager has to restart.\nPlease file a bug report at: https://github.com/Soniczac7/Download-Manager/issues/new?assignees=&labels=bug&template=bug_report.md&title=\nError details:\n" + ex.Message + Environment.NewLine + ex.StackTrace, "Download Manager - Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error, false);
+                DarkMessageBox msg = new DarkMessageBox("An unhanded exception occurred and Download Manager has to restart.\nPlease file a bug report at: https://github.com/Download-Manager-Community/Download-Manager/issues/new?assignees=&labels=bug&template=bug_report.md&title=\nError details:\n" + ex.Message + Environment.NewLine + ex.StackTrace, "Download Manager - Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error, false);
                 msg.ShowDialog();
+                Process.GetCurrentProcess().Kill();
             }
         }
     }

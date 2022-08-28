@@ -395,13 +395,13 @@ namespace DownloadManager
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             // Report a bug
-            Process.Start("https://github.com/Soniczac7/Download-Manager/issues/new?assignees=&labels=bug&template=bug_report.yml");
+            Process.Start(new ProcessStartInfo("https://github.com/Soniczac7/Download-Manager/issues/new?assignees=&labels=bug&template=bug_report.yml") { UseShellExecute = true });
         }
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             // Request a feature
-            Process.Start("https://github.com/Soniczac7/Download-Manager/issues/new?assignees=&labels=feature&template=feature_request.yml");
+            Process.Start(new ProcessStartInfo("https://github.com/Soniczac7/Download-Manager/issues/new?assignees=&labels=feature&template=feature_request.yml") { UseShellExecute = true });
         }
 
         private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -414,7 +414,20 @@ namespace DownloadManager
         private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             // Open documentation webView window
+            WebViewWindow webView = new WebViewWindow("https://github.com/Download-Manager-Community/Download-Manager/wiki", "Download Manager Documentation");
+            webView.Show();
+        }
 
+        private void linkLabel5_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Open release notes webView window
+            WebViewWindow webView = new WebViewWindow("https://github.com/Download-Manager-Community/Download-Manager/releases", "Download Manager Release Notes");
+            webView.Show();
+        }
+
+        private void linkLabel6_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo("https://microsoftedge.microsoft.com/addons/detail/download-manager/facopbimneimllhcabghncloejfeficd?hl=en-GB") { UseShellExecute = true });
         }
     }
 }
