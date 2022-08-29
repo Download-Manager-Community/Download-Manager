@@ -2,7 +2,7 @@
 
 ## Reporting a Vulnerability
 
-To report a security vulnerability open a [security vulnerability]() issue and I will attempt to respond as soon as possible.
+To report a security vulnerability open a [security vulnerability](https://github.com/Download-Manager-Community/Download-Manager/issues/new?assignees=&labels=vulnerability&template=security_vulnerability.yml) issue and I will attempt to respond as soon as possible.
 
 If the vulnerability is accepted then I will update the issue until the vulnerability has been patched.
 Once a security vulnerability is accepted then I will attempt to get a patch released as fast as I can.
