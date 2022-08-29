@@ -37,10 +37,8 @@ namespace DownloadManager
 
                 foreach (string line in exceptionStackTraceOld)
                 {
-                    // Create updated line for StackTrace
-                    string sTLine = '"' + line + '"';
                     // Append new StackTrace line to new StackTrace
-                    exceptionStackTraceNew.Append(sTLine);
+                    exceptionStackTraceNew.Append('"' + line + '"' + " ");
                 }
 
                 // Create CrashHandler process
