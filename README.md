@@ -52,6 +52,7 @@ There are 3 different types of issues that can be opened on Download Manager.
 3) **Security Vulnerability** reports are very important because it helps the developer patch a security issue.
 
 ### Option 2 (Contributing code)
+If you would like to contribute code you can do the following to get started:
 1) [Fork](https://github.com/Soniczac7/Download-Manager/fork) the repository.
 2) Create a [pull request](https://github.com/Soniczac7/Download-Manager/pulls) to the `master` branch.
 3) When you are ready request `Soniczac7` as a reviewer.
