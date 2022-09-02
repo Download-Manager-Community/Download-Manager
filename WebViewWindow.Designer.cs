@@ -143,6 +143,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.webView);
             this.ForeColor = System.Drawing.Color.White;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(816, 489);
             this.Name = "WebViewWindow";
