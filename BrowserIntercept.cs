@@ -48,10 +48,10 @@ namespace DownloadManager
         {
             while (true)
             {
-                String data = "";
+                string data = "";
                 byte[] bytes = new byte[2048];
 
-                Log("Internal server started. Listening for connections on port " + serverPort + ".", Color.Green);
+                Log("Internal server ready. Listening for connections on port " + serverPort + ".", Color.Green);
                 Socket client = httpServer.Accept();
 
                 // Read inbound connection data
@@ -67,7 +67,7 @@ namespace DownloadManager
                 }
 
                 string[] splittedData = data.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                String url = splittedData[0].ToString().Replace("%22 HTTP/1.1", "");
+                string url = splittedData[0].ToString().Replace("%22 HTTP/1.1", "");
                 url = url.Replace("GET /?url=%22", "");
 
                 if (!url.Contains("favicon.ico"))
@@ -89,9 +89,9 @@ namespace DownloadManager
                     });
                 }
 
-                String resHeader = "HTTP/1.1 200 OK\nServer: DownloadManager_Internal\nContent-Type: text/html; charset: UTF-8\n\n";
-                String resBody = "<!DOCTYPE html><html><head><title>Download Manager</title><style>body{background-color: rgb(18, 22, 58);color: white;font-family: Arial, Helvetica, sans-serif;}h1{font-size: 30px;}</style></head><body><h1>Download Manager</h1><hr><p>Please do not manually send requests to the internal server.</p><p>If a request is sent incorrectly the internal server may crash.If this occurs please restart the Download Manager application.</p></body></html>";
-                String resStr = resHeader + resBody;
+                string resHeader = "HTTP/1.1 200 OK\nServer: DownloadManager_Internal\nContent-Type: text/html; charset: UTF-8\n\n";
+                string resBody = "<!DOCTYPE html><html><head><title>Download Manager</title><style>body{background-color: rgb(18, 22, 58);color: white;font-family: Arial, Helvetica, sans-serif;}h1{font-size: 30px;}</style></head><body><h1>Download Manager</h1><hr><p>Please do not manually send requests to the internal server.</p><p>If a request is sent incorrectly the internal server may crash.If this occurs please restart the Download Manager application.</p></body></html>";
+                string resStr = resHeader + resBody;
                 byte[] resData = Encoding.ASCII.GetBytes(resStr);
                 client.SendTo(resData, client.RemoteEndPoint);
                 client.Close();
