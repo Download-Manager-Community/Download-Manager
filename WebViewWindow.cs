@@ -91,6 +91,9 @@ namespace DownloadManager
                 button2.Enabled = false;
             }
 
+            // Set window title as the documents title
+            this.Text = webView.CoreWebView2.DocumentTitle;
+
             // Update url
             textBox1.Text = webView.CoreWebView2.Source;
 
