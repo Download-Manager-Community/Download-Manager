@@ -27,6 +27,18 @@ namespace DownloadManager
         {
             InitializeComponent();
 
+            // Set download sound checkbox
+            if (Settings1.Default.soundOnComplete == false)
+            {
+                checkBox4.Checked = false;
+            }
+
+            // Set messagebox sound checkbox
+            if (Settings1.Default.soundOnMessage == false)
+            {
+                checkBox5.Checked = false;
+            }
+
             label12.Text = "Version: " + Assembly.GetEntryAssembly().GetName().Version;
 
             numericUpDown1.Value = Settings1.Default.serverPort;
@@ -390,6 +402,59 @@ namespace DownloadManager
         {
             e.Cancel = true;
             this.Hide();
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Report a bug
+            Process.Start(new ProcessStartInfo("https://github.com/Soniczac7/Download-Manager/issues/new?assignees=&labels=bug&template=bug_report.yml") { UseShellExecute = true });
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Request a feature
+            Process.Start(new ProcessStartInfo("https://github.com/Soniczac7/Download-Manager/issues/new?assignees=&labels=feature&template=feature_request.yml") { UseShellExecute = true });
+        }
+
+        private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Open contributors webView window
+            WebViewWindow webView = new WebViewWindow("https://github.com/Soniczac7/Download-Manager/graphs/contributors", "Download Manager Contributors");
+            webView.Show();
+        }
+
+        private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Open documentation webView window
+            WebViewWindow webView = new WebViewWindow("https://github.com/Download-Manager-Community/Download-Manager/wiki", "Download Manager Documentation");
+            webView.Show();
+        }
+
+        private void linkLabel5_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Open release notes webView window
+            WebViewWindow webView = new WebViewWindow("https://github.com/Download-Manager-Community/Download-Manager/releases", "Download Manager Release Notes");
+            webView.Show();
+        }
+
+        private void linkLabel6_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Browser extention page
+            Process.Start(new ProcessStartInfo("https://microsoftedge.microsoft.com/addons/detail/download-manager/facopbimneimllhcabghncloejfeficd?hl=en-GB") { UseShellExecute = true });
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            // Sound on download complete
+            Settings1.Default.soundOnComplete = checkBox4.Checked;
+            Settings1.Default.Save();
+        }
+
+        private void checkBox5_CheckedChanged(object sender, EventArgs e)
+        {
+            // Sound on messagebox open
+            Settings1.Default.soundOnMessage = checkBox5.Checked;
+            Settings1.Default.Save();
         }
     }
 }

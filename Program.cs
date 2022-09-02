@@ -1,3 +1,6 @@
+using System.Diagnostics;
+using System.Text;
+
 namespace DownloadManager
 {
     internal static class Program
@@ -26,8 +29,39 @@ namespace DownloadManager
             }
             catch (Exception ex)
             {
-                DarkMessageBox msg = new DarkMessageBox("An unhanded exception occurred and Download Manager has to restart.\nPlease file a bug report at: https://github.com/Soniczac7/Download-Manager/issues/new?assignees=&labels=bug&template=bug_report.md&title=\nError details:\n" + ex.Message + Environment.NewLine + ex.StackTrace, "Download Manager - Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error, false);
-                msg.ShowDialog();
+                // Define exception information
+                string exceptionType = Convert.ToString(ex.GetType());
+                string exceptionMessage = ex.Message;
+                string[] exceptionStackTraceOld = ex.StackTrace.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                StringBuilder exceptionStackTraceNew = new StringBuilder();
+
+                foreach (string line in exceptionStackTraceOld)
+                {
+                    // Append new StackTrace line to new StackTrace
+                    exceptionStackTraceNew.Append('"' + line + '"' + " ");
+                }
+
+                // Create CrashHandler process
+                ProcessStartInfo crashInfo = new ProcessStartInfo();
+                crashInfo.FileName = "CrashHandler.exe";
+                crashInfo.Arguments = '"' + exceptionType + '"' + " " + '"' + exceptionMessage + '"' + " " + exceptionStackTraceNew;
+                crashInfo.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                crashInfo.UseShellExecute = true;
+                Process crashProcess = new Process();
+                crashProcess.StartInfo = crashInfo;
+                try
+                {
+                    // Start CrashHandler
+                    crashProcess.Start();
+                }
+                catch
+                {
+                    // If CrashHandler failed to start, show fallback message
+                    MessageBox.Show("Download Manager failed to open CrashHandler and has reverted to fallback CrashHandler.\nPlease create a bug report.\n" + ex.Message + Environment.NewLine + ex.StackTrace, "Download Manager Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                // Kill Download Manager
+                Process.GetCurrentProcess().Kill();
             }
         }
     }

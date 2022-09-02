@@ -62,8 +62,26 @@
             this.button12 = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.linkLabel6 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel5 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel4 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.panel2.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolTip1
@@ -133,7 +151,7 @@
             // 
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button6.ForeColor = System.Drawing.Color.White;
-            this.button6.Location = new System.Drawing.Point(743, 204);
+            this.button6.Location = new System.Drawing.Point(719, 203);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(43, 23);
             this.button6.TabIndex = 33;
@@ -146,7 +164,7 @@
             // 
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button7.ForeColor = System.Drawing.Color.White;
-            this.button7.Location = new System.Drawing.Point(667, 203);
+            this.button7.Location = new System.Drawing.Point(643, 202);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(70, 23);
             this.button7.TabIndex = 34;
@@ -159,7 +177,7 @@
             // 
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button8.ForeColor = System.Drawing.Color.White;
-            this.button8.Location = new System.Drawing.Point(667, 232);
+            this.button8.Location = new System.Drawing.Point(643, 232);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(70, 23);
             this.button8.TabIndex = 36;
@@ -172,7 +190,7 @@
             // 
             this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button9.ForeColor = System.Drawing.Color.White;
-            this.button9.Location = new System.Drawing.Point(743, 231);
+            this.button9.Location = new System.Drawing.Point(718, 232);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(43, 23);
             this.button9.TabIndex = 35;
@@ -226,7 +244,7 @@
             this.textBox1.ForeColor = System.Drawing.Color.White;
             this.textBox1.Location = new System.Drawing.Point(6, 24);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(743, 23);
+            this.textBox1.Size = new System.Drawing.Size(719, 23);
             this.textBox1.TabIndex = 20;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -234,7 +252,7 @@
             // 
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.ForeColor = System.Drawing.Color.White;
-            this.button5.Location = new System.Drawing.Point(756, 20);
+            this.button5.Location = new System.Drawing.Point(732, 20);
             this.button5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(29, 27);
@@ -256,10 +274,9 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBox1.Location = new System.Drawing.Point(10, 78);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(12, 11);
+            this.checkBox1.Size = new System.Drawing.Size(15, 14);
             this.checkBox1.TabIndex = 24;
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
@@ -269,11 +286,10 @@
             this.checkBox2.AutoSize = true;
             this.checkBox2.Checked = true;
             this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBox2.ForeColor = System.Drawing.Color.White;
             this.checkBox2.Location = new System.Drawing.Point(10, 126);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(12, 11);
+            this.checkBox2.Size = new System.Drawing.Size(15, 14);
             this.checkBox2.TabIndex = 27;
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
@@ -305,7 +321,7 @@
             0,
             0});
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(780, 23);
+            this.numericUpDown1.Size = new System.Drawing.Size(755, 23);
             this.numericUpDown1.TabIndex = 29;
             this.numericUpDown1.Value = new decimal(new int[] {
             65535,
@@ -358,11 +374,10 @@
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBox3.ForeColor = System.Drawing.Color.White;
             this.checkBox3.Location = new System.Drawing.Point(10, 280);
             this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(12, 11);
+            this.checkBox3.Size = new System.Drawing.Size(15, 14);
             this.checkBox3.TabIndex = 38;
             this.checkBox3.UseVisualStyleBackColor = true;
             this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
@@ -372,7 +387,7 @@
             this.label12.AutoSize = true;
             this.label12.BackColor = System.Drawing.Color.Black;
             this.label12.ForeColor = System.Drawing.Color.White;
-            this.label12.Location = new System.Drawing.Point(14, 383);
+            this.label12.Location = new System.Drawing.Point(132, 29);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(71, 15);
             this.label12.TabIndex = 40;
@@ -383,7 +398,7 @@
             this.button10.BackColor = System.Drawing.Color.Black;
             this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button10.ForeColor = System.Drawing.Color.White;
-            this.button10.Location = new System.Drawing.Point(668, 379);
+            this.button10.Location = new System.Drawing.Point(6, 25);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(120, 23);
             this.button10.TabIndex = 41;
@@ -467,10 +482,195 @@
             this.panel2.Controls.Add(this.button6);
             this.panel2.Controls.Add(this.label9);
             this.panel2.ForeColor = System.Drawing.Color.White;
-            this.panel2.Location = new System.Drawing.Point(2, 3);
+            this.panel2.Location = new System.Drawing.Point(0, 1);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(797, 370);
+            this.panel2.Size = new System.Drawing.Size(765, 358);
             this.panel2.TabIndex = 48;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(776, 387);
+            this.tabControl1.TabIndex = 48;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.panel2);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(768, 359);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "General";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.BackColor = System.Drawing.Color.Black;
+            this.tabPage3.Controls.Add(this.checkBox5);
+            this.tabPage3.Controls.Add(this.checkBox4);
+            this.tabPage3.ForeColor = System.Drawing.Color.White;
+            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(768, 359);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Sounds";
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Checked = true;
+            this.checkBox5.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox5.Location = new System.Drawing.Point(10, 33);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(241, 19);
+            this.checkBox5.TabIndex = 1;
+            this.checkBox5.Text = "Play a sound when a message box opens";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Checked = true;
+            this.checkBox4.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox4.Location = new System.Drawing.Point(10, 8);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(248, 19);
+            this.checkBox4.TabIndex = 0;
+            this.checkBox4.Text = "Play a sound when a download completes";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.Color.Black;
+            this.tabPage2.Controls.Add(this.linkLabel6);
+            this.tabPage2.Controls.Add(this.linkLabel5);
+            this.tabPage2.Controls.Add(this.linkLabel4);
+            this.tabPage2.Controls.Add(this.linkLabel3);
+            this.tabPage2.Controls.Add(this.linkLabel2);
+            this.tabPage2.Controls.Add(this.linkLabel1);
+            this.tabPage2.Controls.Add(this.label17);
+            this.tabPage2.Controls.Add(this.label16);
+            this.tabPage2.Controls.Add(this.label12);
+            this.tabPage2.Controls.Add(this.button10);
+            this.tabPage2.ForeColor = System.Drawing.Color.White;
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(768, 359);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "About & Updates";
+            // 
+            // linkLabel6
+            // 
+            this.linkLabel6.ActiveLinkColor = System.Drawing.Color.Blue;
+            this.linkLabel6.AutoSize = true;
+            this.linkLabel6.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(255)))));
+            this.linkLabel6.Location = new System.Drawing.Point(188, 85);
+            this.linkLabel6.Name = "linkLabel6";
+            this.linkLabel6.Size = new System.Drawing.Size(102, 15);
+            this.linkLabel6.TabIndex = 49;
+            this.linkLabel6.TabStop = true;
+            this.linkLabel6.Text = "Browser Extention";
+            this.linkLabel6.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(195)))), ((int)(((byte)(255)))));
+            this.linkLabel6.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel6_LinkClicked);
+            // 
+            // linkLabel5
+            // 
+            this.linkLabel5.ActiveLinkColor = System.Drawing.Color.Blue;
+            this.linkLabel5.AutoSize = true;
+            this.linkLabel5.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(255)))));
+            this.linkLabel5.Location = new System.Drawing.Point(102, 85);
+            this.linkLabel5.Name = "linkLabel5";
+            this.linkLabel5.Size = new System.Drawing.Size(80, 15);
+            this.linkLabel5.TabIndex = 48;
+            this.linkLabel5.TabStop = true;
+            this.linkLabel5.Text = "Release Notes";
+            this.linkLabel5.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(195)))), ((int)(((byte)(255)))));
+            this.linkLabel5.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel5_LinkClicked);
+            // 
+            // linkLabel4
+            // 
+            this.linkLabel4.ActiveLinkColor = System.Drawing.Color.Blue;
+            this.linkLabel4.AutoSize = true;
+            this.linkLabel4.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(255)))));
+            this.linkLabel4.Location = new System.Drawing.Point(6, 85);
+            this.linkLabel4.Name = "linkLabel4";
+            this.linkLabel4.Size = new System.Drawing.Size(90, 15);
+            this.linkLabel4.TabIndex = 47;
+            this.linkLabel4.TabStop = true;
+            this.linkLabel4.Text = "Documentation";
+            this.linkLabel4.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(195)))), ((int)(((byte)(255)))));
+            this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel4_LinkClicked);
+            // 
+            // linkLabel3
+            // 
+            this.linkLabel3.ActiveLinkColor = System.Drawing.Color.Blue;
+            this.linkLabel3.AutoSize = true;
+            this.linkLabel3.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(255)))));
+            this.linkLabel3.Location = new System.Drawing.Point(191, 69);
+            this.linkLabel3.Name = "linkLabel3";
+            this.linkLabel3.Size = new System.Drawing.Size(74, 15);
+            this.linkLabel3.TabIndex = 46;
+            this.linkLabel3.TabStop = true;
+            this.linkLabel3.Text = "Contributors";
+            this.linkLabel3.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(195)))), ((int)(((byte)(255)))));
+            this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel3_LinkClicked);
+            // 
+            // linkLabel2
+            // 
+            this.linkLabel2.ActiveLinkColor = System.Drawing.Color.Blue;
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(255)))));
+            this.linkLabel2.Location = new System.Drawing.Point(87, 69);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(98, 15);
+            this.linkLabel2.TabIndex = 45;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "Request a feature";
+            this.linkLabel2.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(195)))), ((int)(((byte)(255)))));
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.ActiveLinkColor = System.Drawing.Color.Blue;
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(255)))));
+            this.linkLabel1.Location = new System.Drawing.Point(6, 69);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(75, 15);
+            this.linkLabel1.TabIndex = 44;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Report a bug";
+            this.linkLabel1.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(195)))), ((int)(((byte)(255)))));
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label17.Location = new System.Drawing.Point(6, 54);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(74, 15);
+            this.label17.TabIndex = 43;
+            this.label17.Text = "Useful Links";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label16.Location = new System.Drawing.Point(6, 7);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(48, 15);
+            this.label16.TabIndex = 42;
+            this.label16.Text = "Update";
             // 
             // Settings
             // 
@@ -478,9 +678,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(800, 411);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.button10);
-            this.Controls.Add(this.label12);
+            this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -491,8 +689,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -529,5 +732,19 @@
         private Button button12;
         private Label label15;
         private Panel panel2;
+        private TabControl tabControl1;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
+        private LinkLabel linkLabel2;
+        private LinkLabel linkLabel1;
+        private Label label17;
+        private Label label16;
+        private LinkLabel linkLabel5;
+        private LinkLabel linkLabel4;
+        private LinkLabel linkLabel3;
+        private LinkLabel linkLabel6;
+        private TabPage tabPage3;
+        private CheckBox checkBox4;
+        private CheckBox checkBox5;
     }
 }
