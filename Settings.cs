@@ -456,5 +456,26 @@ namespace DownloadManager
             Settings1.Default.soundOnMessage = checkBox5.Checked;
             Settings1.Default.Save();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            panel1.Visible = false;
+            panel2.Visible = true;
+            panel3.Visible = false;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            panel1.Visible = false;
+            panel2.Visible = false;
+            panel3.Visible = true;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            panel1.Visible = true;
+            panel2.Visible = false;
+            panel3.Visible = false;
+        }
     }
 }

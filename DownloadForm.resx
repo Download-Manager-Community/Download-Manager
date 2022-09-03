@@ -93,7 +93,7 @@
   <data name="toolStripMenuItem3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAB0AAAAcCAYAAACdz7SqAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        EAAACxABrSO9dQAAAb1JREFUSEutlS/TQVEQhzWBoFJE0ScxY1RFUBRBEgRJEIwgCGYYwRiCIlAFokKT
+        DwAACw8BkvkDpQAAAb1JREFUSEutlS/TQVEQhzWBoFJE0ScxY1RFUBRBEgRJEIwgCGYYwRiCIlAFokKT
         fA4z+9prz7nnz95zj+t9xm8Gd/f3MA5SUcD79muoyg9z+ZdQpRu5kMkAHA5WiVcWC4D5XD6mah65lM8D
         nM8QMJ2GZT5BoSBOLJdKJYDbjbaI4TAsdUUVCqLEcqlcBng+adqg1wvLuXBCQaMh53ShSLtNkwx4zZzH
         uITjsTVvSzH4rqJQXnUQz3eohpdi8HOMolb7zCQQYqKlGDy5URyPdIfBIcS4pZjVipo8iRFi4qWY/Z4a
@@ -194,7 +194,7 @@ If you do have a file hash ensure the combo-box has the correct value or file ve
   <data name="toolStripButton3.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        EAAACxABrSO9dQAAAWdJREFUWEftluFxwjAMhTMCIzBCR+gIHYER2KCM0A3KCGxQRmAD2KBs4H6vlu6I
+        DwAACw8BkvkDpQAAAWdJREFUWEftluFxwjAMhTMCIzBCR+gIHYER2KCM0A3KCGxQRmAD2KBs4H6vlu6I
         Exwai+u1x3enH35KHkGR7HQP/iQppTXxQTyZ1EO65TcmxYLxgRBLk3qgb3I6rU2KxczPthxAbp8vSc8m
         xSHT7J12Jg0gd9YFtowFXy/v6PtFX+Z02psUC8a77D9eXvRVTqc3k2LBuFpe/bDysDJpPpio3K9FiE+i
         1D2OhHgnXJv3MHIJYl4/cKMqcBk+XuqDMqfYEuJEXOrtr0NgVJ1vdO2Q4m474FQDegVeTIoDU+3v4mDS

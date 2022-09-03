@@ -82,6 +82,7 @@
             this.progressBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.progressBar1.Location = new System.Drawing.Point(0, 409);
             this.progressBar1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.progressBar1.MarqueeAnimationSpeed = 1;
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(933, 10);
             this.progressBar1.TabIndex = 5;
