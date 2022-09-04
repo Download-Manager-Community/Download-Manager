@@ -77,6 +77,7 @@ namespace DownloadManager
                 Thread.CurrentThread.IsBackground = true;
 
                 vidMetadata = null;
+                listMetadata = null;
                 try
                 {
                     if (selectedIndex == 0)
@@ -129,6 +130,7 @@ namespace DownloadManager
                 {
                     if (vidMetadata != null)
                     {
+                        button4.Visible = false;
                         label2.Text = vidMetadata.Title;
                         label3.Text = vidMetadata.Author.ChannelTitle;
                         label4.Text = vidMetadata.UploadDate.LocalDateTime.ToString();
@@ -215,6 +217,7 @@ namespace DownloadManager
                         button1.Enabled = true;
                         button2.Enabled = true;
                         button3.Enabled = true;
+                        button4.Visible = true;
                         textBox1.Enabled = true;
                         textBox2.Enabled = true;
                     }
@@ -304,6 +307,7 @@ namespace DownloadManager
                                     button1.Enabled = true;
                                     button2.Enabled = false;
                                     button3.Enabled = true;
+                                    button4.Visible = false;
                                     textBox1.Text = "";
                                     textBox2.Text = Settings1.Default.defaultDownload;
                                     label2.Text = "Video Title";
@@ -340,6 +344,7 @@ namespace DownloadManager
                             button1.Enabled = true;
                             button2.Enabled = false;
                             button3.Enabled = true;
+                            button4.Visible = false;
                             textBox1.Text = "";
                             textBox2.Text = Settings1.Default.defaultDownload;
                             label2.Text = "Video Title";
@@ -422,6 +427,7 @@ namespace DownloadManager
                                     button1.Enabled = true;
                                     button2.Enabled = false;
                                     button3.Enabled = true;
+                                    button4.Visible = false;
                                     textBox1.Text = "";
                                     textBox2.Text = Settings1.Default.defaultDownload;
                                     label2.Text = "Video Title";
@@ -458,6 +464,7 @@ namespace DownloadManager
                             button1.Enabled = true;
                             button2.Enabled = false;
                             button3.Enabled = true;
+                            button4.Visible = false;
                             textBox1.Text = "";
                             textBox2.Text = Settings1.Default.defaultDownload;
                             label2.Text = "Video Title";
@@ -540,6 +547,7 @@ namespace DownloadManager
                                     button1.Enabled = true;
                                     button2.Enabled = false;
                                     button3.Enabled = true;
+                                    button4.Visible = false;
                                     textBox1.Text = "";
                                     textBox2.Text = Settings1.Default.defaultDownload;
                                     label2.Text = "Video Title";
@@ -576,6 +584,7 @@ namespace DownloadManager
                             button1.Enabled = true;
                             button2.Enabled = false;
                             button3.Enabled = true;
+                            button4.Visible = false;
                             textBox1.Text = "";
                             textBox2.Text = Settings1.Default.defaultDownload;
                             label2.Text = "Video Title";
@@ -668,6 +677,7 @@ namespace DownloadManager
                             button1.Enabled = true;
                             button2.Enabled = false;
                             button3.Enabled = true;
+                            button4.Visible = false;
                             textBox1.Text = "";
                             textBox2.Text = Settings1.Default.defaultDownload;
                             label2.Text = "Video Title";
@@ -755,6 +765,7 @@ namespace DownloadManager
                             button1.Enabled = true;
                             button2.Enabled = false;
                             button3.Enabled = true;
+                            button4.Visible = false;
                             textBox1.Text = "";
                             textBox2.Text = Settings1.Default.defaultDownload;
                             label2.Text = "Video Title";
@@ -842,6 +853,7 @@ namespace DownloadManager
                             button1.Enabled = true;
                             button2.Enabled = false;
                             button3.Enabled = true;
+                            button4.Visible = false;
                             textBox1.Text = "";
                             textBox2.Text = Settings1.Default.defaultDownload;
                             label2.Text = "Video Title";
@@ -892,6 +904,13 @@ namespace DownloadManager
                 DarkMessageBox msg = new DarkMessageBox("An error occurred while displaying the thumbnail.\n" + ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
                 msg.ShowDialog();
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            // Open playlist viewer
+            YouTubePlaylistViewer playlistViewer = new YouTubePlaylistViewer(listMetadata);
+            playlistViewer.Show();
         }
     }
 }

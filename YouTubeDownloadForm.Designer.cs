@@ -50,6 +50,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.webView1 = new Microsoft.Web.WebView2.WinForms.WebView2();
+            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.webView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -272,12 +273,25 @@
             this.webView1.TabIndex = 21;
             this.webView1.ZoomFactor = 1D;
             // 
+            // button4
+            // 
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Location = new System.Drawing.Point(386, 131);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(106, 23);
+            this.button4.TabIndex = 22;
+            this.button4.Text = "Playlist Viewer";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Visible = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // YouTubeDownloadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(504, 260);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.webView1);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.label11);
@@ -335,5 +349,6 @@
         private Label label11;
         private ComboBox comboBox2;
         private Microsoft.Web.WebView2.WinForms.WebView2 webView1;
+        private Button button4;
     }
 }
