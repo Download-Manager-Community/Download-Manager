@@ -614,6 +614,10 @@ namespace DownloadManager
                 progressBar1.Style = ProgressBarStyle.Marquee;
                 progressBar1.Visible = true;
 
+                // Create a folder for the playlist
+                string playlistFolder = textBox2.Text + listMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + @"\";
+                System.IO.Directory.CreateDirectory(playlistFolder);
+
                 if (comboBox1.SelectedIndex == 0)
                 {
                     // Audio Only
@@ -649,7 +653,7 @@ namespace DownloadManager
 
                             try
                             {
-                                File.Move(System.IO.Path.GetTempPath() + "temp.mp4", textBox2.Text + video.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp3");
+                                File.Move(System.IO.Path.GetTempPath() + "temp.mp4", playlistFolder + video.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp3");
                             }
                             catch (Exception ex)
                             {
@@ -737,7 +741,7 @@ namespace DownloadManager
 
                             try
                             {
-                                File.Move(System.IO.Path.GetTempPath() + "temp.mp4", textBox2.Text + video.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp4");
+                                File.Move(System.IO.Path.GetTempPath() + "temp.mp4", playlistFolder + video.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp4");
                             }
                             catch (Exception ex)
                             {
@@ -825,7 +829,7 @@ namespace DownloadManager
 
                             try
                             {
-                                File.Move(System.IO.Path.GetTempPath() + "temp.mp4", textBox2.Text + video.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp4");
+                                File.Move(System.IO.Path.GetTempPath() + "temp.mp4", playlistFolder + video.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp4");
                             }
                             catch (Exception ex)
                             {
