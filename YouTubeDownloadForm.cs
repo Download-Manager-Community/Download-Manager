@@ -99,6 +99,7 @@ namespace DownloadManager
                         textBox1.Enabled = true;
                         textBox2.Enabled = true;
                         comboBox1.Enabled = true;
+                        comboBox2.Enabled = true;
                         button1.Enabled = true;
                         button2.Enabled = false;
                         button3.Enabled = true;
@@ -274,7 +275,7 @@ namespace DownloadManager
 
                         try
                         {
-                            File.Move(System.IO.Path.GetTempPath() + "temp.mp3", textBox2.Text + vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp4");
+                            File.Move(System.IO.Path.GetTempPath() + "temp.mp3", textBox2.Text + vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp3");
                         }
                         catch (Exception ex)
                         {
@@ -639,7 +640,7 @@ namespace DownloadManager
 
                             try
                             {
-                                File.Move(System.IO.Path.GetTempPath() + "temp.mp4", textBox2.Text + video.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp4");
+                                File.Move(System.IO.Path.GetTempPath() + "temp.mp4", textBox2.Text + video.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp3");
                             }
                             catch (Exception ex)
                             {
@@ -694,12 +695,176 @@ namespace DownloadManager
                 else if (comboBox1.SelectedIndex == 1)
                 {
                     // Video Only
-                    throw new NotImplementedException();
+                    Thread thread = new Thread(async delegate ()
+                    {
+                        // Check how many videos are in the playlist
+                        IAsyncEnumerable<YoutubeExplode.Playlists.PlaylistVideo> videosList = client.Playlists.GetVideosAsync(listMetadata.Id);
+
+                        int videoCount = 0;
+
+                        await foreach (YoutubeExplode.Playlists.PlaylistVideo video in client.Playlists.GetVideosAsync(listMetadata.Id))
+                        {
+                            videoCount += 1;
+                        }
+
+                        // Update progressbar with video count 
+                        this.Invoke(new MethodInvoker(delegate ()
+                        {
+                            progressBar1.Maximum = videoCount;
+                            progressBar1.Minimum = 0;
+                            progressBar1.Value = 0;
+                            progressBar1.Style = ProgressBarStyle.Blocks;
+                        }));
+
+                        // Download each video
+                        await foreach (YoutubeExplode.Playlists.PlaylistVideo video in client.Playlists.GetVideosAsync(listMetadata.Id))
+                        {
+                            var streamManifest = client.Videos.Streams.GetManifestAsync(video.Id);
+
+                            var streamInfo = streamManifest.Result.GetVideoOnlyStreams().TryGetWithHighestVideoQuality();
+
+                            await client.Videos.Streams.DownloadAsync(streamInfo, System.IO.Path.GetTempPath() + "temp.mp4");
+
+                            try
+                            {
+                                File.Move(System.IO.Path.GetTempPath() + "temp.mp4", textBox2.Text + video.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp4");
+                            }
+                            catch (Exception ex)
+                            {
+                                DarkMessageBox msg = new DarkMessageBox(ex.Message, "Error writing file", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                                msg.ShowDialog();
+                            }
+
+                            this.Invoke(new MethodInvoker(delegate ()
+                            {
+                                progressBar1.Value += 1;
+                            }));
+                        }
+
+                        DarkMessageBox finishedMsg = new DarkMessageBox("Finished downloading " + videoCount + " videos.", "Download Complete", MessageBoxButtons.OK, MessageBoxIcon.Information, true);
+                        finishedMsg.ShowDialog();
+
+                        this.Invoke(new MethodInvoker(delegate ()
+                        {
+                            progressBar1.Visible = false;
+                            progressBar1.Style = ProgressBarStyle.Marquee;
+                            textBox1.Enabled = true;
+                            textBox2.Enabled = true;
+                            comboBox1.Enabled = true;
+                            comboBox2.Enabled = true;
+                            button1.Enabled = true;
+                            button2.Enabled = false;
+                            button3.Enabled = true;
+                            textBox1.Text = "";
+                            textBox2.Text = Settings1.Default.defaultDownload;
+                            label2.Text = "Video Title";
+                            label3.Text = "Channel Name";
+                            label4.Text = "Date Posted";
+                            label5.Text = "Duration";
+                            label8.Text = "Date:";
+                            label5.Visible = true;
+                            label9.Visible = true;
+                            try
+                            {
+                                File.WriteAllLines(System.IO.Path.GetTempPath() + "thumbnail.html", blankHtml);
+
+                                webView1.CoreWebView2.Navigate(System.IO.Path.GetTempPath() + "thumbnail.html");
+                            }
+                            catch (Exception ex)
+                            {
+                                DarkMessageBox msg = new DarkMessageBox("An error occurred while displaying the thumbnail.\n" + ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                                msg.ShowDialog();
+                            }
+                        }));
+                    });
+                    thread.Start();
                 }
                 else if (comboBox1.SelectedIndex == 2)
                 {
                     // Audio & Video
-                    throw new NotImplementedException();
+                    Thread thread = new Thread(async delegate ()
+                    {
+                        // Check how many videos are in the playlist
+                        IAsyncEnumerable<YoutubeExplode.Playlists.PlaylistVideo> videosList = client.Playlists.GetVideosAsync(listMetadata.Id);
+
+                        int videoCount = 0;
+
+                        await foreach (YoutubeExplode.Playlists.PlaylistVideo video in client.Playlists.GetVideosAsync(listMetadata.Id))
+                        {
+                            videoCount += 1;
+                        }
+
+                        // Update progressbar with video count 
+                        this.Invoke(new MethodInvoker(delegate ()
+                        {
+                            progressBar1.Maximum = videoCount;
+                            progressBar1.Minimum = 0;
+                            progressBar1.Value = 0;
+                            progressBar1.Style = ProgressBarStyle.Blocks;
+                        }));
+
+                        // Download each video
+                        await foreach (YoutubeExplode.Playlists.PlaylistVideo video in client.Playlists.GetVideosAsync(listMetadata.Id))
+                        {
+                            var streamManifest = client.Videos.Streams.GetManifestAsync(video.Id);
+
+                            var streamInfo = streamManifest.Result.GetMuxedStreams().TryGetWithHighestVideoQuality();
+
+                            await client.Videos.Streams.DownloadAsync(streamInfo, System.IO.Path.GetTempPath() + "temp.mp4");
+
+                            try
+                            {
+                                File.Move(System.IO.Path.GetTempPath() + "temp.mp4", textBox2.Text + video.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp4");
+                            }
+                            catch (Exception ex)
+                            {
+                                DarkMessageBox msg = new DarkMessageBox(ex.Message, "Error writing file", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                                msg.ShowDialog();
+                            }
+
+                            this.Invoke(new MethodInvoker(delegate ()
+                            {
+                                progressBar1.Value += 1;
+                            }));
+                        }
+
+                        DarkMessageBox finishedMsg = new DarkMessageBox("Finished downloading " + videoCount + " videos.", "Download Complete", MessageBoxButtons.OK, MessageBoxIcon.Information, true);
+                        finishedMsg.ShowDialog();
+
+                        this.Invoke(new MethodInvoker(delegate ()
+                        {
+                            progressBar1.Visible = false;
+                            progressBar1.Style = ProgressBarStyle.Marquee;
+                            textBox1.Enabled = true;
+                            textBox2.Enabled = true;
+                            comboBox1.Enabled = true;
+                            comboBox2.Enabled = true;
+                            button1.Enabled = true;
+                            button2.Enabled = false;
+                            button3.Enabled = true;
+                            textBox1.Text = "";
+                            textBox2.Text = Settings1.Default.defaultDownload;
+                            label2.Text = "Video Title";
+                            label3.Text = "Channel Name";
+                            label4.Text = "Date Posted";
+                            label5.Text = "Duration";
+                            label8.Text = "Date:";
+                            label5.Visible = true;
+                            label9.Visible = true;
+                            try
+                            {
+                                File.WriteAllLines(System.IO.Path.GetTempPath() + "thumbnail.html", blankHtml);
+
+                                webView1.CoreWebView2.Navigate(System.IO.Path.GetTempPath() + "thumbnail.html");
+                            }
+                            catch (Exception ex)
+                            {
+                                DarkMessageBox msg = new DarkMessageBox("An error occurred while displaying the thumbnail.\n" + ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                                msg.ShowDialog();
+                            }
+                        }));
+                    });
+                    thread.Start();
                 }
             }
         }
