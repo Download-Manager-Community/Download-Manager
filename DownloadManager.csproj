@@ -49,7 +49,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1343.22" />
-    <PackageReference Include="YoutubeExplode" Version="6.2.1" />
+    <PackageReference Include="YoutubeExplode" Version="6.2.2" />
   </ItemGroup>
 
   <ItemGroup>
