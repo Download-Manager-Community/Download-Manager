@@ -27,8 +27,10 @@ If you choose to install the program silently using the `--install` argument ple
  - `0` - The installation completed successfully.
  - `1` - The default drive `C:\` could not be found.
  - `2` - The installer could not install due to insufficent permission.
- - `3` - The installer could not install due to an IO error.
- - `4` - The installer could not install due to an unknown exception.
+ - `3` - The installer could not install due to an unknown IO error.
+ - `4` - The application is already installed.
+ - `5` - The disk is full.
+ - `6` - The installer could not install due to an unknown exception.
 
 ## Manually Updating
 If you want to manually initiate a update to Download Manager through the command line then you can use the `--update` argument in the installer. The exit codes for the updater are:
