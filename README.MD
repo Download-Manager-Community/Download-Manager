@@ -14,7 +14,7 @@ If you have any issues with Download Manager please make an [issue](https://gith
 Download Manager does not currently support high DPI monitors.
 If you are experiecing display issues with download manager please use the following compatability settings:
 
-<img src="Download Manager/.github/images/CompatabilitySettings.png" width="196.5px" height="246px">
+<img src=".github/images/CompatabilitySettings.png" width="196.5px" height="246px">
 
 ## Installation Instructions
 1) Download the latest version from the [releases page](https://github.com/Soniczac7/Download-Manager/releases).
