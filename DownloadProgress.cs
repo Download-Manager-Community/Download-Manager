@@ -85,16 +85,16 @@ namespace DownloadManager
                         progressBar1.Style = ProgressBarStyle.Blocks;
                         progressBar1.Value = 100;
                         ProgressBarColor.SetState(progressBar1, 2);
+                        DownloadForm.downloadsAmount -= 1;
+                        downloading = false;
                     }));
 
                     DarkMessageBox msg = new DarkMessageBox(ex.Message, "Download Manager - Error Fetching File", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
                     msg.ShowDialog();
-                    downloading = false;
                     if (this.IsHandleCreated == true)
                     {
                         Invoke(new MethodInvoker(delegate ()
                         {
-                            DownloadForm.downloadsAmount -= 1;
                             client.CancelAsync();
                             client.Dispose();
                             this.Close();
@@ -199,6 +199,12 @@ namespace DownloadManager
                                 progressBar1.Value = 100;
                                 ProgressBarColor.SetState(progressBar1, 2);
                             }));
+                            DownloadForm.downloadsAmount -= 1;
+                            downloading = false;
+                            client.Dispose();
+                            this.Close();
+                            this.Dispose();
+                            return;
                         }
                         catch { }
                     }
@@ -579,6 +585,8 @@ namespace DownloadManager
                                             DarkMessageBox msg = new DarkMessageBox("Invalid hash type '" + hashType + "'. The file could not be verified.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
                                             Invoke(new MethodInvoker(delegate ()
                                             {
+                                                downloading = false;
+                                                DownloadForm.downloadsAmount -= 1;
                                                 client.CancelAsync();
                                                 client.Dispose();
                                                 this.Close();
@@ -624,6 +632,8 @@ namespace DownloadManager
                                 Log("Download failed.", Color.Red);
                                 Invoke(new MethodInvoker(delegate ()
                                 {
+                                    downloading = false;
+                                    DownloadForm.downloadsAmount -= 1;
                                     progressBar1.Value = 0;
                                     client.CancelAsync();
                                     client.Dispose();
@@ -640,6 +650,12 @@ namespace DownloadManager
                             progressBar1.Style = ProgressBarStyle.Blocks;
                             progressBar1.Value = 100;
                             ProgressBarColor.SetState(progressBar1, 2);
+                            downloading = false;
+                            DownloadForm.downloadsAmount -= 1;
+                            client.Dispose();
+                            this.Close();
+                            this.Dispose();
+                            return;
                         }));
 
                         Log(ex.Message + Environment.NewLine + ex.StackTrace, Color.Red);
