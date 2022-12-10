@@ -19,6 +19,7 @@
     <PackageProjectUrl>https://github.com/Soniczac7/Download-Manager/tree/dev</PackageProjectUrl>
     <AssemblyVersion>4.1.1.1</AssemblyVersion>
     <FileVersion>4.1.1.1</FileVersion>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
