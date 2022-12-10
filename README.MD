@@ -11,8 +11,8 @@ If you have any issues with Download Manager please make an [issue](https://gith
 *To check for any updates regarding the next update of Download Manager go to the [Discussions](https://github.com/Soniczac7/Download-Manager/discussions) page.*
 
 ## Compatability
-Download Manager does not currently support high DPI monitors.
-If you are experiecing display issues with download manager please use the following compatability settings:
+Older versions of Download Manager do not support high DPI monitors.
+If you are experiecing display issues with older versions of Download Manager please use the following compatability settings:
 
 <img src=".github/images/CompatabilitySettings.png" width="196.5px" height="246px">
 
