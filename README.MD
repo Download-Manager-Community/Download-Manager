@@ -1,5 +1,5 @@
 # Download Manager
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Soniczac7/Download-Manager/CodeQL) ![GitHub issues](https://img.shields.io/github/issues/Soniczac7/Download-Manager) ![GitHub all releases](https://img.shields.io/github/downloads/Soniczac7/Download-Manager/total) ![GitHub](https://img.shields.io/github/license/Soniczac7/Download-Manager)
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/Download-Manager-Community/Download-Manager/codeql-analysis.yml?branch=master&event=push) ![GitHub issues](https://img.shields.io/github/issues/Soniczac7/Download-Manager) ![GitHub all releases](https://img.shields.io/github/downloads/Soniczac7/Download-Manager/total) ![GitHub](https://img.shields.io/github/license/Soniczac7/Download-Manager)
 
 A fast download manager for Windows to download your files.
 Download Manager now contains a browser extention to help you download your files as easily as possible.
