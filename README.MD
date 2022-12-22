@@ -1,5 +1,13 @@
 # Download Manager
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Soniczac7/Download-Manager/CodeQL) ![GitHub issues](https://img.shields.io/github/issues/Soniczac7/Download-Manager) ![GitHub all releases](https://img.shields.io/github/downloads/Soniczac7/Download-Manager/total) ![GitHub](https://img.shields.io/github/license/Soniczac7/Download-Manager)
+<p align="center">
+<img alt="CodeQL workflow status" src="https://img.shields.io/github/actions/workflow/status/Download-Manager-Community/Download-Manager/codeql-analysis.yml?branch=master&event=push">
+<img alt="Open issues" src="https://img.shields.io/github/issues/Soniczac7/Download-Manager"> 
+<img alt="Total downloads" src="https://img.shields.io/github/downloads/Soniczac7/Download-Manager/total">
+<img alt="License" src="https://img.shields.io/github/license/Soniczac7/Download-Manager">
+<img alt="GitHub Sponsors" src="https://img.shields.io/github/sponsors/Soniczac7">
+<img alt="Commit activity" src="https://img.shields.io/github/commit-activity/m/Download-Manager-Community/Download-Manager">
+<img alt="Lines of code" src="https://img.shields.io/tokei/lines/github/Download-Manager-Community/Download-Manager">
+</p>
 
 A fast download manager for Windows to download your files.
 Download Manager now contains a browser extention to help you download your files as easily as possible.
