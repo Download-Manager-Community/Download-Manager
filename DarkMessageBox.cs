@@ -131,32 +131,32 @@ namespace DownloadManager
                 if (icon == MessageBoxIcon.Hand || icon == MessageBoxIcon.Stop || icon == MessageBoxIcon.Error)
                 {
                     pictureBox1.BackgroundImage = Properties.Resources.error;
-                    if (Settings1.Default.soundOnMessage == true)
+                    if (Settings.Default.soundOnMessage == true)
                         SystemSounds.Hand.Play();
                 }
                 else if (icon == MessageBoxIcon.Warning)
                 {
                     pictureBox1.BackgroundImage = Properties.Resources.warn;
-                    if (Settings1.Default.soundOnMessage == true)
+                    if (Settings.Default.soundOnMessage == true)
                         SystemSounds.Exclamation.Play();
                 }
                 else if (icon == MessageBoxIcon.Asterisk || icon == MessageBoxIcon.Information)
                 {
                     pictureBox1.BackgroundImage = Properties.Resources.info;
-                    if (Settings1.Default.soundOnMessage == true)
+                    if (Settings.Default.soundOnMessage == true)
                         SystemSounds.Asterisk.Play();
                 }
                 else if (icon == MessageBoxIcon.Question)
                 {
                     pictureBox1.BackgroundImage = Properties.Resources.question;
-                    if (Settings1.Default.soundOnMessage == true)
+                    if (Settings.Default.soundOnMessage == true)
                         SystemSounds.Asterisk.Play();
                 }
             }
             else
             {
                 pictureBox1.BackgroundImage = Properties.Resources.info;
-                if (Settings1.Default.soundOnMessage == true)
+                if (Settings.Default.soundOnMessage == true)
                     SystemSounds.Asterisk.Play();
             }
 

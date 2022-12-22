@@ -37,7 +37,7 @@ namespace DownloadManager
             InitializeComponent();
             comboBox1.SelectedIndex = 2;
             comboBox2.SelectedIndex = 0;
-            textBox2.Text = Settings1.Default.defaultDownload;
+            textBox2.Text = Settings.Default.defaultDownload;
         }
 
         private void YouTubeDownloadForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -105,7 +105,7 @@ namespace DownloadManager
                         button2.Enabled = false;
                         button3.Enabled = true;
                         textBox1.Text = "";
-                        textBox2.Text = Settings1.Default.defaultDownload;
+                        textBox2.Text = Settings.Default.defaultDownload;
                         label2.Text = "Video Title";
                         label3.Text = "Channel Name";
                         label4.Text = "Date Posted";
@@ -309,7 +309,7 @@ namespace DownloadManager
                                     button3.Enabled = true;
                                     button4.Visible = false;
                                     textBox1.Text = "";
-                                    textBox2.Text = Settings1.Default.defaultDownload;
+                                    textBox2.Text = Settings.Default.defaultDownload;
                                     label2.Text = "Video Title";
                                     label3.Text = "Channel Name";
                                     label4.Text = "Date Posted";
@@ -346,7 +346,7 @@ namespace DownloadManager
                             button3.Enabled = true;
                             button4.Visible = false;
                             textBox1.Text = "";
-                            textBox2.Text = Settings1.Default.defaultDownload;
+                            textBox2.Text = Settings.Default.defaultDownload;
                             label2.Text = "Video Title";
                             label3.Text = "Channel Name";
                             label4.Text = "Date Posted";
@@ -429,7 +429,7 @@ namespace DownloadManager
                                     button3.Enabled = true;
                                     button4.Visible = false;
                                     textBox1.Text = "";
-                                    textBox2.Text = Settings1.Default.defaultDownload;
+                                    textBox2.Text = Settings.Default.defaultDownload;
                                     label2.Text = "Video Title";
                                     label3.Text = "Channel Name";
                                     label4.Text = "Date Posted";
@@ -466,7 +466,7 @@ namespace DownloadManager
                             button3.Enabled = true;
                             button4.Visible = false;
                             textBox1.Text = "";
-                            textBox2.Text = Settings1.Default.defaultDownload;
+                            textBox2.Text = Settings.Default.defaultDownload;
                             label2.Text = "Video Title";
                             label3.Text = "Channel Name";
                             label4.Text = "Date Posted";
@@ -549,7 +549,7 @@ namespace DownloadManager
                                     button3.Enabled = true;
                                     button4.Visible = false;
                                     textBox1.Text = "";
-                                    textBox2.Text = Settings1.Default.defaultDownload;
+                                    textBox2.Text = Settings.Default.defaultDownload;
                                     label2.Text = "Video Title";
                                     label3.Text = "Channel Name";
                                     label4.Text = "Date Posted";
@@ -586,7 +586,7 @@ namespace DownloadManager
                             button3.Enabled = true;
                             button4.Visible = false;
                             textBox1.Text = "";
-                            textBox2.Text = Settings1.Default.defaultDownload;
+                            textBox2.Text = Settings.Default.defaultDownload;
                             label2.Text = "Video Title";
                             label3.Text = "Channel Name";
                             label4.Text = "Date Posted";
@@ -683,7 +683,7 @@ namespace DownloadManager
                             button3.Enabled = true;
                             button4.Visible = false;
                             textBox1.Text = "";
-                            textBox2.Text = Settings1.Default.defaultDownload;
+                            textBox2.Text = Settings.Default.defaultDownload;
                             label2.Text = "Video Title";
                             label3.Text = "Channel Name";
                             label4.Text = "Date Posted";
@@ -771,7 +771,7 @@ namespace DownloadManager
                             button3.Enabled = true;
                             button4.Visible = false;
                             textBox1.Text = "";
-                            textBox2.Text = Settings1.Default.defaultDownload;
+                            textBox2.Text = Settings.Default.defaultDownload;
                             label2.Text = "Video Title";
                             label3.Text = "Channel Name";
                             label4.Text = "Date Posted";
@@ -859,7 +859,7 @@ namespace DownloadManager
                             button3.Enabled = true;
                             button4.Visible = false;
                             textBox1.Text = "";
-                            textBox2.Text = Settings1.Default.defaultDownload;
+                            textBox2.Text = Settings.Default.defaultDownload;
                             label2.Text = "Video Title";
                             label3.Text = "Channel Name";
                             label4.Text = "Date Posted";

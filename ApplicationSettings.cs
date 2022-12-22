@@ -7,7 +7,7 @@ using File = System.IO.File;
 
 namespace DownloadManager
 {
-    public partial class Settings : Form
+    public partial class ApplicationSettings : Form
     {
         #region DLL Import
         [DllImport("DwmApi")]
@@ -23,25 +23,25 @@ namespace DownloadManager
         public static readonly string installationPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\";
         HistoryEditor historyEditor = new HistoryEditor();
 
-        public Settings()
+        public ApplicationSettings()
         {
             InitializeComponent();
 
             // Set download sound checkbox
-            if (Settings1.Default.soundOnComplete == false)
+            if (Settings.Default.soundOnComplete == false)
             {
                 checkBox4.Checked = false;
             }
 
             // Set messagebox sound checkbox
-            if (Settings1.Default.soundOnMessage == false)
+            if (Settings.Default.soundOnMessage == false)
             {
                 checkBox5.Checked = false;
             }
 
             label12.Text = "Version: " + Assembly.GetEntryAssembly().GetName().Version;
 
-            numericUpDown1.Value = Settings1.Default.serverPort;
+            numericUpDown1.Value = Settings.Default.serverPort;
             label15.Visible = false;
 
             // Start menu shortcut
@@ -99,36 +99,36 @@ namespace DownloadManager
         private void Settings_Load(object sender, EventArgs e)
         {
             // Load settings
-            if (Settings1.Default.defaultDownload == "" || Settings1.Default.defaultDownload == null)
+            if (Settings.Default.defaultDownload == "" || Settings.Default.defaultDownload == null)
             {
-                Settings1.Default.defaultDownload = DownloadForm.downloadsFolder;
-                Settings1.Default.Save();
+                Settings.Default.defaultDownload = DownloadForm.downloadsFolder;
+                Settings.Default.Save();
             }
-            textBox1.Text = Settings1.Default.defaultDownload;
-            checkBox1.Checked = Settings1.Default.closeOnComplete;
-            checkBox2.Checked = Settings1.Default.keepOnTop;
+            textBox1.Text = Settings.Default.defaultDownload;
+            checkBox1.Checked = Settings.Default.closeOnComplete;
+            checkBox2.Checked = Settings.Default.keepOnTop;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             // Default download location
-            Settings1.Default.defaultDownload = textBox1.Text;
-            Settings1.Default.Save();
+            Settings.Default.defaultDownload = textBox1.Text;
+            Settings.Default.Save();
             DownloadForm._instance.textBox2.Text = textBox1.Text;
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             // Close progress window on complete
-            Settings1.Default.closeOnComplete = checkBox1.Checked;
-            Settings1.Default.Save();
+            Settings.Default.closeOnComplete = checkBox1.Checked;
+            Settings.Default.Save();
         }
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             // Keep progress window on top
-            Settings1.Default.keepOnTop = checkBox2.Checked;
-            Settings1.Default.Save();
+            Settings.Default.keepOnTop = checkBox2.Checked;
+            Settings.Default.Save();
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -372,8 +372,8 @@ namespace DownloadManager
                 Application.DoEvents();
                 DownloadForm._instance.textBox1.Items.Remove(item);
             }
-            Settings1.Default.downloadHistory = new System.Collections.Specialized.StringCollection();
-            Settings1.Default.Save();
+            Settings.Default.downloadHistory = new System.Collections.Specialized.StringCollection();
+            Settings.Default.Save();
         }
 
         private void button12_Click(object sender, EventArgs e)
@@ -386,8 +386,8 @@ namespace DownloadManager
         {
             try
             {
-                Settings1.Default.serverPort = Convert.ToInt32(numericUpDown1.Value);
-                Settings1.Default.Save();
+                Settings.Default.serverPort = Convert.ToInt32(numericUpDown1.Value);
+                Settings.Default.Save();
                 label15.Visible = true;
             }
             catch (Exception ex)
@@ -446,15 +446,15 @@ namespace DownloadManager
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
         {
             // Sound on download complete
-            Settings1.Default.soundOnComplete = checkBox4.Checked;
-            Settings1.Default.Save();
+            Settings.Default.soundOnComplete = checkBox4.Checked;
+            Settings.Default.Save();
         }
 
         private void checkBox5_CheckedChanged(object sender, EventArgs e)
         {
             // Sound on messagebox open
-            Settings1.Default.soundOnMessage = checkBox5.Checked;
-            Settings1.Default.Save();
+            Settings.Default.soundOnMessage = checkBox5.Checked;
+            Settings.Default.Save();
         }
 
         private void button1_Click(object sender, EventArgs e)

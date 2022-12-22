@@ -9,7 +9,7 @@ namespace DownloadManager
     {
         public BrowserIntercept _instance;
         public Socket httpServer;
-        private int serverPort = Settings1.Default.serverPort;
+        private int serverPort = Settings.Default.serverPort;
         public Thread thread;
 
         public void StartServer()
@@ -151,13 +151,13 @@ namespace DownloadManager
                     Logging._instance.Invoke((MethodInvoker)delegate
                     {
                         Log("Request received for URL: " + url, Color.White);
-                        if (Settings1.Default.downloadHistory.Contains(url) == false)
+                        if (Settings.Default.downloadHistory.Contains(url) == false)
                         {
                             DownloadForm._instance.textBox1.Items.Add(url);
-                            Settings1.Default.downloadHistory.Add(url);
-                            Settings1.Default.Save();
+                            Settings.Default.downloadHistory.Add(url);
+                            Settings.Default.Save();
                         }
-                        DownloadProgress downloadProgress = new DownloadProgress(url, Settings1.Default.defaultDownload, "", 0);
+                        DownloadProgress downloadProgress = new DownloadProgress(url, Settings.Default.defaultDownload, "", 0);
                         downloadProgress.Show();
                         //Log("--- Start Request ---", Color.White);
                         //Log(data, Color.White);

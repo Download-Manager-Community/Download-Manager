@@ -21,10 +21,11 @@ namespace DownloadManager
         }
         #endregion
 
-        string url;
-        string location;
-        string fileName;
-        string hash;
+        public static DownloadProgress _instance;
+        public string url;
+        public string location;
+        public string fileName;
+        public string hash;
         int hashType = 0;
         bool isUrlInvalid = false;
         bool downloading = true;
@@ -32,9 +33,12 @@ namespace DownloadManager
         WebClient client = new WebClient();
         SoundPlayer complete = new SoundPlayer(@"C:\WINDOWS\Media\tada.wav");
 
+        public double percentageDone = 0;
+
         public DownloadProgress(string urlArg, string locationArg, string hashArg, int hashTypeArg)
         {
             InitializeComponent();
+            _instance = this;
             client.Headers.Add("Cache-Control", "no-cache");
             client.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.NoCacheNoStore);
             hashType = hashTypeArg;
@@ -69,8 +73,8 @@ namespace DownloadManager
         private void progress_Load(object sender, EventArgs e)
         {
             Log("Preparing to start downloading...", Color.White);
-            checkBox2.Checked = Settings1.Default.closeOnComplete;
-            checkBox1.Checked = Settings1.Default.keepOnTop;
+            checkBox2.Checked = Settings.Default.closeOnComplete;
+            checkBox1.Checked = Settings.Default.keepOnTop;
             progressBar1.Style = ProgressBarStyle.Marquee;
             Thread thread = new Thread(() =>
             {
@@ -159,6 +163,7 @@ namespace DownloadManager
                         double receive = double.Parse(e.BytesReceived.ToString());
                         double total = double.Parse(e.TotalBytesToReceive.ToString());
                         double percentage = receive / total * 100;
+                        percentageDone = percentage;
                         label3.Text = "Percentage Complete: " + $"{string.Format("{0:0.##}", percentage)}%";
                         try
                         {
@@ -217,6 +222,13 @@ namespace DownloadManager
         {
             if (this.IsHandleCreated)
             {
+                DownloadForm.downloadsList.Remove(this);
+
+                this.Invoke(new MethodInvoker(delegate ()
+                {
+                    CurrentDownloads._instance.RefreshList();
+                }));
+
                 if (e.Cancelled)
                 {
                     if (downloading)
@@ -278,7 +290,7 @@ namespace DownloadManager
                                                 downloading = false;
                                                 DownloadForm.downloadsAmount -= 1;
                                                 Log("Finished downloading file.", Color.White);
-                                                if (Settings1.Default.soundOnComplete == true)
+                                                if (Settings.Default.soundOnComplete == true)
                                                     complete.Play();
                                                 Invoke(new MethodInvoker(delegate ()
                                                 {
@@ -341,7 +353,7 @@ namespace DownloadManager
                                                 downloading = false;
                                                 DownloadForm.downloadsAmount -= 1;
                                                 Log("Finished downloading file.", Color.White);
-                                                if (Settings1.Default.soundOnComplete == true)
+                                                if (Settings.Default.soundOnComplete == true)
                                                     complete.Play();
                                                 Invoke(new MethodInvoker(delegate ()
                                                 {
@@ -404,7 +416,7 @@ namespace DownloadManager
                                                 downloading = false;
                                                 DownloadForm.downloadsAmount -= 1;
                                                 Log("Finished downloading file.", Color.White);
-                                                if (Settings1.Default.soundOnComplete == true)
+                                                if (Settings.Default.soundOnComplete == true)
                                                     complete.Play();
                                                 Invoke(new MethodInvoker(delegate ()
                                                 {
@@ -467,7 +479,7 @@ namespace DownloadManager
                                                 downloading = false;
                                                 DownloadForm.downloadsAmount -= 1;
                                                 Log("Finished downloading file.", Color.White);
-                                                if (Settings1.Default.soundOnComplete == true)
+                                                if (Settings.Default.soundOnComplete == true)
                                                     complete.Play();
                                                 Invoke(new MethodInvoker(delegate ()
                                                 {
@@ -532,7 +544,7 @@ namespace DownloadManager
                                                 downloading = false;
                                                 DownloadForm.downloadsAmount -= 1;
                                                 Log("Finished downloading file.", Color.White);
-                                                if (Settings1.Default.soundOnComplete == true)
+                                                if (Settings.Default.soundOnComplete == true)
                                                     complete.Play();
                                                 Invoke(new MethodInvoker(delegate ()
                                                 {
@@ -602,7 +614,7 @@ namespace DownloadManager
                                     downloading = false;
                                     DownloadForm.downloadsAmount -= 1;
                                     Log("Finished downloading file.", Color.White);
-                                    if (Settings1.Default.soundOnComplete == true)
+                                    if (Settings.Default.soundOnComplete == true)
                                         complete.Play();
                                     Invoke(new MethodInvoker(delegate ()
                                     {

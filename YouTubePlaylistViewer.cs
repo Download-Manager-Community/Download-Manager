@@ -100,7 +100,7 @@ namespace DownloadManager
 
                     try
                     {
-                        File.Move(System.IO.Path.GetTempPath() + "temp.mp4", Settings1.Default.defaultDownload + vidTitle.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp3");
+                        File.Move(System.IO.Path.GetTempPath() + "temp.mp4", Settings.Default.defaultDownload + vidTitle.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp3");
                     }
                     catch (Exception ex)
                     {
@@ -138,7 +138,7 @@ namespace DownloadManager
                     var streamInfo = vidManifest.GetVideoOnlyStreams().GetWithHighestVideoQuality();
 
                     // Download video
-                    await client.Videos.Streams.DownloadAsync(streamInfo, Settings1.Default.defaultDownload + vidTitle.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + "mp4");
+                    await client.Videos.Streams.DownloadAsync(streamInfo, Settings.Default.defaultDownload + vidTitle.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + "mp4");
 
                     // Hide progressbar
                     this.Invoke(new MethodInvoker(delegate ()

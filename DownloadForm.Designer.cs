@@ -36,7 +36,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.downloadTimer = new System.Windows.Forms.Timer(this.components);
             this.label3 = new System.Windows.Forms.Label();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
@@ -58,6 +58,7 @@
             this.toolStripButton3 = new System.Windows.Forms.Button();
             this.toolStripButton1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
             this.toolStripButton4 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.trayContextMenu.SuspendLayout();
@@ -355,6 +356,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.toolStripButton4);
             this.panel1.Controls.Add(this.toolStripButton1);
             this.panel1.Controls.Add(this.toolStripButton3);
@@ -364,6 +366,21 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(933, 39);
             this.panel1.TabIndex = 24;
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.button2.BackgroundImage = global::DownloadManager.Properties.Resources.placeholder;
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.ForeColor = System.Drawing.Color.White;
+            this.button2.Location = new System.Drawing.Point(118, 0);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(39, 39);
+            this.button2.TabIndex = 25;
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // toolStripButton4
             // 
@@ -437,7 +454,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private System.Windows.Forms.Timer downloadTimer;
         private System.Windows.Forms.Label label3;
         public TextBox textBox2;
@@ -462,5 +479,6 @@
         private Panel panel1;
         private Button toolStripButton4;
         private Button button1;
+        public Button button2;
     }
 }

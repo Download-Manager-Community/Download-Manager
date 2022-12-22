@@ -19,33 +19,42 @@ namespace DownloadManager
         public static readonly string installationPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\";
         public static DownloadForm _instance;
         public Logging logging = new Logging();
-        Settings settings = new Settings();
+        ApplicationSettings settings = new ApplicationSettings();
         BrowserIntercept browserIntercept = new BrowserIntercept();
         YouTubeDownloadForm ytDownload = new YouTubeDownloadForm();
         public static int downloadsAmount = 0;
         public static string downloadsFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop).Replace("Desktop", "Downloads") + "\\";
+        public static List<DownloadProgress> downloadsList = new List<DownloadProgress>();
+        CurrentDownloads currentDownloads = new CurrentDownloads();
 
         public DownloadForm()
         {
             _instance = this;
+
             Logging.Log("Downloads folder: " + downloadsFolder, Color.White);
-            if (Settings1.Default.downloadHistory == null)
+            if (Settings.Default.downloadHistory == null)
             {
                 Logging.Log("Download History is null. Performing first time setup.", Color.Orange);
-                Settings1.Default.downloadHistory = new System.Collections.Specialized.StringCollection { };
+                Settings.Default.downloadHistory = new System.Collections.Specialized.StringCollection { };
             }
             InitializeComponent();
             comboBox1.SelectedIndex = 0;
             browserIntercept.StartServer();
-            if (Settings1.Default.downloadHistory != null)
+            if (Settings.Default.downloadHistory != null)
             {
-                foreach (var item in Settings1.Default.downloadHistory)
+                foreach (var item in Settings.Default.downloadHistory)
                 {
                     Application.DoEvents();
                     textBox1.Items.Add(item);
                 }
             }
-            textBox2.Text = Settings1.Default.defaultDownload;
+            textBox2.Text = Settings.Default.defaultDownload;
+
+            if (Settings.Default.showDownloadToolWindow)
+            {
+                currentDownloads.Show();
+                button2.BackColor = Color.FromArgb(64, 64, 64);
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -53,20 +62,25 @@ namespace DownloadManager
             if (!textBox1.Items.Contains(textBox1.Text))
             {
                 textBox1.Items.Add(textBox1.Text);
-                Settings1.Default.downloadHistory.Add(textBox1.Text);
-                Settings1.Default.Save();
+                Settings.Default.downloadHistory.Add(textBox1.Text);
+                Settings.Default.Save();
             }
             DownloadProgress downloadProgress = new DownloadProgress(textBox1.Text, textBox2.Text, textBox3.Text, comboBox1.SelectedIndex);
             downloadProgress.Show();
+
+            downloadsList.Add(downloadProgress);
+
+            currentDownloads.RefreshList();
+
             textBox1.Text = "";
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            DialogResult result = folderBrowserDialog1.ShowDialog();
+            DialogResult result = folderBrowserDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
-                textBox2.Text = folderBrowserDialog1.SelectedPath + @"\";
+                textBox2.Text = folderBrowserDialog.SelectedPath + @"\";
             }
         }
 
@@ -174,6 +188,25 @@ namespace DownloadManager
         private void button1_Click(object sender, EventArgs e)
         {
             throw new NotImplementedException();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Settings.Default.showDownloadToolWindow = !Settings.Default.showDownloadToolWindow;
+            Settings.Default.Save();
+
+            if (Settings.Default.showDownloadToolWindow)
+            {
+                button2.BackColor = Color.FromArgb(64, 64, 64);
+
+                currentDownloads.Show();
+            }
+            else
+            {
+                button2.BackColor = Color.FromArgb(34, 34, 34);
+
+                currentDownloads.Hide();
+            }
         }
     }
 }

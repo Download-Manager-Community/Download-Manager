@@ -19,9 +19,9 @@ namespace DownloadManager
         {
             InitializeComponent();
 
-            if (Settings1.Default.downloadHistory != null)
+            if (Settings.Default.downloadHistory != null)
             {
-                foreach (var item in Settings1.Default.downloadHistory)
+                foreach (var item in Settings.Default.downloadHistory)
                 {
                     Application.DoEvents();
                     listBox1.Items.Add(item);
@@ -44,8 +44,8 @@ namespace DownloadManager
             }
             else
             {
-                Settings1.Default.downloadHistory.RemoveAt(listBox1.SelectedIndex);
-                Settings1.Default.Save();
+                Settings.Default.downloadHistory.RemoveAt(listBox1.SelectedIndex);
+                Settings.Default.Save();
                 DownloadForm._instance.textBox1.Items.RemoveAt(listBox1.SelectedIndex);
                 listBox1.Items.RemoveAt(listBox1.SelectedIndex);
             }
@@ -55,9 +55,9 @@ namespace DownloadManager
         {
             // Refresh
             listBox1.Items.Clear();
-            if (Settings1.Default.downloadHistory != null)
+            if (Settings.Default.downloadHistory != null)
             {
-                foreach (var item in Settings1.Default.downloadHistory)
+                foreach (var item in Settings.Default.downloadHistory)
                 {
                     Application.DoEvents();
                     listBox1.Items.Add(item);
@@ -68,8 +68,8 @@ namespace DownloadManager
         private void button7_Click(object sender, EventArgs e)
         {
             // Clear
-            Settings1.Default.downloadHistory.Clear();
-            Settings1.Default.Save();
+            Settings.Default.downloadHistory.Clear();
+            Settings.Default.Save();
             DownloadForm._instance.textBox1.Items.Clear();
             listBox1.Items.Clear();
         }
