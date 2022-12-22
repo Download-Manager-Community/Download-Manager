@@ -36,12 +36,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.downloadTimer = new System.Windows.Forms.Timer(this.components);
             this.label3 = new System.Windows.Forms.Label();
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.trayContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,8 +50,8 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBox1 = new System.Windows.Forms.ComboBox();
             this.toolStripButton2 = new System.Windows.Forms.Button();
@@ -61,7 +60,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.toolStripButton4 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.contextMenuStrip1.SuspendLayout();
+            this.trayContextMenu.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -138,11 +137,11 @@
             this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // timer2
+            // downloadTimer
             // 
-            this.timer2.Enabled = true;
-            this.timer2.Interval = 1000;
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            this.downloadTimer.Enabled = true;
+            this.downloadTimer.Interval = 1000;
+            this.downloadTimer.Tick += new System.EventHandler(this.timer2_Tick);
             // 
             // label3
             // 
@@ -156,25 +155,25 @@
             this.label3.TabIndex = 11;
             this.label3.Text = "Downloading 0 files...";
             // 
-            // notifyIcon1
+            // trayIcon
             // 
-            this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
-            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "Download Manager";
-            this.notifyIcon1.Visible = true;
+            this.trayIcon.ContextMenuStrip = this.trayContextMenu;
+            this.trayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("trayIcon.Icon")));
+            this.trayIcon.Text = "Download Manager";
+            this.trayIcon.Visible = true;
             // 
-            // contextMenuStrip1
+            // trayContextMenu
             // 
-            this.contextMenuStrip1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.trayContextMenu.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.trayContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripTextBox1,
             this.toolStripSeparator1,
             this.toolStripMenuItem1,
             this.toolStripMenuItem2,
             this.toolStripMenuItem3});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.contextMenuStrip1.Size = new System.Drawing.Size(172, 101);
+            this.trayContextMenu.Name = "contextMenuStrip1";
+            this.trayContextMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.trayContextMenu.Size = new System.Drawing.Size(172, 101);
             // 
             // toolStripTextBox1
             // 
@@ -263,18 +262,18 @@
             this.label5.Size = new System.Drawing.Size(12, 15);
             this.label5.TabIndex = 16;
             this.label5.Text = "?";
-            this.toolTip1.SetToolTip(this.label5, resources.GetString("label5.ToolTip"));
+            this.toolTip.SetToolTip(this.label5, resources.GetString("label5.ToolTip"));
             // 
-            // toolTip1
+            // toolTip
             // 
-            this.toolTip1.IsBalloon = true;
-            this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            this.toolTip1.ToolTipTitle = "Help";
+            this.toolTip.IsBalloon = true;
+            this.toolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.toolTip.ToolTipTitle = "Help";
             // 
-            // openFileDialog1
+            // openFileDialog
             // 
-            this.openFileDialog1.DefaultExt = "*.*";
-            this.openFileDialog1.Filter = "All files|*.*";
+            this.openFileDialog.DefaultExt = "*.*";
+            this.openFileDialog.Filter = "All files|*.*";
             // 
             // comboBox1
             // 
@@ -424,8 +423,8 @@
             this.Name = "DownloadForm";
             this.Text = "Download Manager";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DownloadForm_FormClosing);
-            this.contextMenuStrip1.ResumeLayout(false);
-            this.contextMenuStrip1.PerformLayout();
+            this.trayContextMenu.ResumeLayout(false);
+            this.trayContextMenu.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -438,13 +437,12 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
-        private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.Timer downloadTimer;
         private System.Windows.Forms.Label label3;
         public TextBox textBox2;
-        private NotifyIcon notifyIcon1;
-        private ContextMenuStrip contextMenuStrip1;
+        private NotifyIcon trayIcon;
+        private ContextMenuStrip trayContextMenu;
         private ToolStripTextBox toolStripTextBox1;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem toolStripMenuItem1;
@@ -454,8 +452,8 @@
         private TextBox textBox3;
         private Label label4;
         private Label label5;
-        private ToolTip toolTip1;
-        private OpenFileDialog openFileDialog1;
+        private ToolTip toolTip;
+        private OpenFileDialog openFileDialog;
         private ComboBox comboBox1;
         public ComboBox textBox1;
         private Button toolStripButton2;

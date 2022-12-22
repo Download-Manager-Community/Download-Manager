@@ -98,12 +98,12 @@ namespace DownloadManager
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
             // Calculate MD5 of a file
-            DialogResult result = openFileDialog1.ShowDialog();
+            DialogResult result = openFileDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
                 try
                 {
-                    HashCalculator hashCalc = new HashCalculator(openFileDialog1.FileName);
+                    HashCalculator hashCalc = new HashCalculator(openFileDialog.FileName);
                     hashCalc.Show();
                 }
                 catch (Exception ex)
