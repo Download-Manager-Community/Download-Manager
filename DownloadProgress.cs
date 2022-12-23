@@ -28,11 +28,12 @@ namespace DownloadManager
         public string hash;
         int hashType = 0;
         bool isUrlInvalid = false;
-        bool downloading = true;
+        public bool downloading = true;
         bool doFileVerify = false;
         WebClient client = new WebClient();
         SoundPlayer complete = new SoundPlayer(@"C:\WINDOWS\Media\tada.wav");
 
+        public string fileSize = "0";
         public double percentageDone = 0;
 
         public DownloadProgress(string urlArg, string locationArg, string hashArg, int hashTypeArg)
@@ -108,6 +109,7 @@ namespace DownloadManager
                     return;
                 }
                 Int64 bytes_total = Convert.ToInt64(client.ResponseHeaders["Content-Length"]);
+                fileSize = bytes_total.ToString();
                 Action action = () => label4.Text = "File Size: " + bytes_total.ToString() + " bytes";
                 this.Invoke(action);
                 client.DownloadFileCompleted += Client_DownloadFileCompleted;

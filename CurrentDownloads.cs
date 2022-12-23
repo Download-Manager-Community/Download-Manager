@@ -16,8 +16,8 @@ namespace DownloadManager
         #endregion
 
         public static CurrentDownloads _instance;
-        List<GroupBox> controlsList = new List<GroupBox>();
-        int nextY = 12;
+        public List<DownloadItem> itemList = new List<DownloadItem>();
+        public static int nextY = 12;
 
         public CurrentDownloads()
         {
@@ -27,10 +27,12 @@ namespace DownloadManager
 
         public void RefreshList()
         {
-            foreach (Control control in controlsList)
+            foreach (DownloadItem item in itemList)
             {
-                this.Controls.Remove(control);
+                item.DisposeNoRemove();
             }
+
+            itemList.Clear();
 
             nextY = 12;
 
@@ -43,18 +45,9 @@ namespace DownloadManager
 
         private void AddItem(DownloadProgress progress)
         {
-            GroupBox groupBox = new GroupBox()
-            {
-                Size = new Size(428, 105),
-                Location = new Point(12, nextY),
-                Text = ""
-            };
-
-            this.Controls.Add(groupBox);
-
-            controlsList.Add(groupBox);
-
-            // TODO: Add controls to groupbox and make it update
+            DownloadItem item = new DownloadItem();
+            itemList.Add(item);
+            item.Initialize(progress);
         }
 
         private void CurrentDownloads_FormClosing(object sender, FormClosingEventArgs e)
