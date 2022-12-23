@@ -69,11 +69,10 @@
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label8.Location = new System.Drawing.Point(121, 77);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(23, 15);
+            this.label8.Size = new System.Drawing.Size(163, 15);
             this.label8.TabIndex = 7;
             this.label8.Text = "0%";
             // 
@@ -88,11 +87,10 @@
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label6.Location = new System.Drawing.Point(96, 57);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(44, 15);
+            this.label6.Size = new System.Drawing.Size(188, 15);
             this.label6.TabIndex = 5;
             this.label6.Text = "0 Bytes";
             // 
@@ -107,11 +105,10 @@
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label4.Location = new System.Drawing.Point(97, 38);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(46, 15);
+            this.label4.Size = new System.Drawing.Size(187, 15);
             this.label4.TabIndex = 3;
             this.label4.Text = "FileURL";
             // 
@@ -126,11 +123,10 @@
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label2.Location = new System.Drawing.Point(92, 19);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 15);
+            this.label2.Size = new System.Drawing.Size(192, 15);
             this.label2.TabIndex = 1;
             this.label2.Text = "FileName";
             // 
@@ -157,7 +153,6 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CurrentDownloads";
-            this.ShowInTaskbar = false;
             this.Text = "Donwload Manager | Current Downloads";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CurrentDownloads_FormClosing);
             this.groupBox1.ResumeLayout(false);

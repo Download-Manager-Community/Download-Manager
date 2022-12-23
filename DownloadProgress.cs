@@ -4,6 +4,7 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web;
 using static DownloadManager.Logging;
 
 namespace DownloadManager
@@ -117,7 +118,7 @@ namespace DownloadManager
 
                 Uri uri = new Uri(url);
 
-                fileName = System.IO.Path.GetFileName(uri.AbsolutePath);
+                fileName = HttpUtility.UrlDecode(System.IO.Path.GetFileName(uri.AbsolutePath));
                 Action action1 = () => progressBar1.Style = ProgressBarStyle.Blocks;
                 this.Invoke(action1);
                 Log("Downloading file " + uri + " to " + location + fileName, Color.White);

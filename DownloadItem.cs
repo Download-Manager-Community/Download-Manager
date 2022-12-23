@@ -20,57 +20,81 @@ namespace DownloadManager
 
         Label title1 = new Label()
         {
-            Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0),
+            AutoSize = false,
+            Size = new Size(83, 15),
+            Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, 0),
             ForeColor = Color.White,
+            BackColor = Color.Transparent,
             Location = new Point(6, 19),
             Text = "Downloading:"
         };
         Label fileNameLabel = new Label()
         {
-            Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0),
+            AutoSize = false,
+            Size = new Size(192, 15),
+            Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, 0),
             ForeColor = Color.White,
+            BackColor = Color.Transparent,
             Location = new Point(92, 19),
             Text = "fileName"
         };
         Label title2 = new Label()
         {
-            Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0),
+            AutoSize = false,
+            Size = new Size(88, 15),
+            Font = new Font("Segoe UI", 8F, FontStyle.Regular, GraphicsUnit.Point, 0),
             ForeColor = Color.White,
+            BackColor = Color.Transparent,
             Location = new Point(6, 38),
             Text = "Download URL:"
         };
         Label fileUrlLabel = new Label()
         {
-            Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0),
+            AutoSize = false,
+            Size = new Size(187, 15),
+            Font = new Font("Segoe UI", 8F, FontStyle.Regular, GraphicsUnit.Point, 0),
             ForeColor = Color.White,
+            BackColor = Color.Transparent,
             Location = new Point(97, 38),
             Text = "fileUrl"
         };
         Label title3 = new Label()
         {
-            Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0),
+            AutoSize = false,
+            Size = new Size(87, 15),
+            Font = new Font("Segoe UI", 8F, FontStyle.Regular, GraphicsUnit.Point, 0),
             ForeColor = Color.White,
+            BackColor = Color.Transparent,
             Location = new Point(6, 57),
             Text = "Download Size:"
         };
         Label fileSizeLabel = new Label()
         {
-            Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0),
+            AutoSize = false,
+            Size = new Size(188, 15),
+            Font = new Font("Segoe UI", 8F, FontStyle.Regular, GraphicsUnit.Point, 0),
             ForeColor = Color.White,
+            BackColor = Color.Transparent,
             Location = new Point(96, 57),
             Text = "0 Bytes"
         };
         Label title4 = new Label()
         {
-            Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0),
+            AutoSize = false,
+            Size = new Size(112, 15),
+            Font = new Font("Segoe UI", 8F, FontStyle.Regular, GraphicsUnit.Point, 0),
             ForeColor = Color.White,
+            BackColor = Color.Transparent,
             Location = new Point(6, 77),
             Text = "Download Progress:"
         };
         Label fileProgressLabel = new Label()
         {
-            Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0),
+            AutoSize = false,
+            Size = new Size(163, 15),
+            Font = new Font("Segoe UI", 8F, FontStyle.Regular, GraphicsUnit.Point, 0),
             ForeColor = Color.White,
+            BackColor = Color.Transparent,
             Location = new Point(121, 77),
             Text = "0%"
         };
@@ -122,6 +146,12 @@ namespace DownloadManager
                 fileUrlLabel.Text = progress.url;
                 fileSizeLabel.Text = progress.fileSize + " Bytes";
                 fileProgressLabel.Text = progress.percentageDone.ToString() + "%";
+
+                // Bring all labels to front
+                fileNameLabel.BringToFront();
+                fileUrlLabel.BringToFront();
+                fileSizeLabel.BringToFront();
+                fileProgressLabel.BringToFront();
             }
         }
 
