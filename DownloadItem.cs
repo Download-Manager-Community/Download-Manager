@@ -154,6 +154,11 @@ namespace DownloadManager
                 fileSizeLabel.BringToFront();
                 fileProgressLabel.BringToFront();
             }
+
+            if (progress.isPaused)
+            {
+                ProgressBarColor.SetState(progressBar, 3);
+            }
         }
 
         public void Dispose()
