@@ -806,11 +806,22 @@ namespace DownloadManager
 
             if (isPaused)
             {
-                Log("Download of " + url + " has been paused.", Color.White);
-                button1.BackgroundImage = Properties.Resources.play;
+                DarkMessageBox msg = new DarkMessageBox("Are you sure you want to pause this download?\nThis will make the download start again when the download has been resumed.", "Pause Download?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, false);
+                DialogResult result = msg.ShowDialog();
 
-                cancellationToken.Cancel();
-                ProgressBarColor.SetState(progressBar1, 3);
+                if (result == DialogResult.Yes)
+                {
+                    Log("Download of " + url + " has been paused.", Color.White);
+                    button1.BackgroundImage = Properties.Resources.play;
+
+                    cancellationToken.Cancel();
+                    ProgressBarColor.SetState(progressBar1, 3);
+                }
+                else
+                {
+                    isPaused = false;
+                    return;
+                }
             }
             else
             {
