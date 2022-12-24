@@ -159,6 +159,10 @@ namespace DownloadManager
             {
                 ProgressBarColor.SetState(progressBar, 3);
             }
+            else
+            {
+                ProgressBarColor.SetState(progressBar, 1);
+            }
         }
 
         public void Dispose()
