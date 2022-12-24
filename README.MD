@@ -6,7 +6,6 @@
 <img alt="License" src="https://img.shields.io/github/license/Soniczac7/Download-Manager">
 <img alt="GitHub Sponsors" src="https://img.shields.io/github/sponsors/Soniczac7">
 <img alt="Commit activity" src="https://img.shields.io/github/commit-activity/m/Download-Manager-Community/Download-Manager">
-<img alt="Lines of code" src="https://img.shields.io/tokei/lines/github/Download-Manager-Community/Download-Manager">
 </p>
 
 A fast download manager for Windows to download your files.
