@@ -22,6 +22,7 @@ namespace DownloadManager
         #endregion
 
         public static DownloadProgress _instance;
+        Thread thread;
         public string url;
         public string location;
         public string fileName;
@@ -79,7 +80,7 @@ namespace DownloadManager
             checkBox2.Checked = Settings.Default.closeOnComplete;
             checkBox1.Checked = Settings.Default.keepOnTop;
             progressBar1.Style = ProgressBarStyle.Marquee;
-            Thread thread = new Thread(async () =>
+            thread = new Thread(async () =>
             {
                 Uri uri = new Uri(url);
 
@@ -817,6 +818,10 @@ namespace DownloadManager
 
                 Uri uri = new Uri(url);
 
+                cancellationToken = new CancellationTokenSource();
+
+                ProgressBarColor.SetState(progressBar1, 1);
+
                 try
                 {
                     stream = new FileStream(location + fileName, FileMode.Create);
@@ -824,7 +829,6 @@ namespace DownloadManager
                     await DownloadFileAsync(uri, stream, cancellationToken.Token, Client_DownloadProgressChanged);
 
                     stream.Close();
-                    //client.DownloadFileAsync(uri, location + fileName);
                 }
                 catch (System.Threading.Tasks.TaskCanceledException ex)
                 {
@@ -860,6 +864,7 @@ namespace DownloadManager
                     }));
                     return;
                 }
+
             }
         }
     }
