@@ -39,7 +39,7 @@ namespace DownloadManager
             foreach (DownloadProgress progress in DownloadForm.downloadsList)
             {
                 AddItem(progress);
-                nextY += 12 + 105;
+                nextY = nextY + 117;
             }
         }
 
@@ -57,6 +57,11 @@ namespace DownloadManager
             DownloadForm._instance.button2.BackColor = Color.FromArgb(34, 34, 34);
             Settings.Default.showDownloadToolWindow = false;
             Settings.Default.Save();
+        }
+
+        private void refreshButton_Click(object sender, EventArgs e)
+        {
+            RefreshList();
         }
     }
 }

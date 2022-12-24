@@ -697,6 +697,8 @@ namespace DownloadManager
         private void button1_Click(object sender, EventArgs e)
         {
             // Close
+            DownloadForm.downloadsList.Remove(this);
+
             if (!downloading)
             {
                 client.Dispose();
@@ -726,11 +728,11 @@ namespace DownloadManager
                 DialogResult result = msg.ShowDialog();
                 if (result == DialogResult.Yes)
                 {
+                    DownloadForm.downloadsList.Remove(this);
                     DownloadForm.downloadsAmount -= 1;
                     downloading = false;
                     client.CancelAsync();
-                    this.Hide();
-                    e.Cancel = true;
+                    e.Cancel = false;
                 }
                 else
                 {
@@ -739,6 +741,7 @@ namespace DownloadManager
             }
             else
             {
+                DownloadForm.downloadsList.Remove(this);
                 e.Cancel = false;
             }
         }

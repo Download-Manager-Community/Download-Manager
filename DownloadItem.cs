@@ -106,12 +106,13 @@ namespace DownloadManager
 
             this.groupBox = new GroupBox()
             {
+                Anchor = AnchorStyles.Top,
                 Size = new Size(428, 105),
                 Location = new Point(12, CurrentDownloads.nextY),
                 Text = ""
             };
 
-            downloadsForm.Controls.Add(groupBox);
+            downloadsForm.panel1.Controls.Add(groupBox);
 
             groupBox.Controls.Add(progressBar);
             groupBox.Controls.Add(title1);
