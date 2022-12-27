@@ -135,7 +135,7 @@ namespace DownloadManager
             thread.Start();
         }
 
-        public static async Task DownloadFileAsync(Uri uri, Stream toStream, CancellationToken cancellationToken = default, Action<long, long> progressCallback = null)
+        public static async Task DownloadFileAsync(Uri uri, Stream toStream, CancellationToken cancellationToken = default, Action<long, long>? progressCallback = null)
         {
             if (uri == null)
                 throw new ArgumentNullException(nameof(uri));
