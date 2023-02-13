@@ -95,7 +95,8 @@ namespace DownloadManager
                     await DownloadFileAsync(uri, stream, cancellationToken.Token, Client_DownloadProgressChanged);
 
                     stream.Close();
-                    //client.DownloadFileAsync(uri, location + fileName);
+
+                    Client_DownloadFileCompleted();
                 }
                 catch (System.Threading.Tasks.TaskCanceledException ex)
                 {
