@@ -1,6 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Diagnostics;
 using System.Media;
-using System.Net;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
@@ -23,6 +22,7 @@ namespace DownloadManager
         #endregion
 
         public static DownloadProgress _instance;
+        Thread thread;
         public string url;
         public string location;
         public string fileName;
@@ -30,19 +30,21 @@ namespace DownloadManager
         int hashType = 0;
         bool isUrlInvalid = false;
         public bool downloading = true;
+        public bool isPaused = false;
         bool doFileVerify = false;
-        WebClient client = new WebClient();
+        FileStream? stream = null;
         SoundPlayer complete = new SoundPlayer(@"C:\WINDOWS\Media\tada.wav");
 
         public string fileSize = "0";
         public double percentageDone = 0;
 
+        bool cancelled = false;
+        CancellationTokenSource cancellationToken = new CancellationTokenSource();
+
         public DownloadProgress(string urlArg, string locationArg, string hashArg, int hashTypeArg)
         {
             InitializeComponent();
             _instance = this;
-            client.Headers.Add("Cache-Control", "no-cache");
-            client.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.NoCacheNoStore);
             hashType = hashTypeArg;
             hashType += 1;
             hash = hashArg;
@@ -78,44 +80,8 @@ namespace DownloadManager
             checkBox2.Checked = Settings.Default.closeOnComplete;
             checkBox1.Checked = Settings.Default.keepOnTop;
             progressBar1.Style = ProgressBarStyle.Marquee;
-            Thread thread = new Thread(() =>
+            thread = new Thread(async () =>
             {
-                try
-                {
-                    client.OpenRead(url);
-                }
-                catch (Exception ex)
-                {
-                    Invoke(new MethodInvoker(delegate
-                    {
-                        progressBar1.Style = ProgressBarStyle.Blocks;
-                        progressBar1.Value = 100;
-                        ProgressBarColor.SetState(progressBar1, 2);
-                        DownloadForm.downloadsAmount -= 1;
-                        downloading = false;
-                    }));
-
-                    DarkMessageBox msg = new DarkMessageBox(ex.Message, "Download Manager - Error Fetching File", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
-                    msg.ShowDialog();
-                    if (this.IsHandleCreated == true)
-                    {
-                        Invoke(new MethodInvoker(delegate ()
-                        {
-                            client.CancelAsync();
-                            client.Dispose();
-                            this.Close();
-                            this.Dispose();
-                        }));
-                    }
-                    return;
-                }
-                Int64 bytes_total = Convert.ToInt64(client.ResponseHeaders["Content-Length"]);
-                fileSize = bytes_total.ToString();
-                Action action = () => label4.Text = "File Size: " + bytes_total.ToString() + " bytes";
-                this.Invoke(action);
-                client.DownloadFileCompleted += Client_DownloadFileCompleted;
-                client.DownloadProgressChanged += Client_DownloadProgressChanged;
-
                 Uri uri = new Uri(url);
 
                 fileName = HttpUtility.UrlDecode(System.IO.Path.GetFileName(uri.AbsolutePath));
@@ -124,10 +90,26 @@ namespace DownloadManager
                 Log("Downloading file " + uri + " to " + location + fileName, Color.White);
                 try
                 {
-                    client.DownloadFileAsync(uri, location + fileName);
+                    stream = new FileStream(location + fileName, FileMode.Create);
+
+                    await DownloadFileAsync(uri, stream, cancellationToken.Token, Client_DownloadProgressChanged);
+
+                    stream.Close();
+
+                    Client_DownloadFileCompleted();
+                }
+                catch (System.Threading.Tasks.TaskCanceledException ex)
+                {
+                    Log("Download of " + url + "was canceled.", Color.White);
+                    stream.Close();
                 }
                 catch (Exception ex)
                 {
+                    if (stream != null)
+                    {
+                        stream.Close();
+                    }
+
                     Invoke(new MethodInvoker(delegate
                     {
                         progressBar1.Style = ProgressBarStyle.Blocks;
@@ -142,8 +124,9 @@ namespace DownloadManager
                     Invoke(new MethodInvoker(delegate ()
                     {
                         DownloadForm.downloadsAmount -= 1;
-                        client.CancelAsync();
-                        client.Dispose();
+
+                        cancellationToken.Cancel();
+
                         this.Close();
                         this.Dispose();
                     }));
@@ -153,7 +136,64 @@ namespace DownloadManager
             thread.Start();
         }
 
-        private void Client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        public static async Task DownloadFileAsync(Uri uri, Stream toStream, CancellationToken cancellationToken = default, Action<long, long>? progressCallback = null)
+        {
+            if (uri == null)
+                throw new ArgumentNullException(nameof(uri));
+            if (toStream == null)
+                throw new ArgumentNullException(nameof(toStream));
+
+            if (uri.IsFile)
+            {
+                await using Stream file = File.OpenRead(uri.LocalPath);
+
+                if (progressCallback != null)
+                {
+                    long length = file.Length;
+                    byte[] buffer = new byte[4096];
+                    int read;
+                    int totalRead = 0;
+                    while ((read = await file.ReadAsync(buffer, 0, buffer.Length, cancellationToken).ConfigureAwait(false)) > 0)
+                    {
+                        await toStream.WriteAsync(buffer, 0, read, cancellationToken).ConfigureAwait(false);
+                        totalRead += read;
+                        progressCallback(totalRead, length);
+                    }
+                    Debug.Assert(totalRead == length || length == -1);
+                }
+                else
+                {
+                    await file.CopyToAsync(toStream, cancellationToken).ConfigureAwait(false);
+                }
+            }
+            else
+            {
+                using HttpClient client = new HttpClient();
+                using HttpResponseMessage response = await client.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+
+                if (progressCallback != null)
+                {
+                    long length = response.Content.Headers.ContentLength ?? -1;
+                    await using Stream stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                    byte[] buffer = new byte[4096];
+                    int read;
+                    int totalRead = 0;
+                    while ((read = await stream.ReadAsync(buffer, 0, buffer.Length, cancellationToken).ConfigureAwait(false)) > 0)
+                    {
+                        await toStream.WriteAsync(buffer, 0, read, cancellationToken).ConfigureAwait(false);
+                        totalRead += read;
+                        progressCallback(totalRead, length);
+                    }
+                    Debug.Assert(totalRead == length || length == -1);
+                }
+                else
+                {
+                    await response.Content.CopyToAsync(toStream).ConfigureAwait(false);
+                }
+            }
+        }
+
+        private void Client_DownloadProgressChanged(long totalRead, long size)
         {
             //Update progress bar & label
             if (this.IsHandleCreated)
@@ -162,9 +202,12 @@ namespace DownloadManager
                 {
                     Invoke(new MethodInvoker(delegate ()
                     {
+                        label4.Text = "File Size: " + size.ToString() + " bytes";
+                        fileSize = size.ToString();
+
                         progressBar1.Minimum = 0;
-                        double receive = double.Parse(e.BytesReceived.ToString());
-                        double total = double.Parse(e.TotalBytesToReceive.ToString());
+                        double receive = totalRead;
+                        double total = size;
                         double percentage = receive / total * 100;
                         percentageDone = percentage;
                         label3.Text = "Percentage Complete: " + $"{string.Format("{0:0.##}", percentage)}%";
@@ -186,7 +229,7 @@ namespace DownloadManager
                                 DarkMessageBox msg = new DarkMessageBox(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
                                 msg.ShowDialog();
                                 downloading = false;
-                                client.Dispose();
+
                                 this.Close();
                                 this.Dispose();
                                 return;
@@ -209,7 +252,7 @@ namespace DownloadManager
                             }));
                             DownloadForm.downloadsAmount -= 1;
                             downloading = false;
-                            client.Dispose();
+
                             this.Close();
                             this.Dispose();
                             return;
@@ -221,7 +264,7 @@ namespace DownloadManager
             }
         }
 
-        private void Client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        private void Client_DownloadFileCompleted()
         {
             if (this.IsHandleCreated)
             {
@@ -232,7 +275,7 @@ namespace DownloadManager
                     CurrentDownloads._instance.RefreshList();
                 }));
 
-                if (e.Cancelled)
+                if (cancelled)
                 {
                     if (downloading)
                     {
@@ -252,7 +295,7 @@ namespace DownloadManager
 
                     this.Invoke(new MethodInvoker(delegate ()
                     {
-                        client.Dispose();
+
                         this.Close();
                         this.Dispose();
                     }));
@@ -303,7 +346,7 @@ namespace DownloadManager
                                                     progressBar1.Style = ProgressBarStyle.Blocks;
                                                     if (checkBox2.Checked == true)
                                                     {
-                                                        client.Dispose();
+
                                                         this.Close();
                                                         this.Dispose();
                                                         return;
@@ -325,8 +368,9 @@ namespace DownloadManager
                                                 download.Show();
                                                 Invoke(new MethodInvoker(delegate ()
                                                 {
-                                                    client.CancelAsync();
-                                                    client.Dispose();
+
+                                                    cancellationToken.Cancel();
+
                                                     this.Close();
                                                     this.Dispose();
                                                 }));
@@ -366,7 +410,7 @@ namespace DownloadManager
                                                     progressBar1.Style = ProgressBarStyle.Blocks;
                                                     if (checkBox2.Checked == true)
                                                     {
-                                                        client.Dispose();
+
                                                         this.Close();
                                                         this.Dispose();
                                                         return;
@@ -388,8 +432,9 @@ namespace DownloadManager
                                                 download.Show();
                                                 Invoke(new MethodInvoker(delegate ()
                                                 {
-                                                    client.CancelAsync();
-                                                    client.Dispose();
+
+                                                    cancellationToken.Cancel();
+
                                                     this.Close();
                                                     this.Dispose();
                                                 }));
@@ -429,7 +474,7 @@ namespace DownloadManager
                                                     progressBar1.Style = ProgressBarStyle.Blocks;
                                                     if (checkBox2.Checked == true)
                                                     {
-                                                        client.Dispose();
+
                                                         this.Close();
                                                         this.Dispose();
                                                         return;
@@ -451,8 +496,9 @@ namespace DownloadManager
                                                 download.Show();
                                                 Invoke(new MethodInvoker(delegate ()
                                                 {
-                                                    client.CancelAsync();
-                                                    client.Dispose();
+
+                                                    cancellationToken.Cancel();
+
                                                     this.Close();
                                                     this.Dispose();
                                                 }));
@@ -492,7 +538,7 @@ namespace DownloadManager
                                                     progressBar1.Style = ProgressBarStyle.Blocks;
                                                     if (checkBox2.Checked == true)
                                                     {
-                                                        client.Dispose();
+
                                                         this.Close();
                                                         this.Dispose();
                                                         return;
@@ -514,8 +560,9 @@ namespace DownloadManager
                                                 download.Show();
                                                 Invoke(new MethodInvoker(delegate ()
                                                 {
-                                                    client.CancelAsync();
-                                                    client.Dispose();
+
+                                                    cancellationToken.Cancel();
+
                                                     this.Close();
                                                     this.Dispose();
                                                 }));
@@ -557,7 +604,7 @@ namespace DownloadManager
                                                     progressBar1.Style = ProgressBarStyle.Blocks;
                                                     if (checkBox2.Checked == true)
                                                     {
-                                                        client.Dispose();
+
                                                         this.Close();
                                                         this.Dispose();
                                                         return;
@@ -579,8 +626,9 @@ namespace DownloadManager
                                                 download.Show();
                                                 Invoke(new MethodInvoker(delegate ()
                                                 {
-                                                    client.CancelAsync();
-                                                    client.Dispose();
+
+                                                    cancellationToken.Cancel();
+
                                                     this.Close();
                                                     this.Dispose();
                                                 }));
@@ -602,8 +650,9 @@ namespace DownloadManager
                                             {
                                                 downloading = false;
                                                 DownloadForm.downloadsAmount -= 1;
-                                                client.CancelAsync();
-                                                client.Dispose();
+
+                                                cancellationToken.Cancel();
+
                                                 this.Close();
                                                 this.Dispose();
                                             }));
@@ -627,7 +676,7 @@ namespace DownloadManager
                                         progressBar1.Style = ProgressBarStyle.Blocks;
                                         if (checkBox2.Checked == true)
                                         {
-                                            client.Dispose();
+
                                             this.Close();
                                             this.Dispose();
                                             return;
@@ -650,8 +699,9 @@ namespace DownloadManager
                                     downloading = false;
                                     DownloadForm.downloadsAmount -= 1;
                                     progressBar1.Value = 0;
-                                    client.CancelAsync();
-                                    client.Dispose();
+
+                                    cancellationToken.Cancel();
+
                                     this.Close();
                                     this.Dispose();
                                 }));
@@ -667,7 +717,7 @@ namespace DownloadManager
                             ProgressBarColor.SetState(progressBar1, 2);
                             downloading = false;
                             DownloadForm.downloadsAmount -= 1;
-                            client.Dispose();
+
                             this.Close();
                             this.Dispose();
                             return;
@@ -701,7 +751,7 @@ namespace DownloadManager
 
             if (!downloading)
             {
-                client.Dispose();
+
                 this.Close();
                 this.Dispose();
             }
@@ -712,9 +762,11 @@ namespace DownloadManager
                 if (result == DialogResult.Yes)
                 {
                     downloading = false;
+                    cancelled = true;
                     DownloadForm.downloadsAmount -= 1;
-                    client.CancelAsync();
-                    Logging.Log("Download of " + fileName + " is being canceled. The larger the downloading file is, the longer it will take for the download to cancel.", Color.Orange);
+
+                    cancellationToken.Cancel();
+                    Logging.Log("Download of " + fileName + " has been canceled.", Color.Orange);
                     this.Hide();
                 }
             }
@@ -731,7 +783,9 @@ namespace DownloadManager
                     DownloadForm.downloadsList.Remove(this);
                     DownloadForm.downloadsAmount -= 1;
                     downloading = false;
-                    client.CancelAsync();
+                    cancelled = true;
+
+                    cancellationToken.Cancel();
                     e.Cancel = false;
                 }
                 else
@@ -743,6 +797,86 @@ namespace DownloadManager
             {
                 DownloadForm.downloadsList.Remove(this);
                 e.Cancel = false;
+            }
+        }
+
+        async private void button1_Click_1(object sender, EventArgs e)
+        {
+            // Toggle pause/resume
+            isPaused = !isPaused;
+
+            if (isPaused)
+            {
+                DarkMessageBox msg = new DarkMessageBox("Are you sure you want to pause this download?\nThis will make the download start again when the download has been resumed.", "Pause Download?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, false);
+                DialogResult result = msg.ShowDialog();
+
+                if (result == DialogResult.Yes)
+                {
+                    Log("Download of " + url + " has been paused.", Color.White);
+                    button1.BackgroundImage = Properties.Resources.play;
+
+                    cancellationToken.Cancel();
+                    ProgressBarColor.SetState(progressBar1, 3);
+                }
+                else
+                {
+                    isPaused = false;
+                    return;
+                }
+            }
+            else
+            {
+                button1.BackgroundImage = Properties.Resources.pause;
+
+                Uri uri = new Uri(url);
+
+                cancellationToken = new CancellationTokenSource();
+
+                ProgressBarColor.SetState(progressBar1, 1);
+
+                try
+                {
+                    stream = new FileStream(location + fileName, FileMode.Create);
+
+                    await DownloadFileAsync(uri, stream, cancellationToken.Token, Client_DownloadProgressChanged);
+
+                    stream.Close();
+                }
+                catch (System.Threading.Tasks.TaskCanceledException ex)
+                {
+                    Log("Download of " + url + "was canceled.", Color.White);
+                    stream.Close();
+                }
+                catch (Exception ex)
+                {
+                    if (stream != null)
+                    {
+                        stream.Close();
+                    }
+
+                    Invoke(new MethodInvoker(delegate
+                    {
+                        progressBar1.Style = ProgressBarStyle.Blocks;
+                        progressBar1.Value = 100;
+                        ProgressBarColor.SetState(progressBar1, 2);
+                    }));
+
+                    Log(ex.Message, Color.Red);
+                    DarkMessageBox msg = new DarkMessageBox(ex.Message, "Download Manager - Download Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                    msg.ShowDialog();
+                    downloading = false;
+                    Invoke(new MethodInvoker(delegate ()
+                    {
+                        DownloadForm.downloadsAmount -= 1;
+
+                        cancellationToken.Cancel();
+
+                        this.Close();
+                        this.Dispose();
+                    }));
+                    return;
+                }
+
             }
         }
     }
