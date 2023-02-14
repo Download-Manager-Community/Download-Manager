@@ -131,10 +131,12 @@ namespace DownloadManager
 
         private void UpdateTimer_Tick(object? sender, EventArgs e)
         {
-            if (progress == null || progress.downloading == false)
+            if (progress == null || progress.downloading == false || progress.cancelled == true)
             {
                 // If the download is finished, dispose the item
                 Dispose();
+                timer.Stop();
+                return;
             }
             else
             {

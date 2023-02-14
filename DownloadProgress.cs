@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using Microsoft.Toolkit.Uwp.Notifications;
+using System.Diagnostics;
 using System.Media;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
@@ -38,7 +39,7 @@ namespace DownloadManager
         public string fileSize = "0";
         public double percentageDone = 0;
 
-        bool cancelled = false;
+        public bool cancelled = false;
         CancellationTokenSource cancellationToken = new CancellationTokenSource();
 
         public DownloadProgress(string urlArg, string locationArg, string hashArg, int hashTypeArg)
@@ -98,7 +99,7 @@ namespace DownloadManager
 
                     Client_DownloadFileCompleted();
                 }
-                catch (System.Threading.Tasks.TaskCanceledException ex)
+                catch (System.Threading.Tasks.TaskCanceledException)
                 {
                     Log("Download of " + url + "was canceled.", Color.White);
                     stream.Close();
@@ -116,6 +117,12 @@ namespace DownloadManager
                         progressBar1.Value = 100;
                         ProgressBarColor.SetState(progressBar1, 2);
                     }));
+
+                    new ToastContentBuilder()
+                        .AddText($"The download of {fileName} has failed.")
+                        .Show();
+
+                    cancellationToken.Cancel();
 
                     Log(ex.Message, Color.Red);
                     DarkMessageBox msg = new DarkMessageBox(ex.Message, "Download Manager - Download Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
@@ -211,6 +218,7 @@ namespace DownloadManager
                         double percentage = receive / total * 100;
                         percentageDone = percentage;
                         label3.Text = "Percentage Complete: " + $"{string.Format("{0:0.##}", percentage)}%";
+
                         try
                         {
                             progressBar1.Value = int.Parse(Math.Truncate(percentage).ToString());
@@ -229,6 +237,12 @@ namespace DownloadManager
                                 DarkMessageBox msg = new DarkMessageBox(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
                                 msg.ShowDialog();
                                 downloading = false;
+
+                                new ToastContentBuilder()
+                                                .AddText($"The download of {fileName} has failed.")
+                                                .Show();
+
+                                cancellationToken.Cancel();
 
                                 this.Close();
                                 this.Dispose();
@@ -253,6 +267,11 @@ namespace DownloadManager
                             DownloadForm.downloadsAmount -= 1;
                             downloading = false;
 
+                            new ToastContentBuilder()
+                                                .AddText($"The download of {fileName} has failed.")
+                                                .Show();
+
+                            cancellationToken.Cancel();
                             this.Close();
                             this.Dispose();
                             return;
@@ -275,367 +294,62 @@ namespace DownloadManager
                     CurrentDownloads._instance.RefreshList();
                 }));
 
-                if (cancelled)
+                try
                 {
-                    if (downloading)
+                    Invoke(new MethodInvoker(delegate ()
                     {
-                        downloading = false;
-                    }
-
-                    try
-                    {
-                        File.Delete(fileName);
-                    }
-                    catch (Exception ex)
-                    {
-                        Logging.Log(ex.Message + Environment.NewLine + ex.StackTrace, Color.Red);
-                    }
-
-                    Logging.Log("The " + fileName + " download has been canceled.", Color.Orange);
-
-                    this.Invoke(new MethodInvoker(delegate ()
-                    {
-
-                        this.Close();
-                        this.Dispose();
-                    }));
-                }
-                else
-                {
-                    try
-                    {
-                        Invoke(new MethodInvoker(delegate ()
+                        progressBar1.Style = ProgressBarStyle.Marquee;
+                        if (!isUrlInvalid)
                         {
-                            progressBar1.Style = ProgressBarStyle.Marquee;
-                            if (!isUrlInvalid)
+                            if (doFileVerify)
                             {
-                                if (doFileVerify)
+                                Thread thread = new Thread(() =>
                                 {
-                                    Thread thread = new Thread(() =>
+                                    //MD5
+                                    if (hashType == 1)
                                     {
-                                        //MD5
-                                        if (hashType == 1)
+                                        byte[] myHash;
+                                        using (var hash = MD5.Create())
+                                        using (var stream = File.OpenRead(location + fileName))
                                         {
-                                            byte[] myHash;
-                                            using (var hash = MD5.Create())
-                                            using (var stream = File.OpenRead(location + fileName))
-                                            {
-                                                myHash = hash.ComputeHash(stream);
-                                                stream.Close();
-                                            }
-                                            StringBuilder result = new StringBuilder(myHash.Length * 2);
+                                            myHash = hash.ComputeHash(stream);
+                                            stream.Close();
+                                        }
+                                        StringBuilder result = new StringBuilder(myHash.Length * 2);
 
-                                            for (int i = 0; i < myHash.Length; i++)
-                                            {
-                                                result.Append(myHash[i].ToString(false ? "X2" : "x2"));
-                                            }
+                                        for (int i = 0; i < myHash.Length; i++)
+                                        {
+                                            result.Append(myHash[i].ToString(false ? "X2" : "x2"));
+                                        }
 
-                                            if (result.ToString() == hash)
+                                        if (result.ToString() == hash)
+                                        {
+                                            Log("File verification OK.", Color.White);
+                                            downloading = false;
+                                            DownloadForm.downloadsAmount -= 1;
+                                            Log("Finished downloading file.", Color.White);
+
+                                            new ToastContentBuilder()
+                                                .AddText($"The download of {fileName} is complete and has been successfully verified against the checksum provided.")
+                                                .Show();
+
+                                            if (Settings.Default.soundOnComplete == true)
+                                                complete.Play();
+                                            Invoke(new MethodInvoker(delegate ()
                                             {
-                                                Log("File verification OK.", Color.White);
-                                                downloading = false;
-                                                DownloadForm.downloadsAmount -= 1;
-                                                Log("Finished downloading file.", Color.White);
-                                                if (Settings.Default.soundOnComplete == true)
-                                                    complete.Play();
-                                                Invoke(new MethodInvoker(delegate ()
+                                                checkBox2.Enabled = false;
+                                                button3.Enabled = false;
+                                                progressBar1.Value = 100;
+                                                progressBar1.Style = ProgressBarStyle.Blocks;
+                                                if (checkBox2.Checked == true)
                                                 {
-                                                    checkBox2.Enabled = false;
-                                                    button3.Enabled = false;
-                                                    progressBar1.Value = 100;
-                                                    progressBar1.Style = ProgressBarStyle.Blocks;
-                                                    if (checkBox2.Checked == true)
-                                                    {
-
-                                                        this.Close();
-                                                        this.Dispose();
-                                                        return;
-                                                    }
-                                                }));
-                                            }
-                                            else
-                                            {
-                                                Invoke(new MethodInvoker(delegate
-                                                {
-                                                    progressBar1.Style = ProgressBarStyle.Blocks;
-                                                    progressBar1.Value = 100;
-                                                    ProgressBarColor.SetState(progressBar1, 2);
-                                                }));
-                                                Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
-                                                DownloadForm.downloadsAmount -= 1;
-                                                hashType -= 1;
-                                                DownloadProgress download = new DownloadProgress(url, location, hash, hashType);
-                                                download.Show();
-                                                Invoke(new MethodInvoker(delegate ()
-                                                {
-
-                                                    cancellationToken.Cancel();
 
                                                     this.Close();
                                                     this.Dispose();
-                                                }));
-                                                return;
-                                            }
+                                                    return;
+                                                }
+                                            }));
                                         }
-                                        // SHA-1
-                                        else if (hashType == 2)
-                                        {
-                                            byte[] myHash;
-                                            using (var hash = SHA1.Create())
-                                            using (var stream = File.OpenRead(location + fileName))
-                                            {
-                                                myHash = hash.ComputeHash(stream);
-                                                stream.Close();
-                                            }
-                                            StringBuilder result = new StringBuilder(myHash.Length * 2);
-
-                                            for (int i = 0; i < myHash.Length; i++)
-                                            {
-                                                result.Append(myHash[i].ToString(false ? "X2" : "x2"));
-                                            }
-
-                                            if (result.ToString() == hash)
-                                            {
-                                                Log("File verification OK.", Color.White);
-                                                downloading = false;
-                                                DownloadForm.downloadsAmount -= 1;
-                                                Log("Finished downloading file.", Color.White);
-                                                if (Settings.Default.soundOnComplete == true)
-                                                    complete.Play();
-                                                Invoke(new MethodInvoker(delegate ()
-                                                {
-                                                    checkBox2.Enabled = false;
-                                                    button3.Enabled = false;
-                                                    progressBar1.Value = 100;
-                                                    progressBar1.Style = ProgressBarStyle.Blocks;
-                                                    if (checkBox2.Checked == true)
-                                                    {
-
-                                                        this.Close();
-                                                        this.Dispose();
-                                                        return;
-                                                    }
-                                                }));
-                                            }
-                                            else
-                                            {
-                                                Invoke(new MethodInvoker(delegate
-                                                {
-                                                    progressBar1.Style = ProgressBarStyle.Blocks;
-                                                    progressBar1.Value = 100;
-                                                    ProgressBarColor.SetState(progressBar1, 2);
-                                                }));
-                                                Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
-                                                DownloadForm.downloadsAmount -= 1;
-                                                hashType -= 1;
-                                                DownloadProgress download = new DownloadProgress(url, location, hash, hashType);
-                                                download.Show();
-                                                Invoke(new MethodInvoker(delegate ()
-                                                {
-
-                                                    cancellationToken.Cancel();
-
-                                                    this.Close();
-                                                    this.Dispose();
-                                                }));
-                                                return;
-                                            }
-                                        }
-                                        // SHA-256
-                                        else if (hashType == 3)
-                                        {
-                                            byte[] myHash;
-                                            using (var hash = SHA256.Create())
-                                            using (var stream = File.OpenRead(location + fileName))
-                                            {
-                                                myHash = hash.ComputeHash(stream);
-                                                stream.Close();
-                                            }
-                                            StringBuilder result = new StringBuilder(myHash.Length * 2);
-
-                                            for (int i = 0; i < myHash.Length; i++)
-                                            {
-                                                result.Append(myHash[i].ToString(false ? "X2" : "x2"));
-                                            }
-
-                                            if (result.ToString() == hash)
-                                            {
-                                                Log("File verification OK.", Color.White);
-                                                downloading = false;
-                                                DownloadForm.downloadsAmount -= 1;
-                                                Log("Finished downloading file.", Color.White);
-                                                if (Settings.Default.soundOnComplete == true)
-                                                    complete.Play();
-                                                Invoke(new MethodInvoker(delegate ()
-                                                {
-                                                    checkBox2.Enabled = false;
-                                                    button3.Enabled = false;
-                                                    progressBar1.Value = 100;
-                                                    progressBar1.Style = ProgressBarStyle.Blocks;
-                                                    if (checkBox2.Checked == true)
-                                                    {
-
-                                                        this.Close();
-                                                        this.Dispose();
-                                                        return;
-                                                    }
-                                                }));
-                                            }
-                                            else
-                                            {
-                                                Invoke(new MethodInvoker(delegate
-                                                {
-                                                    progressBar1.Style = ProgressBarStyle.Blocks;
-                                                    progressBar1.Value = 100;
-                                                    ProgressBarColor.SetState(progressBar1, 2);
-                                                }));
-                                                Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
-                                                DownloadForm.downloadsAmount -= 1;
-                                                hashType -= 1;
-                                                DownloadProgress download = new DownloadProgress(url, location, hash, hashType);
-                                                download.Show();
-                                                Invoke(new MethodInvoker(delegate ()
-                                                {
-
-                                                    cancellationToken.Cancel();
-
-                                                    this.Close();
-                                                    this.Dispose();
-                                                }));
-                                                return;
-                                            }
-                                        }
-                                        // SHA-384
-                                        else if (hashType == 4)
-                                        {
-                                            byte[] myHash;
-                                            using (var hash = SHA384.Create())
-                                            using (var stream = File.OpenRead(location + fileName))
-                                            {
-                                                myHash = hash.ComputeHash(stream);
-                                                stream.Close();
-                                            }
-                                            StringBuilder result = new StringBuilder(myHash.Length * 2);
-
-                                            for (int i = 0; i < myHash.Length; i++)
-                                            {
-                                                result.Append(myHash[i].ToString(false ? "X2" : "x2"));
-                                            }
-
-                                            if (result.ToString() == hash)
-                                            {
-                                                Log("File verification OK.", Color.White);
-                                                downloading = false;
-                                                DownloadForm.downloadsAmount -= 1;
-                                                Log("Finished downloading file.", Color.White);
-                                                if (Settings.Default.soundOnComplete == true)
-                                                    complete.Play();
-                                                Invoke(new MethodInvoker(delegate ()
-                                                {
-                                                    checkBox2.Enabled = false;
-                                                    button3.Enabled = false;
-                                                    progressBar1.Value = 100;
-                                                    progressBar1.Style = ProgressBarStyle.Blocks;
-                                                    if (checkBox2.Checked == true)
-                                                    {
-
-                                                        this.Close();
-                                                        this.Dispose();
-                                                        return;
-                                                    }
-                                                }));
-                                            }
-                                            else
-                                            {
-                                                Invoke(new MethodInvoker(delegate
-                                                {
-                                                    progressBar1.Style = ProgressBarStyle.Blocks;
-                                                    progressBar1.Value = 100;
-                                                    ProgressBarColor.SetState(progressBar1, 2);
-                                                }));
-                                                Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
-                                                DownloadForm.downloadsAmount -= 1;
-                                                hashType -= 1;
-                                                DownloadProgress download = new DownloadProgress(url, location, hash, hashType);
-                                                download.Show();
-                                                Invoke(new MethodInvoker(delegate ()
-                                                {
-
-                                                    cancellationToken.Cancel();
-
-                                                    this.Close();
-                                                    this.Dispose();
-                                                }));
-                                                return;
-                                            }
-                                        }
-                                        // SHA-512
-                                        else if (hashType == 5)
-                                        {
-                                            byte[] myHash;
-                                            using (var hash = SHA512.Create())
-                                            using (var stream = File.OpenRead(location + fileName))
-                                            {
-                                                myHash = hash.ComputeHash(stream);
-                                                stream.Close();
-                                            }
-                                            StringBuilder result = new StringBuilder(myHash.Length * 2);
-
-                                            for (int i = 0; i < myHash.Length; i++)
-                                            {
-                                                result.Append(myHash[i].ToString(false ? "X2" : "x2"));
-                                            }
-
-                                            //Log("Provided Hash: " + hash + Environment.NewLine + "Generated Hash: " + result.ToString(), Color.White);
-
-                                            if (result.ToString() == hash)
-                                            {
-                                                Log("File verification OK.", Color.White);
-                                                downloading = false;
-                                                DownloadForm.downloadsAmount -= 1;
-                                                Log("Finished downloading file.", Color.White);
-                                                if (Settings.Default.soundOnComplete == true)
-                                                    complete.Play();
-                                                Invoke(new MethodInvoker(delegate ()
-                                                {
-                                                    checkBox2.Enabled = false;
-                                                    button3.Enabled = false;
-                                                    progressBar1.Value = 100;
-                                                    progressBar1.Style = ProgressBarStyle.Blocks;
-                                                    if (checkBox2.Checked == true)
-                                                    {
-
-                                                        this.Close();
-                                                        this.Dispose();
-                                                        return;
-                                                    }
-                                                }));
-                                            }
-                                            else
-                                            {
-                                                Invoke(new MethodInvoker(delegate
-                                                {
-                                                    progressBar1.Style = ProgressBarStyle.Blocks;
-                                                    progressBar1.Value = 100;
-                                                    ProgressBarColor.SetState(progressBar1, 2);
-                                                }));
-                                                Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
-                                                DownloadForm.downloadsAmount -= 1;
-                                                hashType -= 1;
-                                                DownloadProgress download = new DownloadProgress(url, location, hash, hashType);
-                                                download.Show();
-                                                Invoke(new MethodInvoker(delegate ()
-                                                {
-
-                                                    cancellationToken.Cancel();
-
-                                                    this.Close();
-                                                    this.Dispose();
-                                                }));
-                                                return;
-                                            }
-                                        }
-                                        // Invalid
                                         else
                                         {
                                             Invoke(new MethodInvoker(delegate
@@ -644,12 +358,18 @@ namespace DownloadManager
                                                 progressBar1.Value = 100;
                                                 ProgressBarColor.SetState(progressBar1, 2);
                                             }));
-                                            Log("Invalid hash type '" + hashType + "'. The file could not be verified.", Color.Red);
-                                            DarkMessageBox msg = new DarkMessageBox("Invalid hash type '" + hashType + "'. The file could not be verified.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                                            Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
+
+                                            new ToastContentBuilder()
+                                                .AddText($"The download of {fileName} is complete but failed to verify against the checksum provided and will be re-downloaded.")
+                                                .Show();
+
+                                            DownloadForm.downloadsAmount -= 1;
+                                            hashType -= 1;
+                                            DownloadProgress download = new DownloadProgress(url, location, hash, hashType);
+                                            download.Show();
                                             Invoke(new MethodInvoker(delegate ()
                                             {
-                                                downloading = false;
-                                                DownloadForm.downloadsAmount -= 1;
 
                                                 cancellationToken.Cancel();
 
@@ -658,75 +378,411 @@ namespace DownloadManager
                                             }));
                                             return;
                                         }
-                                    });
-                                    thread.Start();
-                                }
-                                else
-                                {
-                                    downloading = false;
-                                    DownloadForm.downloadsAmount -= 1;
-                                    Log("Finished downloading file.", Color.White);
-                                    if (Settings.Default.soundOnComplete == true)
-                                        complete.Play();
-                                    Invoke(new MethodInvoker(delegate ()
+                                    }
+                                    // SHA-1
+                                    else if (hashType == 2)
                                     {
-                                        checkBox2.Enabled = false;
-                                        button3.Enabled = false;
-                                        progressBar1.Value = 100;
-                                        progressBar1.Style = ProgressBarStyle.Blocks;
-                                        if (checkBox2.Checked == true)
+                                        byte[] myHash;
+                                        using (var hash = SHA1.Create())
+                                        using (var stream = File.OpenRead(location + fileName))
                                         {
+                                            myHash = hash.ComputeHash(stream);
+                                            stream.Close();
+                                        }
+                                        StringBuilder result = new StringBuilder(myHash.Length * 2);
+
+                                        for (int i = 0; i < myHash.Length; i++)
+                                        {
+                                            result.Append(myHash[i].ToString(false ? "X2" : "x2"));
+                                        }
+
+                                        if (result.ToString() == hash)
+                                        {
+                                            Log("File verification OK.", Color.White);
+                                            downloading = false;
+                                            DownloadForm.downloadsAmount -= 1;
+
+                                            new ToastContentBuilder()
+                                                .AddText($"The download of {fileName} is complete and has been successfully verified against the checksum provided.")
+                                                .Show();
+
+                                            Log("Finished downloading file.", Color.White);
+                                            if (Settings.Default.soundOnComplete == true)
+                                                complete.Play();
+                                            Invoke(new MethodInvoker(delegate ()
+                                            {
+                                                checkBox2.Enabled = false;
+                                                button3.Enabled = false;
+                                                progressBar1.Value = 100;
+                                                progressBar1.Style = ProgressBarStyle.Blocks;
+                                                if (checkBox2.Checked == true)
+                                                {
+
+                                                    this.Close();
+                                                    this.Dispose();
+                                                    return;
+                                                }
+                                            }));
+                                        }
+                                        else
+                                        {
+                                            Invoke(new MethodInvoker(delegate
+                                            {
+                                                progressBar1.Style = ProgressBarStyle.Blocks;
+                                                progressBar1.Value = 100;
+                                                ProgressBarColor.SetState(progressBar1, 2);
+                                            }));
+                                            Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
+
+                                            new ToastContentBuilder()
+                                                .AddText($"The download of {fileName} is complete but failed to verify against the checksum provided and will be re-downloaded.")
+                                                .Show();
+
+                                            DownloadForm.downloadsAmount -= 1;
+                                            hashType -= 1;
+                                            DownloadProgress download = new DownloadProgress(url, location, hash, hashType);
+                                            download.Show();
+                                            Invoke(new MethodInvoker(delegate ()
+                                            {
+
+                                                cancellationToken.Cancel();
+
+                                                this.Close();
+                                                this.Dispose();
+                                            }));
+                                            return;
+                                        }
+                                    }
+                                    // SHA-256
+                                    else if (hashType == 3)
+                                    {
+                                        byte[] myHash;
+                                        using (var hash = SHA256.Create())
+                                        using (var stream = File.OpenRead(location + fileName))
+                                        {
+                                            myHash = hash.ComputeHash(stream);
+                                            stream.Close();
+                                        }
+                                        StringBuilder result = new StringBuilder(myHash.Length * 2);
+
+                                        for (int i = 0; i < myHash.Length; i++)
+                                        {
+                                            result.Append(myHash[i].ToString(false ? "X2" : "x2"));
+                                        }
+
+                                        if (result.ToString() == hash)
+                                        {
+                                            Log("File verification OK.", Color.White);
+                                            downloading = false;
+                                            DownloadForm.downloadsAmount -= 1;
+
+                                            new ToastContentBuilder()
+                                                .AddText($"The download of {fileName} is complete and has been successfully verified against the checksum provided.")
+                                                .Show();
+
+                                            Log("Finished downloading file.", Color.White);
+                                            if (Settings.Default.soundOnComplete == true)
+                                                complete.Play();
+                                            Invoke(new MethodInvoker(delegate ()
+                                            {
+                                                checkBox2.Enabled = false;
+                                                button3.Enabled = false;
+                                                progressBar1.Value = 100;
+                                                progressBar1.Style = ProgressBarStyle.Blocks;
+                                                if (checkBox2.Checked == true)
+                                                {
+
+                                                    this.Close();
+                                                    this.Dispose();
+                                                    return;
+                                                }
+                                            }));
+                                        }
+                                        else
+                                        {
+                                            Invoke(new MethodInvoker(delegate
+                                            {
+                                                progressBar1.Style = ProgressBarStyle.Blocks;
+                                                progressBar1.Value = 100;
+                                                ProgressBarColor.SetState(progressBar1, 2);
+                                            }));
+                                            Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
+
+                                            new ToastContentBuilder()
+                                                .AddText($"The download of {fileName} is complete but failed to verify against the checksum provided and will be re-downloaded.")
+                                                .Show();
+
+                                            DownloadForm.downloadsAmount -= 1;
+                                            hashType -= 1;
+                                            DownloadProgress download = new DownloadProgress(url, location, hash, hashType);
+                                            download.Show();
+                                            Invoke(new MethodInvoker(delegate ()
+                                            {
+
+                                                cancellationToken.Cancel();
+
+                                                this.Close();
+                                                this.Dispose();
+                                            }));
+                                            return;
+                                        }
+                                    }
+                                    // SHA-384
+                                    else if (hashType == 4)
+                                    {
+                                        byte[] myHash;
+                                        using (var hash = SHA384.Create())
+                                        using (var stream = File.OpenRead(location + fileName))
+                                        {
+                                            myHash = hash.ComputeHash(stream);
+                                            stream.Close();
+                                        }
+                                        StringBuilder result = new StringBuilder(myHash.Length * 2);
+
+                                        for (int i = 0; i < myHash.Length; i++)
+                                        {
+                                            result.Append(myHash[i].ToString(false ? "X2" : "x2"));
+                                        }
+
+                                        if (result.ToString() == hash)
+                                        {
+                                            Log("File verification OK.", Color.White);
+                                            downloading = false;
+                                            DownloadForm.downloadsAmount -= 1;
+
+                                            new ToastContentBuilder()
+                                                .AddText($"The download of {fileName} is complete and has been successfully verified against the checksum provided.")
+                                                .Show();
+
+                                            Log("Finished downloading file.", Color.White);
+                                            if (Settings.Default.soundOnComplete == true)
+                                                complete.Play();
+                                            Invoke(new MethodInvoker(delegate ()
+                                            {
+                                                checkBox2.Enabled = false;
+                                                button3.Enabled = false;
+                                                progressBar1.Value = 100;
+                                                progressBar1.Style = ProgressBarStyle.Blocks;
+                                                if (checkBox2.Checked == true)
+                                                {
+
+                                                    this.Close();
+                                                    this.Dispose();
+                                                    return;
+                                                }
+                                            }));
+                                        }
+                                        else
+                                        {
+                                            Invoke(new MethodInvoker(delegate
+                                            {
+                                                progressBar1.Style = ProgressBarStyle.Blocks;
+                                                progressBar1.Value = 100;
+                                                ProgressBarColor.SetState(progressBar1, 2);
+                                            }));
+                                            Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
+
+                                            new ToastContentBuilder()
+                                                .AddText($"The download of {fileName} is complete but failed to verify against the checksum provided and will be re-downloaded.")
+                                                .Show();
+
+                                            DownloadForm.downloadsAmount -= 1;
+                                            hashType -= 1;
+                                            DownloadProgress download = new DownloadProgress(url, location, hash, hashType);
+                                            download.Show();
+                                            Invoke(new MethodInvoker(delegate ()
+                                            {
+
+                                                cancellationToken.Cancel();
+
+                                                this.Close();
+                                                this.Dispose();
+                                            }));
+                                            return;
+                                        }
+                                    }
+                                    // SHA-512
+                                    else if (hashType == 5)
+                                    {
+                                        byte[] myHash;
+                                        using (var hash = SHA512.Create())
+                                        using (var stream = File.OpenRead(location + fileName))
+                                        {
+                                            myHash = hash.ComputeHash(stream);
+                                            stream.Close();
+                                        }
+                                        StringBuilder result = new StringBuilder(myHash.Length * 2);
+
+                                        for (int i = 0; i < myHash.Length; i++)
+                                        {
+                                            result.Append(myHash[i].ToString(false ? "X2" : "x2"));
+                                        }
+
+                                        //Log("Provided Hash: " + hash + Environment.NewLine + "Generated Hash: " + result.ToString(), Color.White);
+
+                                        if (result.ToString() == hash)
+                                        {
+                                            Log("File verification OK.", Color.White);
+                                            downloading = false;
+                                            DownloadForm.downloadsAmount -= 1;
+
+                                            new ToastContentBuilder()
+                                                .AddText($"The download of {fileName} is complete and has been successfully verified against the checksum provided.")
+                                                .Show();
+
+                                            Log("Finished downloading file.", Color.White);
+                                            if (Settings.Default.soundOnComplete == true)
+                                                complete.Play();
+                                            Invoke(new MethodInvoker(delegate ()
+                                            {
+                                                checkBox2.Enabled = false;
+                                                button3.Enabled = false;
+                                                progressBar1.Value = 100;
+                                                progressBar1.Style = ProgressBarStyle.Blocks;
+                                                if (checkBox2.Checked == true)
+                                                {
+
+                                                    this.Close();
+                                                    this.Dispose();
+                                                    return;
+                                                }
+                                            }));
+                                        }
+                                        else
+                                        {
+                                            Invoke(new MethodInvoker(delegate
+                                            {
+                                                progressBar1.Style = ProgressBarStyle.Blocks;
+                                                progressBar1.Value = 100;
+                                                ProgressBarColor.SetState(progressBar1, 2);
+                                            }));
+                                            Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
+
+                                            new ToastContentBuilder()
+                                                .AddText($"The download of {fileName} is complete but failed to verify against the checksum provided and will be re-downloaded.")
+                                                .Show();
+
+                                            DownloadForm.downloadsAmount -= 1;
+                                            hashType -= 1;
+                                            DownloadProgress download = new DownloadProgress(url, location, hash, hashType);
+                                            download.Show();
+                                            Invoke(new MethodInvoker(delegate ()
+                                            {
+
+                                                cancellationToken.Cancel();
+
+                                                this.Close();
+                                                this.Dispose();
+                                            }));
+                                            return;
+                                        }
+                                    }
+                                    // Invalid
+                                    else
+                                    {
+                                        Invoke(new MethodInvoker(delegate
+                                        {
+                                            progressBar1.Style = ProgressBarStyle.Blocks;
+                                            progressBar1.Value = 100;
+                                            ProgressBarColor.SetState(progressBar1, 2);
+                                        }));
+                                        Log("Invalid hash type '" + hashType + "'. The file could not be verified.", Color.Red);
+
+                                        new ToastContentBuilder()
+                                                .AddText($"The download of {fileName} is complete but could not be verified against the checksum provided due to an internal error.")
+                                                .Show();
+
+                                        DarkMessageBox msg = new DarkMessageBox("Invalid hash type '" + hashType + "'. The file could not be verified.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                                        Invoke(new MethodInvoker(delegate ()
+                                        {
+                                            downloading = false;
+                                            DownloadForm.downloadsAmount -= 1;
+
+                                            cancellationToken.Cancel();
 
                                             this.Close();
                                             this.Dispose();
-                                            return;
-                                        }
-                                    }));
-                                }
+                                        }));
+                                        return;
+                                    }
+                                });
+                                thread.Start();
                             }
                             else
                             {
-                                Invoke(new MethodInvoker(delegate
-                                {
-                                    progressBar1.Style = ProgressBarStyle.Blocks;
-                                    progressBar1.Value = 100;
-                                    ProgressBarColor.SetState(progressBar1, 2);
-                                }));
+                                downloading = false;
+                                DownloadForm.downloadsAmount -= 1;
+                                Log("Finished downloading file.", Color.White);
 
-                                Log("Download failed.", Color.Red);
+                                new ToastContentBuilder()
+                                                .AddText($"The download of {fileName} is complete.")
+                                                .Show();
+
+                                if (Settings.Default.soundOnComplete == true)
+                                    complete.Play();
                                 Invoke(new MethodInvoker(delegate ()
                                 {
-                                    downloading = false;
-                                    DownloadForm.downloadsAmount -= 1;
-                                    progressBar1.Value = 0;
+                                    checkBox2.Enabled = false;
+                                    button3.Enabled = false;
+                                    progressBar1.Value = 100;
+                                    progressBar1.Style = ProgressBarStyle.Blocks;
+                                    if (checkBox2.Checked == true)
+                                    {
 
-                                    cancellationToken.Cancel();
-
-                                    this.Close();
-                                    this.Dispose();
+                                        this.Close();
+                                        this.Dispose();
+                                        return;
+                                    }
                                 }));
                             }
-                        }));
-                    }
-                    catch (Exception ex)
-                    {
-                        Invoke(new MethodInvoker(delegate
+                        }
+                        else
                         {
-                            progressBar1.Style = ProgressBarStyle.Blocks;
-                            progressBar1.Value = 100;
-                            ProgressBarColor.SetState(progressBar1, 2);
-                            downloading = false;
-                            DownloadForm.downloadsAmount -= 1;
+                            Invoke(new MethodInvoker(delegate
+                            {
+                                progressBar1.Style = ProgressBarStyle.Blocks;
+                                progressBar1.Value = 100;
+                                ProgressBarColor.SetState(progressBar1, 2);
+                            }));
 
-                            this.Close();
-                            this.Dispose();
-                            return;
-                        }));
+                            Log("Download failed.", Color.Red);
 
-                        Log(ex.Message + Environment.NewLine + ex.StackTrace, Color.Red);
-                        DarkMessageBox msg = new DarkMessageBox(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
-                        msg.ShowDialog();
-                    }
+                            new ToastContentBuilder()
+                                                .AddText($"The download of {fileName} has failed.")
+                                                .Show();
+
+                            Invoke(new MethodInvoker(delegate ()
+                            {
+                                downloading = false;
+                                DownloadForm.downloadsAmount -= 1;
+                                progressBar1.Value = 0;
+
+                                cancellationToken.Cancel();
+
+                                this.Close();
+                                this.Dispose();
+                            }));
+                        }
+                    }));
+                }
+                catch (Exception ex)
+                {
+                    Invoke(new MethodInvoker(delegate
+                    {
+                        progressBar1.Style = ProgressBarStyle.Blocks;
+                        progressBar1.Value = 100;
+                        ProgressBarColor.SetState(progressBar1, 2);
+                        downloading = false;
+                        DownloadForm.downloadsAmount -= 1;
+
+                        this.Close();
+                        this.Dispose();
+                        return;
+                    }));
+
+                    Log(ex.Message + Environment.NewLine + ex.StackTrace, Color.Red);
+                    DarkMessageBox msg = new DarkMessageBox(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                    msg.ShowDialog();
                 }
             }
         }
@@ -767,6 +823,26 @@ namespace DownloadManager
 
                     cancellationToken.Cancel();
                     Logging.Log("Download of " + fileName + " has been canceled.", Color.Orange);
+
+                    try
+                    {
+                        File.Delete(fileName);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Log(ex.Message + Environment.NewLine + ex.StackTrace, Color.Red);
+                    }
+
+                    new ToastContentBuilder()
+                        .AddText($"The download of {fileName} has been canceled.")
+                        .Show();
+
+                    this.Invoke(new MethodInvoker(delegate ()
+                    {
+                        this.Close();
+                        this.Dispose();
+                    }));
+
                     this.Hide();
                 }
             }
@@ -786,6 +862,21 @@ namespace DownloadManager
                     cancelled = true;
 
                     cancellationToken.Cancel();
+                    Logging.Log("Download of " + fileName + " has been canceled.", Color.Orange);
+
+                    try
+                    {
+                        File.Delete(fileName);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Log(ex.Message + Environment.NewLine + ex.StackTrace, Color.Red);
+                    }
+
+                    new ToastContentBuilder()
+                        .AddText($"The download of {fileName} has been canceled.")
+                        .Show();
+
                     e.Cancel = false;
                 }
                 else
