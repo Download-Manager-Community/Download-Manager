@@ -37,15 +37,21 @@ namespace DownloadManager
         SoundPlayer complete = new SoundPlayer(@"C:\WINDOWS\Media\tada.wav");
 
         public string fileSize = "0";
+        public long totalSize = 0;
         public double percentageDone = 0;
 
         public bool cancelled = false;
+        internal bool restartNoProgress = false;
+        internal int downloadAttempts = 0;
         CancellationTokenSource cancellationToken = new CancellationTokenSource();
 
-        public DownloadProgress(string urlArg, string locationArg, string hashArg, int hashTypeArg)
+        public DownloadProgress(string urlArg, string locationArg, string hashArg, int hashTypeArg, int downloadAttempts = 0)
         {
             InitializeComponent();
             _instance = this;
+
+            this.downloadAttempts = downloadAttempts;
+
             hashType = hashTypeArg;
             hashType += 1;
             hash = hashArg;
@@ -94,6 +100,12 @@ namespace DownloadManager
                     stream = new FileStream(location + fileName, FileMode.Create);
 
                     await DownloadFileAsync(uri, stream, cancellationToken.Token, Client_DownloadProgressChanged);
+
+                    if (restartNoProgress)
+                    {
+                        cancellationToken.TryReset();
+                        await DownloadFileAsync(uri, stream, cancellationToken.Token);
+                    }
 
                     stream.Close();
 
@@ -180,11 +192,32 @@ namespace DownloadManager
 
                 if (progressCallback != null)
                 {
-                    long length = response.Content.Headers.ContentLength ?? -1;
+                    long length = 0;
+                    if (_instance.totalSize == 0)
+                    {
+                        length = response.Content.Headers.ContentLength ?? -1;
+                        _instance.totalSize = length;
+
+                        if (length == -1)
+                        {
+                            _instance.restartNoProgress = true;
+                            _instance.cancellationToken.Cancel();
+                            Logging.Log("Server failed to provide content length. Progress report will not be available.", Color.Orange);
+                            new ToastContentBuilder()
+                                                .AddText($"The remote server failed to provide size of {_instance.fileName}. Progress reports will not be available.")
+                                                .Show();
+                            _instance.progressBar1.Style = ProgressBarStyle.Marquee;
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        length = _instance.totalSize;
+                    }
                     await using Stream stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
                     byte[] buffer = new byte[4096];
                     int read;
-                    int totalRead = 0;
+                    long totalRead = 0;
                     while ((read = await stream.ReadAsync(buffer, 0, buffer.Length, cancellationToken).ConfigureAwait(false)) > 0)
                     {
                         await toStream.WriteAsync(buffer, 0, read, cancellationToken).ConfigureAwait(false);
@@ -210,6 +243,7 @@ namespace DownloadManager
                     Invoke(new MethodInvoker(delegate ()
                     {
                         label4.Text = "File Size: " + size.ToString() + " bytes";
+                        totalSize = size;
                         fileSize = size.ToString();
 
                         progressBar1.Minimum = 0;
@@ -364,17 +398,28 @@ namespace DownloadManager
                                                 .AddText($"The download of {fileName} is complete but failed to verify against the checksum provided and will be re-downloaded.")
                                                 .Show();
 
+                                            downloading = false;
+                                            cancelled = false;
+                                            cancellationToken.Cancel();
                                             DownloadForm.downloadsAmount -= 1;
                                             hashType -= 1;
-                                            DownloadProgress download = new DownloadProgress(url, location, hash, hashType);
-                                            download.Show();
+
                                             Invoke(new MethodInvoker(delegate ()
                                             {
-
-                                                cancellationToken.Cancel();
-
                                                 this.Close();
                                                 this.Dispose();
+
+                                                if (downloadAttempts != 3)
+                                                {
+                                                    DownloadProgress download = new DownloadProgress(url, location, hash, hashType, downloadAttempts + 1);
+                                                    download.Show();
+                                                }
+                                                else
+                                                {
+                                                    new ToastContentBuilder()
+                                                        .AddText($"The download of {fileName} failed. The download exceeded the maximum number of attempts.")
+                                                        .Show();
+                                                }
                                             }));
                                             return;
                                         }
@@ -438,17 +483,28 @@ namespace DownloadManager
                                                 .AddText($"The download of {fileName} is complete but failed to verify against the checksum provided and will be re-downloaded.")
                                                 .Show();
 
+                                            downloading = false;
+                                            cancelled = false;
+                                            cancellationToken.Cancel();
                                             DownloadForm.downloadsAmount -= 1;
                                             hashType -= 1;
-                                            DownloadProgress download = new DownloadProgress(url, location, hash, hashType);
-                                            download.Show();
+
                                             Invoke(new MethodInvoker(delegate ()
                                             {
-
-                                                cancellationToken.Cancel();
-
                                                 this.Close();
                                                 this.Dispose();
+
+                                                if (downloadAttempts != 3)
+                                                {
+                                                    DownloadProgress download = new DownloadProgress(url, location, hash, hashType, downloadAttempts + 1);
+                                                    download.Show();
+                                                }
+                                                else
+                                                {
+                                                    new ToastContentBuilder()
+                                                        .AddText($"The download of {fileName} failed. The download exceeded the maximum number of attempts.")
+                                                        .Show();
+                                                }
                                             }));
                                             return;
                                         }
@@ -512,17 +568,28 @@ namespace DownloadManager
                                                 .AddText($"The download of {fileName} is complete but failed to verify against the checksum provided and will be re-downloaded.")
                                                 .Show();
 
+                                            downloading = false;
+                                            cancelled = false;
+                                            cancellationToken.Cancel();
                                             DownloadForm.downloadsAmount -= 1;
                                             hashType -= 1;
-                                            DownloadProgress download = new DownloadProgress(url, location, hash, hashType);
-                                            download.Show();
+
                                             Invoke(new MethodInvoker(delegate ()
                                             {
-
-                                                cancellationToken.Cancel();
-
                                                 this.Close();
                                                 this.Dispose();
+
+                                                if (downloadAttempts != 3)
+                                                {
+                                                    DownloadProgress download = new DownloadProgress(url, location, hash, hashType, downloadAttempts + 1);
+                                                    download.Show();
+                                                }
+                                                else
+                                                {
+                                                    new ToastContentBuilder()
+                                                        .AddText($"The download of {fileName} failed. The download exceeded the maximum number of attempts.")
+                                                        .Show();
+                                                }
                                             }));
                                             return;
                                         }
@@ -586,17 +653,28 @@ namespace DownloadManager
                                                 .AddText($"The download of {fileName} is complete but failed to verify against the checksum provided and will be re-downloaded.")
                                                 .Show();
 
+                                            downloading = false;
+                                            cancelled = false;
+                                            cancellationToken.Cancel();
                                             DownloadForm.downloadsAmount -= 1;
                                             hashType -= 1;
-                                            DownloadProgress download = new DownloadProgress(url, location, hash, hashType);
-                                            download.Show();
+
                                             Invoke(new MethodInvoker(delegate ()
                                             {
-
-                                                cancellationToken.Cancel();
-
                                                 this.Close();
                                                 this.Dispose();
+
+                                                if (downloadAttempts != 3)
+                                                {
+                                                    DownloadProgress download = new DownloadProgress(url, location, hash, hashType, downloadAttempts + 1);
+                                                    download.Show();
+                                                }
+                                                else
+                                                {
+                                                    new ToastContentBuilder()
+                                                        .AddText($"The download of {fileName} failed. The download exceeded the maximum number of attempts.")
+                                                        .Show();
+                                                }
                                             }));
                                             return;
                                         }
@@ -662,17 +740,28 @@ namespace DownloadManager
                                                 .AddText($"The download of {fileName} is complete but failed to verify against the checksum provided and will be re-downloaded.")
                                                 .Show();
 
+                                            downloading = false;
+                                            cancelled = false;
+                                            cancellationToken.Cancel();
                                             DownloadForm.downloadsAmount -= 1;
                                             hashType -= 1;
-                                            DownloadProgress download = new DownloadProgress(url, location, hash, hashType);
-                                            download.Show();
+
                                             Invoke(new MethodInvoker(delegate ()
                                             {
-
-                                                cancellationToken.Cancel();
-
                                                 this.Close();
                                                 this.Dispose();
+
+                                                if (downloadAttempts != 3)
+                                                {
+                                                    DownloadProgress download = new DownloadProgress(url, location, hash, hashType, downloadAttempts + 1);
+                                                    download.Show();
+                                                }
+                                                else
+                                                {
+                                                    new ToastContentBuilder()
+                                                        .AddText($"The download of {fileName} failed. The download exceeded the maximum number of attempts.")
+                                                        .Show();
+                                                }
                                             }));
                                             return;
                                         }
