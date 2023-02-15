@@ -32,7 +32,7 @@ namespace DownloadManager
 
         MessageBoxButtons buttonType = MessageBoxButtons.OK;
 
-        public DarkMessageBox(string message, string? title, MessageBoxButtons? buttons, MessageBoxIcon? icon, bool? enableClose)
+        public DarkMessageBox(string message, string? title = "", MessageBoxButtons? buttons = MessageBoxButtons.OK, MessageBoxIcon? icon = MessageBoxIcon.Information, bool? enableClose = true)
         {
             InitializeComponent();
             richTextBox1.Text = message;
