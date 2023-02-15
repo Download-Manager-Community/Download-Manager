@@ -59,6 +59,25 @@ namespace DownloadManager
 
         private void button4_Click(object sender, EventArgs e)
         {
+            if (textBox1.Text == "" || textBox1.Text.Contains(" "))
+            {
+                DarkMessageBox msg = new DarkMessageBox("Please enter a valid URL.", "Enter a valid URL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                msg.ShowDialog();
+                return;
+            }
+            else if (textBox2.Text == "")
+            {
+                DarkMessageBox msg = new DarkMessageBox("Please enter a valid download location.\nIf this is not filled out with your user download location automatically, go to Settings > Default downloads location to change your default download location.", "Enter a download location", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                msg.ShowDialog();
+                return;
+            }
+            else if (textBox1.Text.StartsWith("http://youtube.com/") || textBox1.Text.StartsWith("https://youtube.com/"))
+            {
+                DarkMessageBox msg = new DarkMessageBox("You cannot download YouTube videos or playlists from here.\nUse the YouTube downloader instead.", "Enter a valid URL", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                msg.ShowDialog();
+                return;
+            }
+
             if (!textBox1.Items.Contains(textBox1.Text))
             {
                 textBox1.Items.Add(textBox1.Text);
