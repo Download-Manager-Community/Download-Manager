@@ -38,6 +38,7 @@ namespace DownloadManager
             comboBox1.SelectedIndex = 2;
             comboBox2.SelectedIndex = 0;
             textBox2.Text = Settings.Default.defaultDownload;
+            webView1.EnsureCoreWebView2Async();
         }
 
         private void YouTubeDownloadForm_FormClosing(object sender, FormClosingEventArgs e)
