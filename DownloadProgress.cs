@@ -424,7 +424,7 @@ namespace DownloadManager
                                                 this.Close();
                                                 this.Dispose();
 
-                                                if (downloadAttempts != 3)
+                                                if (downloadAttempts != Settings.Default.autoDownloadAttempts)
                                                 {
                                                     DownloadProgress download = new DownloadProgress(url, location, hash, hashType, downloadAttempts + 1);
                                                     download.Show();
@@ -518,7 +518,7 @@ namespace DownloadManager
                                                 this.Close();
                                                 this.Dispose();
 
-                                                if (downloadAttempts != 3)
+                                                if (downloadAttempts != Settings.Default.autoDownloadAttempts)
                                                 {
                                                     DownloadProgress download = new DownloadProgress(url, location, hash, hashType, downloadAttempts + 1);
                                                     download.Show();
@@ -612,7 +612,7 @@ namespace DownloadManager
                                                 this.Close();
                                                 this.Dispose();
 
-                                                if (downloadAttempts != 3)
+                                                if (downloadAttempts != Settings.Default.autoDownloadAttempts)
                                                 {
                                                     DownloadProgress download = new DownloadProgress(url, location, hash, hashType, downloadAttempts + 1);
                                                     download.Show();
@@ -706,7 +706,7 @@ namespace DownloadManager
                                                 this.Close();
                                                 this.Dispose();
 
-                                                if (downloadAttempts != 3)
+                                                if (downloadAttempts != Settings.Default.autoDownloadAttempts)
                                                 {
                                                     DownloadProgress download = new DownloadProgress(url, location, hash, hashType, downloadAttempts + 1);
                                                     download.Show();
@@ -802,7 +802,7 @@ namespace DownloadManager
                                                 this.Close();
                                                 this.Dispose();
 
-                                                if (downloadAttempts != 3)
+                                                if (downloadAttempts != Settings.Default.autoDownloadAttempts)
                                                 {
                                                     DownloadProgress download = new DownloadProgress(url, location, hash, hashType, downloadAttempts + 1);
                                                     download.Show();

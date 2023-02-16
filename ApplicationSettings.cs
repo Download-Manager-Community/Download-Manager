@@ -522,5 +522,12 @@ namespace DownloadManager
             Settings.Default.notifyFail = checkBox9.Checked;
             Settings.Default.Save();
         }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            // Automatic download attempts
+            Settings.Default.autoDownloadAttempts = Convert.ToInt32(numericUpDown2.Value);
+            Settings.Default.Save();
+        }
     }
 }

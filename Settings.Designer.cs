@@ -165,5 +165,17 @@ namespace DownloadManager {
                 this["notifyFail"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int autoDownloadAttempts {
+            get {
+                return ((int)(this["autoDownloadAttempts"]));
+            }
+            set {
+                this["autoDownloadAttempts"] = value;
+            }
+        }
     }
 }

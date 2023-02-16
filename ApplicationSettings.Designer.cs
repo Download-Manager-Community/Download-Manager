@@ -41,11 +41,14 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.help1 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.label12 = new System.Windows.Forms.Label();
             this.button10 = new System.Windows.Forms.Button();
             this.generalPanel = new System.Windows.Forms.Panel();
+            this.label18 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.label15 = new System.Windows.Forms.Label();
             this.button12 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -84,6 +87,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.generalPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.updatesPanel.SuspendLayout();
             this.soundsPanel.SuspendLayout();
@@ -102,7 +106,7 @@
             // 
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button8.ForeColor = System.Drawing.Color.White;
-            this.button8.Location = new System.Drawing.Point(666, 232);
+            this.button8.Location = new System.Drawing.Point(656, 232);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(70, 23);
             this.button8.TabIndex = 36;
@@ -115,7 +119,7 @@
             // 
             this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button9.ForeColor = System.Drawing.Color.White;
-            this.button9.Location = new System.Drawing.Point(742, 232);
+            this.button9.Location = new System.Drawing.Point(732, 232);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(43, 23);
             this.button9.TabIndex = 35;
@@ -128,7 +132,7 @@
             // 
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button6.ForeColor = System.Drawing.Color.White;
-            this.button6.Location = new System.Drawing.Point(742, 202);
+            this.button6.Location = new System.Drawing.Point(732, 202);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(43, 23);
             this.button6.TabIndex = 33;
@@ -141,7 +145,7 @@
             // 
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button7.ForeColor = System.Drawing.Color.White;
-            this.button7.Location = new System.Drawing.Point(666, 202);
+            this.button7.Location = new System.Drawing.Point(656, 202);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(70, 23);
             this.button7.TabIndex = 34;
@@ -233,6 +237,22 @@
         "\nIf the folder does not exist it will be created for you on your first download." +
         "");
             // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Cursor = System.Windows.Forms.Cursors.Help;
+            this.label19.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label19.ForeColor = System.Drawing.Color.Gray;
+            this.label19.Location = new System.Drawing.Point(179, 349);
+            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(12, 15);
+            this.label19.TabIndex = 50;
+            this.label19.Text = "?";
+            this.toolTip1.SetToolTip(this.label19, "The number of times that a download will automatically retry when failing to veri" +
+        "fy the file hash without warning.\r\nThe maximum value for this setting is 10.\r\nTh" +
+        "e default value for this setting is 3.");
+            // 
             // label12
             // 
             this.label12.AutoSize = true;
@@ -262,8 +282,11 @@
             this.generalPanel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.generalPanel.AutoScroll = true;
             this.generalPanel.BackColor = System.Drawing.Color.Black;
+            this.generalPanel.Controls.Add(this.label18);
             this.generalPanel.Controls.Add(this.label1);
+            this.generalPanel.Controls.Add(this.numericUpDown2);
             this.generalPanel.Controls.Add(this.label15);
+            this.generalPanel.Controls.Add(this.label19);
             this.generalPanel.Controls.Add(this.help1);
             this.generalPanel.Controls.Add(this.button12);
             this.generalPanel.Controls.Add(this.textBox1);
@@ -295,6 +318,17 @@
             this.generalPanel.Size = new System.Drawing.Size(800, 371);
             this.generalPanel.TabIndex = 48;
             // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.ForeColor = System.Drawing.Color.White;
+            this.label18.Location = new System.Drawing.Point(6, 349);
+            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(172, 15);
+            this.label18.TabIndex = 48;
+            this.label18.Text = "Automatic Download Attempts";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -304,6 +338,27 @@
             this.label1.Size = new System.Drawing.Size(152, 15);
             this.label1.TabIndex = 5;
             this.label1.Text = "Default downloads location";
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.BackColor = System.Drawing.Color.Black;
+            this.numericUpDown2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numericUpDown2.ForeColor = System.Drawing.Color.White;
+            this.numericUpDown2.Location = new System.Drawing.Point(6, 367);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(769, 23);
+            this.numericUpDown2.TabIndex = 49;
+            this.numericUpDown2.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numericUpDown2.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged);
             // 
             // label15
             // 
@@ -335,7 +390,7 @@
             this.textBox1.ForeColor = System.Drawing.Color.White;
             this.textBox1.Location = new System.Drawing.Point(6, 24);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(743, 23);
+            this.textBox1.Size = new System.Drawing.Size(733, 23);
             this.textBox1.TabIndex = 20;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -355,7 +410,7 @@
             // 
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.ForeColor = System.Drawing.Color.White;
-            this.button5.Location = new System.Drawing.Point(756, 20);
+            this.button5.Location = new System.Drawing.Point(746, 20);
             this.button5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(29, 27);
@@ -466,7 +521,7 @@
             0,
             0});
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(780, 23);
+            this.numericUpDown1.Size = new System.Drawing.Size(769, 23);
             this.numericUpDown1.TabIndex = 29;
             this.numericUpDown1.Value = new decimal(new int[] {
             65535,
@@ -786,10 +841,10 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.generalPanel);
             this.Controls.Add(this.notificationsPanel);
             this.Controls.Add(this.soundsPanel);
             this.Controls.Add(this.updatesPanel);
-            this.Controls.Add(this.generalPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -799,6 +854,7 @@
             this.Load += new System.EventHandler(this.Settings_Load);
             this.generalPanel.ResumeLayout(false);
             this.generalPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.updatesPanel.ResumeLayout(false);
             this.updatesPanel.PerformLayout();
@@ -864,5 +920,8 @@
         private CheckBox checkBox8;
         private CheckBox checkBox6;
         private CheckBox checkBox7;
+        private Label label18;
+        private NumericUpDown numericUpDown2;
+        private Label label19;
     }
 }
