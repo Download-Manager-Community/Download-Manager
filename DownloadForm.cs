@@ -31,6 +31,8 @@ namespace DownloadManager
         {
             _instance = this;
 
+            Settings.Default.Upgrade();
+
             Logging.Log("Downloads folder: " + downloadsFolder, Color.White);
             if (Settings.Default.downloadHistory == null)
             {
