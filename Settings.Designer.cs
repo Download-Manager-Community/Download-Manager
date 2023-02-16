@@ -117,5 +117,53 @@ namespace DownloadManager {
                 this["showDownloadToolWindow"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool notifyDone {
+            get {
+                return ((bool)(this["notifyDone"]));
+            }
+            set {
+                this["notifyDone"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool notifyDoneHashOk {
+            get {
+                return ((bool)(this["notifyDoneHashOk"]));
+            }
+            set {
+                this["notifyDoneHashOk"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool notifyDoneHashNo {
+            get {
+                return ((bool)(this["notifyDoneHashNo"]));
+            }
+            set {
+                this["notifyDoneHashNo"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool notifyFail {
+            get {
+                return ((bool)(this["notifyFail"]));
+            }
+            set {
+                this["notifyFail"] = value;
+            }
+        }
     }
 }

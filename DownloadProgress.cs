@@ -130,9 +130,12 @@ namespace DownloadManager
                         ProgressBarColor.SetState(progressBar1, 2);
                     }));
 
-                    new ToastContentBuilder()
-                        .AddText($"The download of {fileName} has failed.")
-                        .Show();
+                    if (Settings.Default.notifyFail)
+                    {
+                        new ToastContentBuilder()
+                           .AddText($"The download of {fileName} has failed.")
+                           .Show();
+                    }
 
                     cancellationToken.Cancel();
 
@@ -272,9 +275,12 @@ namespace DownloadManager
                                 msg.ShowDialog();
                                 downloading = false;
 
-                                new ToastContentBuilder()
+                                if (Settings.Default.notifyFail)
+                                {
+                                    new ToastContentBuilder()
                                                 .AddText($"The download of {fileName} has failed.")
                                                 .Show();
+                                }
 
                                 cancellationToken.Cancel();
 
@@ -301,9 +307,12 @@ namespace DownloadManager
                             DownloadForm.downloadsAmount -= 1;
                             downloading = false;
 
-                            new ToastContentBuilder()
+                            if (Settings.Default.notifyFail)
+                            {
+                                new ToastContentBuilder()
                                                 .AddText($"The download of {fileName} has failed.")
                                                 .Show();
+                            }
 
                             cancellationToken.Cancel();
                             this.Close();
@@ -363,9 +372,12 @@ namespace DownloadManager
                                             DownloadForm.downloadsAmount -= 1;
                                             Log("Finished downloading file.", Color.White);
 
-                                            new ToastContentBuilder()
-                                                .AddText($"The download of {fileName} is complete and has been successfully verified against the checksum provided.")
-                                                .Show();
+                                            if (Settings.Default.notifyDoneHashOk)
+                                            {
+                                                new ToastContentBuilder()
+                                                 .AddText($"The download of {fileName} is complete and has been successfully verified against the checksum provided.")
+                                                 .Show();
+                                            }
 
                                             if (Settings.Default.soundOnComplete == true)
                                                 complete.Play();
@@ -394,9 +406,12 @@ namespace DownloadManager
                                             }));
                                             Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
 
-                                            new ToastContentBuilder()
+                                            if (Settings.Default.notifyDoneHashNo)
+                                            {
+                                                new ToastContentBuilder()
                                                 .AddText($"The download of {fileName} is complete but failed to verify against the checksum provided and will be re-downloaded.")
                                                 .Show();
+                                            }
 
                                             downloading = false;
                                             cancelled = false;
@@ -416,9 +431,12 @@ namespace DownloadManager
                                                 }
                                                 else
                                                 {
-                                                    new ToastContentBuilder()
+                                                    if (Settings.Default.notifyFail)
+                                                    {
+                                                        new ToastContentBuilder()
                                                         .AddText($"The download of {fileName} failed. The download exceeded the maximum number of attempts.")
                                                         .Show();
+                                                    }
                                                 }
                                             }));
                                             return;
@@ -447,9 +465,12 @@ namespace DownloadManager
                                             downloading = false;
                                             DownloadForm.downloadsAmount -= 1;
 
-                                            new ToastContentBuilder()
-                                                .AddText($"The download of {fileName} is complete and has been successfully verified against the checksum provided.")
-                                                .Show();
+                                            if (Settings.Default.notifyDoneHashOk)
+                                            {
+                                                new ToastContentBuilder()
+                                                   .AddText($"The download of {fileName} is complete and has been successfully verified against the checksum provided.")
+                                                   .Show();
+                                            }
 
                                             Log("Finished downloading file.", Color.White);
                                             if (Settings.Default.soundOnComplete == true)
@@ -479,9 +500,12 @@ namespace DownloadManager
                                             }));
                                             Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
 
-                                            new ToastContentBuilder()
-                                                .AddText($"The download of {fileName} is complete but failed to verify against the checksum provided and will be re-downloaded.")
-                                                .Show();
+                                            if (Settings.Default.notifyDoneHashNo)
+                                            {
+                                                new ToastContentBuilder()
+                                                   .AddText($"The download of {fileName} is complete but failed to verify against the checksum provided and will be re-downloaded.")
+                                                   .Show();
+                                            }
 
                                             downloading = false;
                                             cancelled = false;
@@ -501,9 +525,12 @@ namespace DownloadManager
                                                 }
                                                 else
                                                 {
-                                                    new ToastContentBuilder()
+                                                    if (Settings.Default.notifyFail)
+                                                    {
+                                                        new ToastContentBuilder()
                                                         .AddText($"The download of {fileName} failed. The download exceeded the maximum number of attempts.")
                                                         .Show();
+                                                    }
                                                 }
                                             }));
                                             return;
@@ -532,9 +559,12 @@ namespace DownloadManager
                                             downloading = false;
                                             DownloadForm.downloadsAmount -= 1;
 
-                                            new ToastContentBuilder()
+                                            if (Settings.Default.notifyDoneHashOk)
+                                            {
+                                                new ToastContentBuilder()
                                                 .AddText($"The download of {fileName} is complete and has been successfully verified against the checksum provided.")
                                                 .Show();
+                                            }
 
                                             Log("Finished downloading file.", Color.White);
                                             if (Settings.Default.soundOnComplete == true)
@@ -564,9 +594,12 @@ namespace DownloadManager
                                             }));
                                             Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
 
-                                            new ToastContentBuilder()
-                                                .AddText($"The download of {fileName} is complete but failed to verify against the checksum provided and will be re-downloaded.")
-                                                .Show();
+                                            if (Settings.Default.notifyDoneHashNo)
+                                            {
+                                                new ToastContentBuilder()
+                                                   .AddText($"The download of {fileName} is complete but failed to verify against the checksum provided and will be re-downloaded.")
+                                                   .Show();
+                                            }
 
                                             downloading = false;
                                             cancelled = false;
@@ -586,9 +619,12 @@ namespace DownloadManager
                                                 }
                                                 else
                                                 {
-                                                    new ToastContentBuilder()
+                                                    if (Settings.Default.notifyFail)
+                                                    {
+                                                        new ToastContentBuilder()
                                                         .AddText($"The download of {fileName} failed. The download exceeded the maximum number of attempts.")
                                                         .Show();
+                                                    }
                                                 }
                                             }));
                                             return;
@@ -617,9 +653,12 @@ namespace DownloadManager
                                             downloading = false;
                                             DownloadForm.downloadsAmount -= 1;
 
-                                            new ToastContentBuilder()
+                                            if (Settings.Default.notifyDoneHashOk)
+                                            {
+                                                new ToastContentBuilder()
                                                 .AddText($"The download of {fileName} is complete and has been successfully verified against the checksum provided.")
                                                 .Show();
+                                            }
 
                                             Log("Finished downloading file.", Color.White);
                                             if (Settings.Default.soundOnComplete == true)
@@ -649,9 +688,12 @@ namespace DownloadManager
                                             }));
                                             Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
 
-                                            new ToastContentBuilder()
+                                            if (Settings.Default.notifyDoneHashNo)
+                                            {
+                                                new ToastContentBuilder()
                                                 .AddText($"The download of {fileName} is complete but failed to verify against the checksum provided and will be re-downloaded.")
                                                 .Show();
+                                            }
 
                                             downloading = false;
                                             cancelled = false;
@@ -671,9 +713,12 @@ namespace DownloadManager
                                                 }
                                                 else
                                                 {
-                                                    new ToastContentBuilder()
+                                                    if (Settings.Default.notifyFail)
+                                                    {
+                                                        new ToastContentBuilder()
                                                         .AddText($"The download of {fileName} failed. The download exceeded the maximum number of attempts.")
                                                         .Show();
+                                                    }
                                                 }
                                             }));
                                             return;
@@ -704,9 +749,12 @@ namespace DownloadManager
                                             downloading = false;
                                             DownloadForm.downloadsAmount -= 1;
 
-                                            new ToastContentBuilder()
+                                            if (Settings.Default.notifyDoneHashOk)
+                                            {
+                                                new ToastContentBuilder()
                                                 .AddText($"The download of {fileName} is complete and has been successfully verified against the checksum provided.")
                                                 .Show();
+                                            }
 
                                             Log("Finished downloading file.", Color.White);
                                             if (Settings.Default.soundOnComplete == true)
@@ -736,9 +784,12 @@ namespace DownloadManager
                                             }));
                                             Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
 
-                                            new ToastContentBuilder()
+                                            if (Settings.Default.notifyDoneHashNo)
+                                            {
+                                                new ToastContentBuilder()
                                                 .AddText($"The download of {fileName} is complete but failed to verify against the checksum provided and will be re-downloaded.")
                                                 .Show();
+                                            }
 
                                             downloading = false;
                                             cancelled = false;
@@ -758,9 +809,12 @@ namespace DownloadManager
                                                 }
                                                 else
                                                 {
-                                                    new ToastContentBuilder()
+                                                    if (Settings.Default.notifyFail)
+                                                    {
+                                                        new ToastContentBuilder()
                                                         .AddText($"The download of {fileName} failed. The download exceeded the maximum number of attempts.")
                                                         .Show();
+                                                    }
                                                 }
                                             }));
                                             return;
@@ -777,9 +831,12 @@ namespace DownloadManager
                                         }));
                                         Log("Invalid hash type '" + hashType + "'. The file could not be verified.", Color.Red);
 
-                                        new ToastContentBuilder()
+                                        if (Settings.Default.notifyDone)
+                                        {
+                                            new ToastContentBuilder()
                                                 .AddText($"The download of {fileName} is complete but could not be verified against the checksum provided due to an internal error.")
                                                 .Show();
+                                        }
 
                                         DarkMessageBox msg = new DarkMessageBox("Invalid hash type '" + hashType + "'. The file could not be verified.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
                                         Invoke(new MethodInvoker(delegate ()
@@ -803,9 +860,12 @@ namespace DownloadManager
                                 DownloadForm.downloadsAmount -= 1;
                                 Log("Finished downloading file.", Color.White);
 
-                                new ToastContentBuilder()
+                                if (Settings.Default.notifyDone)
+                                {
+                                    new ToastContentBuilder()
                                                 .AddText($"The download of {fileName} is complete.")
                                                 .Show();
+                                }
 
                                 if (Settings.Default.soundOnComplete == true)
                                     complete.Play();
@@ -836,9 +896,12 @@ namespace DownloadManager
 
                             Log("Download failed.", Color.Red);
 
-                            new ToastContentBuilder()
-                                                .AddText($"The download of {fileName} has failed.")
-                                                .Show();
+                            if (Settings.Default.notifyFail)
+                            {
+                                new ToastContentBuilder()
+                                    .AddText($"The download of {fileName} has failed.")
+                                    .Show();
+                            }
 
                             Invoke(new MethodInvoker(delegate ()
                             {
@@ -922,9 +985,12 @@ namespace DownloadManager
                         Logging.Log(ex.Message + Environment.NewLine + ex.StackTrace, Color.Red);
                     }
 
-                    new ToastContentBuilder()
+                    if (Settings.Default.notifyFail)
+                    {
+                        new ToastContentBuilder()
                         .AddText($"The download of {fileName} has been canceled.")
                         .Show();
+                    }
 
                     this.Invoke(new MethodInvoker(delegate ()
                     {
@@ -962,9 +1028,12 @@ namespace DownloadManager
                         Logging.Log(ex.Message + Environment.NewLine + ex.StackTrace, Color.Red);
                     }
 
-                    new ToastContentBuilder()
+                    if (Settings.Default.notifyFail)
+                    {
+                        new ToastContentBuilder()
                         .AddText($"The download of {fileName} has been canceled.")
                         .Show();
+                    }
 
                     e.Cancel = false;
                 }

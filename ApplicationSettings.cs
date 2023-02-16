@@ -84,6 +84,12 @@ namespace DownloadManager
             {
                 checkBox3.Enabled = false;
             }
+
+            // Set notification checkboxes
+            checkBox7.Checked = Settings.Default.notifyDone;
+            checkBox6.Checked = Settings.Default.notifyDoneHashOk;
+            checkBox8.Checked = Settings.Default.notifyDoneHashNo;
+            checkBox9.Checked = Settings.Default.notifyFail;
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -459,23 +465,62 @@ namespace DownloadManager
 
         private void button1_Click(object sender, EventArgs e)
         {
-            panel1.Visible = false;
-            panel2.Visible = true;
-            panel3.Visible = false;
+            updatesPanel.Visible = false;
+            generalPanel.Visible = true;
+            soundsPanel.Visible = false;
+            notificationsPanel.Visible = false;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            panel1.Visible = false;
-            panel2.Visible = false;
-            panel3.Visible = true;
+            updatesPanel.Visible = false;
+            generalPanel.Visible = false;
+            soundsPanel.Visible = true;
+            notificationsPanel.Visible = false;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            panel1.Visible = true;
-            panel2.Visible = false;
-            panel3.Visible = false;
+            updatesPanel.Visible = true;
+            generalPanel.Visible = false;
+            soundsPanel.Visible = false;
+            notificationsPanel.Visible = false;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            updatesPanel.Visible = false;
+            generalPanel.Visible = false;
+            soundsPanel.Visible = false;
+            notificationsPanel.Visible = true;
+        }
+
+        private void checkBox7_CheckedChanged(object sender, EventArgs e)
+        {
+            // Notification when download done
+            Settings.Default.notifyDone = checkBox7.Checked;
+            Settings.Default.Save();
+        }
+
+        private void checkBox6_CheckedChanged(object sender, EventArgs e)
+        {
+            // Notification when download done with hash verified
+            Settings.Default.notifyDoneHashOk = checkBox6.Checked;
+            Settings.Default.Save();
+        }
+
+        private void checkBox8_CheckedChanged(object sender, EventArgs e)
+        {
+            // Notification when download done hash bad
+            Settings.Default.notifyDoneHashNo = checkBox8.Checked;
+            Settings.Default.Save();
+        }
+
+        private void checkBox9_CheckedChanged(object sender, EventArgs e)
+        {
+            // Notification when download fails
+            Settings.Default.notifyFail = checkBox9.Checked;
+            Settings.Default.Save();
         }
     }
 }

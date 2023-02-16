@@ -44,7 +44,7 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.label12 = new System.Windows.Forms.Label();
             this.button10 = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.generalPanel = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.button12 = new System.Windows.Forms.Button();
@@ -72,15 +72,22 @@
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.updatesPanel = new System.Windows.Forms.Panel();
+            this.soundsPanel = new System.Windows.Forms.Panel();
+            this.notificationsPanel = new System.Windows.Forms.Panel();
+            this.checkBox9 = new System.Windows.Forms.CheckBox();
+            this.checkBox8 = new System.Windows.Forms.CheckBox();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.panel2.SuspendLayout();
+            this.button4 = new System.Windows.Forms.Button();
+            this.generalPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            this.panel1.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.updatesPanel.SuspendLayout();
+            this.soundsPanel.SuspendLayout();
+            this.notificationsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolTip1
@@ -250,42 +257,43 @@
             this.button10.UseVisualStyleBackColor = false;
             this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
-            // panel2
+            // generalPanel
             // 
-            this.panel2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.panel2.BackColor = System.Drawing.Color.Black;
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Controls.Add(this.label15);
-            this.panel2.Controls.Add(this.help1);
-            this.panel2.Controls.Add(this.button12);
-            this.panel2.Controls.Add(this.textBox1);
-            this.panel2.Controls.Add(this.button11);
-            this.panel2.Controls.Add(this.button5);
-            this.panel2.Controls.Add(this.label13);
-            this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.label14);
-            this.panel2.Controls.Add(this.label2);
-            this.panel2.Controls.Add(this.checkBox1);
-            this.panel2.Controls.Add(this.label5);
-            this.panel2.Controls.Add(this.label11);
-            this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.checkBox3);
-            this.panel2.Controls.Add(this.checkBox2);
-            this.panel2.Controls.Add(this.label10);
-            this.panel2.Controls.Add(this.label7);
-            this.panel2.Controls.Add(this.button8);
-            this.panel2.Controls.Add(this.numericUpDown1);
-            this.panel2.Controls.Add(this.button9);
-            this.panel2.Controls.Add(this.label6);
-            this.panel2.Controls.Add(this.button7);
-            this.panel2.Controls.Add(this.label8);
-            this.panel2.Controls.Add(this.button6);
-            this.panel2.Controls.Add(this.label9);
-            this.panel2.ForeColor = System.Drawing.Color.White;
-            this.panel2.Location = new System.Drawing.Point(2, 35);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(800, 371);
-            this.panel2.TabIndex = 48;
+            this.generalPanel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.generalPanel.AutoScroll = true;
+            this.generalPanel.BackColor = System.Drawing.Color.Black;
+            this.generalPanel.Controls.Add(this.label1);
+            this.generalPanel.Controls.Add(this.label15);
+            this.generalPanel.Controls.Add(this.help1);
+            this.generalPanel.Controls.Add(this.button12);
+            this.generalPanel.Controls.Add(this.textBox1);
+            this.generalPanel.Controls.Add(this.button11);
+            this.generalPanel.Controls.Add(this.button5);
+            this.generalPanel.Controls.Add(this.label13);
+            this.generalPanel.Controls.Add(this.label3);
+            this.generalPanel.Controls.Add(this.label14);
+            this.generalPanel.Controls.Add(this.label2);
+            this.generalPanel.Controls.Add(this.checkBox1);
+            this.generalPanel.Controls.Add(this.label5);
+            this.generalPanel.Controls.Add(this.label11);
+            this.generalPanel.Controls.Add(this.label4);
+            this.generalPanel.Controls.Add(this.checkBox3);
+            this.generalPanel.Controls.Add(this.checkBox2);
+            this.generalPanel.Controls.Add(this.label10);
+            this.generalPanel.Controls.Add(this.label7);
+            this.generalPanel.Controls.Add(this.button8);
+            this.generalPanel.Controls.Add(this.numericUpDown1);
+            this.generalPanel.Controls.Add(this.button9);
+            this.generalPanel.Controls.Add(this.label6);
+            this.generalPanel.Controls.Add(this.button7);
+            this.generalPanel.Controls.Add(this.label8);
+            this.generalPanel.Controls.Add(this.button6);
+            this.generalPanel.Controls.Add(this.label9);
+            this.generalPanel.ForeColor = System.Drawing.Color.White;
+            this.generalPanel.Location = new System.Drawing.Point(2, 35);
+            this.generalPanel.Name = "generalPanel";
+            this.generalPanel.Size = new System.Drawing.Size(800, 371);
+            this.generalPanel.TabIndex = 48;
             // 
             // label1
             // 
@@ -617,39 +625,108 @@
             this.label16.TabIndex = 42;
             this.label16.Text = "Update";
             // 
-            // panel1
+            // updatesPanel
             // 
-            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.panel1.BackColor = System.Drawing.Color.Black;
-            this.panel1.Controls.Add(this.linkLabel6);
-            this.panel1.Controls.Add(this.label16);
-            this.panel1.Controls.Add(this.linkLabel5);
-            this.panel1.Controls.Add(this.button10);
-            this.panel1.Controls.Add(this.linkLabel4);
-            this.panel1.Controls.Add(this.label12);
-            this.panel1.Controls.Add(this.linkLabel3);
-            this.panel1.Controls.Add(this.label17);
-            this.panel1.Controls.Add(this.linkLabel2);
-            this.panel1.Controls.Add(this.linkLabel1);
-            this.panel1.ForeColor = System.Drawing.Color.White;
-            this.panel1.Location = new System.Drawing.Point(2, 35);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 371);
-            this.panel1.TabIndex = 49;
-            this.panel1.Visible = false;
+            this.updatesPanel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.updatesPanel.BackColor = System.Drawing.Color.Black;
+            this.updatesPanel.Controls.Add(this.linkLabel6);
+            this.updatesPanel.Controls.Add(this.label16);
+            this.updatesPanel.Controls.Add(this.linkLabel5);
+            this.updatesPanel.Controls.Add(this.button10);
+            this.updatesPanel.Controls.Add(this.linkLabel4);
+            this.updatesPanel.Controls.Add(this.label12);
+            this.updatesPanel.Controls.Add(this.linkLabel3);
+            this.updatesPanel.Controls.Add(this.label17);
+            this.updatesPanel.Controls.Add(this.linkLabel2);
+            this.updatesPanel.Controls.Add(this.linkLabel1);
+            this.updatesPanel.ForeColor = System.Drawing.Color.White;
+            this.updatesPanel.Location = new System.Drawing.Point(2, 35);
+            this.updatesPanel.Name = "updatesPanel";
+            this.updatesPanel.Size = new System.Drawing.Size(800, 371);
+            this.updatesPanel.TabIndex = 49;
+            this.updatesPanel.Visible = false;
             // 
-            // panel3
+            // soundsPanel
             // 
-            this.panel3.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.panel3.BackColor = System.Drawing.Color.Black;
-            this.panel3.Controls.Add(this.checkBox5);
-            this.panel3.Controls.Add(this.checkBox4);
-            this.panel3.ForeColor = System.Drawing.Color.White;
-            this.panel3.Location = new System.Drawing.Point(1, 33);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(800, 371);
-            this.panel3.TabIndex = 50;
-            this.panel3.Visible = false;
+            this.soundsPanel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.soundsPanel.BackColor = System.Drawing.Color.Black;
+            this.soundsPanel.Controls.Add(this.checkBox5);
+            this.soundsPanel.Controls.Add(this.checkBox4);
+            this.soundsPanel.ForeColor = System.Drawing.Color.White;
+            this.soundsPanel.Location = new System.Drawing.Point(1, 33);
+            this.soundsPanel.Name = "soundsPanel";
+            this.soundsPanel.Size = new System.Drawing.Size(800, 371);
+            this.soundsPanel.TabIndex = 50;
+            this.soundsPanel.Visible = false;
+            // 
+            // notificationsPanel
+            // 
+            this.notificationsPanel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.notificationsPanel.BackColor = System.Drawing.Color.Black;
+            this.notificationsPanel.Controls.Add(this.checkBox9);
+            this.notificationsPanel.Controls.Add(this.checkBox8);
+            this.notificationsPanel.Controls.Add(this.checkBox6);
+            this.notificationsPanel.Controls.Add(this.checkBox7);
+            this.notificationsPanel.ForeColor = System.Drawing.Color.White;
+            this.notificationsPanel.Location = new System.Drawing.Point(0, 34);
+            this.notificationsPanel.Name = "notificationsPanel";
+            this.notificationsPanel.Size = new System.Drawing.Size(800, 371);
+            this.notificationsPanel.TabIndex = 51;
+            this.notificationsPanel.Visible = false;
+            // 
+            // checkBox9
+            // 
+            this.checkBox9.AutoSize = true;
+            this.checkBox9.Checked = true;
+            this.checkBox9.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox9.Location = new System.Drawing.Point(11, 82);
+            this.checkBox9.Name = "checkBox9";
+            this.checkBox9.Size = new System.Drawing.Size(246, 19);
+            this.checkBox9.TabIndex = 3;
+            this.checkBox9.Text = "Send a notification when a download fails";
+            this.checkBox9.UseVisualStyleBackColor = true;
+            this.checkBox9.CheckedChanged += new System.EventHandler(this.checkBox9_CheckedChanged);
+            // 
+            // checkBox8
+            // 
+            this.checkBox8.AutoSize = true;
+            this.checkBox8.Checked = true;
+            this.checkBox8.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox8.Location = new System.Drawing.Point(11, 57);
+            this.checkBox8.Name = "checkBox8";
+            this.checkBox8.Size = new System.Drawing.Size(603, 19);
+            this.checkBox8.TabIndex = 2;
+            this.checkBox8.Text = "Send a notification when a download finishes but fails to verify against the file" +
+    " hash and will be redownloaded";
+            this.checkBox8.UseVisualStyleBackColor = true;
+            this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
+            // 
+            // checkBox6
+            // 
+            this.checkBox6.AutoSize = true;
+            this.checkBox6.Checked = true;
+            this.checkBox6.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox6.Location = new System.Drawing.Point(11, 32);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(496, 19);
+            this.checkBox6.TabIndex = 1;
+            this.checkBox6.Text = "Send a notification when a download finishes and sucessfully verifies against the" +
+    " file hash";
+            this.checkBox6.UseVisualStyleBackColor = true;
+            this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged);
+            // 
+            // checkBox7
+            // 
+            this.checkBox7.AutoSize = true;
+            this.checkBox7.Checked = true;
+            this.checkBox7.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox7.Location = new System.Drawing.Point(11, 7);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.Size = new System.Drawing.Size(265, 19);
+            this.checkBox7.TabIndex = 0;
+            this.checkBox7.Text = "Send a notification when a download finishes";
+            this.checkBox7.UseVisualStyleBackColor = true;
+            this.checkBox7.CheckedChanged += new System.EventHandler(this.checkBox7_CheckedChanged);
             // 
             // button1
             // 
@@ -667,7 +744,7 @@
             // 
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(93, 7);
+            this.button2.Location = new System.Drawing.Point(189, 7);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 52;
@@ -679,7 +756,7 @@
             // 
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(174, 7);
+            this.button3.Location = new System.Drawing.Point(270, 7);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(122, 23);
             this.button3.TabIndex = 53;
@@ -687,32 +764,48 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // Settings
+            // button4
+            // 
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.ForeColor = System.Drawing.Color.White;
+            this.button4.Location = new System.Drawing.Point(93, 7);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(90, 23);
+            this.button4.TabIndex = 54;
+            this.button4.Text = "Notifications";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // ApplicationSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(800, 408);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel3);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.notificationsPanel);
+            this.Controls.Add(this.soundsPanel);
+            this.Controls.Add(this.updatesPanel);
+            this.Controls.Add(this.generalPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "Settings";
+            this.Name = "ApplicationSettings";
             this.Text = "Settings";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Settings_FormClosing);
             this.Load += new System.EventHandler(this.Settings_Load);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.generalPanel.ResumeLayout(false);
+            this.generalPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
+            this.updatesPanel.ResumeLayout(false);
+            this.updatesPanel.PerformLayout();
+            this.soundsPanel.ResumeLayout(false);
+            this.soundsPanel.PerformLayout();
+            this.notificationsPanel.ResumeLayout(false);
+            this.notificationsPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -732,7 +825,7 @@
         private LinkLabel linkLabel6;
         private CheckBox checkBox4;
         private CheckBox checkBox5;
-        private Panel panel2;
+        private Panel generalPanel;
         private Label label1;
         private Label label15;
         private Label help1;
@@ -760,10 +853,16 @@
         private Label label8;
         private Button button6;
         private Label label9;
-        private Panel panel1;
-        private Panel panel3;
+        private Panel updatesPanel;
+        private Panel soundsPanel;
         private Button button1;
         private Button button2;
         private Button button3;
+        private Button button4;
+        private Panel notificationsPanel;
+        private CheckBox checkBox9;
+        private CheckBox checkBox8;
+        private CheckBox checkBox6;
+        private CheckBox checkBox7;
     }
 }
