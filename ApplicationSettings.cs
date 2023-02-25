@@ -113,6 +113,7 @@ namespace DownloadManager
             textBox1.Text = Settings.Default.defaultDownload;
             checkBox1.Checked = Settings.Default.closeOnComplete;
             checkBox2.Checked = Settings.Default.keepOnTop;
+            numericUpDown2.Value = Settings.Default.autoDownloadAttempts;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
