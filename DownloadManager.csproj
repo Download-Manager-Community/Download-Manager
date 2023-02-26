@@ -17,8 +17,8 @@
     <Company>Soniczac7</Company>
     <Product>Download Manager</Product>
     <PackageProjectUrl>https://github.com/Soniczac7/Download-Manager/tree/dev</PackageProjectUrl>
-    <AssemblyVersion>4.2.1.1</AssemblyVersion>
-    <FileVersion>4.2.1.1</FileVersion>
+    <AssemblyVersion>5.0.0.0</AssemblyVersion>
+    <FileVersion>5.0.0.0</FileVersion>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
