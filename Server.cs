@@ -5,9 +5,9 @@ using static DownloadManager.Logging;
 
 namespace DownloadManager
 {
-    internal class BrowserIntercept
+    internal class Server
     {
-        public BrowserIntercept _instance;
+        public Server _instance;
         public Socket httpServer;
         private int serverPort = Settings.Default.serverPort;
         public Thread thread;
@@ -29,19 +29,11 @@ namespace DownloadManager
 
         private void ConnectionThreadMethod()
         {
-            try
-            {
-                httpServer = new Socket(SocketType.Stream, ProtocolType.Tcp);
-                IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, serverPort);
-                httpServer.Bind(endPoint);
-                httpServer.Listen(1);
-                ListenForConnections();
-            }
-            catch (Exception ex)
-            {
-                Log("Error while starting internal server:" + Environment.NewLine + ex.Message + ex.StackTrace, Color.Red);
-                ConnectionThreadMethod();
-            }
+            httpServer = new Socket(SocketType.Stream, ProtocolType.Tcp);
+            IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, serverPort);
+            httpServer.Bind(endPoint);
+            httpServer.Listen(1);
+            ListenForConnections();
         }
 
         private void ListenForConnections()
@@ -144,25 +136,61 @@ namespace DownloadManager
                     continue;
                 }
                 string url = splittedData[0].ToString().Replace("%22 HTTP/1.1", "");
-                url = url.Replace("GET /?url=%22", "");
 
-                if (!url.Contains("favicon.ico"))
+                if (url.StartsWith("GET /?url=%22"))
                 {
-                    Logging._instance.Invoke((MethodInvoker)delegate
+                    url = url.Replace("GET /?url=%22", "");
+
+                    if (!url.Contains("favicon.ico"))
                     {
-                        Log("Request received for URL: " + url, Color.White);
-                        if (Settings.Default.downloadHistory.Contains(url) == false)
+                        DownloadForm._instance.Invoke((MethodInvoker)delegate
                         {
-                            DownloadForm._instance.textBox1.Items.Add(url);
-                            Settings.Default.downloadHistory.Add(url);
-                            Settings.Default.Save();
-                        }
-                        DownloadProgress downloadProgress = new DownloadProgress(url, Settings.Default.defaultDownload, "", 0);
-                        downloadProgress.Show();
-                        //Log("--- Start Request ---", Color.White);
-                        //Log(data, Color.White);
-                        //Log("--- End Request ---", Color.White);
-                    });
+                            Log("Request received for URL: " + url, Color.White);
+                            if (Settings.Default.downloadHistory.Contains(url) == false)
+                            {
+                                DownloadForm._instance.textBox1.Items.Add(url);
+                                Settings.Default.downloadHistory.Add(url);
+                                Settings.Default.Save();
+                            }
+                            DownloadProgress downloadProgress = new DownloadProgress(url, Settings.Default.defaultDownload, "", 0);
+                            downloadProgress.Show();
+                            //Log("--- Start Request ---", Color.White);
+                            //Log(data, Color.White);
+                            //Log("--- End Request ---", Color.White);
+                        });
+                    }
+                }
+                else if (url.StartsWith("GET /?show="))
+                {
+                    url = url.Replace("GET /?show=", "");
+
+                    if (url.Contains("True"))
+                    {
+                        Log("Request received to show download window.", Color.White);
+                        DownloadForm._instance.Invoke((MethodInvoker)delegate
+                        {
+                            DownloadForm._instance.Show();
+                            DownloadForm._instance.Focus();
+                        });
+                    }
+                    else if (url.Contains("False"))
+                    {
+                        Log("Request received to hide download window.", Color.White);
+                        DownloadForm._instance.Invoke((MethodInvoker)delegate
+                        {
+                            DownloadForm._instance.Hide();
+                        });
+                    }
+                    else
+                    {
+                        Log("Malformed request received to show/hide download window. Ignoring...", Color.Orange);
+                    }
+
+                    if (url.EndsWith("&ref=Instance"))
+                    {
+                        DarkMessageBox msg = new DarkMessageBox("Only one instance of Download Manager can run at a time!", "Download Manager", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        msg.Show();
+                    }
                 }
 
                 string resHeader = "HTTP/1.1 200 OK\nServer: DownloadManager_Internal\nContent-Type: text/html; charset: UTF-8\n\n";

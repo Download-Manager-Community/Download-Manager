@@ -20,7 +20,7 @@ namespace DownloadManager
         public static DownloadForm _instance;
         public Logging logging = new Logging();
         ApplicationSettings settings = new ApplicationSettings();
-        BrowserIntercept browserIntercept = new BrowserIntercept();
+        Server browserIntercept = new Server();
         YouTubeDownloadForm ytDownload = new YouTubeDownloadForm();
         public static int downloadsAmount = 0;
         public static string downloadsFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop).Replace("Desktop", "Downloads") + "\\";
