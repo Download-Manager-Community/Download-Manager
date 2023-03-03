@@ -247,7 +247,15 @@ namespace DownloadManager
 
             shortcut.Description = "Download Manager helps you download your files faster.";
             shortcut.TargetPath = pathToExe;
-            shortcut.Save();
+            try
+            {
+                shortcut.Save();
+            }
+            catch (Exception ex)
+            {
+                DarkMessageBox msg = new DarkMessageBox("An error occurred while saving your settings:\n" + ex.Message, "Settings Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                msg.ShowDialog();
+            }
 
             if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory) + "\\Download Manager.lnk"))
             {
