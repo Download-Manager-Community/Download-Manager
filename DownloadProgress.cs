@@ -91,7 +91,158 @@ namespace DownloadManager
             {
                 Uri uri = new Uri(url);
 
-                fileName = HttpUtility.UrlDecode(System.IO.Path.GetFileName(uri.AbsolutePath));
+                fileName = HttpUtility.UrlDecode(Path.GetFileName(uri.AbsolutePath));
+                if (!fileName.Contains("."))
+                {
+                    DarkMessageBox msg = new DarkMessageBox($"The file you are attempting to download ({fileName}) does not have a file extension.\nThis may be because the site uses redirection to download files.\nPress Cancel to cancel the download.\nPress Retry to rename the file.\nPress Continue to continue downloading the file anyway. ", "Download Warning", MessageBoxButtons.CancelTryContinue, MessageBoxIcon.Warning, false);
+                    DialogResult result = msg.ShowDialog();
+
+                    if (result == DialogResult.Cancel)
+                    {
+                        downloading = false;
+                        cancelled = true;
+                        DownloadForm.downloadsAmount -= 1;
+
+                        cancellationToken.Cancel();
+                        Logging.Log("Download of " + fileName + " has been canceled.", Color.Orange);
+
+                        if (Settings.Default.notifyFail)
+                        {
+                            new ToastContentBuilder()
+                            .AddText($"The download of {fileName} has been canceled.")
+                            .Show();
+                        }
+
+                        this.Invoke(new MethodInvoker(delegate ()
+                        {
+                            this.Close();
+                            this.Dispose();
+                        }));
+
+                        this.Hide();
+                        return;
+                    }
+                    else if (result == DialogResult.Retry)
+                    {
+                        DialogResult? result1 = null;
+                        SaveFileDialog? fileDialog = null;
+
+                        this.Invoke(new MethodInvoker(delegate ()
+                        {
+                            fileDialog = new SaveFileDialog();
+                            fileDialog.Filter = "All files|*.*";
+                            fileDialog.FileName = fileName;
+                            result1 = fileDialog.ShowDialog();
+                        }));
+
+                        if (fileDialog == null)
+                        {
+                            if (Settings.Default.notifyFail)
+                            {
+                                new ToastContentBuilder()
+                                   .AddText($"The download of {fileName} has failed.")
+                                   .Show();
+                            }
+
+                            Invoke(new MethodInvoker(delegate
+                            {
+                                progressBar1.Style = ProgressBarStyle.Blocks;
+                                progressBar1.Value = 100;
+                                ProgressBarColor.SetState(progressBar1, 2);
+                            }));
+
+                            DarkMessageBox msg2 = new DarkMessageBox("Failed to obtain results from save file dialog.\nfileDialog was null!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            msg2.ShowDialog();
+
+                            if (stream != null)
+                            {
+                                stream.Close();
+                            }
+
+                            cancellationToken.Cancel();
+                            downloading = false;
+                            Invoke(new MethodInvoker(delegate ()
+                            {
+                                DownloadForm.downloadsAmount -= 1;
+
+                                cancellationToken.Cancel();
+
+                                this.Close();
+                                this.Dispose();
+                            }));
+                            return;
+                        }
+
+                        if (result1 == null)
+                        {
+                            if (Settings.Default.notifyFail)
+                            {
+                                new ToastContentBuilder()
+                                   .AddText($"The download of {fileName} has failed.")
+                                   .Show();
+                            }
+
+                            Invoke(new MethodInvoker(delegate
+                            {
+                                progressBar1.Style = ProgressBarStyle.Blocks;
+                                progressBar1.Value = 100;
+                                ProgressBarColor.SetState(progressBar1, 2);
+                            }));
+
+                            DarkMessageBox msg2 = new DarkMessageBox("Failed to obtain results from save file dialog.\nDialogResult was null!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            msg2.ShowDialog();
+
+                            if (stream != null)
+                            {
+                                stream.Close();
+                            }
+
+                            cancellationToken.Cancel();
+                            downloading = false;
+                            Invoke(new MethodInvoker(delegate ()
+                            {
+                                DownloadForm.downloadsAmount -= 1;
+
+                                cancellationToken.Cancel();
+
+                                this.Close();
+                                this.Dispose();
+                            }));
+                            return;
+                        }
+
+                        if (result1 == DialogResult.OK)
+                        {
+                            fileName = Path.GetFileName(fileDialog.FileName);
+                        }
+                        else
+                        {
+                            downloading = false;
+                            cancelled = true;
+                            DownloadForm.downloadsAmount -= 1;
+
+                            cancellationToken.Cancel();
+                            Logging.Log("Download of " + fileName + " has been canceled.", Color.Orange);
+
+                            if (Settings.Default.notifyFail)
+                            {
+                                new ToastContentBuilder()
+                                .AddText($"The download of {fileName} has been canceled.")
+                                .Show();
+                            }
+
+                            this.Invoke(new MethodInvoker(delegate ()
+                            {
+                                this.Close();
+                                this.Dispose();
+                            }));
+
+                            this.Hide();
+                            return;
+                        }
+                    }
+                }
+
                 Action action1 = () => progressBar1.Style = ProgressBarStyle.Blocks;
                 this.Invoke(action1);
                 Log("Downloading file " + uri + " to " + location + fileName, Color.White);
