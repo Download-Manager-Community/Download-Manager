@@ -23,6 +23,14 @@ namespace DownloadManager
                 MessageBox.Show("Debug mode is on. You can now attach a debugger.\nTo turn it off, go to Program.cs and set DEBUG to false.\nPress OK to continue...", "Download Manager - DEBUG", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
+            if (Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length > 1)
+            {
+                HttpClient client = new HttpClient();
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"http://localhost:{Settings.Default.serverPort}?show=True&ref=Instance");
+                client.Send(request);
+                Environment.Exit(45);
+            }
+
             try
             {
                 Application.Run(new DownloadForm());
