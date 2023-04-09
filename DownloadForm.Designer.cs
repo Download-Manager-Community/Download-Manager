@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DownloadForm));
             this.label1 = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
@@ -60,6 +59,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.toolStripButton4 = new System.Windows.Forms.Button();
+            this.progressBar1 = new DownloadManager.BetterProgressBar();
             this.trayContextMenu.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -75,16 +75,6 @@
             this.label1.Size = new System.Drawing.Size(85, 15);
             this.label1.TabIndex = 4;
             this.label1.Text = "Download URL";
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.progressBar1.Location = new System.Drawing.Point(0, 409);
-            this.progressBar1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.progressBar1.MarqueeAnimationSpeed = 1;
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(933, 10);
-            this.progressBar1.TabIndex = 5;
             // 
             // textBox2
             // 
@@ -398,12 +388,24 @@
             this.toolStripButton4.UseVisualStyleBackColor = false;
             this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
             // 
+            // progressBar1
+            // 
+            this.progressBar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.progressBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.progressBar1.Location = new System.Drawing.Point(0, 401);
+            this.progressBar1.MarqueeAnim = false;
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.ShowText = false;
+            this.progressBar1.Size = new System.Drawing.Size(933, 10);
+            this.progressBar1.TabIndex = 30;
+            // 
             // DownloadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(933, 419);
+            this.ClientSize = new System.Drawing.Size(933, 411);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.comboBox1);
@@ -416,7 +418,6 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -435,7 +436,6 @@
 
         #endregion
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
@@ -464,5 +464,6 @@
         private Panel panel1;
         private Button toolStripButton4;
         public Button button2;
+        private BetterProgressBar progressBar1;
     }
 }

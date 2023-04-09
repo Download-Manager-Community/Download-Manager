@@ -106,10 +106,12 @@ namespace DownloadManager
             if (downloadsAmount > 0)
             {
                 progressBar1.Style = ProgressBarStyle.Marquee;
+                progressBar1.MarqueeAnim = true;
             }
             else
             {
                 progressBar1.Style = ProgressBarStyle.Blocks;
+                progressBar1.MarqueeAnim = false;
             }
         }
 
@@ -223,6 +225,32 @@ namespace DownloadManager
 
                 currentDownloads.Hide();
             }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            // Progressbar increase test
+            betterProgressBar1.Value += 5;
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            // Progressbar decrease test
+            betterProgressBar1.Value -= 5;
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            // Progressbar marquee test
+            betterProgressBar1.Style = ProgressBarStyle.Marquee;
+            betterProgressBar1.MarqueeAnim = true;
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            // Progressbar blocks test
+            betterProgressBar1.Style = ProgressBarStyle.Blocks;
+            betterProgressBar1.MarqueeAnim = false;
         }
     }
 }
