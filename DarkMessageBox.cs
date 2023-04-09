@@ -1,4 +1,5 @@
-﻿using System.Media;
+﻿using DownloadManager.NativeMethods;
+using System.Media;
 using System.Runtime.InteropServices;
 
 namespace DownloadManager
@@ -6,15 +7,6 @@ namespace DownloadManager
     public partial class DarkMessageBox : Form
     {
         #region DLL Import
-        [DllImport("DwmApi")]
-        private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, int[] attrValue, int attrSize);
-
-        protected override void OnHandleCreated(EventArgs e)
-        {
-            if (DwmSetWindowAttribute(Handle, 19, new[] { 1 }, 4) != 0)
-                DwmSetWindowAttribute(Handle, 20, new[] { 1 }, 4);
-        }
-
         internal static class NativeMethods
         {
             public const int SC_CLOSE = 0xF060;
@@ -35,6 +27,11 @@ namespace DownloadManager
         public DarkMessageBox(string message, string? title = "", MessageBoxButtons? buttons = MessageBoxButtons.OK, MessageBoxIcon? icon = MessageBoxIcon.Information, bool? enableClose = true)
         {
             InitializeComponent();
+
+            DesktopWindowManager.SetImmersiveDarkMode(this.Handle, true);
+            DesktopWindowManager.EnableMicaIfSupported(this.Handle);
+            DesktopWindowManager.ExtendFrameIntoClientArea(this.Handle);
+
             richTextBox1.Text = message;
 
             if (title != null)

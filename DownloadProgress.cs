@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.Notifications;
+﻿using DownloadManager.NativeMethods;
+using Microsoft.Toolkit.Uwp.Notifications;
 using System.Diagnostics;
 using System.Media;
 using System.Runtime.InteropServices;
@@ -11,17 +12,6 @@ namespace DownloadManager
 {
     public partial class DownloadProgress : Form
     {
-        #region DLL Import
-        [DllImport("DwmApi")]
-        private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, int[] attrValue, int attrSize);
-
-        protected override void OnHandleCreated(EventArgs e)
-        {
-            if (DwmSetWindowAttribute(Handle, 19, new[] { 1 }, 4) != 0)
-                DwmSetWindowAttribute(Handle, 20, new[] { 1 }, 4);
-        }
-        #endregion
-
         public static DownloadProgress _instance;
         Thread thread;
         public string url;
@@ -49,6 +39,10 @@ namespace DownloadManager
         {
             InitializeComponent();
             _instance = this;
+
+            DesktopWindowManager.SetImmersiveDarkMode(this.Handle, true);
+            DesktopWindowManager.EnableMicaIfSupported(this.Handle);
+            DesktopWindowManager.ExtendFrameIntoClientArea(this.Handle);
 
             this.downloadAttempts = downloadAttempts;
 
@@ -89,6 +83,7 @@ namespace DownloadManager
             progressBar1.Style = ProgressBarStyle.Marquee;
             thread = new Thread(async () =>
             {
+                // TODO: Fix invalid uri exceptions
                 Uri uri = new Uri(url);
 
                 fileName = HttpUtility.UrlDecode(Path.GetFileName(uri.AbsolutePath));

@@ -1,4 +1,4 @@
-﻿using System.Runtime.InteropServices;
+﻿using DownloadManager.NativeMethods;
 using YoutubeExplode;
 using YoutubeExplode.Common;
 using YoutubeExplode.Videos.Streams;
@@ -7,17 +7,6 @@ namespace DownloadManager
 {
     public partial class YouTubeDownloadForm : Form
     {
-        #region DLL Import
-        [DllImport("DwmApi")]
-        private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, int[] attrValue, int attrSize);
-
-        protected override void OnHandleCreated(EventArgs e)
-        {
-            if (DwmSetWindowAttribute(Handle, 19, new[] { 1 }, 4) != 0)
-                DwmSetWindowAttribute(Handle, 20, new[] { 1 }, 4);
-        }
-        #endregion
-
         YoutubeClient client = new YoutubeClient();
         YoutubeExplode.Videos.Video? vidMetadata = null;
         YoutubeExplode.Playlists.Playlist? listMetadata = null;
@@ -35,6 +24,11 @@ namespace DownloadManager
         public YouTubeDownloadForm()
         {
             InitializeComponent();
+
+            DesktopWindowManager.SetImmersiveDarkMode(this.Handle, true);
+            DesktopWindowManager.EnableMicaIfSupported(this.Handle);
+            DesktopWindowManager.ExtendFrameIntoClientArea(this.Handle);
+
             comboBox1.SelectedIndex = 2;
             comboBox2.SelectedIndex = 0;
             textBox2.Text = Settings.Default.defaultDownload;

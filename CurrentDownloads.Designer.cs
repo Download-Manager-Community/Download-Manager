@@ -181,6 +181,8 @@
             // 
             // refreshButton
             // 
+            this.refreshButton.BackColor = System.Drawing.Color.Transparent;
+            this.refreshButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
             this.refreshButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.refreshButton.ForeColor = System.Drawing.Color.White;
             this.refreshButton.Location = new System.Drawing.Point(185, 12);
@@ -188,7 +190,7 @@
             this.refreshButton.Size = new System.Drawing.Size(82, 23);
             this.refreshButton.TabIndex = 54;
             this.refreshButton.Text = "Refresh";
-            this.refreshButton.UseVisualStyleBackColor = true;
+            this.refreshButton.UseVisualStyleBackColor = false;
             this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
             // CurrentDownloads

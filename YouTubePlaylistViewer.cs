@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using DownloadManager.NativeMethods;
+using System.Runtime.InteropServices;
 using YoutubeExplode;
 using YoutubeExplode.Videos.Streams;
 
@@ -25,6 +26,10 @@ namespace DownloadManager
         public YouTubePlaylistViewer(YoutubeExplode.Playlists.Playlist metadata)
         {
             InitializeComponent();
+
+            DesktopWindowManager.SetImmersiveDarkMode(this.Handle, true);
+            DesktopWindowManager.EnableMicaIfSupported(this.Handle);
+            DesktopWindowManager.ExtendFrameIntoClientArea(this.Handle);
 
             // Set comboBox1's default value
             comboBox1.SelectedIndex = 0;

@@ -104,6 +104,7 @@
             // 
             // button8
             // 
+            this.button8.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button8.ForeColor = System.Drawing.Color.White;
             this.button8.Location = new System.Drawing.Point(656, 232);
@@ -117,6 +118,7 @@
             // 
             // button9
             // 
+            this.button9.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
             this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button9.ForeColor = System.Drawing.Color.White;
             this.button9.Location = new System.Drawing.Point(732, 232);
@@ -130,6 +132,7 @@
             // 
             // button6
             // 
+            this.button6.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button6.ForeColor = System.Drawing.Color.White;
             this.button6.Location = new System.Drawing.Point(732, 202);
@@ -143,6 +146,7 @@
             // 
             // button7
             // 
+            this.button7.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button7.ForeColor = System.Drawing.Color.White;
             this.button7.Location = new System.Drawing.Point(656, 202);
@@ -267,6 +271,7 @@
             // button10
             // 
             this.button10.BackColor = System.Drawing.Color.Black;
+            this.button10.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
             this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button10.ForeColor = System.Drawing.Color.White;
             this.button10.Location = new System.Drawing.Point(10, 23);
@@ -373,6 +378,7 @@
             // 
             // button12
             // 
+            this.button12.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
             this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button12.ForeColor = System.Drawing.Color.White;
             this.button12.Location = new System.Drawing.Point(10, 318);
@@ -396,6 +402,7 @@
             // 
             // button11
             // 
+            this.button11.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
             this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button11.ForeColor = System.Drawing.Color.White;
             this.button11.Location = new System.Drawing.Point(114, 318);
@@ -408,6 +415,7 @@
             // 
             // button5
             // 
+            this.button5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.ForeColor = System.Drawing.Color.White;
             this.button5.Location = new System.Drawing.Point(746, 20);
@@ -785,6 +793,7 @@
             // 
             // button1
             // 
+            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Location = new System.Drawing.Point(12, 7);
@@ -797,6 +806,7 @@
             // 
             // button2
             // 
+            this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.ForeColor = System.Drawing.Color.White;
             this.button2.Location = new System.Drawing.Point(189, 7);
@@ -809,6 +819,7 @@
             // 
             // button3
             // 
+            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.ForeColor = System.Drawing.Color.White;
             this.button3.Location = new System.Drawing.Point(270, 7);
@@ -821,6 +832,7 @@
             // 
             // button4
             // 
+            this.button4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.ForeColor = System.Drawing.Color.White;
             this.button4.Location = new System.Drawing.Point(93, 7);

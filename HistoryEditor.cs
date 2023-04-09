@@ -1,23 +1,16 @@
-﻿using System.Runtime.InteropServices;
+﻿using DownloadManager.NativeMethods;
 
 namespace DownloadManager
 {
     public partial class HistoryEditor : Form
     {
-        #region DLL Import
-        [DllImport("DwmApi")]
-        private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, int[] attrValue, int attrSize);
-
-        protected override void OnHandleCreated(EventArgs e)
-        {
-            if (DwmSetWindowAttribute(Handle, 19, new[] { 1 }, 4) != 0)
-                DwmSetWindowAttribute(Handle, 20, new[] { 1 }, 4);
-        }
-        #endregion
-
         public HistoryEditor()
         {
             InitializeComponent();
+
+            DesktopWindowManager.SetImmersiveDarkMode(this.Handle, true);
+            DesktopWindowManager.EnableMicaIfSupported(this.Handle);
+            DesktopWindowManager.ExtendFrameIntoClientArea(this.Handle);
 
             if (Settings.Default.downloadHistory != null)
             {
