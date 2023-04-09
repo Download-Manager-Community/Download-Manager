@@ -1,22 +1,12 @@
-﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
+﻿using DownloadManager.NativeMethods;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace DownloadManager
 {
     public partial class DownloadForm : Form
     {
-        #region DLL Import
-        [DllImport("DwmApi")]
-        private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, int[] attrValue, int attrSize);
-
-        protected override void OnHandleCreated(EventArgs e)
-        {
-            if (DwmSetWindowAttribute(Handle, 19, new[] { 1 }, 4) != 0)
-                DwmSetWindowAttribute(Handle, 20, new[] { 1 }, 4);
-        }
-        #endregion
-
-        public static readonly string installationPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\";
+        public static readonly string installationPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\";
         public static DownloadForm _instance;
         public Logging logging = new Logging();
         ApplicationSettings settings = new ApplicationSettings();
@@ -40,6 +30,11 @@ namespace DownloadManager
                 Settings.Default.downloadHistory = new System.Collections.Specialized.StringCollection { };
             }
             InitializeComponent();
+
+            DesktopWindowManager.SetImmersiveDarkMode(this.Handle, true);
+            DesktopWindowManager.EnableMicaIfSupported(this.Handle);
+            DesktopWindowManager.ExtendFrameIntoClientArea(this.Handle);
+
             comboBox1.SelectedIndex = 0;
             browserIntercept.StartServer();
             if (Settings.Default.downloadHistory != null)
