@@ -9,18 +9,18 @@ namespace DownloadManager
         private Timer styleTimer;
         private int marqueePosition;
 
-        /*/// <summary>
+        /// <summary>
         /// Indicates whether the marquee animation should be playing on the progress bar.
-        /// </summary>*/
+        /// </summary>
         [Browsable(true)]
         [Category("Appearance")]
-        [DefaultValue(true)]
+        [DefaultValue(false)]
         [Description("Indicates whether the marquee animation should be playing on the progress bar.")]
         public bool MarqueeAnim { get; set; } = false;
 
-        /*/// <summary>
+        /// <summary>
         /// Indicates whether the text should be displayed on the progress bar.
-        /// </summary>*/
+        /// </summary>
         [Browsable(true)]
         [Category("Appearance")]
         [DefaultValue(true)]
