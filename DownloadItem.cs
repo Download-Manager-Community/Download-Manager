@@ -1,4 +1,5 @@
-﻿using Timer = System.Windows.Forms.Timer;
+﻿using static DownloadManager.BetterProgressBar;
+using Timer = System.Windows.Forms.Timer;
 
 namespace DownloadManager
 {
@@ -10,12 +11,14 @@ namespace DownloadManager
         GroupBox groupBox;
 
         #region Predefined Controls
-        ProgressBar progressBar = new ProgressBar()
+        BetterProgressBar progressBar = new BetterProgressBar()
         {
             Location = new Point(290, 43),
             Size = new Size(121, 23),
             Style = ProgressBarStyle.Marquee,
             MarqueeAnimationSpeed = 1,
+            MarqueeAnim = true,
+            BackColor = Color.FromArgb(20, 20, 20)
         };
 
         Label title1 = new Label()
@@ -159,11 +162,11 @@ namespace DownloadManager
 
             if (progress.isPaused)
             {
-                ProgressBarColor.SetState(progressBar, 3);
+                progressBar.State = ProgressBarState.Warning;
             }
             else
             {
-                ProgressBarColor.SetState(progressBar, 1);
+                progressBar.State = ProgressBarState.Normal;
             }
         }
 

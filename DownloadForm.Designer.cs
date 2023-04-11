@@ -393,7 +393,6 @@
             this.progressBar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.progressBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.progressBar1.Location = new System.Drawing.Point(0, 401);
-            this.progressBar1.MarqueeAnim = false;
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.ShowText = false;
             this.progressBar1.Size = new System.Drawing.Size(933, 10);
