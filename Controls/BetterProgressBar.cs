@@ -27,12 +27,33 @@ namespace DownloadManager
         [Description("Indicates whether the text should be displayed on the progress bar.")]
         public bool ShowText { get; set; } = true;
 
+        /// <summary>
+        /// Indicates the state of the progress bar.
+        /// </summary>
+        [Browsable(true)]
+        [Category("Appearance")]
+        [DefaultValue(ProgressBarState.Normal)]
+        [Description("Indicates the state of the progress bar.\nNormal = Blue\nWarning = Orange\nError = Red")]
+        public ProgressBarState State { get; set; } = ProgressBarState.Normal;
+
+        /// <summary>
+        /// Normal = Blue, 
+        /// Warning = Orange,
+        /// Error = Red
+        /// </summary>
+        public enum ProgressBarState
+        {
+            Normal,
+            Warning,
+            Error
+        }
+
         public BetterProgressBar()
         {
             // Set the UserPaint style to true
-            this.SetStyle(ControlStyles.UserPaint, true);
+            SetStyle(ControlStyles.UserPaint, true);
             // Enable double buffering
-            this.DoubleBuffered = true;
+            DoubleBuffered = true;
 
             // Create a timer to update the marquee position
             marqueeTimer = new Timer();
@@ -49,7 +70,7 @@ namespace DownloadManager
 
         private void StyleTimer_Tick(object? sender, EventArgs e)
         {
-            if (this.MarqueeAnim)
+            if (MarqueeAnim)
             {
                 marqueeTimer.Start();
             }
@@ -61,27 +82,42 @@ namespace DownloadManager
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (this.Style == ProgressBarStyle.Marquee)
+            if (Style == ProgressBarStyle.Marquee)
             {
                 // Calculate the width of the marquee block
-                int width = this.Width / 3;
+                int width = Width / 3;
                 // Calculate the x-coordinate of the left edge of the marquee block
                 int x = marqueePosition - width;
                 // Draw the marquee-style progress bar
-                e.Graphics.FillRectangle(Brushes.Blue, x, 0, width, this.Height);
+                e.Graphics.FillRectangle(Brushes.Blue, x, 0, width, Height);
             }
             else
             {
                 // Draw the normal progress bar
-                int width = (int)(this.Width * ((double)this.Value / this.Maximum));
-                e.Graphics.FillRectangle(Brushes.Blue, 0, 0, width, this.Height);
-                if (this.ShowText)
+                int width = (int)(Width * ((double)Value / Maximum));
+
+                switch (State)
+                {
+                    case ProgressBarState.Normal:
+                        e.Graphics.FillRectangle(Brushes.Blue, 0, 0, width, Height);
+                        break;
+                    case ProgressBarState.Warning:
+                        e.Graphics.FillRectangle(Brushes.Orange, 0, 0, width, Height);
+                        break;
+                    case ProgressBarState.Error:
+                        e.Graphics.FillRectangle(Brushes.Red, 0, 0, width, Height);
+                        break;
+                    default:
+                        throw new NullReferenceException(nameof(State));
+                }
+
+                if (ShowText)
                 {
                     using (StringFormat format = new StringFormat())
                     {
                         format.Alignment = StringAlignment.Center;
                         format.LineAlignment = StringAlignment.Center;
-                        e.Graphics.DrawString(this.Value.ToString() + "%", this.Font, Brushes.White, this.ClientRectangle, format);
+                        e.Graphics.DrawString(Value.ToString() + "%", Font, Brushes.White, ClientRectangle, format);
                     }
                 }
             }
@@ -92,7 +128,7 @@ namespace DownloadManager
             base.OnVisibleChanged(e);
 
             // Start or stop the marquee timer based on whether the control is visible
-            if (this.Visible && this.Style == ProgressBarStyle.Marquee)
+            if (Visible && Style == ProgressBarStyle.Marquee)
             {
                 marqueeTimer.Start();
             }
@@ -104,7 +140,7 @@ namespace DownloadManager
 
         private void UpdateMarqueeTimer()
         {
-            if (this.Visible && this.Style == ProgressBarStyle.Marquee)
+            if (Visible && Style == ProgressBarStyle.Marquee)
             {
                 marqueeTimer.Start();
             }
@@ -116,11 +152,14 @@ namespace DownloadManager
 
         private void MarqueeTimer_Tick(object sender, EventArgs e)
         {
-            // Update the marquee position
-            marqueePosition = (marqueePosition + 5) % (this.Width + (this.Width / 3));
+            if (Width != 0)
+            {
+                // Update the marquee position
+                marqueePosition = (marqueePosition + 5) % (Width + Width / 3);
 
-            // Redraw the control
-            this.Invalidate();
+                // Redraw the control
+                Invalidate();
+            }
         }
     }
 }
