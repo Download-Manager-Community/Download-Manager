@@ -85,8 +85,36 @@ namespace DownloadManager
             progressBar1.MarqueeAnim = true;
             thread = new Thread(async () =>
             {
-                // TODO: Fix invalid uri exceptions
-                Uri uri = new Uri(url);
+                Uri? uri = null;
+                try
+                {
+                    uri = new Uri(url);
+                }
+                catch (Exception ex)
+                {
+                    this.Invoke(new MethodInvoker(delegate ()
+                    {
+                        progressBar1.Value = 100;
+                        progressBar1.State = ProgressBarState.Error;
+                        progressBar1.ShowText = false;
+                        progressBar1.Style = ProgressBarStyle.Blocks;
+                    }));
+
+                    downloading = false;
+                    DownloadForm.downloadsAmount -= 1;
+                    DownloadForm.downloadsList.Remove(this);
+
+                    Logging.Log($"Failed to parse URI.\n{ex.Message} ({ex.GetType().FullName})\n{ex.StackTrace}", Color.Red);
+                    DarkMessageBox msg = new DarkMessageBox(ex.Message + $" ({ex.GetType().FullName})\n" + ex.StackTrace, "Failed to parse URI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    msg.ShowDialog();
+                    msg.Dispose();
+                    this.Invoke(new MethodInvoker(delegate ()
+                    {
+                        this.Close();
+                        this.Dispose();
+                    }));
+                    return;
+                }
 
                 hostName = uri.Host;
                 fileName = HttpUtility.UrlDecode(Path.GetFileName(uri.AbsolutePath));
