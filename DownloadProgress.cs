@@ -39,6 +39,13 @@ namespace DownloadManager
         internal int downloadAttempts = 0;
         CancellationTokenSource cancellationToken = new CancellationTokenSource();
 
+        public enum DownloadType
+        {
+            Normal = 0,
+            YoutubeVideo = 1,
+            YoutubePlaylist = 2
+        };
+
         public DownloadProgress(string urlArg, string locationArg, string hashArg, int hashTypeArg, int downloadAttempts = 0)
         {
             InitializeComponent();
