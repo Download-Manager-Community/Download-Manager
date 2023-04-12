@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using static DownloadManager.DownloadProgress;
 using static DownloadManager.Logging;
 
 namespace DownloadManager
@@ -152,7 +153,7 @@ namespace DownloadManager
                                 Settings.Default.downloadHistory.Add(url);
                                 Settings.Default.Save();
                             }
-                            DownloadProgress downloadProgress = new DownloadProgress(url, Settings.Default.defaultDownload, "", 0);
+                            DownloadProgress downloadProgress = new DownloadProgress(url, Settings.Default.defaultDownload, DownloadType.Normal, null, "", 0);
                             downloadProgress.Show();
                             //Log("--- Start Request ---", Color.White);
                             //Log(data, Color.White);

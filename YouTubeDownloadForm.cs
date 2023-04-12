@@ -2,6 +2,7 @@
 using YoutubeExplode;
 using YoutubeExplode.Common;
 using YoutubeExplode.Videos.Streams;
+using static DownloadManager.DownloadProgress;
 
 namespace DownloadManager
 {
@@ -237,6 +238,28 @@ namespace DownloadManager
 
         private void button2_Click(object sender, EventArgs e)
         {
+            DownloadType downloadType;
+
+            switch (comboBox2.SelectedIndex)
+            {
+                case 0:
+                    downloadType = DownloadType.YoutubeVideo;
+                    break;
+                case 1:
+                    downloadType = DownloadType.YoutubePlaylist;
+                    break;
+                default:
+                    DarkMessageBox msg = new("Video Type is out of bounds!", "Internal Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    msg.ShowDialog();
+                    return;
+            }
+
+            YoutubeDownloadType ytDownloadType = (YoutubeDownloadType)Enum.ToObject(typeof(YoutubeDownloadType), comboBox1.SelectedIndex);
+
+            DownloadProgress progress = new DownloadProgress(textBox1.Text, textBox2.Text, downloadType, ytDownloadType, "", 0);
+            progress.Show();
+            return;
+
             // If the user is downloading a video
             if (comboBox2.SelectedIndex == 0)
             {

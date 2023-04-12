@@ -1,6 +1,7 @@
 ﻿using DownloadManager.NativeMethods;
 using System.Diagnostics;
 using System.Reflection;
+using static DownloadManager.DownloadProgress;
 
 namespace DownloadManager
 {
@@ -81,7 +82,7 @@ namespace DownloadManager
                 Settings.Default.downloadHistory.Add(textBox1.Text);
                 Settings.Default.Save();
             }
-            DownloadProgress downloadProgress = new DownloadProgress(textBox1.Text, textBox2.Text, textBox3.Text, comboBox1.SelectedIndex);
+            DownloadProgress downloadProgress = new DownloadProgress(textBox1.Text, textBox2.Text, DownloadType.Normal, null, textBox3.Text, comboBox1.SelectedIndex);
             downloadProgress.Show();
 
             downloadsList.Add(downloadProgress);
