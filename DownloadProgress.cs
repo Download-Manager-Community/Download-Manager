@@ -212,7 +212,6 @@ namespace DownloadManager
                             cancelButton.Text = "Close";
                             openButton.Enabled = true;
                             pauseButton.Enabled = false;
-                            progressBar1.Value = 100;
                             progressBar1.Style = ProgressBarStyle.Blocks;
                             progressBar1.MarqueeAnim = false;
                             if (checkBox2.Checked == true)
