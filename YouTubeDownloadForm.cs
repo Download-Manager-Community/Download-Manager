@@ -87,25 +87,10 @@ namespace DownloadManager
 
                         // Get Thumbnail
                         Thumbnail thumbnail = vidMetadata.Thumbnails.GetWithHighestResolution();
-                        string url = thumbnail.Url;
-
-                        string[] html = new string[]
-                        {
-                        "<html>",
-                        "<head>",
-                        "<style>\nbody\n{\nmargin: 0px;\n}\n</style>",
-                        "</head>",
-                        "<body>",
-                        "<img src='" + thumbnail.Url + "' width='100%' height='100%'>",
-                        "</body>",
-                        "</html>"
-                        };
 
                         try
                         {
-                            File.WriteAllLines(System.IO.Path.GetTempPath() + "thumbnail.html", html);
-
-                            webView1.CoreWebView2.Navigate(System.IO.Path.GetTempPath() + "thumbnail.html");
+                            webView1.CoreWebView2.Navigate(thumbnail.Url);
                         }
                         catch (Exception ex)
                         {
@@ -137,31 +122,19 @@ namespace DownloadManager
 
                         // Get Thumbnail
                         Thumbnail thumbnail = listMetadata.Thumbnails.GetWithHighestResolution();
-                        string url = thumbnail.Url;
-
-                        string[] html = new string[]
-                        {
-                        "<html>",
-                        "<head>",
-                        "<style>\nbody\n{\nmargin: 0px;\n}\n</style>",
-                        "</head>",
-                        "<body>",
-                        "<img src='" + thumbnail.Url + "' width='100%' height='100%'>",
-                        "</body>",
-                        "</html>"
-                        };
 
                         try
                         {
-                            //File.WriteAllLines(System.IO.Path.GetTempPath() + "thumbnail.html", html);
-
-                            //webView1.CoreWebView2.Navigate(System.IO.Path.GetTempPath() + "thumbnail.html");
                             webView1.CoreWebView2.Navigate(thumbnail.Url);
                         }
                         catch (Exception ex)
                         {
-                            DarkMessageBox msg = new DarkMessageBox("An error occurred while displaying the thumbnail.\n" + ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
-                            msg.ShowDialog();
+                            this.Focus();
+
+                            Point loc = PointToScreen(webView1.Location);
+                            toolTip1.Show("An error occurred while displaying the thumbnail.\n" + ex.Message, this, loc.X, loc.Y);
+                            /*DarkMessageBox msg = new DarkMessageBox("An error occurred while displaying the thumbnail.\n" + ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                            msg.ShowDialog();*/
                         }
                     }
                     else

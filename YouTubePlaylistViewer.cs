@@ -1,6 +1,7 @@
 ﻿using DownloadManager.NativeMethods;
 using System.Runtime.InteropServices;
 using YoutubeExplode;
+using YoutubeExplode.Playlists;
 using static DownloadManager.DownloadProgress;
 
 namespace DownloadManager
@@ -20,8 +21,8 @@ namespace DownloadManager
 
         YoutubeClient client = new YoutubeClient();
         YoutubeExplode.Playlists.Playlist metadata;
+        List<PlaylistVideo> videos = new List<PlaylistVideo>();
         TreeNode playlist;
-        string[] videos = new string[] { };
 
         public YouTubePlaylistViewer(YoutubeExplode.Playlists.Playlist metadata)
         {
@@ -52,13 +53,10 @@ namespace DownloadManager
             playlist = treeView1.Nodes.Add(metadata.Title);
 
             // Get video titles and add to the treeView
-            await foreach (var video in client.Playlists.GetVideosAsync(metadata.Id))
+            await foreach (PlaylistVideo video in client.Playlists.GetVideosAsync(metadata.Id))
             {
                 playlist.Nodes.Add(video.Title);
-                List<string> temp = videos.ToList();
-                temp.Add(video.Id);
-                videos = temp.ToArray();
-                temp = null;
+                videos.Add(video);
             }
 
             // Hide progressbar
@@ -74,7 +72,7 @@ namespace DownloadManager
             progressBar1.MarqueeAnim = true;
 
             // Ensure a video is selected
-            if (treeView1.SelectedNode.Index == 0)
+            if (treeView1.SelectedNode.Index == 0 && treeView1.SelectedNode.Parent == null)
             {
                 DarkMessageBox msg = new DarkMessageBox("Cannot download the playlist from here.\nTo download the playlist click " + '"' + "Download" + '"' + "on the YouTube Downloader window.", "Download Manager - Playlist Downloader Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning, true);
                 msg.ShowDialog();
@@ -104,7 +102,8 @@ namespace DownloadManager
                     return;
             }
 
-            DownloadProgress download = new DownloadProgress(metadata.Url, Settings.Default.defaultDownload, DownloadType.YoutubeVideo, type, "", 0);
+            PlaylistVideo video = videos[treeView1.SelectedNode.Index];
+            DownloadProgress download = new DownloadProgress(video.Url, Settings.Default.defaultDownload, DownloadType.YoutubeVideo, type, "", 0);
             download.Show();
 
             progressBar1.Style = ProgressBarStyle.Blocks;
