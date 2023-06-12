@@ -78,12 +78,10 @@ namespace DownloadManager
             {
                 hashLabel.Text = "File verification on (Using hash: " + hash + ")";
                 doFileVerify = true;
-                //this.Size = new System.Drawing.Size(651, 212);
             }
             else
             {
                 doFileVerify = false;
-                //this.Size = new System.Drawing.Size(651, 183);
             }
             DownloadForm.downloadsAmount += 1;
             if (!locationArg.EndsWith("\\"))
@@ -175,11 +173,11 @@ namespace DownloadManager
 
                             var streamInfo = streamManifest.Result.GetAudioOnlyStreams().TryGetWithHighestBitrate();
 
-                            await client.Videos.Streams.DownloadAsync(streamInfo, System.IO.Path.GetTempPath() + "temp.mp4");
+                            await client.Videos.Streams.DownloadAsync(streamInfo, System.IO.Path.GetTempPath() + "temp.mp3");
 
                             try
                             {
-                                File.Move(System.IO.Path.GetTempPath() + "temp.mp4", playlistFolder + video.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp3");
+                                File.Move(System.IO.Path.GetTempPath() + "temp.mp3", playlistFolder + video.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp3");
                             }
                             catch (Exception ex)
                             {
@@ -192,6 +190,8 @@ namespace DownloadManager
                                 progressBar1.Value += 1;
                             }));
                         }
+
+                        pictureBox1.Image = Properties.Resources.fileTransferDone;
 
                         downloading = false;
                         DownloadForm.downloadsAmount -= 1;
@@ -274,6 +274,8 @@ namespace DownloadManager
                             }));
                         }
 
+                        pictureBox1.Image = Properties.Resources.fileTransferDone;
+
                         downloading = false;
                         DownloadForm.downloadsAmount -= 1;
                         Log("Finished downloading file.", Color.White);
@@ -355,6 +357,8 @@ namespace DownloadManager
                             }));
                         }
 
+                        pictureBox1.Image = Properties.Resources.fileTransferDone;
+
                         downloading = false;
                         DownloadForm.downloadsAmount -= 1;
                         Log("Finished downloading file.", Color.White);
@@ -431,9 +435,6 @@ namespace DownloadManager
 
                 this.Invoke(new MethodInvoker(delegate ()
                 {
-                    this.Text = $"Downloading {vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.mp3...";
-                    urlLabel.Text = $"{vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.mp3 from youtube.com";
-
                     bytesLabel.Visible = false;
                     label3.Text = "Downloading YouTube videos does not support progress callbacks.";
                     hashLabel.Text = "Downloading YouTube videos does not support file verification.";
@@ -445,6 +446,13 @@ namespace DownloadManager
                     //
                     // Audio
                     //
+
+                    this.Invoke(new MethodInvoker(delegate ()
+                    {
+                        this.Text = $"Downloading {vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.mp3...";
+                        urlLabel.Text = $"{vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.mp3 from youtube.com";
+                    }));
+
                     var streamManifest = client.Videos.Streams.GetManifestAsync(vidMetadata.Id);
 
                     var streamInfo = streamManifest.Result.GetAudioOnlyStreams().GetWithHighestBitrate();
@@ -492,11 +500,16 @@ namespace DownloadManager
                             downloading = false;
                             DownloadForm.downloadsAmount -= 1;
                             DownloadForm.downloadsList.Remove(this);
-                            this.Close();
-                            this.Dispose();
+                            this.Invoke(new MethodInvoker(delegate ()
+                            {
+                                this.Close();
+                                this.Dispose();
+                            }));
                             return;
                         }
                     }
+
+                    pictureBox1.Image = Properties.Resources.fileTransferDone;
 
                     downloading = false;
                     DownloadForm.downloadsAmount -= 1;
@@ -539,6 +552,12 @@ namespace DownloadManager
                     var streamInfo = streamManifest.Result.GetVideoStreams().GetWithHighestVideoQuality();
 
                     await client.Videos.Streams.DownloadAsync(streamInfo, System.IO.Path.GetTempPath() + "temp.mp4");
+
+                    this.Invoke(new MethodInvoker(delegate ()
+                    {
+                        this.Text = $"Downloading {vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.mp4...";
+                        urlLabel.Text = $"{vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.mp4 from youtube.com";
+                    }));
 
                     string newName = vidMetadata.Title;
                     int charsReplaced = 0;
@@ -587,6 +606,8 @@ namespace DownloadManager
                         }
                     }
 
+                    pictureBox1.Image = Properties.Resources.fileTransferDone;
+
                     downloading = false;
                     DownloadForm.downloadsAmount -= 1;
                     Log("Finished downloading file.", Color.White);
@@ -626,6 +647,12 @@ namespace DownloadManager
                     var streamManifest = client.Videos.Streams.GetManifestAsync(vidMetadata.Id);
 
                     var streamInfo = streamManifest.Result.GetMuxedStreams().GetWithHighestVideoQuality();
+
+                    this.Invoke(new MethodInvoker(delegate ()
+                    {
+                        this.Text = $"Downloading {vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.mp4...";
+                        urlLabel.Text = $"{vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.mp4 from youtube.com";
+                    }));
 
                     try
                     {
@@ -701,6 +728,8 @@ namespace DownloadManager
                             return;
                         }
                     }
+
+                    pictureBox1.Image = Properties.Resources.fileTransferDone;
 
                     downloading = false;
                     DownloadForm.downloadsAmount -= 1;

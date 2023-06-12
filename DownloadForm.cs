@@ -12,7 +12,6 @@ namespace DownloadManager
         public Logging logging = new Logging();
         ApplicationSettings settings = new ApplicationSettings();
         Server browserIntercept = new Server();
-        YouTubeDownloadForm ytDownload = new YouTubeDownloadForm();
         public static int downloadsAmount = 0;
         public static string downloadsFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop).Replace("Desktop", "Downloads") + "\\";
         public static List<DownloadProgress> downloadsList = new List<DownloadProgress>();
@@ -63,16 +62,19 @@ namespace DownloadManager
                 msg.ShowDialog();
                 return;
             }
-            else if (textBox2.Text == "")
+
+            if (textBox2.Text == "")
             {
                 DarkMessageBox msg = new DarkMessageBox("Please enter a valid download location.\nIf this is not filled out with your user download location automatically, go to Settings > Default downloads location to change your default download location.", "Enter a download location", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 msg.ShowDialog();
                 return;
             }
-            else if (textBox1.Text.StartsWith("http://youtube.com/") || textBox1.Text.StartsWith("https://youtube.com/"))
+
+            if (textBox1.Text.StartsWith("http://youtube.com/") || textBox1.Text.StartsWith("https://youtube.com/") || textBox1.Text.StartsWith("http://www.youtube.com/") || textBox1.Text.StartsWith("https://www.youtube.com/"))
             {
-                DarkMessageBox msg = new DarkMessageBox("You cannot download YouTube videos or playlists from here.\nUse the YouTube downloader instead.", "Enter a valid URL", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                msg.ShowDialog();
+                YouTubeDownloadForm ytDownload = new YouTubeDownloadForm(textBox1.Text, textBox2.Text);
+                ytDownload.Show();
+                textBox1.Text = "";
                 return;
             }
 
@@ -196,12 +198,6 @@ namespace DownloadManager
         {
             e.Cancel = true;
             this.Hide();
-        }
-
-        private void toolStripButton4_Click(object sender, EventArgs e)
-        {
-            // Open youtube download form
-            ytDownload.Show();
         }
 
         private void button1_Click(object sender, EventArgs e)

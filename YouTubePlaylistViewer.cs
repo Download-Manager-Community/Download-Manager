@@ -1,7 +1,7 @@
 ﻿using DownloadManager.NativeMethods;
 using System.Runtime.InteropServices;
 using YoutubeExplode;
-using YoutubeExplode.Videos.Streams;
+using static DownloadManager.DownloadProgress;
 
 namespace DownloadManager
 {
@@ -34,9 +34,6 @@ namespace DownloadManager
             // Set comboBox1's default value
             comboBox1.SelectedIndex = 0;
 
-            // Show progressbar
-            progressBar1.Visible = true;
-
             // Ensure metadata is not null
             if (metadata == null)
             {
@@ -65,14 +62,16 @@ namespace DownloadManager
             }
 
             // Hide progressbar
-            progressBar1.Visible = false;
+            progressBar1.Style = ProgressBarStyle.Blocks;
+            progressBar1.MarqueeAnim = false;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void downloadButton_Click(object sender, EventArgs e)
         {
             /// Download selected video
             // Show progressabr
-            progressBar1.Visible = true;
+            progressBar1.Style = ProgressBarStyle.Marquee;
+            progressBar1.MarqueeAnim = true;
 
             // Ensure a video is selected
             if (treeView1.SelectedNode.Index == 0)
@@ -83,98 +82,33 @@ namespace DownloadManager
                 return;
             }
 
-            // Find the selected video
-            string videoId = videos[treeView1.SelectedNode.Index];
+            YoutubeDownloadType type;
 
-            // Get video's title
-            string vidTitle = treeView1.SelectedNode.Text;
-
-            if (comboBox1.SelectedIndex == 0)
+            switch (comboBox1.SelectedIndex)
             {
-                Thread thread = new Thread(async delegate ()
-                {
-                    /// Audio Only
-                    // Get stream
-                    var vidManifest = client.Videos.Streams.GetManifestAsync(videoId).Result;
-
-                    // Get stream info
-                    var streamInfo = vidManifest.GetAudioOnlyStreams().GetWithHighestBitrate();
-
-                    // Download video
-                    await client.Videos.Streams.DownloadAsync(streamInfo, System.IO.Path.GetTempPath() + "temp.mp4");
-
-                    try
-                    {
-                        File.Move(System.IO.Path.GetTempPath() + "temp.mp4", Settings.Default.defaultDownload + vidTitle.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp3");
-                    }
-                    catch (Exception ex)
-                    {
-                        DarkMessageBox msgerr = new DarkMessageBox("Error while writing file:\n" + ex.Message + Environment.NewLine + ex.StackTrace, "Download Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, false);
-                        DialogResult result = msgerr.ShowDialog();
-
-                        if (result == DialogResult.Retry)
-                        {
-                            this.Invoke(new MethodInvoker(delegate ()
-                            {
-                                button1_Click(sender, e);
-                            }));
-
-                            return;
-                        }
-                    }
-
-                    // Hide progressbar
-                    this.Invoke(new MethodInvoker(delegate ()
-                    {
-                        progressBar1.Visible = false;
-                    }));
-                });
-                thread.Start();
+                case 0:
+                    // Audio Only
+                    type = YoutubeDownloadType.Audio;
+                    break;
+                case 1:
+                    // Video Only
+                    type = YoutubeDownloadType.Video;
+                    break;
+                case 2:
+                    // Audio and Video
+                    type = YoutubeDownloadType.AudioVideo;
+                    break;
+                default:
+                    DarkMessageBox msg = new DarkMessageBox("Please select a download type.", "No valid download type", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    msg.ShowDialog();
+                    return;
             }
-            else if (comboBox1.SelectedIndex == 1)
-            {
-                Thread thread = new Thread(async delegate ()
-                {
-                    /// Video Only
-                    // Get stream
-                    var vidManifest = client.Videos.Streams.GetManifestAsync(videoId).Result;
 
-                    // Get stream info
-                    var streamInfo = vidManifest.GetVideoOnlyStreams().GetWithHighestVideoQuality();
+            DownloadProgress download = new DownloadProgress(metadata.Url, Settings.Default.defaultDownload, DownloadType.YoutubeVideo, type, "", 0);
+            download.Show();
 
-                    // Download video
-                    await client.Videos.Streams.DownloadAsync(streamInfo, Settings.Default.defaultDownload + vidTitle.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + "mp4");
-
-                    // Hide progressbar
-                    this.Invoke(new MethodInvoker(delegate ()
-                    {
-                        progressBar1.Visible = false;
-                    }));
-                });
-                thread.Start();
-            }
-            else
-            {
-                Thread thread = new Thread(async delegate ()
-                {
-                    /// Audio and Video
-                    // Get stream
-                    var vidManifest = client.Videos.Streams.GetManifestAsync(videoId).Result;
-
-                    // Get stream info
-                    var streamInfo = vidManifest.GetMuxedStreams().GetWithHighestVideoQuality();
-
-                    // Download video
-                    await client.Videos.Streams.DownloadAsync(streamInfo, vidTitle.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + "mp4");
-
-                    // Hide progressbar
-                    this.Invoke(new MethodInvoker(delegate ()
-                    {
-                        progressBar1.Visible = false;
-                    }));
-                });
-                thread.Start();
-            }
+            progressBar1.Style = ProgressBarStyle.Blocks;
+            progressBar1.MarqueeAnim = false;
         }
     }
 }
