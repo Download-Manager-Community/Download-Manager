@@ -120,11 +120,19 @@ namespace DownloadManager
                     else if (listMetadata != null)
                     {
                         label2.Text = listMetadata.Title;
-                        label3.Text = listMetadata.Author.ChannelTitle;
+                        if (listMetadata.Author == null)
+                        {
+                            label3.Text = "Unknown";
+                        }
+                        else
+                        {
+                            label3.Text = listMetadata.Author.ChannelTitle;
+                        }
                         label4.Text = listMetadata.Id;
                         label8.Text = "Id: ";
                         label5.Visible = false;
                         label9.Visible = false;
+                        button4.Visible = true;
 
 
                         // Get Thumbnail
@@ -145,9 +153,10 @@ namespace DownloadManager
 
                         try
                         {
-                            File.WriteAllLines(System.IO.Path.GetTempPath() + "thumbnail.html", html);
+                            //File.WriteAllLines(System.IO.Path.GetTempPath() + "thumbnail.html", html);
 
-                            webView1.CoreWebView2.Navigate(System.IO.Path.GetTempPath() + "thumbnail.html");
+                            //webView1.CoreWebView2.Navigate(System.IO.Path.GetTempPath() + "thumbnail.html");
+                            webView1.CoreWebView2.Navigate(thumbnail.Url);
                         }
                         catch (Exception ex)
                         {
