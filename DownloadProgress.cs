@@ -200,7 +200,7 @@ namespace DownloadManager
                         if (Settings.Default.notifyDone)
                         {
                             new ToastContentBuilder()
-                             .AddText($"The download of {listMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.mp3 is complete.")
+                             .AddText($"The download of {listMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")} is complete.")
                              .Show();
                         }
 
@@ -282,7 +282,7 @@ namespace DownloadManager
                         if (Settings.Default.notifyDone)
                         {
                             new ToastContentBuilder()
-                             .AddText($"The download of {listMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.mp3 is complete.")
+                             .AddText($"The download of {listMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")} is complete.")
                              .Show();
                         }
 
@@ -365,7 +365,7 @@ namespace DownloadManager
                         if (Settings.Default.notifyDone)
                         {
                             new ToastContentBuilder()
-                             .AddText($"The download of {listMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.mp3 is complete.")
+                             .AddText($"The download of {listMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")} is complete.")
                              .Show();
                         }
 
