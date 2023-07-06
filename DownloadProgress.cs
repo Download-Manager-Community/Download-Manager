@@ -173,16 +173,38 @@ namespace DownloadManager
 
                             var streamInfo = streamManifest.Result.GetAudioOnlyStreams().TryGetWithHighestBitrate();
 
-                            await client.Videos.Streams.DownloadAsync(streamInfo, System.IO.Path.GetTempPath() + "temp.mp3");
+                            await client.Videos.Streams.DownloadAsync(streamInfo, System.IO.Path.GetTempPath() + "temp.webm");
 
                             try
                             {
-                                File.Move(System.IO.Path.GetTempPath() + "temp.mp3", playlistFolder + video.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp3");
+                                ConvertAudio(System.IO.Path.GetTempPath() + "temp.webm", location + video.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp3");
                             }
                             catch (Exception ex)
                             {
-                                DarkMessageBox msg = new DarkMessageBox(ex.Message, "Error writing file", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
-                                msg.ShowDialog();
+                                DarkMessageBox msgerr = new DarkMessageBox("Error while converting file format:\n" + ex.Message + Environment.NewLine + ex.StackTrace, "Download Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, false);
+                                DialogResult result = msgerr.ShowDialog();
+
+                                if (result == DialogResult.Retry)
+                                {
+                                    this.Invoke(new MethodInvoker(delegate ()
+                                    {
+                                        StartYoutubeVideoDownload();
+                                    }));
+
+                                    return;
+                                }
+                                else
+                                {
+                                    downloading = false;
+                                    DownloadForm.downloadsAmount -= 1;
+                                    DownloadForm.downloadsList.Remove(this);
+                                    this.Invoke(new MethodInvoker(delegate ()
+                                    {
+                                        this.Close();
+                                        this.Dispose();
+                                    }));
+                                    return;
+                                }
                             }
 
                             this.Invoke(new MethodInvoker(delegate ()
@@ -456,7 +478,7 @@ namespace DownloadManager
 
                     var streamInfo = streamManifest.Result.GetAudioOnlyStreams().GetWithHighestBitrate();
 
-                    await client.Videos.Streams.DownloadAsync(streamInfo, System.IO.Path.GetTempPath() + "temp.mp3");
+                    await client.Videos.Streams.DownloadAsync(streamInfo, System.IO.Path.GetTempPath() + "temp.webm");
 
                     string newName = vidMetadata.Title;
                     int charsReplaced = 0;
@@ -478,11 +500,11 @@ namespace DownloadManager
 
                     try
                     {
-                        File.Move(System.IO.Path.GetTempPath() + "temp.mp3", location + vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp3");
+                        ConvertAudio(System.IO.Path.GetTempPath() + "temp.webm", location + vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp3");
                     }
                     catch (Exception ex)
                     {
-                        DarkMessageBox msgerr = new DarkMessageBox("Error while writing file:\n" + ex.Message + Environment.NewLine + ex.StackTrace, "Download Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, false);
+                        DarkMessageBox msgerr = new DarkMessageBox("Error while converting file format:\n" + ex.Message + Environment.NewLine + ex.StackTrace, "Download Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, false);
                         DialogResult result = msgerr.ShowDialog();
 
                         if (result == DialogResult.Retry)
@@ -790,6 +812,36 @@ namespace DownloadManager
                         this.Dispose();
                     }));
                 }
+            }
+        }
+
+        private void ConvertAudio(string fileName, string destFileName)
+        {
+            Log("Beginning file conversion...", Color.White);
+
+            ProcessStartInfo startInfo = new();
+            startInfo.FileName = "ffmpeg.exe";
+            startInfo.Arguments = $"-i \"{fileName}\" -vn -y \"{destFileName}\"";
+            startInfo.CreateNoWindow = true;
+            startInfo.UseShellExecute = false;
+            startInfo.RedirectStandardOutput = true;
+            startInfo.RedirectStandardError = true;
+            Process process = new();
+            process.StartInfo = startInfo;
+            process.OutputDataReceived += (sender, args) => Log("[ffmpeg.exe] " + args.Data, Color.White);
+            process.ErrorDataReceived += (sender, args) => Log("[ffmpeg.exe] " + args.Data, Color.White);
+            process.Start();
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+            process.WaitForExit();
+
+            if (process.ExitCode != 0)
+            {
+                throw new Exception("ffmpeg.exe failed to convert file with exit code " + process.ExitCode + ".");
+            }
+            else
+            {
+                Log("Finished file conversion.", Color.White);
             }
         }
 
