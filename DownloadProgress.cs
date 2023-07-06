@@ -277,11 +277,11 @@ namespace DownloadManager
 
                             var streamInfo = streamManifest.Result.GetVideoOnlyStreams().TryGetWithHighestVideoQuality();
 
-                            await client.Videos.Streams.DownloadAsync(streamInfo, System.IO.Path.GetTempPath() + "temp.mp4");
+                            await client.Videos.Streams.DownloadAsync(streamInfo, System.IO.Path.GetTempPath() + "temp.webm");
 
                             try
                             {
-                                File.Move(System.IO.Path.GetTempPath() + "temp.mp4", playlistFolder + video.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp4");
+                                File.Move(System.IO.Path.GetTempPath() + "temp.webm", playlistFolder + video.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".webm");
                             }
                             catch (Exception ex)
                             {
@@ -360,11 +360,11 @@ namespace DownloadManager
 
                             var streamInfo = streamManifest.Result.GetMuxedStreams().TryGetWithHighestVideoQuality();
 
-                            await client.Videos.Streams.DownloadAsync(streamInfo, System.IO.Path.GetTempPath() + "temp.mp4");
+                            await client.Videos.Streams.DownloadAsync(streamInfo, System.IO.Path.GetTempPath() + "temp.webm");
 
                             try
                             {
-                                File.Move(System.IO.Path.GetTempPath() + "temp.mp4", playlistFolder + video.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp4");
+                                File.Move(System.IO.Path.GetTempPath() + "temp.webm", playlistFolder + video.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".webm");
                             }
                             catch (Exception ex)
                             {
@@ -572,12 +572,12 @@ namespace DownloadManager
 
                     var streamInfo = streamManifest.Result.GetVideoStreams().GetWithHighestVideoQuality();
 
-                    await client.Videos.Streams.DownloadAsync(streamInfo, System.IO.Path.GetTempPath() + "temp.mp4");
+                    await client.Videos.Streams.DownloadAsync(streamInfo, System.IO.Path.GetTempPath() + "temp.webm");
 
                     this.Invoke(new MethodInvoker(delegate ()
                     {
-                        this.Text = $"Downloading {vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.mp4...";
-                        urlLabel.Text = $"{vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.mp4 from youtube.com";
+                        this.Text = $"Downloading {vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.webm...";
+                        urlLabel.Text = $"{vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.webm from youtube.com";
                     }));
 
                     string newName = vidMetadata.Title;
@@ -600,7 +600,7 @@ namespace DownloadManager
 
                     try
                     {
-                        File.Move(System.IO.Path.GetTempPath() + "temp.mp4", location + vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp4");
+                        File.Move(System.IO.Path.GetTempPath() + "temp.webm", location + vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".webm");
                     }
                     catch (Exception ex)
                     {
@@ -636,7 +636,7 @@ namespace DownloadManager
                     if (Settings.Default.notifyDone)
                     {
                         new ToastContentBuilder()
-                         .AddText($"The download of {vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.mp4 is complete.")
+                         .AddText($"The download of {vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.webm is complete.")
                          .Show();
                     }
 
@@ -671,13 +671,13 @@ namespace DownloadManager
 
                     this.Invoke(new MethodInvoker(delegate ()
                     {
-                        this.Text = $"Downloading {vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.mp4...";
-                        urlLabel.Text = $"{vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.mp4 from youtube.com";
+                        this.Text = $"Downloading {vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.webm...";
+                        urlLabel.Text = $"{vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.webm from youtube.com";
                     }));
 
                     try
                     {
-                        await client.Videos.Streams.DownloadAsync(streamInfo, System.IO.Path.GetTempPath() + "temp.mp4");
+                        await client.Videos.Streams.DownloadAsync(streamInfo, System.IO.Path.GetTempPath() + "temp.webm");
                     }
                     catch (Exception ex)
                     {
@@ -687,7 +687,7 @@ namespace DownloadManager
                         if (Settings.Default.notifyFail)
                         {
                             new ToastContentBuilder()
-                               .AddText($"The download of {vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.mp4 has failed.")
+                               .AddText($"The download of {vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.webm has failed.")
                                .Show();
                         }
 
@@ -723,7 +723,7 @@ namespace DownloadManager
 
                     try
                     {
-                        File.Move(System.IO.Path.GetTempPath() + "temp.mp4", location + vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp4");
+                        File.Move(System.IO.Path.GetTempPath() + "temp.webm", location + vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".webm");
                     }
                     catch (Exception ex)
                     {
@@ -759,7 +759,7 @@ namespace DownloadManager
                     if (Settings.Default.notifyDone)
                     {
                         new ToastContentBuilder()
-                         .AddText($"The download of {vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.mp4 is complete.")
+                         .AddText($"The download of {vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.webm is complete.")
                          .Show();
                     }
 
