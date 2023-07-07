@@ -177,7 +177,7 @@ namespace DownloadManager
 
                             try
                             {
-                                ConvertAudio(System.IO.Path.GetTempPath() + "temp.webm", location + video.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp3");
+                                ConvertAudio(System.IO.Path.GetTempPath() + "temp.webm", playlistFolder + video.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp3");
                             }
                             catch (Exception ex)
                             {
