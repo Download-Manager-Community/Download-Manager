@@ -29,88 +29,87 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(YouTubePlaylistViewer));
-            this.treeView1 = new System.Windows.Forms.TreeView();
-            this.button1 = new System.Windows.Forms.Button();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.SuspendLayout();
+            treeView1 = new TreeView();
+            progressBar1 = new BetterProgressBar();
+            downloadButton = new Button();
+            comboBox1 = new ComboBox();
+            SuspendLayout();
             // 
             // treeView1
             // 
-            this.treeView1.BackColor = System.Drawing.Color.Black;
-            this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.treeView1.ForeColor = System.Drawing.Color.White;
-            this.treeView1.LineColor = System.Drawing.Color.White;
-            this.treeView1.Location = new System.Drawing.Point(12, 12);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(537, 219);
-            this.treeView1.TabIndex = 0;
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(474, 239);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Download";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            treeView1.BackColor = Color.Black;
+            treeView1.BorderStyle = BorderStyle.FixedSingle;
+            treeView1.ForeColor = Color.White;
+            treeView1.LineColor = Color.White;
+            treeView1.Location = new Point(12, 12);
+            treeView1.Name = "treeView1";
+            treeView1.Size = new Size(537, 219);
+            treeView1.TabIndex = 0;
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(1, 263);
-            this.progressBar1.MarqueeAnimationSpeed = 1;
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(100, 10);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.progressBar1.TabIndex = 9;
-            this.progressBar1.Visible = false;
+            progressBar1.BackColor = Color.FromArgb(20, 20, 20);
+            progressBar1.Dock = DockStyle.Bottom;
+            progressBar1.Location = new Point(0, 271);
+            progressBar1.MarqueeAnim = true;
+            progressBar1.Name = "progressBar1";
+            progressBar1.ShowText = false;
+            progressBar1.Size = new Size(561, 11);
+            progressBar1.Style = ProgressBarStyle.Marquee;
+            progressBar1.TabIndex = 1;
+            // 
+            // downloadButton
+            // 
+            downloadButton.BackColor = Color.Black;
+            downloadButton.FlatAppearance.MouseDownBackColor = Color.Gray;
+            downloadButton.FlatStyle = FlatStyle.Flat;
+            downloadButton.ForeColor = Color.White;
+            downloadButton.Location = new Point(461, 237);
+            downloadButton.Margin = new Padding(4, 3, 4, 3);
+            downloadButton.Name = "downloadButton";
+            downloadButton.Size = new Size(88, 27);
+            downloadButton.TabIndex = 18;
+            downloadButton.Text = "Download";
+            downloadButton.UseVisualStyleBackColor = false;
+            downloadButton.Click += downloadButton_Click;
             // 
             // comboBox1
             // 
-            this.comboBox1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.comboBox1.BackColor = System.Drawing.Color.Black;
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox1.ForeColor = System.Drawing.Color.White;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Audio",
-            "Video",
-            "Audio & Video"});
-            this.comboBox1.Location = new System.Drawing.Point(356, 240);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(112, 23);
-            this.comboBox1.TabIndex = 15;
+            comboBox1.BackColor = Color.Black;
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.FlatStyle = FlatStyle.Flat;
+            comboBox1.ForeColor = Color.White;
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Audio", "Video", "Audio & Video" });
+            comboBox1.Location = new Point(342, 240);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(112, 23);
+            comboBox1.TabIndex = 19;
             // 
             // YouTubePlaylistViewer
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(561, 274);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.treeView1);
-            this.ForeColor = System.Drawing.Color.White;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "YouTubePlaylistViewer";
-            this.Text = "Playlist Viewer";
-            this.Load += new System.EventHandler(this.YouTubePlaylistViewer_Load);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Black;
+            ClientSize = new Size(561, 282);
+            Controls.Add(comboBox1);
+            Controls.Add(downloadButton);
+            Controls.Add(progressBar1);
+            Controls.Add(treeView1);
+            ForeColor = Color.White;
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Name = "YouTubePlaylistViewer";
+            Text = "Playlist Viewer";
+            Load += YouTubePlaylistViewer_Load;
+            ResumeLayout(false);
         }
 
         #endregion
 
         private TreeView treeView1;
-        private Button button1;
-        private ProgressBar progressBar1;
+        private BetterProgressBar progressBar1;
+        private Button downloadButton;
         private ComboBox comboBox1;
     }
 }

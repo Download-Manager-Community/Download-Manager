@@ -111,13 +111,18 @@ namespace DownloadManager
                         throw new NullReferenceException(nameof(State));
                 }
 
-                if (ShowText)
+                if (this.ShowText)
                 {
                     using (StringFormat format = new StringFormat())
                     {
                         format.Alignment = StringAlignment.Center;
                         format.LineAlignment = StringAlignment.Center;
-                        e.Graphics.DrawString(Value.ToString() + "%", Font, Brushes.White, ClientRectangle, format);
+
+                        // Calculate the percentage of the progress bar
+                        int percent = (int)(((double)this.Value / (double)this.Maximum) * 100);
+
+                        // Draw the percentage text
+                        e.Graphics.DrawString(percent + "%", this.Font, Brushes.White, this.ClientRectangle, format);
                     }
                 }
             }

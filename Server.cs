@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using static DownloadManager.DownloadProgress;
 using static DownloadManager.Logging;
 
 namespace DownloadManager
@@ -139,28 +140,54 @@ namespace DownloadManager
 
                 if (url.StartsWith("GET /?url=%22"))
                 {
-                    url = url.Replace("GET /?url=%22", "");
-
-                    if (!url.Contains("favicon.ico"))
+                    if (url.EndsWith("?ytdownload=True"))
                     {
-                        DownloadForm._instance.Invoke((MethodInvoker)delegate
-                        {
-                            Log("Request received for URL: " + url, Color.White);
-                            if (Settings.Default.downloadHistory.Contains(url) == false)
-                            {
-                                DownloadForm._instance.textBox1.Items.Add(url);
-                                Settings.Default.downloadHistory.Add(url);
-                                Settings.Default.Save();
-                            }
-                            DownloadProgress downloadProgress = new DownloadProgress(url, Settings.Default.defaultDownload, "", 0);
-                            downloadProgress.Show();
+                        url = url.Replace("GET /?url=%22", "").Replace("?ytdownload=True", "");
 
-                            DownloadForm.downloadsList.Add(downloadProgress);
-                            DownloadForm.currentDownloads.RefreshList();
-                            //Log("--- Start Request ---", Color.White);
-                            //Log(data, Color.White);
-                            //Log("--- End Request ---", Color.White);
-                        });
+                        if (!url.Contains("favicon.ico"))
+                        {
+                            DownloadForm._instance.Invoke((MethodInvoker)delegate
+                            {
+                                Log("Request received for URL: " + url, Color.White);
+                                Log("URL is a YouTube link. Opening the YouTube Download Form.", Color.White);
+
+                                // Open the YouTube download window
+                                YouTubeDownloadForm youtubeDownloadForm = new YouTubeDownloadForm(url, Settings.Default.defaultDownload);
+                                youtubeDownloadForm.Show();
+
+                                /*DownloadProgress downloadProgress = new DownloadProgress(url, Settings.Default.defaultDownload, DownloadType.Normal, null, "", 0);
+                                downloadProgress.Show();*/
+                                //Log("--- Start Request ---", Color.White);
+                                //Log(data, Color.White);
+                                //Log("--- End Request ---", Color.White);
+                            });
+                        }
+                    }
+                    else
+                    {
+                        url = url.Replace("GET /?url=%22", "");
+
+                        if (!url.Contains("favicon.ico"))
+                        {
+                            DownloadForm._instance.Invoke((MethodInvoker)delegate
+                            {
+                                Log("Request received for URL: " + url, Color.White);
+                                if (Settings.Default.downloadHistory.Contains(url) == false)
+                                {
+                                    DownloadForm._instance.textBox1.Items.Add(url);
+                                    Settings.Default.downloadHistory.Add(url);
+                                    Settings.Default.Save();
+                                }
+                                DownloadProgress downloadProgress = new DownloadProgress(url, Settings.Default.defaultDownload, DownloadType.Normal, null, "", 0);
+                                downloadProgress.Show();
+                          
+                                DownloadForm.downloadsList.Add(downloadProgress);
+                                DownloadForm.currentDownloads.RefreshList();
+                                //Log("--- Start Request ---", Color.White);
+                                //Log(data, Color.White);
+                                //Log("--- End Request ---", Color.White);
+                            });
+                        }
                     }
                 }
                 else if (url.StartsWith("GET /?show="))

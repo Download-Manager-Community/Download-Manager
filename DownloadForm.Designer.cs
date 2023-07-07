@@ -58,7 +58,6 @@
             this.toolStripButton1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
-            this.toolStripButton4 = new System.Windows.Forms.Button();
             this.progressBar1 = new DownloadManager.BetterProgressBar();
             this.trayContextMenu.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -348,7 +347,6 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.toolStripButton4);
             this.panel1.Controls.Add(this.toolStripButton1);
             this.panel1.Controls.Add(this.toolStripButton3);
             this.panel1.Controls.Add(this.toolStripButton2);
@@ -366,27 +364,12 @@
             this.button2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(118, 0);
+            this.button2.Location = new System.Drawing.Point(77, 0);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(39, 39);
             this.button2.TabIndex = 25;
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // toolStripButton4
-            // 
-            this.toolStripButton4.BackColor = System.Drawing.Color.Transparent;
-            this.toolStripButton4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.BackgroundImage")));
-            this.toolStripButton4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.toolStripButton4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.toolStripButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.toolStripButton4.ForeColor = System.Drawing.Color.White;
-            this.toolStripButton4.Location = new System.Drawing.Point(78, 0);
-            this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(39, 39);
-            this.toolStripButton4.TabIndex = 24;
-            this.toolStripButton4.UseVisualStyleBackColor = false;
-            this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
             // 
             // progressBar1
             // 
@@ -396,7 +379,7 @@
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.ShowText = false;
             this.progressBar1.Size = new System.Drawing.Size(933, 10);
-            this.progressBar1.TabIndex = 30;
+            this.progressBar1.TabIndex = 25;
             // 
             // DownloadForm
             // 
@@ -461,7 +444,6 @@
         private Button toolStripButton3;
         private Button toolStripButton1;
         private Panel panel1;
-        private Button toolStripButton4;
         public Button button2;
         private BetterProgressBar progressBar1;
     }

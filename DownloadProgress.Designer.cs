@@ -28,242 +28,241 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DownloadProgress));
-            this.updateDisplayTimer = new System.Windows.Forms.Timer(this.components);
-            this.urlLabel = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.cancelButton = new System.Windows.Forms.Button();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.hashLabel = new System.Windows.Forms.Label();
-            this.splitter1 = new System.Windows.Forms.Splitter();
-            this.progressBar1 = new DownloadManager.BetterProgressBar();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.openFolderButton = new System.Windows.Forms.Button();
-            this.openButton = new System.Windows.Forms.Button();
-            this.pauseButton = new System.Windows.Forms.Button();
-            this.bytesLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.SuspendLayout();
+            updateDisplayTimer = new System.Windows.Forms.Timer(components);
+            urlLabel = new Label();
+            label3 = new Label();
+            checkBox1 = new CheckBox();
+            cancelButton = new Button();
+            checkBox2 = new CheckBox();
+            hashLabel = new Label();
+            splitter1 = new Splitter();
+            progressBar1 = new BetterProgressBar();
+            pictureBox1 = new PictureBox();
+            label1 = new Label();
+            openFolderButton = new Button();
+            openButton = new Button();
+            pauseButton = new Button();
+            bytesLabel = new Label();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            SuspendLayout();
             // 
             // updateDisplayTimer
             // 
-            this.updateDisplayTimer.Enabled = true;
-            this.updateDisplayTimer.Tick += new System.EventHandler(this.updateDisplayTimer_Tick);
+            updateDisplayTimer.Enabled = true;
+            updateDisplayTimer.Tick += updateDisplayTimer_Tick;
             // 
             // urlLabel
             // 
-            this.urlLabel.AutoSize = true;
-            this.urlLabel.BackColor = System.Drawing.Color.Black;
-            this.urlLabel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.urlLabel.ForeColor = System.Drawing.Color.White;
-            this.urlLabel.Location = new System.Drawing.Point(12, 96);
-            this.urlLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.urlLabel.Name = "urlLabel";
-            this.urlLabel.Size = new System.Drawing.Size(86, 15);
-            this.urlLabel.TabIndex = 7;
-            this.urlLabel.Text = "file from server";
+            urlLabel.AutoSize = true;
+            urlLabel.BackColor = Color.Black;
+            urlLabel.FlatStyle = FlatStyle.Flat;
+            urlLabel.ForeColor = Color.White;
+            urlLabel.Location = new Point(12, 96);
+            urlLabel.Margin = new Padding(4, 0, 4, 0);
+            urlLabel.Name = "urlLabel";
+            urlLabel.Size = new Size(86, 15);
+            urlLabel.TabIndex = 7;
+            urlLabel.Text = "file from server";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Black;
-            this.label3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(13, 140);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 15);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "0.00%";
+            label3.AutoSize = true;
+            label3.BackColor = Color.Black;
+            label3.FlatStyle = FlatStyle.Flat;
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(13, 140);
+            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(38, 15);
+            label3.TabIndex = 9;
+            label3.Text = "0.00%";
             // 
             // checkBox1
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.BackColor = System.Drawing.Color.Black;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox1.ForeColor = System.Drawing.Color.White;
-            this.checkBox1.Location = new System.Drawing.Point(12, 219);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(60, 19);
-            this.checkBox1.TabIndex = 11;
-            this.checkBox1.Text = "On top";
-            this.checkBox1.UseVisualStyleBackColor = false;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            checkBox1.AutoSize = true;
+            checkBox1.BackColor = Color.Black;
+            checkBox1.Checked = true;
+            checkBox1.CheckState = CheckState.Checked;
+            checkBox1.FlatStyle = FlatStyle.Flat;
+            checkBox1.ForeColor = Color.White;
+            checkBox1.Location = new Point(12, 219);
+            checkBox1.Margin = new Padding(4, 3, 4, 3);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(60, 19);
+            checkBox1.TabIndex = 11;
+            checkBox1.Text = "On top";
+            checkBox1.UseVisualStyleBackColor = false;
+            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
             // 
             // cancelButton
             // 
-            this.cancelButton.BackColor = System.Drawing.Color.Transparent;
-            this.cancelButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cancelButton.ForeColor = System.Drawing.Color.White;
-            this.cancelButton.Location = new System.Drawing.Point(340, 215);
-            this.cancelButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(88, 27);
-            this.cancelButton.TabIndex = 12;
-            this.cancelButton.Text = "Cancel";
-            this.cancelButton.UseVisualStyleBackColor = false;
-            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            cancelButton.BackColor = Color.Transparent;
+            cancelButton.FlatAppearance.MouseDownBackColor = Color.Gray;
+            cancelButton.FlatStyle = FlatStyle.Flat;
+            cancelButton.ForeColor = Color.White;
+            cancelButton.Location = new Point(340, 215);
+            cancelButton.Margin = new Padding(4, 3, 4, 3);
+            cancelButton.Name = "cancelButton";
+            cancelButton.Size = new Size(88, 27);
+            cancelButton.TabIndex = 12;
+            cancelButton.Text = "Cancel";
+            cancelButton.UseVisualStyleBackColor = false;
+            cancelButton.Click += cancelButton_Click;
             // 
             // checkBox2
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.BackColor = System.Drawing.Color.Black;
-            this.checkBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox2.ForeColor = System.Drawing.Color.White;
-            this.checkBox2.Location = new System.Drawing.Point(13, 184);
-            this.checkBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(285, 19);
-            this.checkBox2.TabIndex = 13;
-            this.checkBox2.Text = "Close this window when the download completes";
-            this.checkBox2.UseVisualStyleBackColor = false;
+            checkBox2.AutoSize = true;
+            checkBox2.BackColor = Color.Black;
+            checkBox2.FlatStyle = FlatStyle.Flat;
+            checkBox2.ForeColor = Color.White;
+            checkBox2.Location = new Point(13, 184);
+            checkBox2.Margin = new Padding(4, 3, 4, 3);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(285, 19);
+            checkBox2.TabIndex = 13;
+            checkBox2.Text = "Close this window when the download completes";
+            checkBox2.UseVisualStyleBackColor = false;
             // 
             // hashLabel
             // 
-            this.hashLabel.AutoSize = true;
-            this.hashLabel.BackColor = System.Drawing.Color.Black;
-            this.hashLabel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.hashLabel.ForeColor = System.Drawing.Color.White;
-            this.hashLabel.Location = new System.Drawing.Point(13, 155);
-            this.hashLabel.Name = "hashLabel";
-            this.hashLabel.Size = new System.Drawing.Size(159, 15);
-            this.hashLabel.TabIndex = 15;
-            this.hashLabel.Text = "No file verification (No hash)";
+            hashLabel.AutoSize = true;
+            hashLabel.BackColor = Color.Black;
+            hashLabel.FlatStyle = FlatStyle.Flat;
+            hashLabel.ForeColor = Color.White;
+            hashLabel.Location = new Point(13, 155);
+            hashLabel.Name = "hashLabel";
+            hashLabel.Size = new Size(159, 15);
+            hashLabel.TabIndex = 15;
+            hashLabel.Text = "No file verification (No hash)";
             // 
             // splitter1
             // 
-            this.splitter1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitter1.Location = new System.Drawing.Point(0, 253);
-            this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(439, 1);
-            this.splitter1.TabIndex = 16;
-            this.splitter1.TabStop = false;
+            splitter1.Dock = DockStyle.Bottom;
+            splitter1.Location = new Point(0, 253);
+            splitter1.Name = "splitter1";
+            splitter1.Size = new Size(439, 1);
+            splitter1.TabIndex = 16;
+            splitter1.TabStop = false;
             // 
             // progressBar1
             // 
-            this.progressBar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.progressBar1.Location = new System.Drawing.Point(12, 114);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(416, 23);
-            this.progressBar1.TabIndex = 18;
+            progressBar1.BackColor = Color.FromArgb(20, 20, 20);
+            progressBar1.Location = new Point(12, 114);
+            progressBar1.Name = "progressBar1";
+            progressBar1.Size = new Size(416, 23);
+            progressBar1.TabIndex = 18;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::DownloadManager.Properties.Resources.fileTransfer;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(285, 61);
-            this.pictureBox1.TabIndex = 19;
-            this.pictureBox1.TabStop = false;
+            pictureBox1.BackColor = Color.Transparent;
+            pictureBox1.Image = Properties.Resources.fileTransfer;
+            pictureBox1.Location = new Point(12, 12);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(285, 61);
+            pictureBox1.TabIndex = 19;
+            pictureBox1.TabStop = false;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 76);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 15);
-            this.label1.TabIndex = 20;
-            this.label1.Text = "Downloading:";
+            label1.AutoSize = true;
+            label1.Location = new Point(13, 76);
+            label1.Name = "label1";
+            label1.Size = new Size(81, 15);
+            label1.TabIndex = 20;
+            label1.Text = "Downloading:";
             // 
             // openFolderButton
             // 
-            this.openFolderButton.BackColor = System.Drawing.Color.Transparent;
-            this.openFolderButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.openFolderButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.openFolderButton.ForeColor = System.Drawing.Color.White;
-            this.openFolderButton.Location = new System.Drawing.Point(244, 215);
-            this.openFolderButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.openFolderButton.Name = "openFolderButton";
-            this.openFolderButton.Size = new System.Drawing.Size(88, 27);
-            this.openFolderButton.TabIndex = 21;
-            this.openFolderButton.Text = "Open Folder";
-            this.openFolderButton.UseVisualStyleBackColor = false;
-            this.openFolderButton.Click += new System.EventHandler(this.openFolderButton_Click);
+            openFolderButton.BackColor = Color.Transparent;
+            openFolderButton.FlatAppearance.MouseDownBackColor = Color.Gray;
+            openFolderButton.FlatStyle = FlatStyle.Flat;
+            openFolderButton.ForeColor = Color.White;
+            openFolderButton.Location = new Point(244, 215);
+            openFolderButton.Margin = new Padding(4, 3, 4, 3);
+            openFolderButton.Name = "openFolderButton";
+            openFolderButton.Size = new Size(88, 27);
+            openFolderButton.TabIndex = 21;
+            openFolderButton.Text = "Open Folder";
+            openFolderButton.UseVisualStyleBackColor = false;
+            openFolderButton.Click += openFolderButton_Click;
             // 
             // openButton
             // 
-            this.openButton.BackColor = System.Drawing.Color.Transparent;
-            this.openButton.Enabled = false;
-            this.openButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.openButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.openButton.ForeColor = System.Drawing.Color.White;
-            this.openButton.Location = new System.Drawing.Point(148, 215);
-            this.openButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.openButton.Name = "openButton";
-            this.openButton.Size = new System.Drawing.Size(88, 27);
-            this.openButton.TabIndex = 22;
-            this.openButton.Text = "Open";
-            this.openButton.UseVisualStyleBackColor = false;
-            this.openButton.Click += new System.EventHandler(this.openButton_Click);
+            openButton.BackColor = Color.Transparent;
+            openButton.Enabled = false;
+            openButton.FlatAppearance.MouseDownBackColor = Color.Gray;
+            openButton.FlatStyle = FlatStyle.Flat;
+            openButton.ForeColor = Color.White;
+            openButton.Location = new Point(148, 215);
+            openButton.Margin = new Padding(4, 3, 4, 3);
+            openButton.Name = "openButton";
+            openButton.Size = new Size(88, 27);
+            openButton.TabIndex = 22;
+            openButton.Text = "Open";
+            openButton.UseVisualStyleBackColor = false;
+            openButton.Click += openButton_Click;
             // 
             // pauseButton
             // 
-            this.pauseButton.BackColor = System.Drawing.Color.Transparent;
-            this.pauseButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.pauseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.pauseButton.ForeColor = System.Drawing.Color.White;
-            this.pauseButton.Location = new System.Drawing.Point(340, 182);
-            this.pauseButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.pauseButton.Name = "pauseButton";
-            this.pauseButton.Size = new System.Drawing.Size(88, 27);
-            this.pauseButton.TabIndex = 23;
-            this.pauseButton.Text = "Pause";
-            this.pauseButton.UseVisualStyleBackColor = false;
-            this.pauseButton.Click += new System.EventHandler(this.pauseButton_Click);
+            pauseButton.BackColor = Color.Transparent;
+            pauseButton.FlatAppearance.MouseDownBackColor = Color.Gray;
+            pauseButton.FlatStyle = FlatStyle.Flat;
+            pauseButton.ForeColor = Color.White;
+            pauseButton.Location = new Point(340, 182);
+            pauseButton.Margin = new Padding(4, 3, 4, 3);
+            pauseButton.Name = "pauseButton";
+            pauseButton.Size = new Size(88, 27);
+            pauseButton.TabIndex = 23;
+            pauseButton.Text = "Pause";
+            pauseButton.UseVisualStyleBackColor = false;
+            pauseButton.Click += pauseButton_Click;
             // 
             // bytesLabel
             // 
-            this.bytesLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bytesLabel.Location = new System.Drawing.Point(220, 140);
-            this.bytesLabel.Name = "bytesLabel";
-            this.bytesLabel.Size = new System.Drawing.Size(206, 15);
-            this.bytesLabel.TabIndex = 24;
-            this.bytesLabel.Text = "(0 B / 0 B)";
-            this.bytesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            bytesLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            bytesLabel.Location = new Point(220, 140);
+            bytesLabel.Name = "bytesLabel";
+            bytesLabel.Size = new Size(206, 15);
+            bytesLabel.TabIndex = 24;
+            bytesLabel.Text = "(0 B / 0 B)";
+            bytesLabel.TextAlign = ContentAlignment.MiddleRight;
             // 
             // DownloadProgress
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(439, 254);
-            this.Controls.Add(this.bytesLabel);
-            this.Controls.Add(this.pauseButton);
-            this.Controls.Add(this.openButton);
-            this.Controls.Add(this.openFolderButton);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.splitter1);
-            this.Controls.Add(this.hashLabel);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.cancelButton);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.urlLabel);
-            this.ForeColor = System.Drawing.Color.White;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.MaximizeBox = false;
-            this.Name = "DownloadProgress";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Downloading file... (0%)";
-            this.TopMost = true;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DownloadProgress_FormClosing);
-            this.Load += new System.EventHandler(this.progress_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Black;
+            ClientSize = new Size(439, 254);
+            Controls.Add(bytesLabel);
+            Controls.Add(pauseButton);
+            Controls.Add(openButton);
+            Controls.Add(openFolderButton);
+            Controls.Add(label1);
+            Controls.Add(pictureBox1);
+            Controls.Add(progressBar1);
+            Controls.Add(splitter1);
+            Controls.Add(hashLabel);
+            Controls.Add(checkBox2);
+            Controls.Add(cancelButton);
+            Controls.Add(checkBox1);
+            Controls.Add(label3);
+            Controls.Add(urlLabel);
+            ForeColor = Color.White;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            Name = "DownloadProgress";
+            StartPosition = FormStartPosition.Manual;
+            Text = "Downloading file... (0%)";
+            TopMost = true;
+            FormClosing += DownloadProgress_FormClosing;
+            Load += progress_Load;
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -277,11 +276,11 @@
         private Label hashLabel;
         private Splitter splitter1;
         private Button openFolderButton;
-        private BetterProgressBar progressBar1;
         private PictureBox pictureBox1;
         private Label label1;
         private Button openButton;
         private Button pauseButton;
         private Label bytesLabel;
+        public BetterProgressBar progressBar1;
     }
 }
