@@ -154,6 +154,9 @@ namespace DownloadManager
                             }
                             DownloadProgress downloadProgress = new DownloadProgress(url, Settings.Default.defaultDownload, "", 0);
                             downloadProgress.Show();
+
+                            DownloadForm.downloadsList.Add(downloadProgress);
+                            DownloadForm.currentDownloads.RefreshList();
                             //Log("--- Start Request ---", Color.White);
                             //Log(data, Color.White);
                             //Log("--- End Request ---", Color.White);
