@@ -15,7 +15,7 @@ namespace DownloadManager
         public static int downloadsAmount = 0;
         public static string downloadsFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop).Replace("Desktop", "Downloads") + "\\";
         public static List<DownloadProgress> downloadsList = new List<DownloadProgress>();
-        CurrentDownloads currentDownloads = new CurrentDownloads();
+        public static CurrentDownloads currentDownloads = new CurrentDownloads();
 
         public DownloadForm()
         {
