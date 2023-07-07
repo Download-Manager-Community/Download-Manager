@@ -135,7 +135,30 @@ namespace DownloadManager
                 label3.Visible = false;
                 progressBar1.Style = ProgressBarStyle.Marquee;
                 progressBar1.Visible = true;
+
+                if (downloadType == DownloadType.YoutubeVideo || downloadType == DownloadType.YoutubePlaylist && DownloadForm._instance.ytDownloading == true)
+                {
+                    progressBar1.Style = ProgressBarStyle.Blocks;
+                    progressBar1.State = ProgressBarState.Error;
+                    progressBar1.ShowText = false;
+                    progressBar1.Value = 100;
+                    DarkMessageBox msg = new("Another YouTube download is currently in progress.\nPlease wait until the download is complete before attempting to download another.", "YouTube Download Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    msg.ShowDialog();
+                    downloading = false;
+                    DownloadForm.downloadsAmount -= 1;
+                    DownloadForm.downloadsList.Remove(this);
+                    this.Close();
+                    this.Dispose();
+                    return;
+                }
+
+                DownloadForm._instance.ytDownloading = true;
             }));
+
+            if (downloading == false)
+            {
+                return;
+            }
 
             if (ytDownloadType != null)
             {
@@ -197,6 +220,7 @@ namespace DownloadManager
                                 {
                                     downloading = false;
                                     DownloadForm.downloadsAmount -= 1;
+                                    DownloadForm._instance.ytDownloading = false;
                                     DownloadForm.downloadsList.Remove(this);
                                     this.Invoke(new MethodInvoker(delegate ()
                                     {
@@ -217,6 +241,7 @@ namespace DownloadManager
 
                         downloading = false;
                         DownloadForm.downloadsAmount -= 1;
+                        DownloadForm._instance.ytDownloading = false;
                         Log("Finished downloading file.", Color.White);
 
                         if (Settings.Default.notifyDone)
@@ -299,6 +324,7 @@ namespace DownloadManager
 
                         downloading = false;
                         DownloadForm.downloadsAmount -= 1;
+                        DownloadForm._instance.ytDownloading = false;
                         Log("Finished downloading file.", Color.White);
 
                         if (Settings.Default.notifyDone)
@@ -382,6 +408,7 @@ namespace DownloadManager
 
                         downloading = false;
                         DownloadForm.downloadsAmount -= 1;
+                        DownloadForm._instance.ytDownloading = false;
                         Log("Finished downloading file.", Color.White);
 
                         if (Settings.Default.notifyDone)
@@ -402,7 +429,6 @@ namespace DownloadManager
                             progressBar1.MarqueeAnim = false;
                             if (checkBox2.Checked == true)
                             {
-
                                 this.Close();
                                 this.Dispose();
                                 return;
@@ -432,6 +458,7 @@ namespace DownloadManager
                         downloading = false;
                         DownloadForm.downloadsAmount -= 1;
                         DownloadForm.downloadsList.Remove(this);
+                        DownloadForm._instance.ytDownloading = false;
 
                         this.Invoke(new MethodInvoker(delegate ()
                         {
@@ -460,7 +487,28 @@ namespace DownloadManager
                     label3.Text = "Downloading YouTube videos does not support progress callbacks.";
                     hashLabel.Text = "Downloading YouTube videos does not support file verification.";
                     pauseButton.Enabled = false;
+
+                    if (downloadType == DownloadType.YoutubeVideo || downloadType == DownloadType.YoutubePlaylist && DownloadForm._instance.ytDownloading == true)
+                    {
+                        progressBar1.Style = ProgressBarStyle.Blocks;
+                        progressBar1.State = ProgressBarState.Error;
+                        progressBar1.ShowText = false;
+                        progressBar1.Value = 100;
+                        DarkMessageBox msg = new("Another YouTube download is currently in progress.\nPlease wait until the download is complete before attempting to download another.", "YouTube Download Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        msg.ShowDialog();
+                        downloading = false;
+                        DownloadForm.downloadsAmount -= 1;
+                        DownloadForm.downloadsList.Remove(this);
+                        this.Close();
+                        this.Dispose();
+                        return;
+                    }
                 }));
+
+                if (downloading == false)
+                {
+                    return;
+                }
 
                 if (ytDownloadType == YoutubeDownloadType.Audio)
                 {
@@ -520,6 +568,7 @@ namespace DownloadManager
                         {
                             downloading = false;
                             DownloadForm.downloadsAmount -= 1;
+                            DownloadForm._instance.ytDownloading = false;
                             DownloadForm.downloadsList.Remove(this);
                             this.Invoke(new MethodInvoker(delegate ()
                             {
@@ -534,6 +583,7 @@ namespace DownloadManager
 
                     downloading = false;
                     DownloadForm.downloadsAmount -= 1;
+                    DownloadForm._instance.ytDownloading = false;
                     Log("Finished downloading file.", Color.White);
 
                     if (Settings.Default.notifyDone)
@@ -620,6 +670,7 @@ namespace DownloadManager
                         {
                             downloading = false;
                             DownloadForm.downloadsAmount -= 1;
+                            DownloadForm._instance.ytDownloading = false;
                             DownloadForm.downloadsList.Remove(this);
                             this.Close();
                             this.Dispose();
@@ -631,6 +682,7 @@ namespace DownloadManager
 
                     downloading = false;
                     DownloadForm.downloadsAmount -= 1;
+                    DownloadForm._instance.ytDownloading = false;
                     Log("Finished downloading file.", Color.White);
 
                     if (Settings.Default.notifyDone)
@@ -693,6 +745,7 @@ namespace DownloadManager
 
                         downloading = false;
                         DownloadForm.downloadsAmount -= 1;
+                        DownloadForm._instance.ytDownloading = false;
                         DownloadForm.downloadsList.Remove(this);
 
                         this.Invoke(new MethodInvoker(delegate ()
@@ -743,6 +796,7 @@ namespace DownloadManager
                         {
                             downloading = false;
                             DownloadForm.downloadsAmount -= 1;
+                            DownloadForm._instance.ytDownloading = false;
                             DownloadForm.downloadsList.Remove(this);
                             this.Close();
                             this.Dispose();
@@ -754,6 +808,7 @@ namespace DownloadManager
 
                     downloading = false;
                     DownloadForm.downloadsAmount -= 1;
+                    DownloadForm._instance.ytDownloading = false;
                     Log("Finished downloading file.", Color.White);
 
                     if (Settings.Default.notifyDone)
@@ -804,6 +859,7 @@ namespace DownloadManager
                 {
                     downloading = false;
                     DownloadForm.downloadsAmount -= 1;
+                    DownloadForm._instance.ytDownloading = false;
                     DownloadForm.downloadsList.Remove(this);
 
                     this.Invoke(new MethodInvoker(delegate ()

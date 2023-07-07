@@ -13,6 +13,7 @@ namespace DownloadManager
         ApplicationSettings settings = new ApplicationSettings();
         Server browserIntercept = new Server();
         public static int downloadsAmount = 0;
+        public bool ytDownloading = false;
         public static string downloadsFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop).Replace("Desktop", "Downloads") + "\\";
         public static List<DownloadProgress> downloadsList = new List<DownloadProgress>();
         CurrentDownloads currentDownloads = new CurrentDownloads();
