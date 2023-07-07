@@ -166,6 +166,9 @@ namespace DownloadManager
             DownloadProgress progress = new DownloadProgress(url, location, downloadType, ytDownloadType, "", 0);
             progress.Show();
 
+            DownloadForm.downloadsList.Add(progress);
+            DownloadForm.currentDownloads.RefreshList();
+
             this.Close();
             this.Dispose();
         }

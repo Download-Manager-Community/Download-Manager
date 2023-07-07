@@ -9,6 +9,7 @@ namespace DownloadManager
         Timer timer = new Timer();
         DownloadProgress progress;
         GroupBox groupBox;
+        bool isYtDownload = false;
 
         #region Predefined Controls
         BetterProgressBar progressBar = new BetterProgressBar()
@@ -143,15 +144,36 @@ namespace DownloadManager
             }
             else
             {
-                // Update the progress bar
-                progressBar.Style = ProgressBarStyle.Blocks;
-                progressBar.Value = (int)progress.percentageDone;
-
                 // Update the labels
                 fileNameLabel.Text = progress.fileName;
                 fileUrlLabel.Text = progress.url;
                 fileSizeLabel.Text = progress.fileSize + " Bytes";
-                fileProgressLabel.Text = progress.percentageDone.ToString() + "%";
+
+                if (progress.downloadType == DownloadProgress.DownloadType.YoutubePlaylist)
+                {
+                    // Update the progress bar
+                    progressBar.Style = ProgressBarStyle.Blocks;
+                    progressBar.Minimum = progress.progressBar1.Minimum;
+                    progressBar.Maximum = progress.progressBar1.Maximum;
+                    progressBar.Value = progress.progressBar1.Value;
+
+                    // Update the progress label
+                    int percent = (int)(((double)progress.progressBar1.Value / (double)progress.progressBar1.Maximum) * 100);
+                    fileProgressLabel.Text = $"{percent}%";
+                }
+                else if (progress.downloadType == DownloadProgress.DownloadType.YoutubeVideo)
+                {
+                    progressBar.Style = ProgressBarStyle.Marquee;
+                }
+                else
+                {
+                    // Update the progress bar
+                    progressBar.Style = ProgressBarStyle.Blocks;
+                    progressBar.Value = (int)progress.percentageDone;
+
+                    // Update the progress label
+                    fileProgressLabel.Text = progress.percentageDone.ToString() + "%";
+                }
 
                 // Bring all labels to front
                 fileNameLabel.BringToFront();
