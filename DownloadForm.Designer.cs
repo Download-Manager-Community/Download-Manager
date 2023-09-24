@@ -28,392 +28,382 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DownloadForm));
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.downloadTimer = new System.Windows.Forms.Timer(this.components);
-            this.label3 = new System.Windows.Forms.Label();
-            this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.trayContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.ComboBox();
-            this.toolStripButton2 = new System.Windows.Forms.Button();
-            this.toolStripButton3 = new System.Windows.Forms.Button();
-            this.toolStripButton1 = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.progressBar1 = new DownloadManager.BetterProgressBar();
-            this.trayContextMenu.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.SuspendLayout();
+            label1 = new Label();
+            textBox2 = new TextBox();
+            label2 = new Label();
+            button3 = new Button();
+            button4 = new Button();
+            folderBrowserDialog = new FolderBrowserDialog();
+            downloadTimer = new System.Windows.Forms.Timer(components);
+            label3 = new Label();
+            trayIcon = new NotifyIcon(components);
+            trayContextMenu = new ContextMenuStrip(components);
+            toolStripTextBox1 = new ToolStripTextBox();
+            toolStripSeparator1 = new ToolStripSeparator();
+            toolStripMenuItem1 = new ToolStripMenuItem();
+            toolStripMenuItem2 = new ToolStripMenuItem();
+            toolStripMenuItem3 = new ToolStripMenuItem();
+            linkLabel1 = new LinkLabel();
+            textBox3 = new TextBox();
+            label4 = new Label();
+            label5 = new Label();
+            toolTip = new ToolTip(components);
+            openFileDialog = new OpenFileDialog();
+            comboBox1 = new ComboBox();
+            textBox1 = new ComboBox();
+            toolStripButton2 = new Button();
+            toolStripButton3 = new Button();
+            toolStripButton1 = new Button();
+            panel1 = new Panel();
+            button2 = new Button();
+            progressBar1 = new BetterProgressBar();
+            trayContextMenu.SuspendLayout();
+            panel1.SuspendLayout();
+            SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Black;
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(10, 51);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(85, 15);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Download URL";
+            label1.AutoSize = true;
+            label1.BackColor = Color.Black;
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(10, 54);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(86, 16);
+            label1.TabIndex = 4;
+            label1.Text = "Download URL";
             // 
             // textBox2
             // 
-            this.textBox2.BackColor = System.Drawing.Color.Black;
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox2.ForeColor = System.Drawing.Color.White;
-            this.textBox2.Location = new System.Drawing.Point(14, 126);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(868, 23);
-            this.textBox2.TabIndex = 8;
+            textBox2.BackColor = Color.Black;
+            textBox2.BorderStyle = BorderStyle.FixedSingle;
+            textBox2.ForeColor = Color.White;
+            textBox2.Location = new Point(14, 134);
+            textBox2.Margin = new Padding(4, 3, 4, 3);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(868, 23);
+            textBox2.TabIndex = 8;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Black;
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(10, 107);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(110, 15);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Download Location";
+            label2.AutoSize = true;
+            label2.BackColor = Color.Black;
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(10, 114);
+            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(111, 16);
+            label2.TabIndex = 7;
+            label2.Text = "Download Location";
             // 
             // button3
             // 
-            this.button3.BackColor = System.Drawing.Color.Black;
-            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(892, 124);
-            this.button3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(29, 27);
-            this.button3.TabIndex = 9;
-            this.button3.Text = "...";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            button3.BackColor = Color.Black;
+            button3.FlatAppearance.MouseDownBackColor = Color.Gray;
+            button3.FlatStyle = FlatStyle.Flat;
+            button3.ForeColor = Color.White;
+            button3.Location = new Point(892, 132);
+            button3.Margin = new Padding(4, 3, 4, 3);
+            button3.Name = "button3";
+            button3.Size = new Size(29, 29);
+            button3.TabIndex = 9;
+            button3.Text = "...";
+            button3.UseVisualStyleBackColor = false;
+            button3.Click += button3_Click;
             // 
             // button4
             // 
-            this.button4.BackColor = System.Drawing.Color.Black;
-            this.button4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.ForeColor = System.Drawing.Color.White;
-            this.button4.Location = new System.Drawing.Point(832, 368);
-            this.button4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(88, 27);
-            this.button4.TabIndex = 1;
-            this.button4.Text = "Download";
-            this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            button4.BackColor = Color.Black;
+            button4.FlatAppearance.MouseDownBackColor = Color.Gray;
+            button4.FlatStyle = FlatStyle.Flat;
+            button4.ForeColor = Color.White;
+            button4.Location = new Point(832, 386);
+            button4.Margin = new Padding(4, 3, 4, 3);
+            button4.Name = "button4";
+            button4.Size = new Size(88, 29);
+            button4.TabIndex = 1;
+            button4.Text = "Download";
+            button4.UseVisualStyleBackColor = false;
+            button4.Click += button4_Click;
             // 
             // downloadTimer
             // 
-            this.downloadTimer.Enabled = true;
-            this.downloadTimer.Interval = 1000;
-            this.downloadTimer.Tick += new System.EventHandler(this.timer2_Tick);
+            downloadTimer.Enabled = true;
+            downloadTimer.Interval = 1000;
+            downloadTimer.Tick += timer2_Tick;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Black;
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(10, 359);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(120, 15);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Downloading 0 files...";
+            label3.AutoSize = true;
+            label3.BackColor = Color.Black;
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(10, 383);
+            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(123, 16);
+            label3.TabIndex = 11;
+            label3.Text = "Downloading 0 files...";
             // 
             // trayIcon
             // 
-            this.trayIcon.ContextMenuStrip = this.trayContextMenu;
-            this.trayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("trayIcon.Icon")));
-            this.trayIcon.Text = "Download Manager";
-            this.trayIcon.Visible = true;
+            trayIcon.ContextMenuStrip = trayContextMenu;
+            trayIcon.Icon = (Icon)resources.GetObject("trayIcon.Icon");
+            trayIcon.Text = "Download Manager";
+            trayIcon.Visible = true;
             // 
             // trayContextMenu
             // 
-            this.trayContextMenu.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.trayContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripTextBox1,
-            this.toolStripSeparator1,
-            this.toolStripMenuItem1,
-            this.toolStripMenuItem2,
-            this.toolStripMenuItem3});
-            this.trayContextMenu.Name = "contextMenuStrip1";
-            this.trayContextMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.trayContextMenu.Size = new System.Drawing.Size(172, 101);
+            trayContextMenu.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            trayContextMenu.Items.AddRange(new ToolStripItem[] { toolStripTextBox1, toolStripSeparator1, toolStripMenuItem1, toolStripMenuItem2, toolStripMenuItem3 });
+            trayContextMenu.Name = "contextMenuStrip1";
+            trayContextMenu.RenderMode = ToolStripRenderMode.System;
+            trayContextMenu.Size = new Size(172, 101);
             // 
             // toolStripTextBox1
             // 
-            this.toolStripTextBox1.Enabled = false;
-            this.toolStripTextBox1.Name = "toolStripTextBox1";
-            this.toolStripTextBox1.ReadOnly = true;
-            this.toolStripTextBox1.Size = new System.Drawing.Size(111, 23);
-            this.toolStripTextBox1.Text = "Download Manager";
+            toolStripTextBox1.Enabled = false;
+            toolStripTextBox1.Name = "toolStripTextBox1";
+            toolStripTextBox1.ReadOnly = true;
+            toolStripTextBox1.Size = new Size(111, 23);
+            toolStripTextBox1.Text = "Download Manager";
             // 
             // toolStripSeparator1
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(168, 6);
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(168, 6);
             // 
             // toolStripMenuItem1
             // 
-            this.toolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem1.Image")));
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(171, 22);
-            this.toolStripMenuItem1.Text = "Open";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            toolStripMenuItem1.Image = (Image)resources.GetObject("toolStripMenuItem1.Image");
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(171, 22);
+            toolStripMenuItem1.Text = "Open";
+            toolStripMenuItem1.Click += toolStripMenuItem1_Click;
             // 
             // toolStripMenuItem2
             // 
-            this.toolStripMenuItem2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem2.Image")));
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(171, 22);
-            this.toolStripMenuItem2.Text = "Report a bug";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            toolStripMenuItem2.Image = (Image)resources.GetObject("toolStripMenuItem2.Image");
+            toolStripMenuItem2.Name = "toolStripMenuItem2";
+            toolStripMenuItem2.Size = new Size(171, 22);
+            toolStripMenuItem2.Text = "Report a bug";
+            toolStripMenuItem2.Click += toolStripMenuItem2_Click;
             // 
             // toolStripMenuItem3
             // 
-            this.toolStripMenuItem3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem3.Image")));
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(171, 22);
-            this.toolStripMenuItem3.Text = "Exit";
-            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            toolStripMenuItem3.Image = (Image)resources.GetObject("toolStripMenuItem3.Image");
+            toolStripMenuItem3.Name = "toolStripMenuItem3";
+            toolStripMenuItem3.Size = new Size(171, 22);
+            toolStripMenuItem3.Text = "Exit";
+            toolStripMenuItem3.Click += toolStripMenuItem3_Click;
             // 
             // linkLabel1
             // 
-            this.linkLabel1.ActiveLinkColor = System.Drawing.Color.Blue;
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.BackColor = System.Drawing.Color.Black;
-            this.linkLabel1.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(255)))));
-            this.linkLabel1.Location = new System.Drawing.Point(10, 374);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(136, 15);
-            this.linkLabel1.TabIndex = 13;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Install Browser Extention";
-            this.linkLabel1.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(195)))), ((int)(((byte)(255)))));
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            linkLabel1.ActiveLinkColor = Color.Blue;
+            linkLabel1.AutoSize = true;
+            linkLabel1.BackColor = Color.Black;
+            linkLabel1.LinkColor = Color.FromArgb(90, 90, 255);
+            linkLabel1.Location = new Point(10, 399);
+            linkLabel1.Name = "linkLabel1";
+            linkLabel1.Size = new Size(138, 16);
+            linkLabel1.TabIndex = 13;
+            linkLabel1.TabStop = true;
+            linkLabel1.Text = "Install Browser Extention";
+            linkLabel1.VisitedLinkColor = Color.FromArgb(0, 195, 255);
+            linkLabel1.LinkClicked += linkLabel1_LinkClicked;
             // 
             // textBox3
             // 
-            this.textBox3.BackColor = System.Drawing.Color.Black;
-            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox3.ForeColor = System.Drawing.Color.White;
-            this.textBox3.Location = new System.Drawing.Point(16, 188);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(809, 23);
-            this.textBox3.TabIndex = 15;
+            textBox3.BackColor = Color.Black;
+            textBox3.BorderStyle = BorderStyle.FixedSingle;
+            textBox3.ForeColor = Color.White;
+            textBox3.Location = new Point(16, 201);
+            textBox3.Margin = new Padding(4, 3, 4, 3);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(809, 23);
+            textBox3.TabIndex = 15;
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.Black;
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(12, 170);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(55, 15);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "File Hash";
+            label4.AutoSize = true;
+            label4.BackColor = Color.Black;
+            label4.ForeColor = Color.White;
+            label4.Location = new Point(12, 181);
+            label4.Margin = new Padding(4, 0, 4, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(56, 16);
+            label4.TabIndex = 14;
+            label4.Text = "File Hash";
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.Black;
-            this.label5.Cursor = System.Windows.Forms.Cursors.Help;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label5.ForeColor = System.Drawing.Color.Gray;
-            this.label5.Location = new System.Drawing.Point(66, 170);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(12, 15);
-            this.label5.TabIndex = 16;
-            this.label5.Text = "?";
-            this.toolTip.SetToolTip(this.label5, resources.GetString("label5.ToolTip"));
+            label5.AutoSize = true;
+            label5.BackColor = Color.Black;
+            label5.Cursor = Cursors.Help;
+            label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label5.ForeColor = Color.Gray;
+            label5.Location = new Point(66, 181);
+            label5.Name = "label5";
+            label5.Size = new Size(12, 15);
+            label5.TabIndex = 16;
+            label5.Text = "?";
+            toolTip.SetToolTip(label5, resources.GetString("label5.ToolTip"));
             // 
             // toolTip
             // 
-            this.toolTip.IsBalloon = true;
-            this.toolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            this.toolTip.ToolTipTitle = "Help";
+            toolTip.IsBalloon = true;
+            toolTip.ToolTipIcon = ToolTipIcon.Info;
+            toolTip.ToolTipTitle = "Help";
             // 
             // openFileDialog
             // 
-            this.openFileDialog.DefaultExt = "*.*";
-            this.openFileDialog.Filter = "All files|*.*";
+            openFileDialog.DefaultExt = "*.*";
+            openFileDialog.Filter = "All files|*.*";
             // 
             // comboBox1
             // 
-            this.comboBox1.BackColor = System.Drawing.Color.Black;
-            this.comboBox1.DisplayMember = "0";
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox1.ForeColor = System.Drawing.Color.White;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "MD5",
-            "SHA-1",
-            "SHA-256",
-            "SHA-384",
-            "SHA-512"});
-            this.comboBox1.Location = new System.Drawing.Point(832, 188);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(89, 23);
-            this.comboBox1.TabIndex = 17;
-            this.comboBox1.ValueMember = "0";
+            comboBox1.BackColor = Color.Black;
+            comboBox1.DisplayMember = "0";
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.FlatStyle = FlatStyle.Flat;
+            comboBox1.ForeColor = Color.White;
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "MD5", "SHA-1", "SHA-256", "SHA-384", "SHA-512" });
+            comboBox1.Location = new Point(832, 201);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(89, 24);
+            comboBox1.TabIndex = 17;
+            comboBox1.ValueMember = "0";
             // 
             // textBox1
             // 
-            this.textBox1.BackColor = System.Drawing.Color.Black;
-            this.textBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.textBox1.ForeColor = System.Drawing.Color.White;
-            this.textBox1.FormattingEnabled = true;
-            this.textBox1.Location = new System.Drawing.Point(14, 69);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(907, 23);
-            this.textBox1.TabIndex = 18;
+            textBox1.BackColor = Color.Black;
+            textBox1.FlatStyle = FlatStyle.Flat;
+            textBox1.ForeColor = Color.White;
+            textBox1.FormattingEnabled = true;
+            textBox1.Location = new Point(14, 74);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(907, 24);
+            textBox1.TabIndex = 18;
             // 
             // toolStripButton2
             // 
-            this.toolStripButton2.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.toolStripButton2.BackColor = System.Drawing.Color.Transparent;
-            this.toolStripButton2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.BackgroundImage")));
-            this.toolStripButton2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.toolStripButton2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.toolStripButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.toolStripButton2.ForeColor = System.Drawing.Color.White;
-            this.toolStripButton2.Location = new System.Drawing.Point(894, 0);
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(39, 39);
-            this.toolStripButton2.TabIndex = 21;
-            this.toolStripButton2.UseVisualStyleBackColor = false;
-            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            toolStripButton2.Anchor = AnchorStyles.Right;
+            toolStripButton2.BackColor = Color.Transparent;
+            toolStripButton2.BackgroundImage = (Image)resources.GetObject("toolStripButton2.BackgroundImage");
+            toolStripButton2.BackgroundImageLayout = ImageLayout.Zoom;
+            toolStripButton2.FlatAppearance.BorderColor = Color.FromArgb(34, 34, 34);
+            toolStripButton2.FlatStyle = FlatStyle.Flat;
+            toolStripButton2.ForeColor = Color.White;
+            toolStripButton2.Location = new Point(894, 0);
+            toolStripButton2.Name = "toolStripButton2";
+            toolStripButton2.Size = new Size(39, 42);
+            toolStripButton2.TabIndex = 21;
+            toolStripButton2.UseVisualStyleBackColor = false;
+            toolStripButton2.Click += toolStripButton2_Click;
             // 
             // toolStripButton3
             // 
-            this.toolStripButton3.BackColor = System.Drawing.Color.Transparent;
-            this.toolStripButton3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.BackgroundImage")));
-            this.toolStripButton3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.toolStripButton3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.toolStripButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.toolStripButton3.ForeColor = System.Drawing.Color.White;
-            this.toolStripButton3.Location = new System.Drawing.Point(39, 0);
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(39, 39);
-            this.toolStripButton3.TabIndex = 22;
-            this.toolStripButton3.UseVisualStyleBackColor = false;
-            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
+            toolStripButton3.BackColor = Color.Transparent;
+            toolStripButton3.BackgroundImage = (Image)resources.GetObject("toolStripButton3.BackgroundImage");
+            toolStripButton3.BackgroundImageLayout = ImageLayout.Zoom;
+            toolStripButton3.FlatAppearance.BorderColor = Color.FromArgb(34, 34, 34);
+            toolStripButton3.FlatStyle = FlatStyle.Flat;
+            toolStripButton3.ForeColor = Color.White;
+            toolStripButton3.Location = new Point(39, 0);
+            toolStripButton3.Name = "toolStripButton3";
+            toolStripButton3.Size = new Size(39, 42);
+            toolStripButton3.TabIndex = 22;
+            toolStripButton3.UseVisualStyleBackColor = false;
+            toolStripButton3.Click += toolStripButton3_Click;
             // 
             // toolStripButton1
             // 
-            this.toolStripButton1.BackColor = System.Drawing.Color.Transparent;
-            this.toolStripButton1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.BackgroundImage")));
-            this.toolStripButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.toolStripButton1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.toolStripButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.toolStripButton1.ForeColor = System.Drawing.Color.White;
-            this.toolStripButton1.Location = new System.Drawing.Point(0, 0);
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(39, 39);
-            this.toolStripButton1.TabIndex = 23;
-            this.toolStripButton1.UseVisualStyleBackColor = false;
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            toolStripButton1.BackColor = Color.Transparent;
+            toolStripButton1.BackgroundImage = (Image)resources.GetObject("toolStripButton1.BackgroundImage");
+            toolStripButton1.BackgroundImageLayout = ImageLayout.Center;
+            toolStripButton1.FlatAppearance.BorderColor = Color.FromArgb(34, 34, 34);
+            toolStripButton1.FlatStyle = FlatStyle.Flat;
+            toolStripButton1.ForeColor = Color.White;
+            toolStripButton1.Location = new Point(0, 0);
+            toolStripButton1.Name = "toolStripButton1";
+            toolStripButton1.Size = new Size(39, 42);
+            toolStripButton1.TabIndex = 23;
+            toolStripButton1.UseVisualStyleBackColor = false;
+            toolStripButton1.Click += toolStripButton1_Click;
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.toolStripButton1);
-            this.panel1.Controls.Add(this.toolStripButton3);
-            this.panel1.Controls.Add(this.toolStripButton2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(933, 39);
-            this.panel1.TabIndex = 24;
+            panel1.BackColor = Color.FromArgb(34, 34, 34);
+            panel1.Controls.Add(button2);
+            panel1.Controls.Add(toolStripButton1);
+            panel1.Controls.Add(toolStripButton3);
+            panel1.Controls.Add(toolStripButton2);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(933, 42);
+            panel1.TabIndex = 24;
             // 
             // button2
             // 
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.BackgroundImage = global::DownloadManager.Properties.Resources.currentdownload;
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(77, 0);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(39, 39);
-            this.button2.TabIndex = 25;
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            button2.BackColor = Color.Transparent;
+            button2.BackgroundImage = Properties.Resources.currentdownload;
+            button2.BackgroundImageLayout = ImageLayout.Center;
+            button2.FlatAppearance.BorderColor = Color.FromArgb(34, 34, 34);
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.ForeColor = Color.White;
+            button2.Location = new Point(77, 0);
+            button2.Name = "button2";
+            button2.Size = new Size(39, 42);
+            button2.TabIndex = 25;
+            button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click;
             // 
             // progressBar1
             // 
-            this.progressBar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.progressBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.progressBar1.Location = new System.Drawing.Point(0, 401);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.ShowText = false;
-            this.progressBar1.Size = new System.Drawing.Size(933, 10);
-            this.progressBar1.TabIndex = 25;
+            progressBar1.BackColor = Color.FromArgb(20, 20, 20);
+            progressBar1.Dock = DockStyle.Bottom;
+            progressBar1.Location = new Point(0, 427);
+            progressBar1.Name = "progressBar1";
+            progressBar1.ShowText = false;
+            progressBar1.Size = new Size(933, 11);
+            progressBar1.TabIndex = 25;
             // 
             // DownloadForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(933, 411);
-            this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.linkLabel1);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.MaximizeBox = false;
-            this.Name = "DownloadForm";
-            this.Text = "Download Manager";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DownloadForm_FormClosing);
-            this.trayContextMenu.ResumeLayout(false);
-            this.trayContextMenu.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 16F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Black;
+            ClientSize = new Size(933, 438);
+            Controls.Add(progressBar1);
+            Controls.Add(panel1);
+            Controls.Add(textBox1);
+            Controls.Add(comboBox1);
+            Controls.Add(label5);
+            Controls.Add(textBox3);
+            Controls.Add(label4);
+            Controls.Add(linkLabel1);
+            Controls.Add(label3);
+            Controls.Add(button4);
+            Controls.Add(button3);
+            Controls.Add(textBox2);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            Name = "DownloadForm";
+            Text = "Download Manager";
+            FormClosing += DownloadForm_FormClosing;
+            Move += DownloadForm_Move;
+            trayContextMenu.ResumeLayout(false);
+            trayContextMenu.PerformLayout();
+            panel1.ResumeLayout(false);
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

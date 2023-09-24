@@ -29,192 +29,192 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CurrentDownloads));
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.splitter1 = new System.Windows.Forms.Splitter();
-            this.refreshButton = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.SuspendLayout();
+            groupBox1 = new GroupBox();
+            progressBar1 = new ProgressBar();
+            label8 = new Label();
+            label7 = new Label();
+            label6 = new Label();
+            label5 = new Label();
+            label4 = new Label();
+            label3 = new Label();
+            label2 = new Label();
+            label1 = new Label();
+            panel1 = new Panel();
+            panel2 = new Panel();
+            splitter1 = new Splitter();
+            refreshButton = new Button();
+            groupBox1.SuspendLayout();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
+            SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.progressBar1);
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(428, 105);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Visible = false;
+            groupBox1.Controls.Add(progressBar1);
+            groupBox1.Controls.Add(label8);
+            groupBox1.Controls.Add(label7);
+            groupBox1.Controls.Add(label6);
+            groupBox1.Controls.Add(label5);
+            groupBox1.Controls.Add(label4);
+            groupBox1.Controls.Add(label3);
+            groupBox1.Controls.Add(label2);
+            groupBox1.Controls.Add(label1);
+            groupBox1.Location = new Point(12, 13);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(428, 112);
+            groupBox1.TabIndex = 0;
+            groupBox1.TabStop = false;
+            groupBox1.Visible = false;
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(290, 43);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(121, 23);
-            this.progressBar1.TabIndex = 1;
+            progressBar1.Location = new Point(290, 46);
+            progressBar1.Name = "progressBar1";
+            progressBar1.Size = new Size(121, 25);
+            progressBar1.TabIndex = 1;
             // 
             // label8
             // 
-            this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label8.Location = new System.Drawing.Point(121, 77);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(163, 15);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "0%";
+            label8.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label8.Location = new Point(121, 82);
+            label8.Name = "label8";
+            label8.Size = new Size(163, 16);
+            label8.TabIndex = 7;
+            label8.Text = "0%";
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 77);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(112, 15);
-            this.label7.TabIndex = 6;
-            this.label7.Text = "Download Progress:";
+            label7.AutoSize = true;
+            label7.Location = new Point(6, 82);
+            label7.Name = "label7";
+            label7.Size = new Size(114, 16);
+            label7.TabIndex = 6;
+            label7.Text = "Download Progress:";
             // 
             // label6
             // 
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(96, 57);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(188, 15);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "0 Bytes";
+            label6.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label6.Location = new Point(96, 61);
+            label6.Name = "label6";
+            label6.Size = new Size(188, 16);
+            label6.TabIndex = 5;
+            label6.Text = "0 Bytes";
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 57);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(87, 15);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Download Size:";
+            label5.AutoSize = true;
+            label5.Location = new Point(6, 61);
+            label5.Name = "label5";
+            label5.Size = new Size(91, 16);
+            label5.TabIndex = 4;
+            label5.Text = "Download Size:";
             // 
             // label4
             // 
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(97, 38);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(187, 15);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "FileURL";
+            label4.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label4.Location = new Point(97, 41);
+            label4.Name = "label4";
+            label4.Size = new Size(187, 16);
+            label4.TabIndex = 3;
+            label4.Text = "FileURL";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 38);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(88, 15);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Download URL:";
+            label3.AutoSize = true;
+            label3.Location = new Point(6, 41);
+            label3.Name = "label3";
+            label3.Size = new Size(89, 16);
+            label3.TabIndex = 2;
+            label3.Text = "Download URL:";
             // 
             // label2
             // 
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(92, 19);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(192, 15);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "FileName";
+            label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.Location = new Point(92, 20);
+            label2.Name = "label2";
+            label2.Size = new Size(192, 16);
+            label2.TabIndex = 1;
+            label2.Text = "FileName";
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(6, 19);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 15);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Downloading:";
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Location = new Point(6, 20);
+            label1.Name = "label1";
+            label1.Size = new Size(83, 15);
+            label1.TabIndex = 0;
+            label1.Text = "Downloading:";
             // 
             // panel1
             // 
-            this.panel1.AutoScroll = true;
-            this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(452, 400);
-            this.panel1.TabIndex = 1;
+            panel1.AutoScroll = true;
+            panel1.Controls.Add(groupBox1);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(452, 427);
+            panel1.TabIndex = 1;
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.splitter1);
-            this.panel2.Controls.Add(this.refreshButton);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 403);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(452, 47);
-            this.panel2.TabIndex = 2;
+            panel2.Controls.Add(splitter1);
+            panel2.Controls.Add(refreshButton);
+            panel2.Dock = DockStyle.Bottom;
+            panel2.Location = new Point(0, 430);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(452, 50);
+            panel2.TabIndex = 2;
             // 
             // splitter1
             // 
-            this.splitter1.BackColor = System.Drawing.Color.DimGray;
-            this.splitter1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitter1.Enabled = false;
-            this.splitter1.Location = new System.Drawing.Point(0, 0);
-            this.splitter1.MinExtra = 1;
-            this.splitter1.MinSize = 1;
-            this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(452, 1);
-            this.splitter1.TabIndex = 55;
-            this.splitter1.TabStop = false;
+            splitter1.BackColor = Color.DimGray;
+            splitter1.Dock = DockStyle.Top;
+            splitter1.Enabled = false;
+            splitter1.Location = new Point(0, 0);
+            splitter1.MinExtra = 1;
+            splitter1.MinSize = 1;
+            splitter1.Name = "splitter1";
+            splitter1.Size = new Size(452, 1);
+            splitter1.TabIndex = 55;
+            splitter1.TabStop = false;
             // 
             // refreshButton
             // 
-            this.refreshButton.BackColor = System.Drawing.Color.Transparent;
-            this.refreshButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.refreshButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.refreshButton.ForeColor = System.Drawing.Color.White;
-            this.refreshButton.Location = new System.Drawing.Point(185, 12);
-            this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(82, 23);
-            this.refreshButton.TabIndex = 54;
-            this.refreshButton.Text = "Refresh";
-            this.refreshButton.UseVisualStyleBackColor = false;
-            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
+            refreshButton.BackColor = Color.Transparent;
+            refreshButton.FlatAppearance.MouseDownBackColor = Color.Gray;
+            refreshButton.FlatStyle = FlatStyle.Flat;
+            refreshButton.ForeColor = Color.White;
+            refreshButton.Location = new Point(185, 13);
+            refreshButton.Name = "refreshButton";
+            refreshButton.Size = new Size(82, 25);
+            refreshButton.TabIndex = 54;
+            refreshButton.Text = "Refresh";
+            refreshButton.UseVisualStyleBackColor = false;
+            refreshButton.Click += refreshButton_Click;
             // 
             // CurrentDownloads
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(452, 450);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
-            this.ForeColor = System.Drawing.Color.White;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "CurrentDownloads";
-            this.Text = "Donwload Manager | Current Downloads";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CurrentDownloads_FormClosing);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(7F, 16F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Black;
+            ClientSize = new Size(452, 480);
+            Controls.Add(panel2);
+            Controls.Add(panel1);
+            ForeColor = Color.White;
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "CurrentDownloads";
+            Text = "Donwload Manager | Current Downloads";
+            FormClosing += CurrentDownloads_FormClosing;
+            Move += CurrentDownloads_Move;
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion

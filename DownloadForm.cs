@@ -47,11 +47,68 @@ namespace DownloadManager
                 }
             }
             textBox2.Text = Settings.Default.defaultDownload;
+        }
+
+        private bool ignoreNcActivate = false;
+
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+
+            switch (m.Msg)
+            {
+                case User32.WM_NCACTIVATE:
+                    if (m.WParam == IntPtr.Zero)
+                    {
+                        if (ignoreNcActivate)
+                        {
+                            ignoreNcActivate = false;
+                        }
+                        else
+                        {
+                            User32.SendMessageW(this.Handle, User32.WM_NCACTIVATE, new IntPtr(1), IntPtr.Zero);
+                        }
+                    }
+                    break;
+                case User32.WM_ACTIVATEAPP:
+                    if (m.WParam == IntPtr.Zero)
+                    {
+                        User32.PostMessageW(this.Handle, User32.WM_NCACTIVATE, IntPtr.Zero, IntPtr.Zero);
+                        foreach (CurrentDownloads f in this.OwnedForms.OfType<CurrentDownloads>())
+                        {
+                            f.ForceActiveBar = false;
+                            User32.PostMessageW(f.Handle, User32.WM_NCACTIVATE, IntPtr.Zero, IntPtr.Zero);
+                        }
+                        ignoreNcActivate = true;
+                    }
+                    else if (m.WParam == new IntPtr(1))
+                    {
+                        User32.SendMessageW(this.Handle, User32.WM_NCACTIVATE, new IntPtr(1), IntPtr.Zero);
+                        foreach (CurrentDownloads f in this.OwnedForms.OfType<CurrentDownloads>())
+                        {
+                            f.ForceActiveBar = true;
+                            User32.SendMessageW(f.Handle, User32.WM_NCACTIVATE, new IntPtr(1), IntPtr.Zero);
+                        }
+                    }
+                    break;
+            }
+        }
+
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
 
             if (Settings.Default.showDownloadToolWindow)
             {
-                currentDownloads.Show();
-                button2.BackColor = Color.FromArgb(64, 64, 64);
+                button2.BackColor = Color.FromArgb(32, 32, 32);
+
+                // Middle of the form
+                int middleY = this.Height / 2;
+
+                // To set the currentDownloads window y position to the middle of the parent form:
+                currentDownloads.Location = new Point(this.Location.X + this.Width + 5, this.Location.Y + middleY - (currentDownloads.Height / 2));
+
+                currentDownloads.Show(this);
             }
         }
 
@@ -213,16 +270,25 @@ namespace DownloadManager
 
             if (Settings.Default.showDownloadToolWindow)
             {
-                button2.BackColor = Color.FromArgb(64, 64, 64);
+                button2.BackColor = Color.FromArgb(32, 32, 32);
 
-                currentDownloads.Show();
+                currentDownloads.Show(this);
             }
             else
             {
-                button2.BackColor = Color.FromArgb(34, 34, 34);
+                button2.BackColor = Color.Transparent;
 
                 currentDownloads.Hide();
             }
+        }
+
+        private void DownloadForm_Move(object sender, EventArgs e)
+        {
+            // Middle of the form
+            int middleY = this.Height / 2;
+
+            // To set the currentDownloads window y position to the middle of the parent form:
+            currentDownloads.Location = new Point(this.Location.X + this.Width + 5, this.Location.Y + middleY - (currentDownloads.Height / 2));
         }
     }
 }
