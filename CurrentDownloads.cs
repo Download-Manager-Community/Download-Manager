@@ -22,21 +22,6 @@ namespace DownloadManager
 
         protected override void WndProc(ref Message m)
         {
-            const int WM_NCHITTEST = 0x0084;
-            const int HTCAPTION = 2;
-
-            switch (m.Msg)
-            {
-                case WM_NCHITTEST:
-                    base.WndProc(ref m);
-                    if (m.Result == (IntPtr)HTCAPTION)
-                    {
-                        m.Result = (IntPtr)0x00; // Disable drag on titlebar
-                        return;
-                    }
-                    break;
-            }
-
             base.WndProc(ref m);
             if (m.Msg == User32.WM_NCACTIVATE)
             {
