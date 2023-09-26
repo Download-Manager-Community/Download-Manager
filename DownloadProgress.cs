@@ -1414,6 +1414,25 @@ namespace DownloadManager
 
                                             if (Settings.Default.soundOnComplete == true)
                                                 complete.Play();
+
+                                            if (checkBox3.Checked)
+                                            {
+                                                // Open downloaded file
+                                                ProcessStartInfo startInfo = new ProcessStartInfo();
+                                                startInfo.FileName = location + fileName;
+                                                startInfo.UseShellExecute = true;
+                                                try
+                                                {
+                                                    Process.Start(startInfo);
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    DarkMessageBox msg = new DarkMessageBox(ex.Message + $" ({ex.GetType().FullName})" + ex.StackTrace, "Failed to start process", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    msg.ShowDialog();
+                                                    msg.Dispose();
+                                                }
+                                            }
+
                                             Invoke(new MethodInvoker(delegate ()
                                             {
                                                 checkBox2.Enabled = false;
@@ -1515,6 +1534,25 @@ namespace DownloadManager
                                             Log("Finished downloading file.", Color.White);
                                             if (Settings.Default.soundOnComplete == true)
                                                 complete.Play();
+
+                                            if (checkBox3.Checked)
+                                            {
+                                                // Open downloaded file
+                                                ProcessStartInfo startInfo = new ProcessStartInfo();
+                                                startInfo.FileName = location + fileName;
+                                                startInfo.UseShellExecute = true;
+                                                try
+                                                {
+                                                    Process.Start(startInfo);
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    DarkMessageBox msg = new DarkMessageBox(ex.Message + $" ({ex.GetType().FullName})" + ex.StackTrace, "Failed to start process", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    msg.ShowDialog();
+                                                    msg.Dispose();
+                                                }
+                                            }
+
                                             Invoke(new MethodInvoker(delegate ()
                                             {
                                                 checkBox2.Enabled = false;
@@ -1616,6 +1654,25 @@ namespace DownloadManager
                                             Log("Finished downloading file.", Color.White);
                                             if (Settings.Default.soundOnComplete == true)
                                                 complete.Play();
+
+                                            if (checkBox3.Checked)
+                                            {
+                                                // Open downloaded file
+                                                ProcessStartInfo startInfo = new ProcessStartInfo();
+                                                startInfo.FileName = location + fileName;
+                                                startInfo.UseShellExecute = true;
+                                                try
+                                                {
+                                                    Process.Start(startInfo);
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    DarkMessageBox msg = new DarkMessageBox(ex.Message + $" ({ex.GetType().FullName})" + ex.StackTrace, "Failed to start process", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    msg.ShowDialog();
+                                                    msg.Dispose();
+                                                }
+                                            }
+
                                             Invoke(new MethodInvoker(delegate ()
                                             {
                                                 checkBox2.Enabled = false;
@@ -1717,6 +1774,25 @@ namespace DownloadManager
                                             Log("Finished downloading file.", Color.White);
                                             if (Settings.Default.soundOnComplete == true)
                                                 complete.Play();
+
+                                            if (checkBox3.Checked)
+                                            {
+                                                // Open downloaded file
+                                                ProcessStartInfo startInfo = new ProcessStartInfo();
+                                                startInfo.FileName = location + fileName;
+                                                startInfo.UseShellExecute = true;
+                                                try
+                                                {
+                                                    Process.Start(startInfo);
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    DarkMessageBox msg = new DarkMessageBox(ex.Message + $" ({ex.GetType().FullName})" + ex.StackTrace, "Failed to start process", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    msg.ShowDialog();
+                                                    msg.Dispose();
+                                                }
+                                            }
+
                                             Invoke(new MethodInvoker(delegate ()
                                             {
                                                 checkBox2.Enabled = false;
@@ -1820,6 +1896,25 @@ namespace DownloadManager
                                             Log("Finished downloading file.", Color.White);
                                             if (Settings.Default.soundOnComplete == true)
                                                 complete.Play();
+
+                                            if (checkBox3.Checked)
+                                            {
+                                                // Open downloaded file
+                                                ProcessStartInfo startInfo = new ProcessStartInfo();
+                                                startInfo.FileName = location + fileName;
+                                                startInfo.UseShellExecute = true;
+                                                try
+                                                {
+                                                    Process.Start(startInfo);
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    DarkMessageBox msg = new DarkMessageBox(ex.Message + $" ({ex.GetType().FullName})" + ex.StackTrace, "Failed to start process", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    msg.ShowDialog();
+                                                    msg.Dispose();
+                                                }
+                                            }
+
                                             Invoke(new MethodInvoker(delegate ()
                                             {
                                                 checkBox2.Enabled = false;
@@ -1938,6 +2033,25 @@ namespace DownloadManager
 
                                 if (Settings.Default.soundOnComplete == true)
                                     complete.Play();
+
+                                if (checkBox3.Checked)
+                                {
+                                    // Open downloaded file
+                                    ProcessStartInfo startInfo = new ProcessStartInfo();
+                                    startInfo.FileName = location + fileName;
+                                    startInfo.UseShellExecute = true;
+                                    try
+                                    {
+                                        Process.Start(startInfo);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        DarkMessageBox msg = new DarkMessageBox(ex.Message + $" ({ex.GetType().FullName})" + ex.StackTrace, "Failed to start process", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        msg.ShowDialog();
+                                        msg.Dispose();
+                                    }
+                                }
+
                                 Invoke(new MethodInvoker(delegate ()
                                 {
                                     checkBox2.Enabled = false;
