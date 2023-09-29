@@ -1,4 +1,6 @@
-﻿using DownloadManager.NativeMethods;
+﻿// https://stackoverflow.com/questions/44441784/how-do-i-download-a-file-in-segments-in-c
+
+using DownloadManager.NativeMethods;
 using Microsoft.Toolkit.Uwp.Notifications;
 using System.Diagnostics;
 using System.Media;
