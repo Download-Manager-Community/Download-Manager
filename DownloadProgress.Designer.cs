@@ -46,6 +46,8 @@
             pauseButton = new Button();
             bytesLabel = new Label();
             checkBox3 = new CheckBox();
+            progressBar2 = new BetterProgressBar();
+            totalProgressBar = new BetterProgressBar();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -155,7 +157,7 @@
             progressBar1.BackColor = Color.FromArgb(20, 20, 20);
             progressBar1.Location = new Point(12, 122);
             progressBar1.Name = "progressBar1";
-            progressBar1.Size = new Size(416, 25);
+            progressBar1.Size = new Size(207, 25);
             progressBar1.TabIndex = 18;
             // 
             // pictureBox1
@@ -251,12 +253,31 @@
             checkBox3.Text = "Open this file when the download completes";
             checkBox3.UseVisualStyleBackColor = false;
             // 
+            // progressBar2
+            // 
+            progressBar2.BackColor = Color.FromArgb(20, 20, 20);
+            progressBar2.Location = new Point(221, 122);
+            progressBar2.Name = "progressBar2";
+            progressBar2.Size = new Size(207, 25);
+            progressBar2.TabIndex = 26;
+            // 
+            // totalProgressBar
+            // 
+            totalProgressBar.BackColor = Color.FromArgb(20, 20, 20);
+            totalProgressBar.Location = new Point(12, 122);
+            totalProgressBar.Name = "totalProgressBar";
+            totalProgressBar.Size = new Size(414, 25);
+            totalProgressBar.TabIndex = 27;
+            totalProgressBar.Visible = false;
+            // 
             // DownloadProgress
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
             ClientSize = new Size(439, 289);
+            Controls.Add(totalProgressBar);
+            Controls.Add(progressBar2);
             Controls.Add(checkBox3);
             Controls.Add(bytesLabel);
             Controls.Add(pauseButton);
@@ -306,5 +327,7 @@
         private Label bytesLabel;
         public BetterProgressBar progressBar1;
         private CheckBox checkBox3;
+        public BetterProgressBar progressBar2;
+        public BetterProgressBar totalProgressBar;
     }
 }

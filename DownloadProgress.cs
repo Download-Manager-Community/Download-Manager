@@ -2,6 +2,7 @@
 using Microsoft.Toolkit.Uwp.Notifications;
 using System.Diagnostics;
 using System.Media;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
@@ -1189,7 +1190,7 @@ namespace DownloadManager
             }
         }
 
-        public static async Task DownloadFileAsync(Uri uri, Stream toStream, CancellationToken cancellationToken = default, Action<long, long>? progressCallback = null)
+        public async Task DownloadFileAsync(Uri uri, Stream toStream, CancellationToken cancellationToken = default, Action<long, long, BetterProgressBar>? progressCallback = null, BetterProgressBar? progressBar = null)
         {
             if (uri == null)
                 throw new ArgumentNullException(nameof(uri));
@@ -1210,7 +1211,7 @@ namespace DownloadManager
                     {
                         await toStream.WriteAsync(buffer, 0, read, cancellationToken).ConfigureAwait(false);
                         totalRead += read;
-                        progressCallback(totalRead, length);
+                        progressCallback(totalRead, length, progressBar);
                     }
                     Debug.Assert(totalRead == length || length == -1);
                 }
@@ -1221,10 +1222,39 @@ namespace DownloadManager
             }
             else
             {
-                using HttpClient client = new HttpClient();
-                using HttpResponseMessage response = await client.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+                // An error occurred while sending the request. (HRESULT: -2146232800)
+                HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync().ConfigureAwait(false);
+                Stream streamResponse = response.GetResponseStream();
+                long contentLength = streamResponse.Length;
 
-                if (progressCallback != null)
+                request.Abort();
+                response.Close();
+
+                request = (HttpWebRequest)WebRequest.Create(uri);
+                request.AddRange(0, contentLength / 2);
+                streamResponse = (await request.GetResponseAsync().ConfigureAwait(false)).GetResponseStream();
+
+                Stream fileStream = File.Create(fileName);
+
+                if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.RequestedRangeNotSatisfiable)
+                {
+                    // The server does not support range requests or range not satisfiable
+                    await SaveFileStreamAsync(streamResponse, fileStream, progressCallback, contentLength, true);
+                }
+                else if (response.StatusCode == HttpStatusCode.PartialContent)
+                {
+                    // The server supports range requests
+                    await SaveFileStreamAsync(streamResponse, fileStream, progressCallback, contentLength, false);
+
+                    // Download the rest of the file
+                    request = (HttpWebRequest)WebRequest.Create(uri);
+                    request.AddRange(contentLength / 2 + 1, contentLength);
+                    streamResponse = (await request.GetResponseAsync().ConfigureAwait(false)).GetResponseStream();
+                    await SaveFileStreamAsync(streamResponse, fileStream, progressCallback, contentLength, false);
+                }
+
+                /*if (progressCallback != null)
                 {
                     long length = 0;
                     if (_instance.totalSize == 0)
@@ -1264,94 +1294,231 @@ namespace DownloadManager
                 else
                 {
                     await response.Content.CopyToAsync(toStream).ConfigureAwait(false);
-                }
+                }*/
             }
         }
 
-        private void Client_DownloadProgressChanged(long totalRead, long size)
+        private async Task SaveFileStreamAsync(Stream inputStream, Stream outputStream, Action<long, long, BetterProgressBar>? progressCallback, long contentLength, bool useTotalProgressBar, BetterProgressBar? progressBar = null)
         {
-            //Update progress bar & label
-            if (this.IsHandleCreated)
+            if (useTotalProgressBar)
             {
-                try
+                progressBar1.Visible = true;
+                progressBar2.Visible = true;
+                totalProgressBar.Visible = false;
+            }
+            else
+            {
+                progressBar1.Visible = false;
+                progressBar2.Visible = false;
+                totalProgressBar.Visible = true;
+            }
+
+            byte[] buffer = new byte[8 * 1024];
+            int len;
+
+            while ((len = await inputStream.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false)) > 0)
+            {
+                await outputStream.WriteAsync(buffer, 0, len).ConfigureAwait(false);
+                Application.DoEvents();
+            }
+
+            if (progressCallback != null)
+            {
+                byte[] progressBuffer = new byte[4096];
+                int read;
+                int totalRead = 0;
+
+                while ((read = await inputStream.ReadAsync(progressBuffer, 0, progressBuffer.Length, cancellationToken.Token).ConfigureAwait(false)) > 0)
                 {
-                    totalSize = size;
-                    fileSize = size.ToString();
+                    await outputStream.WriteAsync(progressBuffer, 0, read, cancellationToken.Token).ConfigureAwait(false);
+                    totalRead += read;
+                    progressCallback(totalRead, contentLength, progressBar);
+                }
 
-                    progressBar1.Minimum = 0;
-                    receivedBytes = totalRead;
-                    totalBytes = size;
-                    percentageDone = receivedBytes / totalBytes * 100;
+                Debug.Assert(totalRead == contentLength || contentLength == -1);
+            }
+            else
+            {
+                await inputStream.CopyToAsync(outputStream, cancellationToken: cancellationToken.Token).ConfigureAwait(false);
+            }
 
-                    Invoke(new MethodInvoker(delegate ()
+            outputStream.Close();
+        }
+
+        private void Client_DownloadProgressChanged(long totalRead, long size, BetterProgressBar? progressBar = null)
+        {
+            if (progressBar == null)
+            {
+                //Update progress bar & label
+                if (this.IsHandleCreated)
+                {
+                    try
                     {
-                        try
+                        totalSize = size;
+                        fileSize = size.ToString();
+
+                        totalProgressBar.Minimum = 0;
+                        receivedBytes = totalRead;
+                        totalBytes = size;
+                        percentageDone = receivedBytes / totalBytes * 100;
+
+                        Invoke(new MethodInvoker(delegate ()
                         {
-                            progressBar1.Value = int.Parse(Math.Truncate(percentageDone).ToString());
-                        }
-                        catch (Exception ex)
-                        {
-                            if (isUrlInvalid == false)
+                            try
                             {
-                                isUrlInvalid = true;
-                                DownloadForm.downloadsAmount -= 1;
-                                Log(ex.Message, Color.Red);
+                                totalProgressBar.Value = int.Parse(Math.Truncate(percentageDone).ToString());
+                            }
+                            catch (Exception ex)
+                            {
+                                if (isUrlInvalid == false)
+                                {
+                                    isUrlInvalid = true;
+                                    DownloadForm.downloadsAmount -= 1;
+                                    Log(ex.Message, Color.Red);
+                                    Invoke(new MethodInvoker(delegate
+                                    {
+                                        totalProgressBar.State = ProgressBarState.Error;
+                                    }));
+                                    DarkMessageBox msg = new DarkMessageBox(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                                    msg.ShowDialog();
+                                    downloading = false;
+
+                                    if (Settings.Default.notifyFail)
+                                    {
+                                        new ToastContentBuilder()
+                                                    .AddText($"The download of {fileName} has failed.")
+                                                    .Show();
+                                    }
+
+                                    cancellationToken.Cancel();
+
+                                    this.Close();
+                                    this.Dispose();
+                                    return;
+                                }
+                                else { }
+                            }
+                        }));
+                    }
+                    catch (Exception ex)
+                    {
+                        if (this.IsDisposed == false)
+                        {
+                            try
+                            {
                                 Invoke(new MethodInvoker(delegate
                                 {
-                                    progressBar1.State = ProgressBarState.Error;
+                                    totalProgressBar.Style = ProgressBarStyle.Blocks;
+                                    totalProgressBar.MarqueeAnim = false;
+                                    totalProgressBar.Value = 100;
+                                    totalProgressBar.State = ProgressBarState.Error;
                                 }));
-                                DarkMessageBox msg = new DarkMessageBox(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
-                                msg.ShowDialog();
+                                DownloadForm.downloadsAmount -= 1;
                                 downloading = false;
 
                                 if (Settings.Default.notifyFail)
                                 {
                                     new ToastContentBuilder()
-                                                .AddText($"The download of {fileName} has failed.")
-                                                .Show();
+                                                    .AddText($"The download of {fileName} has failed.")
+                                                    .Show();
                                 }
 
                                 cancellationToken.Cancel();
-
                                 this.Close();
                                 this.Dispose();
                                 return;
                             }
-                            else { }
+                            catch { }
                         }
-                    }));
-                }
-                catch (Exception ex)
-                {
-                    if (this.IsDisposed == false)
-                    {
-                        try
-                        {
-                            Invoke(new MethodInvoker(delegate
-                            {
-                                progressBar1.Style = ProgressBarStyle.Blocks;
-                                progressBar1.MarqueeAnim = false;
-                                progressBar1.Value = 100;
-                                progressBar1.State = ProgressBarState.Error;
-                            }));
-                            DownloadForm.downloadsAmount -= 1;
-                            downloading = false;
-
-                            if (Settings.Default.notifyFail)
-                            {
-                                new ToastContentBuilder()
-                                                .AddText($"The download of {fileName} has failed.")
-                                                .Show();
-                            }
-
-                            cancellationToken.Cancel();
-                            this.Close();
-                            this.Dispose();
-                            return;
-                        }
-                        catch { }
+                        Log(ex.Message + Environment.NewLine + ex.StackTrace, Color.Red);
                     }
-                    Log(ex.Message + Environment.NewLine + ex.StackTrace, Color.Red);
+                }
+            }
+            else
+            {
+                //Update progress bar & label
+                if (this.IsHandleCreated)
+                {
+                    try
+                    {
+                        totalSize = size;
+                        fileSize = size.ToString();
+
+                        progressBar.Minimum = 0;
+                        receivedBytes = totalRead;
+                        totalBytes = size;
+                        percentageDone = receivedBytes / totalBytes * 100;
+
+                        Invoke(new MethodInvoker(delegate ()
+                        {
+                            try
+                            {
+                                progressBar.Value = int.Parse(Math.Truncate(percentageDone).ToString());
+                            }
+                            catch (Exception ex)
+                            {
+                                if (isUrlInvalid == false)
+                                {
+                                    isUrlInvalid = true;
+                                    DownloadForm.downloadsAmount -= 1;
+                                    Log(ex.Message, Color.Red);
+                                    Invoke(new MethodInvoker(delegate
+                                    {
+                                        progressBar.State = ProgressBarState.Error;
+                                    }));
+                                    DarkMessageBox msg = new DarkMessageBox(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                                    msg.ShowDialog();
+                                    downloading = false;
+
+                                    if (Settings.Default.notifyFail)
+                                    {
+                                        new ToastContentBuilder()
+                                                    .AddText($"The download of {fileName} has failed.")
+                                                    .Show();
+                                    }
+
+                                    cancellationToken.Cancel();
+
+                                    this.Close();
+                                    this.Dispose();
+                                    return;
+                                }
+                                else { }
+                            }
+                        }));
+                    }
+                    catch (Exception ex)
+                    {
+                        if (this.IsDisposed == false)
+                        {
+                            try
+                            {
+                                Invoke(new MethodInvoker(delegate
+                                {
+                                    progressBar.Style = ProgressBarStyle.Blocks;
+                                    progressBar.MarqueeAnim = false;
+                                    progressBar.Value = 100;
+                                    progressBar.State = ProgressBarState.Error;
+                                }));
+                                DownloadForm.downloadsAmount -= 1;
+                                downloading = false;
+
+                                if (Settings.Default.notifyFail)
+                                {
+                                    new ToastContentBuilder()
+                                                    .AddText($"The download of {fileName} has failed.")
+                                                    .Show();
+                                }
+
+                                cancellationToken.Cancel();
+                                this.Close();
+                                this.Dispose();
+                                return;
+                            }
+                            catch { }
+                        }
+                        Log(ex.Message + Environment.NewLine + ex.StackTrace, Color.Red);
+                    }
                 }
             }
         }
