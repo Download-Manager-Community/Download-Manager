@@ -42,10 +42,13 @@
             label2 = new Label();
             help1 = new Label();
             label19 = new Label();
+            label20 = new Label();
             folderBrowserDialog1 = new FolderBrowserDialog();
             label12 = new Label();
             button10 = new Button();
             generalPanel = new Panel();
+            checkBox10 = new CheckBox();
+            label21 = new Label();
             label18 = new Label();
             label1 = new Label();
             numericUpDown2 = new NumericUpDown();
@@ -86,9 +89,6 @@
             button2 = new Button();
             button3 = new Button();
             button4 = new Button();
-            label20 = new Label();
-            checkBox10 = new CheckBox();
-            label21 = new Label();
             generalPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
@@ -255,6 +255,20 @@
             label19.Text = "?";
             toolTip1.SetToolTip(label19, "The number of times that a download will automatically retry when failing to verify the file hash without warning.\r\nThe maximum value for this setting is 10.\r\nThe default value for this setting is 3.");
             // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Cursor = Cursors.Help;
+            label20.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label20.ForeColor = Color.Gray;
+            label20.Location = new Point(198, 163);
+            label20.Margin = new Padding(4, 0, 4, 0);
+            label20.Name = "label20";
+            label20.Size = new Size(12, 15);
+            label20.TabIndex = 53;
+            label20.Text = "?";
+            toolTip1.SetToolTip(label20, "When checked Download Manager (when the application is launched) will minimize to the system tray.");
+            // 
             // label12
             // 
             label12.AutoSize = true;
@@ -323,6 +337,27 @@
             generalPanel.Name = "generalPanel";
             generalPanel.Size = new Size(800, 396);
             generalPanel.TabIndex = 48;
+            // 
+            // checkBox10
+            // 
+            checkBox10.AutoSize = true;
+            checkBox10.ForeColor = Color.White;
+            checkBox10.Location = new Point(9, 183);
+            checkBox10.Name = "checkBox10";
+            checkBox10.Size = new Size(15, 14);
+            checkBox10.TabIndex = 52;
+            checkBox10.UseVisualStyleBackColor = true;
+            checkBox10.CheckedChanged += checkBox10_CheckedChanged;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.ForeColor = Color.White;
+            label21.Location = new Point(5, 163);
+            label21.Name = "label21";
+            label21.Size = new Size(193, 16);
+            label21.TabIndex = 51;
+            label21.Text = "Minimize to system tray on startup";
             // 
             // label18
             // 
@@ -821,40 +856,6 @@
             button4.Text = "Notifications";
             button4.UseVisualStyleBackColor = true;
             button4.Click += button4_Click;
-            // 
-            // label20
-            // 
-            label20.AutoSize = true;
-            label20.Cursor = Cursors.Help;
-            label20.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label20.ForeColor = Color.Gray;
-            label20.Location = new Point(198, 163);
-            label20.Margin = new Padding(4, 0, 4, 0);
-            label20.Name = "label20";
-            label20.Size = new Size(12, 15);
-            label20.TabIndex = 53;
-            label20.Text = "?";
-            toolTip1.SetToolTip(label20, "When checked Download Manager (when started from startup) will minimize to the system tray.\r\nNote: This option requires \"Run at startup\" to be enabled.");
-            // 
-            // checkBox10
-            // 
-            checkBox10.AutoSize = true;
-            checkBox10.ForeColor = Color.White;
-            checkBox10.Location = new Point(9, 183);
-            checkBox10.Name = "checkBox10";
-            checkBox10.Size = new Size(15, 14);
-            checkBox10.TabIndex = 52;
-            checkBox10.UseVisualStyleBackColor = true;
-            // 
-            // label21
-            // 
-            label21.AutoSize = true;
-            label21.ForeColor = Color.White;
-            label21.Location = new Point(5, 163);
-            label21.Name = "label21";
-            label21.Size = new Size(193, 16);
-            label21.TabIndex = 51;
-            label21.Text = "Minimize to system tray on startup";
             // 
             // ApplicationSettings
             // 

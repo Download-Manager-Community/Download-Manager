@@ -209,6 +209,7 @@
             Name = "CurrentDownloads";
             Text = "Donwload Manager | Current Downloads";
             FormClosing += CurrentDownloads_FormClosing;
+            Shown += CurrentDownloads_Shown;
             Move += CurrentDownloads_Move;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();

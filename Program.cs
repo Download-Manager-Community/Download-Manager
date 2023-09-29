@@ -33,9 +33,19 @@ namespace DownloadManager
                 Environment.Exit(45);
             }
 
+            bool hasUpgraded = false;
+
+            if (!Settings.Default.SettingsAreUpgraded)
+            {
+                Settings.Default.Upgrade();
+                Settings.Default.SettingsAreUpgraded = true;
+                Settings.Default.Save();
+                hasUpgraded = true;
+            }
+
             try
             {
-                Application.Run(new DownloadForm());
+                Application.Run(new DownloadForm(hasUpgraded));
             }
             catch (Exception ex)
             {

@@ -9,6 +9,8 @@ namespace DownloadManager
         public List<DownloadItem> itemList = new List<DownloadItem>();
         public static int nextY = 12;
 
+        public static bool firstShown = true;
+
         public CurrentDownloads()
         {
             _instance = this;
@@ -18,6 +20,19 @@ namespace DownloadManager
             DesktopWindowManager.SetImmersiveDarkMode(this.Handle, true);
             DesktopWindowManager.EnableMicaIfSupported(this.Handle);
             DesktopWindowManager.ExtendFrameIntoClientArea(this.Handle);
+        }
+
+        public Task HideAfterFirstShow()
+        {
+            while (firstShown)
+            {
+                // wait
+                Application.DoEvents();
+            }
+
+            //this.Hide();
+
+            return Task.FromResult(true);
         }
 
         protected override void WndProc(ref Message m)
@@ -82,6 +97,14 @@ namespace DownloadManager
                 this.Location = new Point(DownloadForm._instance.Location.X + DownloadForm._instance.Width + 5, DownloadForm._instance.Location.Y + middleY - (this.Height / 2));
             }
             catch { }
+        }
+
+        private void CurrentDownloads_Shown(object sender, EventArgs e)
+        {
+            if (firstShown)
+            {
+                firstShown = false;
+            }
         }
     }
 }

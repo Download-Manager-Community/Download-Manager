@@ -106,6 +106,7 @@ namespace DownloadManager
             textBox1.Text = Settings.Default.defaultDownload;
             checkBox1.Checked = Settings.Default.closeOnComplete;
             checkBox2.Checked = Settings.Default.keepOnTop;
+            checkBox10.Checked = Settings.Default.trayOnStartup;
             numericUpDown2.Value = Settings.Default.autoDownloadAttempts;
         }
 
@@ -529,6 +530,13 @@ namespace DownloadManager
         {
             // Automatic download attempts
             Settings.Default.autoDownloadAttempts = Convert.ToInt32(numericUpDown2.Value);
+            Settings.Default.Save();
+        }
+
+        private void checkBox10_CheckedChanged(object sender, EventArgs e)
+        {
+            // Tray on startup
+            Settings.Default.trayOnStartup = checkBox10.Checked;
             Settings.Default.Save();
         }
     }

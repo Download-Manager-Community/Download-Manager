@@ -152,6 +152,7 @@
             trayIcon.Icon = (Icon)resources.GetObject("trayIcon.Icon");
             trayIcon.Text = "Download Manager";
             trayIcon.Visible = true;
+            trayIcon.MouseClick += trayIcon_MouseClick;
             // 
             // trayContextMenu
             // 
@@ -159,14 +160,15 @@
             trayContextMenu.Items.AddRange(new ToolStripItem[] { toolStripTextBox1, toolStripSeparator1, toolStripMenuItem1, toolStripMenuItem2, toolStripMenuItem3 });
             trayContextMenu.Name = "contextMenuStrip1";
             trayContextMenu.RenderMode = ToolStripRenderMode.System;
-            trayContextMenu.Size = new Size(172, 101);
+            trayContextMenu.Size = new Size(172, 94);
             // 
             // toolStripTextBox1
             // 
+            toolStripTextBox1.BorderStyle = BorderStyle.None;
             toolStripTextBox1.Enabled = false;
             toolStripTextBox1.Name = "toolStripTextBox1";
             toolStripTextBox1.ReadOnly = true;
-            toolStripTextBox1.Size = new Size(111, 23);
+            toolStripTextBox1.Size = new Size(111, 16);
             toolStripTextBox1.Text = "Download Manager";
             // 
             // toolStripSeparator1
@@ -398,6 +400,7 @@
             Name = "DownloadForm";
             Text = "Download Manager";
             FormClosing += DownloadForm_FormClosing;
+            Shown += DownloadForm_Shown;
             Move += DownloadForm_Move;
             trayContextMenu.ResumeLayout(false);
             trayContextMenu.PerformLayout();

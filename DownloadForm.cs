@@ -18,11 +18,11 @@ namespace DownloadManager
         public static List<DownloadProgress> downloadsList = new List<DownloadProgress>();
         public static CurrentDownloads currentDownloads = new CurrentDownloads();
 
-        public DownloadForm()
+        public static bool firstShown = true;
+
+        public DownloadForm(bool hasUpgraded)
         {
             _instance = this;
-
-            Settings.Default.Upgrade();
 
             Logging.Log("Downloads folder: " + downloadsFolder, Color.White);
             if (Settings.Default.downloadHistory == null)
@@ -47,13 +47,37 @@ namespace DownloadManager
                 }
             }
             textBox2.Text = Settings.Default.defaultDownload;
+
+            if (hasUpgraded)
+            {
+                DarkMessageBox msg = new DarkMessageBox("You have upgraded your version of Download Manager so your settings file has been automatically upgraded.\nIf you have deleted the configuration file or this is the first time startup you can ignore this message.\nIf you have not upgraded Download Manager and you are getting this message, please create a bug report.\nIf you would like to create a bug report, click Yes.\nIf you would like to continue without making a bug report, click No.", "Download Manager - Settings Upgraded", MessageBoxButtons.YesNo, MessageBoxIcon.Information, false);
+                if (msg.ShowDialog() == DialogResult.Yes)
+                {
+                    Process.Start(new ProcessStartInfo("https://github.com/Download-Manager-Community/Download-Manager/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml") { UseShellExecute = true });
+                }
+            }
         }
 
-        private bool ignoreNcActivate = false;
+        private async void DownloadForm_Shown(object sender, EventArgs e)
+        {
+            if (firstShown)
+            {
+                if (Settings.Default.trayOnStartup)
+                {
+                    this.Close();
+                    await currentDownloads.HideAfterFirstShow();
+                    return;
+                }
+
+                firstShown = false;
+            }
+        }
 
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
+
+            bool ignoreNcActivate = false;
 
             switch (m.Msg)
             {
@@ -190,7 +214,7 @@ namespace DownloadManager
 
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
-            // Calculate MD5 of a file
+            // Calculate checksum of a file
             DialogResult result = openFileDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
@@ -211,6 +235,11 @@ namespace DownloadManager
         {
             // Open Form
             this.Show();
+            try
+            {
+                currentDownloads.Show(this);
+            }
+            catch { }
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
@@ -256,6 +285,7 @@ namespace DownloadManager
         {
             e.Cancel = true;
             this.Hide();
+            currentDownloads.Hide();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -289,6 +319,19 @@ namespace DownloadManager
 
             // To set the currentDownloads window y position to the middle of the parent form:
             currentDownloads.Location = new Point(this.Location.X + this.Width + 5, this.Location.Y + middleY - (currentDownloads.Height / 2));
+        }
+
+        private void trayIcon_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                this.Show();
+                try
+                {
+                    currentDownloads.Show(this);
+                }
+                catch { }
+            }
         }
     }
 }
