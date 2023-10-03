@@ -276,7 +276,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
             ClientSize = new Size(439, 289);
-            Controls.Add(totalProgressBar);
             Controls.Add(progressBar2);
             Controls.Add(checkBox3);
             Controls.Add(bytesLabel);
@@ -293,6 +292,7 @@
             Controls.Add(checkBox1);
             Controls.Add(label3);
             Controls.Add(urlLabel);
+            Controls.Add(totalProgressBar);
             ForeColor = Color.White;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");

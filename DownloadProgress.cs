@@ -1158,13 +1158,16 @@ namespace DownloadManager
                     stream.Close();
                 }
 
-                Invoke(new MethodInvoker(delegate
+                if (this.IsHandleCreated)
                 {
-                    progressBar1.Style = ProgressBarStyle.Blocks;
-                    progressBar1.MarqueeAnim = false;
-                    progressBar1.Value = 100;
-                    progressBar1.State = ProgressBarState.Error;
-                }));
+                    Invoke(new MethodInvoker(delegate
+                    {
+                        progressBar1.Style = ProgressBarStyle.Blocks;
+                        progressBar1.MarqueeAnim = false;
+                        progressBar1.Value = 100;
+                        progressBar1.State = ProgressBarState.Error;
+                    }));
+                }
 
                 if (Settings.Default.notifyFail)
                 {
@@ -1176,7 +1179,7 @@ namespace DownloadManager
                 cancellationToken.Cancel();
 
                 Log(ex.Message, Color.Red);
-                DarkMessageBox msg = new DarkMessageBox(ex.Message, "Download Manager - Download Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                DarkMessageBox msg = new DarkMessageBox(ex.Message + $" ({ex.GetType().FullName})\n{ex.StackTrace}", "Download Manager - Download Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
                 msg.ShowDialog();
                 downloading = false;
                 Invoke(new MethodInvoker(delegate ()
@@ -1225,13 +1228,9 @@ namespace DownloadManager
             else
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-                // An error occurred while sending the request. (HRESULT: -2146232800)
                 HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync().ConfigureAwait(false);
                 Stream streamResponse = response.GetResponseStream();
-                long contentLength = streamResponse.Length;
-
-                request.Abort();
-                response.Close();
+                long contentLength = response.ContentLength;
 
                 request = (HttpWebRequest)WebRequest.Create(uri);
                 request.AddRange(0, contentLength / 2);
@@ -1241,20 +1240,37 @@ namespace DownloadManager
 
                 if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.RequestedRangeNotSatisfiable)
                 {
+                    this.Invoke(new MethodInvoker(delegate ()
+                    {
+                        progressBar1.Visible = false;
+                        progressBar2.Visible = false;
+                        totalProgressBar.Visible = true;
+                    }));
+
                     // The server does not support range requests or range not satisfiable
-                    await SaveFileStreamAsync(streamResponse, fileStream, progressCallback, contentLength, true);
+                    await SaveFileStreamAsync(streamResponse, fileStream, progressCallback, contentLength);
                 }
                 else if (response.StatusCode == HttpStatusCode.PartialContent)
                 {
+                    this.Invoke(new MethodInvoker(delegate ()
+                    {
+                        progressBar1.Visible = true;
+                        progressBar2.Visible = true;
+                        totalProgressBar.Visible = false;
+                    }));
+
                     // The server supports range requests
-                    await SaveFileStreamAsync(streamResponse, fileStream, progressCallback, contentLength, false);
+                    SaveFileStreamAsync(streamResponse, fileStream, progressCallback, contentLength);
 
                     // Download the rest of the file
                     request = (HttpWebRequest)WebRequest.Create(uri);
                     request.AddRange(contentLength / 2 + 1, contentLength);
                     streamResponse = (await request.GetResponseAsync().ConfigureAwait(false)).GetResponseStream();
-                    await SaveFileStreamAsync(streamResponse, fileStream, progressCallback, contentLength, false);
+                    await SaveFileStreamAsync(streamResponse, fileStream, progressCallback, contentLength);
                 }
+
+                request.Abort();
+                response.Close();
 
                 /*if (progressCallback != null)
                 {
@@ -1300,21 +1316,8 @@ namespace DownloadManager
             }
         }
 
-        private async Task SaveFileStreamAsync(Stream inputStream, Stream outputStream, Action<long, long, BetterProgressBar>? progressCallback, long contentLength, bool useTotalProgressBar, BetterProgressBar? progressBar = null)
+        private async Task SaveFileStreamAsync(Stream inputStream, Stream outputStream, Action<long, long, BetterProgressBar>? progressCallback, long contentLength, BetterProgressBar? progressBar = null)
         {
-            if (useTotalProgressBar)
-            {
-                progressBar1.Visible = true;
-                progressBar2.Visible = true;
-                totalProgressBar.Visible = false;
-            }
-            else
-            {
-                progressBar1.Visible = false;
-                progressBar2.Visible = false;
-                totalProgressBar.Visible = true;
-            }
-
             byte[] buffer = new byte[8 * 1024];
             int len;
 
@@ -1330,14 +1333,14 @@ namespace DownloadManager
                 int read;
                 int totalRead = 0;
 
-                while ((read = await inputStream.ReadAsync(progressBuffer, 0, progressBuffer.Length, cancellationToken.Token).ConfigureAwait(false)) > 0)
+                while ((read = await outputStream.ReadAsync(progressBuffer, 0, progressBuffer.Length, cancellationToken.Token).ConfigureAwait(false)) > 0)
                 {
                     await outputStream.WriteAsync(progressBuffer, 0, read, cancellationToken.Token).ConfigureAwait(false);
-                    totalRead += read;
+                    totalRead += read; // TODO: Fix progress reporting
                     progressCallback(totalRead, contentLength, progressBar);
                 }
 
-                Debug.Assert(totalRead == contentLength || contentLength == -1);
+                Debug.Assert(totalRead == contentLength || contentLength == -1); // totalRead not increasing????
             }
             else
             {
