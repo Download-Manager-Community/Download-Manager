@@ -32,7 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DownloadProgress));
             updateDisplayTimer = new System.Windows.Forms.Timer(components);
             urlLabel = new Label();
-            label3 = new Label();
+            progressLabel = new Label();
             checkBox1 = new CheckBox();
             cancelButton = new Button();
             checkBox2 = new CheckBox();
@@ -69,18 +69,18 @@
             urlLabel.TabIndex = 7;
             urlLabel.Text = "file from server";
             // 
-            // label3
+            // progressLabel
             // 
-            label3.AutoSize = true;
-            label3.BackColor = Color.Black;
-            label3.FlatStyle = FlatStyle.Flat;
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(13, 149);
-            label3.Margin = new Padding(4, 0, 4, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(41, 16);
-            label3.TabIndex = 9;
-            label3.Text = "0.00%";
+            progressLabel.AutoSize = true;
+            progressLabel.BackColor = Color.Black;
+            progressLabel.FlatStyle = FlatStyle.Flat;
+            progressLabel.ForeColor = Color.White;
+            progressLabel.Location = new Point(13, 149);
+            progressLabel.Margin = new Padding(4, 0, 4, 0);
+            progressLabel.Name = "progressLabel";
+            progressLabel.Size = new Size(41, 16);
+            progressLabel.TabIndex = 9;
+            progressLabel.Text = "0.00%";
             // 
             // checkBox1
             // 
@@ -290,7 +290,7 @@
             Controls.Add(checkBox2);
             Controls.Add(cancelButton);
             Controls.Add(checkBox1);
-            Controls.Add(label3);
+            Controls.Add(progressLabel);
             Controls.Add(urlLabel);
             Controls.Add(totalProgressBar);
             ForeColor = Color.White;
@@ -324,10 +324,11 @@
         private Label label1;
         private Button openButton;
         private Button pauseButton;
-        private Label bytesLabel;
         public BetterProgressBar progressBar1;
         private CheckBox checkBox3;
         public BetterProgressBar progressBar2;
         public BetterProgressBar totalProgressBar;
+        public Label bytesLabel;
+        public Label progressLabel;
     }
 }

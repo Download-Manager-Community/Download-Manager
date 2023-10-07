@@ -1,5 +1,6 @@
 ﻿// https://stackoverflow.com/questions/44441784/how-do-i-download-a-file-in-segments-in-c
 
+using DownloadManager.Download;
 using DownloadManager.NativeMethods;
 using Microsoft.Toolkit.Uwp.Notifications;
 using System.Diagnostics;
@@ -45,6 +46,7 @@ namespace DownloadManager
         internal bool restartNoProgress = false;
         internal int downloadAttempts = 0;
         CancellationTokenSource cancellationToken = new CancellationTokenSource();
+        DownloadProgressUpdater progressUpdater = new DownloadProgressUpdater();
 
         public enum DownloadType
         {
@@ -1132,24 +1134,19 @@ namespace DownloadManager
             Log("Downloading file " + uri + " to " + location + fileName, Color.White);
             try
             {
-                stream = new FileStream(location + fileName, FileMode.Create);
-
-                await DownloadFileAsync(uri, stream, cancellationToken.Token, Client_DownloadProgressChanged);
+                await DownloadFileAsync(uri, cancellationToken.Token, Client_DownloadProgressChanged);
 
                 if (restartNoProgress)
                 {
                     cancellationToken.TryReset();
-                    await DownloadFileAsync(uri, stream, cancellationToken.Token);
+                    await DownloadFileAsync(uri, cancellationToken.Token);
                 }
-
-                stream.Close();
 
                 Client_DownloadFileCompleted();
             }
             catch (System.Threading.Tasks.TaskCanceledException)
             {
                 Log("Download of " + url + "was canceled.", Color.White);
-                stream.Close();
             }
             catch (Exception ex)
             {
@@ -1195,16 +1192,36 @@ namespace DownloadManager
             }
         }
 
-        public async Task DownloadFileAsync(Uri uri, Stream toStream, CancellationToken cancellationToken = default, Action<long, long, BetterProgressBar>? progressCallback = null, BetterProgressBar? progressBar = null)
+        private static void CombineFilesIntoSingleFile(string fileName0, string fileName1, string outputFilePath)
+        {
+            string[] inputFilePaths = new string[]{
+                fileName0,
+                fileName1
+            };
+            Logging.Log($"Number of files: {inputFilePaths.Length}.", Color.White);
+            using (var outputStream = File.Create(outputFilePath))
+            {
+                foreach (var inputFilePath in inputFilePaths)
+                {
+                    using (var inputStream = File.OpenRead(inputFilePath))
+                    {
+                        // Buffer size can be passed as the second argument.
+                        inputStream.CopyTo(outputStream);
+                    }
+                    Logging.Log($"The file {inputFilePath} has been processed.", Color.White);
+                }
+            }
+        }
+
+        public async Task DownloadFileAsync(Uri uri, CancellationToken cancellationToken = default, Action<long, long, BetterProgressBar>? progressCallback = null, BetterProgressBar? progressBar = null)
         {
             if (uri == null)
                 throw new ArgumentNullException(nameof(uri));
-            if (toStream == null)
-                throw new ArgumentNullException(nameof(toStream));
 
             if (uri.IsFile)
             {
                 await using Stream file = File.OpenRead(uri.LocalPath);
+                await using Stream fileStream = File.Create(location + fileName);
 
                 if (progressCallback != null)
                 {
@@ -1214,7 +1231,7 @@ namespace DownloadManager
                     int totalRead = 0;
                     while ((read = await file.ReadAsync(buffer, 0, buffer.Length, cancellationToken).ConfigureAwait(false)) > 0)
                     {
-                        await toStream.WriteAsync(buffer, 0, read, cancellationToken).ConfigureAwait(false);
+                        await fileStream.WriteAsync(buffer, 0, read, cancellationToken).ConfigureAwait(false);
                         totalRead += read;
                         progressCallback(totalRead, length, progressBar);
                     }
@@ -1222,23 +1239,58 @@ namespace DownloadManager
                 }
                 else
                 {
-                    await file.CopyToAsync(toStream, cancellationToken).ConfigureAwait(false);
+                    await file.CopyToAsync(fileStream, cancellationToken).ConfigureAwait(false);
                 }
             }
             else
             {
+                if (File.Exists(location + fileName))
+                {
+                    DialogResult result = new DarkMessageBox("The file already exists.\nWould you like to overwrite the file?", "Download Manager - File Exists", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, false).ShowDialog();
+                    if (result == DialogResult.Yes)
+                    {
+                        File.Delete(location + fileName);
+                    }
+                    else
+                    {
+                        downloading = false;
+                        cancelled = true;
+                        DownloadForm.downloadsAmount -= 1;
+
+                        Logging.Log("Download of " + fileName + " has been canceled.", Color.Orange);
+
+                        if (Settings.Default.notifyFail)
+                        {
+                            new ToastContentBuilder()
+                            .AddText($"The download of {fileName} has been canceled.")
+                            .Show();
+                        }
+
+                        this.Invoke(new MethodInvoker(delegate ()
+                        {
+                            this.Close();
+                            this.Dispose();
+                        }));
+
+                        this.Hide();
+                        return;
+                    }
+                }
+
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
                 HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync().ConfigureAwait(false);
                 Stream streamResponse = response.GetResponseStream();
                 long contentLength = response.ContentLength;
 
+                totalSize = contentLength;
+
                 request = (HttpWebRequest)WebRequest.Create(uri);
                 request.AddRange(0, contentLength / 2);
                 streamResponse = (await request.GetResponseAsync().ConfigureAwait(false)).GetResponseStream();
 
-                Stream fileStream = File.Create(fileName);
+                Stream fileStream0 = File.Create(location + fileName + ".download0");
 
-                if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.RequestedRangeNotSatisfiable)
+                if (response.StatusCode == HttpStatusCode.RequestedRangeNotSatisfiable)
                 {
                     this.Invoke(new MethodInvoker(delegate ()
                     {
@@ -1248,9 +1300,11 @@ namespace DownloadManager
                     }));
 
                     // The server does not support range requests or range not satisfiable
-                    await SaveFileStreamAsync(streamResponse, fileStream, progressCallback, contentLength);
+                    await SaveFileStreamAsync(streamResponse, fileStream0, progressCallback, totalProgressBar);
+
+                    File.Move(location + fileName + ".download0", location + fileName);
                 }
-                else if (response.StatusCode == HttpStatusCode.PartialContent)
+                else if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.PartialContent)
                 {
                     this.Invoke(new MethodInvoker(delegate ()
                     {
@@ -1259,14 +1313,26 @@ namespace DownloadManager
                         totalProgressBar.Visible = false;
                     }));
 
+                    progressUpdater.contentLength0 = contentLength / 2 + 1;
+                    progressUpdater.contentLength1 = contentLength / 2 + 1;
+                    progressUpdater.Initialize(contentLength, this);
+
                     // The server supports range requests
-                    SaveFileStreamAsync(streamResponse, fileStream, progressCallback, contentLength);
+                    DownloadSegment segment0 = new DownloadSegment();
+                    segment0.DownloadFileSegment(DownloadSegment.DownloadSegmentID.Segment0, this, streamResponse, fileStream0, contentLength / 2 + 1, contentLength, location + fileName + ".download0", progressBar1, cancellationToken, progressUpdater);
+
+                    Stream fileStream1 = File.Create(location + fileName + ".download1");
 
                     // Download the rest of the file
                     request = (HttpWebRequest)WebRequest.Create(uri);
                     request.AddRange(contentLength / 2 + 1, contentLength);
                     streamResponse = (await request.GetResponseAsync().ConfigureAwait(false)).GetResponseStream();
-                    await SaveFileStreamAsync(streamResponse, fileStream, progressCallback, contentLength);
+                    DownloadSegment segment1 = new DownloadSegment();
+                    await segment1.DownloadFileSegment(DownloadSegment.DownloadSegmentID.Segment1, this, streamResponse, fileStream1, contentLength / 2 + 1, contentLength, location + fileName + ".download1", progressBar2, cancellationToken, progressUpdater);
+
+                    // TODO: wait for both segments to finish before continuing
+
+                    CombineFilesIntoSingleFile(location + fileName + ".download0", location + fileName + ".download1", location + fileName);
                 }
 
                 request.Abort();
@@ -1316,37 +1382,25 @@ namespace DownloadManager
             }
         }
 
-        private async Task SaveFileStreamAsync(Stream inputStream, Stream outputStream, Action<long, long, BetterProgressBar>? progressCallback, long contentLength, BetterProgressBar? progressBar = null)
+        private async Task SaveFileStreamAsync(Stream inputStream, Stream outputStream, Action<long, long, BetterProgressBar>? progressCallback, BetterProgressBar? progressBar = null)
         {
             byte[] buffer = new byte[8 * 1024];
             int len;
+            long totalRead = 0;
 
             while ((len = await inputStream.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false)) > 0)
             {
                 await outputStream.WriteAsync(buffer, 0, len).ConfigureAwait(false);
-                Application.DoEvents();
+                totalRead += len;
+                progressCallback?.Invoke(totalRead, totalSize, progressBar);
             }
 
-            if (progressCallback != null)
+            if (progressCallback != null && totalSize != -1)
             {
-                byte[] progressBuffer = new byte[4096];
-                int read;
-                int totalRead = 0;
-
-                while ((read = await outputStream.ReadAsync(progressBuffer, 0, progressBuffer.Length, cancellationToken.Token).ConfigureAwait(false)) > 0)
-                {
-                    await outputStream.WriteAsync(progressBuffer, 0, read, cancellationToken.Token).ConfigureAwait(false);
-                    totalRead += read; // TODO: Fix progress reporting
-                    progressCallback(totalRead, contentLength, progressBar);
-                }
-
-                Debug.Assert(totalRead == contentLength || contentLength == -1); // totalRead not increasing????
-            }
-            else
-            {
-                await inputStream.CopyToAsync(outputStream, cancellationToken: cancellationToken.Token).ConfigureAwait(false);
+                Debug.Assert(totalRead == totalSize);
             }
 
+            await outputStream.FlushAsync().ConfigureAwait(false);
             outputStream.Close();
         }
 
@@ -2452,7 +2506,7 @@ namespace DownloadManager
                 {
                     stream = new FileStream(location + fileName, FileMode.Create);
 
-                    await DownloadFileAsync(uri, stream, cancellationToken.Token, Client_DownloadProgressChanged);
+                    await DownloadFileAsync(uri, cancellationToken.Token, Client_DownloadProgressChanged);
 
                     Client_DownloadFileCompleted();
 
@@ -2524,9 +2578,10 @@ namespace DownloadManager
         private void updateDisplayTimer_Tick(object sender, EventArgs e)
         {
             // Update display
-            bytesLabel.Text = $"({receivedBytes} B / {totalBytes} B)";
+            progressUpdater.UpdateUI();
+            /*bytesLabel.Text = $"({receivedBytes} B / {totalBytes} B)";
             this.Text = $"Downloading {fileName}... ({string.Format("{0:0.##}", percentageDone)}%)";
-            label3.Text = $"{percentageDone}%";
+            label3.Text = $"{percentageDone}%";*/
         }
     }
 }
