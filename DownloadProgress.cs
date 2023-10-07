@@ -1201,7 +1201,7 @@ namespace DownloadManager
             }
         }
 
-        private static void CombineFilesIntoSingleFile(string fileName0, string fileName1, string outputFilePath)
+        private static Task CombineFilesIntoSingleFile(string fileName0, string fileName1, string outputFilePath)
         {
             string[] inputFilePaths = new string[]{
                 fileName0,
@@ -1220,6 +1220,8 @@ namespace DownloadManager
                     Logging.Log($"The file {inputFilePath} has been processed.", Color.White);
                 }
             }
+
+            return Task.CompletedTask;
         }
 
         public async Task DownloadFileAsync(Uri uri, CancellationToken cancellationToken = default, Action<long, long, BetterProgressBar>? progressCallback = null, BetterProgressBar? progressBar = null)
@@ -1355,7 +1357,10 @@ namespace DownloadManager
                         bytesLabel.Text = $"{totalSize} B / {totalSize} B";
                     }));
 
-                    CombineFilesIntoSingleFile(location + fileName + ".download0", location + fileName + ".download1", location + fileName);
+                    await CombineFilesIntoSingleFile(location + fileName + ".download0", location + fileName + ".download1", location + fileName);
+
+                    File.Delete(location + fileName + ".download0");
+                    File.Delete(location + fileName + ".download1");
                 }
 
                 request.Abort();
