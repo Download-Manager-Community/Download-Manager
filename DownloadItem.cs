@@ -153,17 +153,19 @@ namespace DownloadManager
                 {
                     // Update the progress bar
                     progressBar.Style = ProgressBarStyle.Blocks;
-                    progressBar.Minimum = progress.progressBar1.Minimum;
-                    progressBar.Maximum = progress.progressBar1.Maximum;
-                    progressBar.Value = progress.progressBar1.Value;
+                    progressBar.Minimum = progress.totalProgressBar.Minimum;
+                    progressBar.Maximum = progress.totalProgressBar.Maximum;
+                    progressBar.Value = progress.totalProgressBar.Value;
 
                     // Update the progress label
-                    int percent = (int)(((double)progress.progressBar1.Value / (double)progress.progressBar1.Maximum) * 100);
+                    int percent = (int)(((double)progressBar.Value / (double)progressBar.Maximum) * 100);
                     fileProgressLabel.Text = $"{percent}%";
                 }
                 else if (progress.downloadType == DownloadProgress.DownloadType.YoutubeVideo)
                 {
                     progressBar.Style = ProgressBarStyle.Marquee;
+                    progressBar.MarqueeAnim = true;
+                    progressBar.ShowText = false;
                 }
                 else
                 {
