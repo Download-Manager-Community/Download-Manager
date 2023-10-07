@@ -494,7 +494,7 @@ namespace DownloadManager
                 this.Invoke(new MethodInvoker(delegate ()
                 {
                     bytesLabel.Visible = false;
-                    label3.Text = "Downloading YouTube videos does not support progress callbacks.";
+                    progressLabel.Text = "Downloading YouTube videos does not support progress callbacks.";
                     hashLabel.Text = "Downloading YouTube videos does not support file verification.";
                     pauseButton.Enabled = false;
 
