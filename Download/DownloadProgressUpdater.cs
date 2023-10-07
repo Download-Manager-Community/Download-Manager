@@ -39,6 +39,7 @@
             {
                 progressWindow.bytesLabel.Text = $"({totalRead} B / {totalLength} B)";
                 totalProgress = ((int)progress0 + (int)progress1) / 2;
+                progressWindow.percentageDone = totalProgress;
                 progressWindow.Text = $"Downloading {progressWindow.fileName}... ({totalProgress}%)";
                 progressWindow.progressLabel.Text = $"{((double)progress0 + (double)progress1) / 2}%";
             }));

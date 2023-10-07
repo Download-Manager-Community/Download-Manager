@@ -1,6 +1,4 @@
-﻿// https://stackoverflow.com/questions/44441784/how-do-i-download-a-file-in-segments-in-c
-
-using DownloadManager.Download;
+﻿using DownloadManager.Download;
 using DownloadManager.NativeMethods;
 using Microsoft.Toolkit.Uwp.Notifications;
 using System.Diagnostics;
@@ -139,18 +137,21 @@ namespace DownloadManager
                 urlLabel.Text = $"{listMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + @"\"} from youtube.com";
                 hashLabel.Text = "Downloading YouTube playlists does not support file verification.";
                 bytesLabel.Visible = false;
-                label3.Visible = false;
-                progressBar1.Style = ProgressBarStyle.Marquee;
-                progressBar1.Visible = true;
+                progressLabel.Visible = false;
+                totalProgressBar.Visible = true;
+                totalProgressBar.Style = ProgressBarStyle.Marquee;
+                totalProgressBar.Visible = true;
+                progressBar1.Visible = false;
+                progressBar2.Visible = false;
 
                 if (downloadType == DownloadType.YoutubeVideo || downloadType == DownloadType.YoutubePlaylist)
                 {
                     if (DownloadForm.ytDownloading == true)
                     {
-                        progressBar1.Style = ProgressBarStyle.Blocks;
-                        progressBar1.State = ProgressBarState.Error;
-                        progressBar1.ShowText = false;
-                        progressBar1.Value = 100;
+                        totalProgressBar.Style = ProgressBarStyle.Blocks;
+                        totalProgressBar.State = ProgressBarState.Error;
+                        totalProgressBar.ShowText = false;
+                        totalProgressBar.Value = 100;
                         DarkMessageBox msg = new("Another YouTube download is currently in progress.\nPlease wait until the download is complete before attempting to download another.", "YouTube Download Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         msg.ShowDialog();
                         downloading = false;
@@ -193,10 +194,10 @@ namespace DownloadManager
                         // Update progressbar with video count 
                         this.Invoke(new MethodInvoker(delegate ()
                         {
-                            progressBar1.Maximum = videoCount;
-                            progressBar1.Minimum = 0;
-                            progressBar1.Value = 0;
-                            progressBar1.Style = ProgressBarStyle.Blocks;
+                            totalProgressBar.Maximum = videoCount;
+                            totalProgressBar.Minimum = 0;
+                            totalProgressBar.Value = 0;
+                            totalProgressBar.Style = ProgressBarStyle.Blocks;
                         }));
 
                         // Download each video
@@ -243,7 +244,8 @@ namespace DownloadManager
 
                             this.Invoke(new MethodInvoker(delegate ()
                             {
-                                progressBar1.Value += 1;
+                                totalProgressBar.Value += 1;
+
                             }));
                         }
 
@@ -299,10 +301,10 @@ namespace DownloadManager
                         // Update progressbar with video count 
                         this.Invoke(new MethodInvoker(delegate ()
                         {
-                            progressBar1.Maximum = videoCount;
-                            progressBar1.Minimum = 0;
-                            progressBar1.Value = 0;
-                            progressBar1.Style = ProgressBarStyle.Blocks;
+                            totalProgressBar.Maximum = videoCount;
+                            totalProgressBar.Minimum = 0;
+                            totalProgressBar.Value = 0;
+                            totalProgressBar.Style = ProgressBarStyle.Blocks;
                         }));
 
                         // Download each video
@@ -326,7 +328,7 @@ namespace DownloadManager
 
                             this.Invoke(new MethodInvoker(delegate ()
                             {
-                                progressBar1.Value += 1;
+                                totalProgressBar.Value += 1;
                             }));
                         }
 
@@ -383,10 +385,10 @@ namespace DownloadManager
                         // Update progressbar with video count 
                         this.Invoke(new MethodInvoker(delegate ()
                         {
-                            progressBar1.Maximum = videoCount;
-                            progressBar1.Minimum = 0;
-                            progressBar1.Value = 0;
-                            progressBar1.Style = ProgressBarStyle.Blocks;
+                            totalProgressBar.Maximum = videoCount;
+                            totalProgressBar.Minimum = 0;
+                            totalProgressBar.Value = 0;
+                            totalProgressBar.Style = ProgressBarStyle.Blocks;
                         }));
 
                         // Download each video
@@ -410,7 +412,7 @@ namespace DownloadManager
 
                             this.Invoke(new MethodInvoker(delegate ()
                             {
-                                progressBar1.Value += 1;
+                                totalProgressBar.Value += 1;
                             }));
                         }
 
@@ -493,19 +495,26 @@ namespace DownloadManager
 
                 this.Invoke(new MethodInvoker(delegate ()
                 {
+                    updateDisplayTimer.Stop();
                     bytesLabel.Visible = false;
                     progressLabel.Text = "Downloading YouTube videos does not support progress callbacks.";
                     hashLabel.Text = "Downloading YouTube videos does not support file verification.";
                     pauseButton.Enabled = false;
+                    totalProgressBar.Visible = true;
+                    totalProgressBar.Style = ProgressBarStyle.Marquee;
+                    totalProgressBar.MarqueeAnim = true;
+                    totalProgressBar.ShowText = false;
+                    progressBar1.Visible = false;
+                    progressBar2.Visible = false;
 
                     if (downloadType == DownloadType.YoutubeVideo || downloadType == DownloadType.YoutubePlaylist)
                     {
                         if (DownloadForm.ytDownloading == true)
                         {
-                            progressBar1.Style = ProgressBarStyle.Blocks;
-                            progressBar1.State = ProgressBarState.Error;
-                            progressBar1.ShowText = false;
-                            progressBar1.Value = 100;
+                            totalProgressBar.Style = ProgressBarStyle.Blocks;
+                            totalProgressBar.State = ProgressBarState.Error;
+                            totalProgressBar.ShowText = false;
+                            totalProgressBar.Value = 100;
                             DarkMessageBox msg = new("Another YouTube download is currently in progress.\nPlease wait until the download is complete before attempting to download another.", "YouTube Download Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             msg.ShowDialog();
                             downloading = false;
@@ -619,9 +628,9 @@ namespace DownloadManager
                         cancelButton.Text = "Close";
                         openButton.Enabled = true;
                         pauseButton.Enabled = false;
-                        progressBar1.Value = 100;
-                        progressBar1.Style = ProgressBarStyle.Blocks;
-                        progressBar1.MarqueeAnim = false;
+                        totalProgressBar.Value = 100;
+                        totalProgressBar.Style = ProgressBarStyle.Blocks;
+                        totalProgressBar.MarqueeAnim = false;
                         if (checkBox2.Checked == true)
                         {
 
@@ -723,9 +732,9 @@ namespace DownloadManager
                         cancelButton.Text = "Close";
                         openButton.Enabled = true;
                         pauseButton.Enabled = false;
-                        progressBar1.Value = 100;
-                        progressBar1.Style = ProgressBarStyle.Blocks;
-                        progressBar1.MarqueeAnim = false;
+                        totalProgressBar.Value = 100;
+                        totalProgressBar.Style = ProgressBarStyle.Blocks;
+                        totalProgressBar.MarqueeAnim = false;
                         if (checkBox2.Checked == true)
                         {
 
@@ -855,9 +864,9 @@ namespace DownloadManager
                         cancelButton.Text = "Close";
                         openButton.Enabled = true;
                         pauseButton.Enabled = false;
-                        progressBar1.Value = 100;
-                        progressBar1.Style = ProgressBarStyle.Blocks;
-                        progressBar1.MarqueeAnim = false;
+                        totalProgressBar.Value = 100;
+                        totalProgressBar.Style = ProgressBarStyle.Blocks;
+                        totalProgressBar.MarqueeAnim = false;
                         if (checkBox2.Checked == true)
                         {
 
@@ -1283,6 +1292,7 @@ namespace DownloadManager
                 long contentLength = response.ContentLength;
 
                 totalSize = contentLength;
+                fileSize = contentLength.ToString();
 
                 request = (HttpWebRequest)WebRequest.Create(uri);
                 request.AddRange(0, contentLength / 2);
@@ -2594,7 +2604,7 @@ namespace DownloadManager
             progressUpdater.UpdateUI();
             /*bytesLabel.Text = $"({receivedBytes} B / {totalBytes} B)";
             this.Text = $"Downloading {fileName}... ({string.Format("{0:0.##}", percentageDone)}%)";
-            label3.Text = $"{percentageDone}%";*/
+            progressLabel.Text = $"{percentageDone}%";*/
         }
     }
 }
