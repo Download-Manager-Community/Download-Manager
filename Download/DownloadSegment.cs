@@ -2,6 +2,7 @@
 {
     internal class DownloadSegment
     {
+        public bool isDownloading = true;
         DownloadProgress progressWindow;
         bool div0 = false;
 
@@ -40,6 +41,7 @@
 
             await outputStream.FlushAsync().ConfigureAwait(false);
             outputStream.Close();
+            isDownloading = false;
         }
 
         private void SegmentProgressCallback(BetterProgressBar progressBar, long totalRead, long contentLength, long totalLength)

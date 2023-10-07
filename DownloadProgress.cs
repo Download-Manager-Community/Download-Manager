@@ -1330,7 +1330,20 @@ namespace DownloadManager
                     DownloadSegment segment1 = new DownloadSegment();
                     await segment1.DownloadFileSegment(DownloadSegment.DownloadSegmentID.Segment1, this, streamResponse, fileStream1, contentLength / 2 + 1, contentLength, location + fileName + ".download1", progressBar2, cancellationToken, progressUpdater);
 
-                    // TODO: wait for both segments to finish before continuing
+                    while (segment0.isDownloading || segment1.isDownloading)
+                    {
+                        Application.DoEvents();
+                        await Task.Delay(100);
+                    }
+
+                    this.Invoke(new MethodInvoker(delegate
+                    {
+                        updateDisplayTimer.Stop();
+                        progressBar2.Value = 100;
+                        this.Text = $"Downloading {fileName}... (100%)";
+                        progressLabel.Text = $"100%";
+                        bytesLabel.Text = $"{totalSize} B / {totalSize} B";
+                    }));
 
                     CombineFilesIntoSingleFile(location + fileName + ".download0", location + fileName + ".download1", location + fileName);
                 }
