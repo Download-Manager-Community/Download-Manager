@@ -1,10 +1,13 @@
-﻿namespace DownloadManager.Download
+﻿using Microsoft.Toolkit.Uwp.Notifications;
+
+namespace DownloadManager.Download
 {
     internal class DownloadSegment
     {
         public bool isDownloading = true;
         DownloadProgress progressWindow;
         bool div0 = false;
+        bool contentLengthIssue = false;
 
         public async Task DownloadFileSegment(DownloadSegmentID id, DownloadProgress window, Stream downloadStream, Stream outputStream, long contentLength, long totalLength, string location, BetterProgressBar progressBar, CancellationToken token, DownloadProgressUpdater progressUpdater)
         {
@@ -17,6 +20,12 @@
 
             while ((len = await downloadStream.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false)) > 0)
             {
+                if (token.IsCancellationRequested)
+                {
+                    isDownloading = false;
+                    token.ThrowIfCancellationRequested();
+                }
+
                 await outputStream.WriteAsync(buffer, 0, len).ConfigureAwait(false);
                 totalRead += len;
                 progressCallback.Invoke(progressBar, totalRead, contentLength, totalLength);
@@ -58,7 +67,7 @@
                 return;
             }
 
-            double percentageDone = (double)totalRead / (double)contentLength * (double)100; // number (36561) / number (524289) * 100 = 0???????
+            double percentageDone = (double)totalRead / (double)contentLength * (double)100;
 
             /*try
             {
@@ -73,9 +82,49 @@
 
             progressWindow.Invoke(new MethodInvoker(delegate
             {
-                progressBar.Minimum = 0;
-                progressBar.Maximum = 100;
-                progressBar.Value = (int)percentageDone;
+                try
+                {
+                    progressBar.Minimum = 0;
+                    progressBar.Maximum = 100;
+                    progressBar.Value = (int)percentageDone;
+                }
+                catch (Exception ex)
+                {
+                    if (!contentLengthIssue)
+                    {
+                        contentLengthIssue = true;
+
+                        Logging.Log($"Progress of {progressWindow.fileName} is greater than 100%! Stopping the download to prevent a crash and restarting the download in safe mode.", Color.Orange);
+
+                        progressWindow.forceCancel = true;
+                        string url = progressWindow.url;
+                        string location = progressWindow.location;
+                        DownloadProgress.DownloadType downloadType = progressWindow.downloadType;
+                        DownloadProgress.YoutubeDownloadType? youtubeDownloadType = progressWindow.ytDownloadType;
+                        string hashArg = progressWindow.hash;
+                        int hashTypeArg = progressWindow.hashType;
+                        int downloadAttempts = progressWindow.downloadAttempts;
+
+                        //progressWindow.cancellationToken.Cancel();
+                        //progressWindow.cancellationToken.Dispose();
+
+                        progressWindow.CancelButton.PerformClick();
+
+                        progressWindow.updateDisplayTimer.Stop();
+                        progressWindow.updateDisplayTimer.Dispose();
+                        progressWindow.isPaused = false;
+
+                        new ToastContentBuilder()
+                                 .AddText($"The download of {progressWindow.fileName} failed to prevent a crash. The download will now restart in safe mode.")
+                                 .Show();
+
+                        /*progressWindow.Close();
+                        progressWindow.Dispose();*/
+
+                        DownloadProgress safeDownload = new DownloadProgress(url, location, downloadType, youtubeDownloadType, hashArg, hashTypeArg, downloadAttempts, true);
+                        safeDownload.Show();
+                    }
+                }
             }));
         }
 

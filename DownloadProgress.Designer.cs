@@ -48,6 +48,7 @@
             checkBox3 = new CheckBox();
             progressBar2 = new BetterProgressBar();
             totalProgressBar = new BetterProgressBar();
+            safeModeLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -270,12 +271,23 @@
             totalProgressBar.TabIndex = 27;
             totalProgressBar.Visible = false;
             // 
+            // safeModeLabel
+            // 
+            safeModeLabel.AutoSize = true;
+            safeModeLabel.Location = new Point(368, 4);
+            safeModeLabel.Name = "safeModeLabel";
+            safeModeLabel.Size = new Size(66, 16);
+            safeModeLabel.TabIndex = 28;
+            safeModeLabel.Text = "Safe Mode";
+            safeModeLabel.Visible = false;
+            // 
             // DownloadProgress
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
             ClientSize = new Size(439, 289);
+            Controls.Add(safeModeLabel);
             Controls.Add(progressBar2);
             Controls.Add(checkBox3);
             Controls.Add(bytesLabel);
@@ -310,7 +322,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Timer updateDisplayTimer;
         private System.Windows.Forms.Label urlLabel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -330,5 +341,7 @@
         public BetterProgressBar totalProgressBar;
         public Label bytesLabel;
         public Label progressLabel;
+        public System.Windows.Forms.Timer updateDisplayTimer;
+        private Label safeModeLabel;
     }
 }

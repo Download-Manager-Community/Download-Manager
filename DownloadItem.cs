@@ -10,6 +10,7 @@ namespace DownloadManager
         DownloadProgress progress;
         GroupBox groupBox;
         bool isYtDownload = false;
+        bool contentLengthIssue = false;
 
         #region Predefined Controls
         BetterProgressBar progressBar = new BetterProgressBar()
@@ -170,11 +171,11 @@ namespace DownloadManager
                 else
                 {
                     // Update the progress bar
-                    progressBar.Style = ProgressBarStyle.Blocks;
-                    progressBar.Value = (int)progress.percentageDone;
-
-                    // Update the progress label
-                    fileProgressLabel.Text = progress.percentageDone.ToString() + "%";
+                    if ((int)progress.percentageDone > 100)
+                    {
+                        Logging.Log("DownloadItem Progress is greater than 100%! The item has been removed to prevent a crash!", Color.Orange);
+                        Dispose();
+                    }
                 }
 
                 // Bring all labels to front
