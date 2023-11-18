@@ -326,7 +326,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.CheckBox checkBox2;
         private Label hashLabel;
         private Splitter splitter1;
@@ -343,5 +342,6 @@
         public Label progressLabel;
         public System.Windows.Forms.Timer updateDisplayTimer;
         private Label safeModeLabel;
+        public Button cancelButton;
     }
 }

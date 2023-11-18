@@ -1429,7 +1429,6 @@ namespace DownloadManager
                     {
                         // The server failed to report content length so does not support range requests and we cannot report progress
                         // Dispose of multiple progress bars updater
-                        updateDisplayTimer.Stop();
                         progressUpdater = null;
 
                         this.Invoke(new MethodInvoker(delegate ()
@@ -1569,7 +1568,6 @@ namespace DownloadManager
                 {
                     await outputStream.WriteAsync(buffer, 0, len).ConfigureAwait(false);
                     totalRead += len;
-                    this.Invoke(new MethodInvoker(delegate () { bytesLabel.Text = $"({totalRead} B / ? B)"; }));
                     receivedBytes = totalRead;
                 }
 
