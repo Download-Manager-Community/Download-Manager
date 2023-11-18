@@ -108,7 +108,7 @@ namespace DownloadManager.Download
                         //progressWindow.cancellationToken.Cancel();
                         //progressWindow.cancellationToken.Dispose();
 
-                        progressWindow.CancelButton.PerformClick();
+                        progressWindow.cancelButton.PerformClick();
 
                         progressWindow.updateDisplayTimer.Stop();
                         progressWindow.updateDisplayTimer.Dispose();

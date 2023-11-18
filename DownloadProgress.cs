@@ -122,6 +122,7 @@ namespace DownloadManager
                 safeModeLabel.Visible = true;
 
                 thread = new Thread(new ThreadStart(StartSafeModeDownload));
+                thread.Start();
             }
             else if (downloadType == DownloadType.Normal)
             {
@@ -149,7 +150,15 @@ namespace DownloadManager
                     File.Delete(location + fileName + ".download0");
                 }
 
+                if (File.Exists(location + fileName))
+                {
+                    File.Delete(location + fileName);
+                }
+
                 Uri uri = new Uri(url);
+
+                hostName = uri.Host;
+                fileName = HttpUtility.UrlDecode(Path.GetFileName(uri.AbsolutePath));
 
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
                 HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync().ConfigureAwait(false);
@@ -161,13 +170,13 @@ namespace DownloadManager
                 Stream fileStream0 = File.Create(location + fileName + ".download0");
 
                 // In safe mode so progress reporting is unavailable
-                updateDisplayTimer.Stop();
                 progressUpdater = null;
 
                 this.Invoke(new MethodInvoker(delegate ()
                 {
                     bytesLabel.Text = $"(0 B / ? B)";
                     this.Text = $"Downloading {fileName}... [Safe Mode]";
+                    urlLabel.Text = $"{fileName} from {hostName}";
                     progressLabel.Text = "Progress report unavailable";
                     progressBar1.Visible = false;
                     progressBar2.Visible = false;
@@ -179,6 +188,8 @@ namespace DownloadManager
                 await SaveFileStreamAsync(streamResponse, fileStream0, null, totalProgressBar);
 
                 File.Move(location + fileName + ".download0", location + fileName);
+
+                Client_DownloadFileCompleted();
             }
             catch (Exception ex)
             {
@@ -2864,7 +2875,7 @@ namespace DownloadManager
             }
             else
             {
-                Logging.Log("Progress updater is null in updateDisplayTimer_Tick! This may not be expected behavior.", Color.Orange);
+                bytesLabel.Text = $"({receivedBytes} B / ? B)";
             }
             /*bytesLabel.Text = $"({receivedBytes} B / {totalBytes} B)";
             this.Text = $"Downloading {fileName}... ({string.Format("{0:0.##}", percentageDone)}%)";
