@@ -16,10 +16,12 @@
     <Authors>Soniczac7</Authors>
     <Company>Soniczac7</Company>
     <Product>Download Manager</Product>
-    <PackageProjectUrl>https://github.com/Soniczac7/Download-Manager/tree/dev</PackageProjectUrl>
-    <AssemblyVersion>5.1.0.0</AssemblyVersion>
-    <FileVersion>5.1.0.0</FileVersion>
+    <PackageProjectUrl>http://downloadmanager.soniczac7.rf.gd/</PackageProjectUrl>
+    <AssemblyVersion>5.2.0.0</AssemblyVersion>
+    <FileVersion>5.2.0.0</FileVersion>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Copyright>©Soniczac7</Copyright>
+    <NeutralLanguage>en-GB</NeutralLanguage>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
