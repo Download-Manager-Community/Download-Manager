@@ -1,0 +1,20 @@
+name: Send new version number
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  send-webhook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get release version
+        id: get_version
+        run: echo "::set-output name=version::${GITHUB_REF#refs/tags/}"
+      - name: Send repository dispatch event
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          repository: Soniczac7/app-update
+          event-type: release
+          client-payload: '{"version": "${{ steps.get_version.outputs.version }}"}'
