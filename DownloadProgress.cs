@@ -1490,48 +1490,6 @@ namespace DownloadManager
 
                 request.Abort();
                 response.Close();
-
-                /*if (progressCallback != null)
-                {
-                    long length = 0;
-                    if (_instance.totalSize == 0)
-                    {
-                        length = response.Content.Headers.ContentLength ?? -1;
-                        _instance.totalSize = length;
-
-                        if (length == -1)
-                        {
-                            _instance.restartNoProgress = true;
-                            _instance.cancellationToken.Cancel();
-                            Logging.Log("Server failed to provide content length. Progress report will not be available.", Color.Orange);
-                            new ToastContentBuilder()
-                                                .AddText($"The remote server failed to provide size of {_instance.fileName}. Progress reports will not be available.")
-                                                .Show();
-                            _instance.progressBar1.Style = ProgressBarStyle.Marquee;
-                            _instance.progressBar1.MarqueeAnim = true;
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        length = _instance.totalSize;
-                    }
-                    await using Stream stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
-                    byte[] buffer = new byte[4096];
-                    int read;
-                    long totalRead = 0;
-                    while ((read = await stream.ReadAsync(buffer, 0, buffer.Length, cancellationToken).ConfigureAwait(false)) > 0)
-                    {
-                        await toStream.WriteAsync(buffer, 0, read, cancellationToken).ConfigureAwait(false);
-                        totalRead += read;
-                        progressCallback(totalRead, length);
-                    }
-                    Debug.Assert(totalRead == length || length == -1);
-                }
-                else
-                {
-                    await response.Content.CopyToAsync(toStream).ConfigureAwait(false);
-                }*/
             }
         }
 
@@ -2303,8 +2261,6 @@ namespace DownloadManager
                                             result.Append(myHash[i].ToString(false ? "X2" : "x2"));
                                         }
 
-                                        //Log("Provided Hash: " + hash + Environment.NewLine + "Generated Hash: " + result.ToString(), Color.White);
-
                                         if (result.ToString() == hash)
                                         {
                                             Log("File verification OK.", Color.White);
@@ -2875,9 +2831,6 @@ namespace DownloadManager
             {
                 bytesLabel.Text = $"({receivedBytes} B / ? B)";
             }
-            /*bytesLabel.Text = $"({receivedBytes} B / {totalBytes} B)";
-            this.Text = $"Downloading {fileName}... ({string.Format("{0:0.##}", percentageDone)}%)";
-            progressLabel.Text = $"{percentageDone}%";*/
         }
     }
 }

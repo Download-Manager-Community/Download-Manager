@@ -69,17 +69,6 @@ namespace DownloadManager.Download
 
             double percentageDone = (double)totalRead / (double)contentLength * (double)100;
 
-            /*try
-            {
-                percentageDone = totalRead / contentLength * 100;
-            }
-            catch (Exception ex)
-            {
-                DarkMessageBox errMsg = new DarkMessageBox($"{ex.Message} ({ex.GetType().FullName})\nGot Value: {percentageDone}\nOther Values:\ntotalRead: {totalRead}\ncontentLength: {contentLength}\n{ex.StackTrace}", "Download Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                errMsg.ShowDialog();
-            }*/
-
-
             progressWindow.Invoke(new MethodInvoker(delegate
             {
                 try
@@ -105,9 +94,6 @@ namespace DownloadManager.Download
                         int hashTypeArg = progressWindow.hashType;
                         int downloadAttempts = progressWindow.downloadAttempts;
 
-                        //progressWindow.cancellationToken.Cancel();
-                        //progressWindow.cancellationToken.Dispose();
-
                         progressWindow.cancelButton.PerformClick();
 
                         progressWindow.updateDisplayTimer.Stop();
@@ -117,9 +103,6 @@ namespace DownloadManager.Download
                         new ToastContentBuilder()
                                  .AddText($"The download of {progressWindow.fileName} failed to prevent a crash. The download will now restart in safe mode.")
                                  .Show();
-
-                        /*progressWindow.Close();
-                        progressWindow.Dispose();*/
 
                         DownloadProgress safeDownload = new DownloadProgress(url, location, downloadType, youtubeDownloadType, hashArg, hashTypeArg, downloadAttempts, true);
                         safeDownload.Show();
