@@ -148,7 +148,14 @@ namespace DownloadManager
                 // Update the labels
                 fileNameLabel.Text = progress.fileName;
                 fileUrlLabel.Text = progress.url;
-                fileSizeLabel.Text = progress.fileSize + " Bytes";
+                if (progress.totalSize < 1)
+                {
+                    fileSizeLabel.Text = "? Bytes";
+                }
+                else
+                {
+                    fileSizeLabel.Text = progress.fileSize + " Bytes";
+                }
 
                 if (progress.downloadType == DownloadProgress.DownloadType.YoutubePlaylist)
                 {
