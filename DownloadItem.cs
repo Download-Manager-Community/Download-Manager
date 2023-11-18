@@ -10,6 +10,7 @@ namespace DownloadManager
         DownloadProgress progress;
         GroupBox groupBox;
         bool isYtDownload = false;
+        bool contentLengthIssue = false;
 
         #region Predefined Controls
         BetterProgressBar progressBar = new BetterProgressBar()
@@ -147,32 +148,64 @@ namespace DownloadManager
                 // Update the labels
                 fileNameLabel.Text = progress.fileName;
                 fileUrlLabel.Text = progress.url;
-                fileSizeLabel.Text = progress.fileSize + " Bytes";
+                if (progress.totalSize < 1)
+                {
+                    fileSizeLabel.Text = "? Bytes";
+                }
+                else
+                {
+                    fileSizeLabel.Text = progress.fileSize + " Bytes";
+                }
 
                 if (progress.downloadType == DownloadProgress.DownloadType.YoutubePlaylist)
                 {
                     // Update the progress bar
                     progressBar.Style = ProgressBarStyle.Blocks;
-                    progressBar.Minimum = progress.progressBar1.Minimum;
-                    progressBar.Maximum = progress.progressBar1.Maximum;
-                    progressBar.Value = progress.progressBar1.Value;
+                    progressBar.Minimum = progress.totalProgressBar.Minimum;
+                    progressBar.Maximum = progress.totalProgressBar.Maximum;
+                    progressBar.Value = progress.totalProgressBar.Value;
 
                     // Update the progress label
-                    int percent = (int)(((double)progress.progressBar1.Value / (double)progress.progressBar1.Maximum) * 100);
+                    int percent = (int)(((double)progressBar.Value / (double)progressBar.Maximum) * 100);
                     fileProgressLabel.Text = $"{percent}%";
                 }
                 else if (progress.downloadType == DownloadProgress.DownloadType.YoutubeVideo)
                 {
                     progressBar.Style = ProgressBarStyle.Marquee;
+                    progressBar.MarqueeAnim = true;
+                    progressBar.ShowText = false;
                 }
                 else
                 {
                     // Update the progress bar
-                    progressBar.Style = ProgressBarStyle.Blocks;
-                    progressBar.Value = (int)progress.percentageDone;
+                    if ((int)progress.percentageDone > 100)
+                    {
+                        Logging.Log("DownloadItem Progress is greater than 100%! The item has been removed to prevent a crash!", Color.Orange);
+                        Dispose();
+                    }
 
-                    // Update the progress label
-                    fileProgressLabel.Text = progress.percentageDone.ToString() + "%";
+                    if (progress.totalSize < 1)
+                    {
+                        // If the total size is less than 1, then we cannot report progress
+                        // Update the progress bar
+                        progressBar.Style = ProgressBarStyle.Marquee;
+                        progressBar.MarqueeAnim = true;
+
+                        // Update the progress label
+                        fileProgressLabel.Text = $"Progress report unavailable.";
+                    }
+                    else
+                    {
+                        // Update the progress bar
+                        progressBar.Style = ProgressBarStyle.Blocks;
+                        progressBar.Minimum = 0;
+                        progressBar.Maximum = 100;
+                        progressBar.Value = progress.totalProgress;
+
+                        // Update the progress label
+                        int percent = (int)(((double)progressBar.Value / (double)progressBar.Maximum) * 100);
+                        fileProgressLabel.Text = $"{percent}%";
+                    }
                 }
 
                 // Bring all labels to front

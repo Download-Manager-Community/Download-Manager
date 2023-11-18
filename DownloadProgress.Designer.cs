@@ -32,7 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DownloadProgress));
             updateDisplayTimer = new System.Windows.Forms.Timer(components);
             urlLabel = new Label();
-            label3 = new Label();
+            progressLabel = new Label();
             checkBox1 = new CheckBox();
             cancelButton = new Button();
             checkBox2 = new CheckBox();
@@ -46,6 +46,9 @@
             pauseButton = new Button();
             bytesLabel = new Label();
             checkBox3 = new CheckBox();
+            progressBar2 = new BetterProgressBar();
+            totalProgressBar = new BetterProgressBar();
+            safeModeLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -67,18 +70,18 @@
             urlLabel.TabIndex = 7;
             urlLabel.Text = "file from server";
             // 
-            // label3
+            // progressLabel
             // 
-            label3.AutoSize = true;
-            label3.BackColor = Color.Black;
-            label3.FlatStyle = FlatStyle.Flat;
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(13, 149);
-            label3.Margin = new Padding(4, 0, 4, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(41, 16);
-            label3.TabIndex = 9;
-            label3.Text = "0.00%";
+            progressLabel.AutoSize = true;
+            progressLabel.BackColor = Color.Black;
+            progressLabel.FlatStyle = FlatStyle.Flat;
+            progressLabel.ForeColor = Color.White;
+            progressLabel.Location = new Point(13, 149);
+            progressLabel.Margin = new Padding(4, 0, 4, 0);
+            progressLabel.Name = "progressLabel";
+            progressLabel.Size = new Size(41, 16);
+            progressLabel.TabIndex = 9;
+            progressLabel.Text = "0.00%";
             // 
             // checkBox1
             // 
@@ -155,7 +158,7 @@
             progressBar1.BackColor = Color.FromArgb(20, 20, 20);
             progressBar1.Location = new Point(12, 122);
             progressBar1.Name = "progressBar1";
-            progressBar1.Size = new Size(416, 25);
+            progressBar1.Size = new Size(207, 25);
             progressBar1.TabIndex = 18;
             // 
             // pictureBox1
@@ -251,12 +254,41 @@
             checkBox3.Text = "Open this file when the download completes";
             checkBox3.UseVisualStyleBackColor = false;
             // 
+            // progressBar2
+            // 
+            progressBar2.BackColor = Color.FromArgb(20, 20, 20);
+            progressBar2.Location = new Point(221, 122);
+            progressBar2.Name = "progressBar2";
+            progressBar2.Size = new Size(207, 25);
+            progressBar2.TabIndex = 26;
+            // 
+            // totalProgressBar
+            // 
+            totalProgressBar.BackColor = Color.FromArgb(20, 20, 20);
+            totalProgressBar.Location = new Point(12, 122);
+            totalProgressBar.Name = "totalProgressBar";
+            totalProgressBar.Size = new Size(414, 25);
+            totalProgressBar.TabIndex = 27;
+            totalProgressBar.Visible = false;
+            // 
+            // safeModeLabel
+            // 
+            safeModeLabel.AutoSize = true;
+            safeModeLabel.Location = new Point(368, 4);
+            safeModeLabel.Name = "safeModeLabel";
+            safeModeLabel.Size = new Size(66, 16);
+            safeModeLabel.TabIndex = 28;
+            safeModeLabel.Text = "Safe Mode";
+            safeModeLabel.Visible = false;
+            // 
             // DownloadProgress
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
             ClientSize = new Size(439, 289);
+            Controls.Add(safeModeLabel);
+            Controls.Add(progressBar2);
             Controls.Add(checkBox3);
             Controls.Add(bytesLabel);
             Controls.Add(pauseButton);
@@ -270,8 +302,9 @@
             Controls.Add(checkBox2);
             Controls.Add(cancelButton);
             Controls.Add(checkBox1);
-            Controls.Add(label3);
+            Controls.Add(progressLabel);
             Controls.Add(urlLabel);
+            Controls.Add(totalProgressBar);
             ForeColor = Color.White;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -289,12 +322,10 @@
         }
 
         #endregion
-        private System.Windows.Forms.Timer updateDisplayTimer;
         private System.Windows.Forms.Label urlLabel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.CheckBox checkBox2;
         private Label hashLabel;
         private Splitter splitter1;
@@ -303,8 +334,14 @@
         private Label label1;
         private Button openButton;
         private Button pauseButton;
-        private Label bytesLabel;
         public BetterProgressBar progressBar1;
         private CheckBox checkBox3;
+        public BetterProgressBar progressBar2;
+        public BetterProgressBar totalProgressBar;
+        public Label bytesLabel;
+        public Label progressLabel;
+        public System.Windows.Forms.Timer updateDisplayTimer;
+        private Label safeModeLabel;
+        public Button cancelButton;
     }
 }
