@@ -111,8 +111,11 @@ namespace DownloadManager
             Log("Preparing to start downloading...", Color.White);
             checkBox2.Checked = Settings.Default.closeOnComplete;
             checkBox1.Checked = Settings.Default.keepOnTop;
-            progressBar1.Style = ProgressBarStyle.Marquee;
-            progressBar1.MarqueeAnim = true;
+            progressBar1.Visible = false;
+            progressBar2.Visible = false;
+            totalProgressBar.Visible = true;
+            totalProgressBar.Style = ProgressBarStyle.Marquee;
+            totalProgressBar.MarqueeAnim = true;
             if (doSafeMode)
             {
                 Log("Safe mode flag is set!", Color.Orange);
@@ -1019,10 +1022,10 @@ namespace DownloadManager
             {
                 this.Invoke(new MethodInvoker(delegate ()
                 {
-                    progressBar1.Value = 100;
-                    progressBar1.State = ProgressBarState.Error;
-                    progressBar1.ShowText = false;
-                    progressBar1.Style = ProgressBarStyle.Blocks;
+                    totalProgressBar.Value = 100;
+                    totalProgressBar.State = ProgressBarState.Error;
+                    totalProgressBar.ShowText = false;
+                    totalProgressBar.Style = ProgressBarStyle.Blocks;
                 }));
 
                 downloading = false;
@@ -1205,8 +1208,11 @@ namespace DownloadManager
 
             this.Invoke(new MethodInvoker(delegate ()
             {
-                progressBar1.Style = ProgressBarStyle.Blocks;
-                progressBar1.MarqueeAnim = false;
+                totalProgressBar.Style = ProgressBarStyle.Blocks;
+                totalProgressBar.MarqueeAnim = false;
+                totalProgressBar.Visible = false;
+                progressBar1.Visible = true;
+                progressBar2.Visible = true;
             }));
 
             Log("Downloading file " + uri + " to " + location + fileName, Color.White);
@@ -1244,10 +1250,13 @@ namespace DownloadManager
                 {
                     Invoke(new MethodInvoker(delegate
                     {
-                        progressBar1.Style = ProgressBarStyle.Blocks;
-                        progressBar1.MarqueeAnim = false;
-                        progressBar1.Value = 100;
-                        progressBar1.State = ProgressBarState.Error;
+                        progressBar1.Visible = false;
+                        progressBar2.Visible = false;
+                        totalProgressBar.Visible = true;
+                        totalProgressBar.Style = ProgressBarStyle.Blocks;
+                        totalProgressBar.MarqueeAnim = false;
+                        totalProgressBar.Value = 100;
+                        totalProgressBar.State = ProgressBarState.Error;
                     }));
                 }
 
@@ -1753,8 +1762,11 @@ namespace DownloadManager
                 {
                     Invoke(new MethodInvoker(delegate ()
                     {
-                        progressBar1.Style = ProgressBarStyle.Marquee;
-                        progressBar1.MarqueeAnim = true;
+                        progressBar1.Visible = false;
+                        progressBar2.Visible = false;
+                        totalProgressBar.Visible = true;
+                        totalProgressBar.Style = ProgressBarStyle.Marquee;
+                        totalProgressBar.MarqueeAnim = true;
                         if (!isUrlInvalid)
                         {
                             if (doFileVerify)
@@ -1819,9 +1831,12 @@ namespace DownloadManager
                                                 cancelButton.Text = "Close";
                                                 openButton.Enabled = true;
                                                 pauseButton.Enabled = false;
-                                                progressBar1.Value = 100;
-                                                progressBar1.Style = ProgressBarStyle.Blocks;
-                                                progressBar1.MarqueeAnim = false;
+                                                progressBar1.Visible = false;
+                                                progressBar2.Visible = false;
+                                                totalProgressBar.Visible = true;
+                                                totalProgressBar.Value = 100;
+                                                totalProgressBar.Style = ProgressBarStyle.Blocks;
+                                                totalProgressBar.MarqueeAnim = false;
                                                 if (checkBox2.Checked == true)
                                                 {
 
@@ -1835,10 +1850,13 @@ namespace DownloadManager
                                         {
                                             Invoke(new MethodInvoker(delegate
                                             {
-                                                progressBar1.Style = ProgressBarStyle.Blocks;
-                                                progressBar1.MarqueeAnim = false;
-                                                progressBar1.Value = 100;
-                                                progressBar1.State = ProgressBarState.Error;
+                                                progressBar1.Visible = false;
+                                                progressBar2.Visible = false;
+                                                totalProgressBar.Visible = true;
+                                                totalProgressBar.Style = ProgressBarStyle.Blocks;
+                                                totalProgressBar.MarqueeAnim = false;
+                                                totalProgressBar.Value = 100;
+                                                totalProgressBar.State = ProgressBarState.Error;
                                             }));
                                             Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
 
@@ -1939,9 +1957,12 @@ namespace DownloadManager
                                                 cancelButton.Text = "Close";
                                                 openButton.Enabled = true;
                                                 pauseButton.Enabled = false;
-                                                progressBar1.Value = 100;
-                                                progressBar1.Style = ProgressBarStyle.Blocks;
-                                                progressBar1.MarqueeAnim = false;
+                                                progressBar1.Visible = false;
+                                                progressBar2.Visible = false;
+                                                totalProgressBar.Visible = true;
+                                                totalProgressBar.Value = 100;
+                                                totalProgressBar.Style = ProgressBarStyle.Blocks;
+                                                totalProgressBar.MarqueeAnim = false;
                                                 if (checkBox2.Checked == true)
                                                 {
 
@@ -1955,10 +1976,13 @@ namespace DownloadManager
                                         {
                                             Invoke(new MethodInvoker(delegate
                                             {
-                                                progressBar1.Style = ProgressBarStyle.Blocks;
-                                                progressBar1.MarqueeAnim = false;
-                                                progressBar1.Value = 100;
-                                                progressBar1.State = ProgressBarState.Error;
+                                                progressBar1.Visible = false;
+                                                progressBar2.Visible = false;
+                                                totalProgressBar.Visible = true;
+                                                totalProgressBar.Style = ProgressBarStyle.Blocks;
+                                                totalProgressBar.MarqueeAnim = false;
+                                                totalProgressBar.Value = 100;
+                                                totalProgressBar.State = ProgressBarState.Error;
                                             }));
                                             Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
 
@@ -2059,9 +2083,12 @@ namespace DownloadManager
                                                 cancelButton.Text = "Close";
                                                 openButton.Enabled = true;
                                                 pauseButton.Enabled = false;
-                                                progressBar1.Value = 100;
-                                                progressBar1.Style = ProgressBarStyle.Blocks;
-                                                progressBar1.MarqueeAnim = false;
+                                                progressBar1.Visible = false;
+                                                progressBar2.Visible = false;
+                                                totalProgressBar.Visible = true;
+                                                totalProgressBar.Value = 100;
+                                                totalProgressBar.Style = ProgressBarStyle.Blocks;
+                                                totalProgressBar.MarqueeAnim = false;
                                                 if (checkBox2.Checked == true)
                                                 {
 
@@ -2075,10 +2102,13 @@ namespace DownloadManager
                                         {
                                             Invoke(new MethodInvoker(delegate
                                             {
-                                                progressBar1.Style = ProgressBarStyle.Blocks;
-                                                progressBar1.MarqueeAnim = false;
-                                                progressBar1.Value = 100;
-                                                progressBar1.State = ProgressBarState.Error;
+                                                progressBar1.Visible = false;
+                                                progressBar2.Visible = false;
+                                                totalProgressBar.Visible = true;
+                                                totalProgressBar.Style = ProgressBarStyle.Blocks;
+                                                totalProgressBar.MarqueeAnim = false;
+                                                totalProgressBar.Value = 100;
+                                                totalProgressBar.State = ProgressBarState.Error;
                                             }));
                                             Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
 
@@ -2179,9 +2209,12 @@ namespace DownloadManager
                                                 cancelButton.Text = "Close";
                                                 openButton.Enabled = true;
                                                 pauseButton.Enabled = false;
-                                                progressBar1.Value = 100;
-                                                progressBar1.Style = ProgressBarStyle.Blocks;
-                                                progressBar1.MarqueeAnim = false;
+                                                progressBar1.Visible = false;
+                                                progressBar2.Visible = false;
+                                                totalProgressBar.Visible = true;
+                                                totalProgressBar.Value = 100;
+                                                totalProgressBar.Style = ProgressBarStyle.Blocks;
+                                                totalProgressBar.MarqueeAnim = false;
                                                 if (checkBox2.Checked == true)
                                                 {
 
@@ -2195,10 +2228,13 @@ namespace DownloadManager
                                         {
                                             Invoke(new MethodInvoker(delegate
                                             {
-                                                progressBar1.Style = ProgressBarStyle.Blocks;
-                                                progressBar1.MarqueeAnim = false;
-                                                progressBar1.Value = 100;
-                                                progressBar1.State = ProgressBarState.Error;
+                                                progressBar1.Visible = false;
+                                                progressBar2.Visible = false;
+                                                totalProgressBar.Visible = true;
+                                                totalProgressBar.Style = ProgressBarStyle.Blocks;
+                                                totalProgressBar.MarqueeAnim = false;
+                                                totalProgressBar.Value = 100;
+                                                totalProgressBar.State = ProgressBarState.Error;
                                             }));
                                             Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
 
@@ -2301,9 +2337,12 @@ namespace DownloadManager
                                                 cancelButton.Text = "Close";
                                                 openButton.Enabled = true;
                                                 pauseButton.Enabled = false;
-                                                progressBar1.Value = 100;
-                                                progressBar1.Style = ProgressBarStyle.Blocks;
-                                                progressBar1.MarqueeAnim = false;
+                                                progressBar1.Visible = false;
+                                                progressBar2.Visible = false;
+                                                totalProgressBar.Visible = true;
+                                                totalProgressBar.Value = 100;
+                                                totalProgressBar.Style = ProgressBarStyle.Blocks;
+                                                totalProgressBar.MarqueeAnim = false;
                                                 if (checkBox2.Checked == true)
                                                 {
 
@@ -2317,10 +2356,13 @@ namespace DownloadManager
                                         {
                                             Invoke(new MethodInvoker(delegate
                                             {
-                                                progressBar1.Style = ProgressBarStyle.Blocks;
-                                                progressBar1.MarqueeAnim = false;
-                                                progressBar1.Value = 100;
-                                                progressBar1.State = ProgressBarState.Error;
+                                                progressBar1.Visible = false;
+                                                progressBar2.Visible = false;
+                                                totalProgressBar.Visible = true;
+                                                totalProgressBar.Style = ProgressBarStyle.Blocks;
+                                                totalProgressBar.MarqueeAnim = false;
+                                                totalProgressBar.Value = 100;
+                                                totalProgressBar.State = ProgressBarState.Error;
                                             }));
                                             Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
 
@@ -2368,10 +2410,13 @@ namespace DownloadManager
                                     {
                                         Invoke(new MethodInvoker(delegate
                                         {
-                                            progressBar1.Style = ProgressBarStyle.Blocks;
-                                            progressBar1.MarqueeAnim = false;
-                                            progressBar1.Value = 100;
-                                            progressBar1.State = ProgressBarState.Error;
+                                            progressBar1.Visible = false;
+                                            progressBar2.Visible = false;
+                                            totalProgressBar.Visible = true;
+                                            totalProgressBar.Style = ProgressBarStyle.Blocks;
+                                            totalProgressBar.MarqueeAnim = false;
+                                            totalProgressBar.Value = 100;
+                                            totalProgressBar.State = ProgressBarState.Error;
                                         }));
                                         Log("Invalid hash type '" + hashType + "'. The file could not be verified.", Color.Red);
 
@@ -2441,9 +2486,12 @@ namespace DownloadManager
                                     cancelButton.Text = "Close";
                                     openButton.Enabled = true;
                                     pauseButton.Enabled = false;
-                                    progressBar1.Value = 100;
-                                    progressBar1.Style = ProgressBarStyle.Blocks;
-                                    progressBar1.MarqueeAnim = false;
+                                    progressBar1.Visible = false;
+                                    progressBar2.Visible = false;
+                                    totalProgressBar.Visible = true;
+                                    totalProgressBar.Value = 100;
+                                    totalProgressBar.Style = ProgressBarStyle.Blocks;
+                                    totalProgressBar.MarqueeAnim = false;
                                     if (checkBox2.Checked == true)
                                     {
 
@@ -2458,10 +2506,13 @@ namespace DownloadManager
                         {
                             Invoke(new MethodInvoker(delegate
                             {
-                                progressBar1.Style = ProgressBarStyle.Blocks;
-                                progressBar1.MarqueeAnim = false;
-                                progressBar1.Value = 100;
-                                progressBar1.State = ProgressBarState.Error;
+                                progressBar1.Visible = false;
+                                progressBar2.Visible = false;
+                                totalProgressBar.Visible = true;
+                                totalProgressBar.Style = ProgressBarStyle.Blocks;
+                                totalProgressBar.MarqueeAnim = false;
+                                totalProgressBar.Value = 100;
+                                totalProgressBar.State = ProgressBarState.Error;
                             }));
 
                             Log("Download failed.", Color.Red);
@@ -2477,7 +2528,6 @@ namespace DownloadManager
                             {
                                 downloading = false;
                                 DownloadForm.downloadsAmount -= 1;
-                                progressBar1.Value = 0;
 
                                 cancellationToken.Cancel();
 
@@ -2491,10 +2541,13 @@ namespace DownloadManager
                 {
                     Invoke(new MethodInvoker(delegate
                     {
-                        progressBar1.Style = ProgressBarStyle.Blocks;
-                        progressBar1.MarqueeAnim = false;
-                        progressBar1.Value = 100;
-                        progressBar1.State = ProgressBarState.Error;
+                        progressBar1.Visible = false;
+                        progressBar2.Visible = false;
+                        totalProgressBar.Visible = true;
+                        totalProgressBar.Style = ProgressBarStyle.Blocks;
+                        totalProgressBar.MarqueeAnim = false;
+                        totalProgressBar.Value = 100;
+                        totalProgressBar.State = ProgressBarState.Error;
                         downloading = false;
                         DownloadForm.downloadsAmount -= 1;
 
@@ -2705,6 +2758,8 @@ namespace DownloadManager
 
                     cancellationToken.Cancel();
                     progressBar1.State = ProgressBarState.Warning;
+                    progressBar2.State = ProgressBarState.Warning;
+                    totalProgressBar.State = ProgressBarState.Warning;
                 }
                 else
                 {
@@ -2721,6 +2776,8 @@ namespace DownloadManager
                 cancellationToken = new CancellationTokenSource();
 
                 progressBar1.State = ProgressBarState.Normal;
+                progressBar2.State = ProgressBarState.Normal;
+                totalProgressBar.State = ProgressBarState.Normal;
 
                 try
                 {
@@ -2746,10 +2803,13 @@ namespace DownloadManager
 
                     Invoke(new MethodInvoker(delegate
                     {
-                        progressBar1.Style = ProgressBarStyle.Blocks;
-                        progressBar1.MarqueeAnim = false;
-                        progressBar1.Value = 100;
-                        progressBar1.State = ProgressBarState.Error;
+                        progressBar1.Visible = false;
+                        progressBar2.Visible = false;
+                        totalProgressBar.Visible = true;
+                        totalProgressBar.Style = ProgressBarStyle.Blocks;
+                        totalProgressBar.MarqueeAnim = false;
+                        totalProgressBar.Value = 100;
+                        totalProgressBar.State = ProgressBarState.Error;
                     }));
 
                     Log(ex.Message, Color.Red);
