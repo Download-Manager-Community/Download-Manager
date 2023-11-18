@@ -37,8 +37,9 @@ namespace DownloadManager
         public long totalSize = 0;
         public double percentageDone = 0;
 
-        double receivedBytes = 0;
-        double totalBytes = 0;
+        public double receivedBytes = 0;
+        public double totalBytes = 0;
+        public int totalProgress = 0;
 
         public bool cancelled = false;
         public bool forceCancel = false;
@@ -1549,6 +1550,7 @@ namespace DownloadManager
                     await outputStream.WriteAsync(buffer, 0, len).ConfigureAwait(false);
                     totalRead += len;
                     this.Invoke(new MethodInvoker(delegate () { bytesLabel.Text = $"({totalRead} B / ? B)"; }));
+                    receivedBytes = totalRead;
                 }
 
                 await outputStream.FlushAsync().ConfigureAwait(false);

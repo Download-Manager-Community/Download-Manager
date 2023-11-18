@@ -176,6 +176,29 @@ namespace DownloadManager
                         Logging.Log("DownloadItem Progress is greater than 100%! The item has been removed to prevent a crash!", Color.Orange);
                         Dispose();
                     }
+
+                    if (progress.totalSize < 1)
+                    {
+                        // If the total size is less than 1, then we cannot report progress
+                        // Update the progress bar
+                        progressBar.Style = ProgressBarStyle.Marquee;
+                        progressBar.MarqueeAnim = true;
+
+                        // Update the progress label
+                        fileProgressLabel.Text = $"Progress report unavailable.";
+                    }
+                    else
+                    {
+                        // Update the progress bar
+                        progressBar.Style = ProgressBarStyle.Blocks;
+                        progressBar.Minimum = 0;
+                        progressBar.Maximum = 100;
+                        progressBar.Value = progress.totalProgress;
+
+                        // Update the progress label
+                        int percent = (int)(((double)progressBar.Value / (double)progressBar.Maximum) * 100);
+                        fileProgressLabel.Text = $"{percent}%";
+                    }
                 }
 
                 // Bring all labels to front
