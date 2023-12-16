@@ -1305,8 +1305,18 @@ namespace DownloadManager
             }
         }
 
-        private static Task CombineFilesIntoSingleFile(string fileName0, string fileName1, string outputFilePath)
+        private Task CombineFilesIntoSingleFile(string fileName0, string fileName1, string outputFilePath)
         {
+            this.Invoke(new MethodInvoker(delegate ()
+            {
+                progressBar1.Visible = false;
+                progressBar2.Visible = false;
+                totalProgressBar.Visible = true;
+
+                totalProgressBar.MarqueeAnim = true;
+                totalProgressBar.Style = ProgressBarStyle.Marquee;
+            }));
+
             string[] inputFilePaths = new string[]{
                 fileName0,
                 fileName1
