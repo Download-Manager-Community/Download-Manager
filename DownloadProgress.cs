@@ -2725,7 +2725,6 @@ namespace DownloadManager
             else
             {
                 DownloadForm.downloadsList.Remove(this);
-                DownloadForm.downloadsAmount -= 1;
                 downloading = false;
                 cancelled = true;
 
