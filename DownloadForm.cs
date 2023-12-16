@@ -174,6 +174,7 @@ namespace DownloadManager
             currentDownloads.RefreshList();
 
             textBox1.Text = "";
+            textBox3.Text = "";
         }
 
         private void button3_Click(object sender, EventArgs e)
