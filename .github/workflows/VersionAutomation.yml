@@ -1,6 +1,7 @@
 name: Send new version number
 
 on:
+  workflow_dispatch:
   release:
     types: [published]
 

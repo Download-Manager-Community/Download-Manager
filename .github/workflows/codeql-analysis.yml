@@ -14,8 +14,6 @@ name: "CodeQL"
 on:
   push:
   pull_request:
-  schedule:
-    - cron: '21 20 * * 5'
   workflow_dispatch:
 
 jobs:
