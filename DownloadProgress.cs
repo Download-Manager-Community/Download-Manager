@@ -1770,6 +1770,7 @@ namespace DownloadManager
                         bytesPerSecond = 0;
                         kilobytesPerSecond = 0;
                         megabytesPerSecond = 0;
+                        speedLabel.Visible = false;
 
                         progressBar1.Visible = false;
                         progressBar2.Visible = false;
