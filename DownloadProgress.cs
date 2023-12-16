@@ -52,6 +52,10 @@ namespace DownloadManager
         internal Stream fileStream0;
         internal Stream fileStream1;
 
+        internal double bytesPerSecond = 0;
+        internal double kilobytesPerSecond = 0;
+        internal double megabytesPerSecond = 0;
+
         public enum DownloadType
         {
             Normal = 0,
@@ -1495,16 +1499,27 @@ namespace DownloadManager
 
         private async Task SaveFileStreamAsync(Stream inputStream, Stream outputStream, Action<long, long, BetterProgressBar>? progressCallback, BetterProgressBar? progressBar = null)
         {
+            Stopwatch stopwatch = new Stopwatch();
+
             if (progressCallback != null)
             {
                 byte[] buffer = new byte[8 * 1024];
                 int len;
                 long totalRead = 0;
 
+                stopwatch.Start();
+
                 while ((len = await inputStream.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false)) > 0)
                 {
                     await outputStream.WriteAsync(buffer, 0, len).ConfigureAwait(false);
                     totalRead += len;
+
+                    bytesPerSecond = totalRead / stopwatch.Elapsed.TotalSeconds;
+                    kilobytesPerSecond = (totalRead / 1024) / stopwatch.Elapsed.TotalSeconds;
+                    megabytesPerSecond = ((totalRead / 1024) / 1024) / stopwatch.Elapsed.TotalSeconds;
+
+                    //Logging.Log($"Download speed: {bytesPerSecond} B/s, {kilobytesPerSecond} KB/s, {megabytesPerSecond} MB/s", Color.Gray);
+
                     progressCallback?.Invoke(totalRead, totalSize, progressBar);
                 }
 
@@ -1512,6 +1527,8 @@ namespace DownloadManager
                 {
                     Debug.Assert(totalRead == totalSize);
                 }
+
+                stopwatch.Stop();
 
                 await outputStream.FlushAsync().ConfigureAwait(false);
                 outputStream.Close();
@@ -1522,12 +1539,23 @@ namespace DownloadManager
                 int len;
                 long totalRead = 0;
 
+                stopwatch.Start();
+
                 while ((len = await inputStream.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false)) > 0)
                 {
                     await outputStream.WriteAsync(buffer, 0, len).ConfigureAwait(false);
                     totalRead += len;
+
+                    bytesPerSecond = totalRead / stopwatch.Elapsed.TotalSeconds;
+                    kilobytesPerSecond = (totalRead / 1024) / stopwatch.Elapsed.TotalSeconds;
+                    megabytesPerSecond = ((totalRead / 1024) / 1024) / stopwatch.Elapsed.TotalSeconds;
+
+                    //Logging.Log($"Download speed: {bytesPerSecond} B/s, {kilobytesPerSecond} KB/s, {megabytesPerSecond} MB/s", Color.Gray);
+
                     receivedBytes = totalRead;
                 }
+
+                stopwatch.Stop();
 
                 await outputStream.FlushAsync().ConfigureAwait(false);
                 outputStream.Close();
@@ -1729,6 +1757,10 @@ namespace DownloadManager
                 {
                     Invoke(new MethodInvoker(delegate ()
                     {
+                        bytesPerSecond = 0;
+                        kilobytesPerSecond = 0;
+                        megabytesPerSecond = 0;
+
                         progressBar1.Visible = false;
                         progressBar2.Visible = false;
                         totalProgressBar.Visible = true;
@@ -2830,6 +2862,19 @@ namespace DownloadManager
             else
             {
                 bytesLabel.Text = $"({receivedBytes} B / ? B)";
+
+                if (megabytesPerSecond > 1)
+                {
+                    speedLabel.Text = $"{megabytesPerSecond.ToString("0.00")} MB/s";
+                }
+                else if (kilobytesPerSecond > 1)
+                {
+                    speedLabel.Text = $"{kilobytesPerSecond.ToString("0.00")} KB/s";
+                }
+                else
+                {
+                    speedLabel.Text = $"{bytesPerSecond.ToString("0.00")} B/s";
+                }
             }
         }
     }

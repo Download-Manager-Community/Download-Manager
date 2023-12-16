@@ -1,4 +1,5 @@
 ﻿using Microsoft.Toolkit.Uwp.Notifications;
+using System.Diagnostics;
 
 namespace DownloadManager.Download
 {
@@ -14,9 +15,13 @@ namespace DownloadManager.Download
             Action<BetterProgressBar, long, long, long> progressCallback = new Action<BetterProgressBar, long, long, long>(SegmentProgressCallback);
             progressWindow = window;
 
+            Stopwatch stopwatch = new Stopwatch();
+
             byte[] buffer = new byte[8 * 1024];
             int len;
             long totalRead = 0;
+
+            stopwatch.Start();
 
             while ((len = await downloadStream.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false)) > 0)
             {
@@ -29,6 +34,18 @@ namespace DownloadManager.Download
                 await outputStream.WriteAsync(buffer, 0, len).ConfigureAwait(false);
                 totalRead += len;
                 progressCallback.Invoke(progressBar, totalRead, contentLength, totalLength);
+                if (id == DownloadSegmentID.Segment0)
+                {
+                    progressUpdater.bytesPerSecond0 = totalRead / stopwatch.Elapsed.TotalSeconds;
+                    progressUpdater.kilobytesPerSecond0 = (totalRead / 1024) / stopwatch.Elapsed.TotalSeconds;
+                    progressUpdater.megabytesPerSecond0 = ((totalRead / 1024) / 1024) / stopwatch.Elapsed.TotalSeconds;
+                }
+                else
+                {
+                    progressUpdater.bytesPerSecond1 = totalRead / stopwatch.Elapsed.TotalSeconds;
+                    progressUpdater.kilobytesPerSecond1 = (totalRead / 1024) / stopwatch.Elapsed.TotalSeconds;
+                    progressUpdater.megabytesPerSecond1 = ((totalRead / 1024) / 1024) / stopwatch.Elapsed.TotalSeconds;
+                }
 
                 switch (id)
                 {
@@ -47,6 +64,8 @@ namespace DownloadManager.Download
             {
                 //Debug.Assert(totalRead == totalLength);
             }
+
+            stopwatch.Stop();
 
             await outputStream.FlushAsync().ConfigureAwait(false);
             outputStream.Close();

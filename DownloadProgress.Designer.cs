@@ -49,6 +49,7 @@
             progressBar2 = new BetterProgressBar();
             totalProgressBar = new BetterProgressBar();
             safeModeLabel = new Label();
+            speedLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -59,14 +60,13 @@
             // 
             // urlLabel
             // 
-            urlLabel.AutoSize = true;
             urlLabel.BackColor = Color.Black;
             urlLabel.FlatStyle = FlatStyle.Flat;
             urlLabel.ForeColor = Color.White;
             urlLabel.Location = new Point(12, 102);
             urlLabel.Margin = new Padding(4, 0, 4, 0);
             urlLabel.Name = "urlLabel";
-            urlLabel.Size = new Size(89, 16);
+            urlLabel.Size = new Size(320, 16);
             urlLabel.TabIndex = 7;
             urlLabel.Text = "file from server";
             // 
@@ -281,12 +281,26 @@
             safeModeLabel.Text = "Safe Mode";
             safeModeLabel.Visible = false;
             // 
+            // speedLabel
+            // 
+            speedLabel.BackColor = Color.Black;
+            speedLabel.FlatStyle = FlatStyle.Flat;
+            speedLabel.ForeColor = Color.White;
+            speedLabel.Location = new Point(340, 102);
+            speedLabel.Margin = new Padding(4, 0, 4, 0);
+            speedLabel.Name = "speedLabel";
+            speedLabel.Size = new Size(86, 16);
+            speedLabel.TabIndex = 29;
+            speedLabel.Text = "0 B/s";
+            speedLabel.TextAlign = ContentAlignment.MiddleRight;
+            // 
             // DownloadProgress
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
             ClientSize = new Size(439, 289);
+            Controls.Add(speedLabel);
             Controls.Add(safeModeLabel);
             Controls.Add(progressBar2);
             Controls.Add(checkBox3);
@@ -343,5 +357,6 @@
         public System.Windows.Forms.Timer updateDisplayTimer;
         private Label safeModeLabel;
         public Button cancelButton;
+        public Label speedLabel;
     }
 }
