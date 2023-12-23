@@ -1494,6 +1494,7 @@ namespace DownloadManager
                         this.Text = $"Downloading {fileName}... (100%)";
                         progressLabel.Text = $"100%";
                         bytesLabel.Text = $"({totalSize} B / {totalSize} B)";
+                        speedLabel.Visible = false;
                     }));
 
                     await CombineFilesIntoSingleFile(location + fileName + ".download0", location + fileName + ".download1", location + fileName);
