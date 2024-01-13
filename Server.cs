@@ -136,13 +136,28 @@ namespace DownloadManager
                     Log("Received empty request. Ignoring...", Color.Orange);
                     continue;
                 }
+
+                // TOOD: Temp debug logging
+                Log("--- Start Request ---", Color.White);
+                Log(data, Color.White);
+                Log("--- End Request ---", Color.White);
+
                 string url = splittedData[0].ToString().Replace("%22 HTTP/1.1", "");
 
-                if (url.StartsWith("GET /?url=%22"))
+                Log(url, Color.White);
+
+                if (url.EndsWith(" HTTP/1.1"))
                 {
-                    if (url.EndsWith("?ytdownload=True"))
+                    url = url.Remove(url.Length - 9, 9);
+                }
+
+                Log(url, Color.White);
+
+                if (url.StartsWith("GET /?url=%22") || url.StartsWith("GET /?url="))
+                {
+                    if (url.Contains("&ytdownload=True"))
                     {
-                        url = url.Replace("GET /?url=%22", "").Replace("?ytdownload=True", "");
+                        url = url.Replace("GET /?url=%22", "").Replace("GET /?url=", "").Replace("&ytdownload=True", "");
 
                         if (!url.Contains("favicon.ico"))
                         {
@@ -180,7 +195,7 @@ namespace DownloadManager
                                 }
                                 DownloadProgress downloadProgress = new DownloadProgress(url, Settings.Default.defaultDownload, DownloadType.Normal, null, "", 0);
                                 downloadProgress.Show();
-                          
+
                                 DownloadForm.downloadsList.Add(downloadProgress);
                                 DownloadForm.currentDownloads.RefreshList();
                                 //Log("--- Start Request ---", Color.White);
