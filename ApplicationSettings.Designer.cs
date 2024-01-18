@@ -89,12 +89,16 @@
             button2 = new Button();
             button3 = new Button();
             button4 = new Button();
+            label22 = new Label();
+            numericUpDown3 = new NumericUpDown();
+            label23 = new Label();
             generalPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             updatesPanel.SuspendLayout();
             soundsPanel.SuspendLayout();
             notificationsPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown3).BeginInit();
             SuspendLayout();
             // 
             // toolTip1
@@ -299,6 +303,8 @@
             generalPanel.Anchor = AnchorStyles.Bottom;
             generalPanel.AutoScroll = true;
             generalPanel.BackColor = Color.Black;
+            generalPanel.Controls.Add(numericUpDown3);
+            generalPanel.Controls.Add(label23);
             generalPanel.Controls.Add(label20);
             generalPanel.Controls.Add(checkBox10);
             generalPanel.Controls.Add(label21);
@@ -332,6 +338,7 @@
             generalPanel.Controls.Add(label8);
             generalPanel.Controls.Add(button6);
             generalPanel.Controls.Add(label9);
+            generalPanel.Controls.Add(label22);
             generalPanel.ForeColor = Color.White;
             generalPanel.Location = new Point(2, 37);
             generalPanel.Name = "generalPanel";
@@ -857,6 +864,44 @@
             button4.UseVisualStyleBackColor = true;
             button4.Click += button4_Click;
             // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.ForeColor = Color.White;
+            label22.Location = new Point(7, 461);
+            label22.Margin = new Padding(4, 0, 4, 0);
+            label22.Name = "label22";
+            label22.Size = new Size(219, 16);
+            label22.TabIndex = 54;
+            label22.Text = "Maximum Internal Server Failure Count";
+            // 
+            // numericUpDown3
+            // 
+            numericUpDown3.BackColor = Color.Black;
+            numericUpDown3.BorderStyle = BorderStyle.FixedSingle;
+            numericUpDown3.ForeColor = Color.White;
+            numericUpDown3.Location = new Point(7, 480);
+            numericUpDown3.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
+            numericUpDown3.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDown3.Name = "numericUpDown3";
+            numericUpDown3.Size = new Size(769, 23);
+            numericUpDown3.TabIndex = 55;
+            numericUpDown3.Value = new decimal(new int[] { 5, 0, 0, 0 });
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Cursor = Cursors.Help;
+            label23.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label23.ForeColor = Color.Gray;
+            label23.Location = new Point(227, 461);
+            label23.Margin = new Padding(4, 0, 4, 0);
+            label23.Name = "label23";
+            label23.Size = new Size(12, 15);
+            label23.TabIndex = 56;
+            label23.Text = "?";
+            toolTip1.SetToolTip(label23, resources.GetString("label23.ToolTip"));
+            // 
             // ApplicationSettings
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
@@ -888,6 +933,7 @@
             soundsPanel.PerformLayout();
             notificationsPanel.ResumeLayout(false);
             notificationsPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown3).EndInit();
             ResumeLayout(false);
         }
 
@@ -951,5 +997,8 @@
         private Label label20;
         private CheckBox checkBox10;
         private Label label21;
+        private Label label22;
+        private NumericUpDown numericUpDown3;
+        private Label label23;
     }
 }

@@ -201,5 +201,17 @@ namespace DownloadManager {
                 this["SettingsAreUpgraded"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int maxServerFailureCount {
+            get {
+                return ((int)(this["maxServerFailureCount"]));
+            }
+            set {
+                this["maxServerFailureCount"] = value;
+            }
+        }
     }
 }
