@@ -143,6 +143,13 @@ The default option for this settings is OFF.</value>
   <metadata name="folderBrowserDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>114, 17</value>
   </metadata>
+  <data name="label23.ToolTip" xml:space="preserve">
+    <value>The maximum number of times that the internal server of Download Manager is allowed to fail to start before the server starting is stopped and a warning is shown.
+The default value for this option is 5.
+The minimum value for this option is 1.
+There is no maximum value for this option however higher values may cause unexpected behaviour.
+Do not change this setting unless you know what you are doing.</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
