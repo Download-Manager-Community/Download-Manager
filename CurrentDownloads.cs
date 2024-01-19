@@ -1,4 +1,5 @@
 ﻿using DownloadManager.NativeMethods;
+using System.Reflection;
 
 namespace DownloadManager
 {
@@ -10,6 +11,7 @@ namespace DownloadManager
         public static int nextY = 12;
 
         public static bool firstShown = true;
+        public static bool firstShownDataError = true;
 
         public CurrentDownloads()
         {
@@ -20,6 +22,11 @@ namespace DownloadManager
             DesktopWindowManager.SetImmersiveDarkMode(this.Handle, true);
             DesktopWindowManager.EnableMicaIfSupported(this.Handle);
             DesktopWindowManager.ExtendFrameIntoClientArea(this.Handle);
+
+            // Double buffer the progressGridView control
+            typeof(DataGridView).InvokeMember("DoubleBuffered",
+                BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty,
+                null, progressGridView, new object[] { true });
         }
 
         public Task HideAfterFirstShow()
@@ -55,13 +62,11 @@ namespace DownloadManager
             }
 
             itemList.Clear();
-
-            nextY = 12;
+            progressGridView.Rows.Clear();
 
             foreach (DownloadProgress progress in DownloadForm.downloadsList)
             {
                 AddItem(progress);
-                nextY = nextY + 117;
             }
         }
 
@@ -88,6 +93,11 @@ namespace DownloadManager
 
         private void CurrentDownloads_Move(object sender, EventArgs e)
         {
+            if (DownloadForm._instance == null)
+            {
+                return;
+            }
+
             try
             {
                 // Middle of the form
@@ -105,6 +115,29 @@ namespace DownloadManager
             {
                 firstShown = false;
             }
+        }
+
+        private void progressGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            if (e.Exception.GetType().FullName.ToString() == "System.FormatException")
+            {
+                // Do nothing (internal winforms fault)
+                return;
+            }
+            else
+            {
+                Logging.Log($"A data error was thrown in progressGridView. This is a bug, please report at https://downloadmanager.soniczac7.rf.gd/bugReport!\n{e.Exception.Message} ({e.Exception.GetType().FullName})\n{e.Exception.StackTrace}", Color.Red);
+                if (firstShownDataError)
+                {
+                    firstShownDataError = false;
+                    MessageBox.Show($"A data error was thrown in progressGridView. This is a bug, please report at https://downloadmanager.soniczac7.rf.gd/bugReport!!\n{e.Exception.Message} ({e.Exception.GetType().FullName})\n{e.Exception.StackTrace}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            progressGridView.Refresh();
         }
     }
 }
