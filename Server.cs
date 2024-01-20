@@ -12,6 +12,7 @@ namespace DownloadManager
         public Socket httpServer;
         private int serverPort = Settings.Default.serverPort;
         public Thread thread;
+        private int failureCount = 0;
 
         public void StartServer()
         {
@@ -30,22 +31,48 @@ namespace DownloadManager
 
         private void ConnectionThreadMethod()
         {
-            httpServer = new Socket(SocketType.Stream, ProtocolType.Tcp);
-            IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, serverPort);
-            httpServer.Bind(endPoint);
-            httpServer.Listen(1);
-            ListenForConnections();
+            try
+            {
+                httpServer = new Socket(SocketType.Stream, ProtocolType.Tcp);
+                IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, serverPort);
+                httpServer.Bind(endPoint);
+                httpServer.Listen(1);
+                ListenForConnections();
+            }
+            catch (Exception ex)
+            {
+                Log("Error while starting internal server:" + Environment.NewLine + ex.Message + ex.StackTrace, Color.Red);
+            }
         }
 
         private void ListenForConnections()
         {
             while (true)
             {
+                if (failureCount >= Settings.Default.maxServerFailureCount)
+                {
+                    Log("The internal server has failed to start, some functionality of Download Manager may be limited.", Color.Orange);
+                    DarkMessageBox msg = new DarkMessageBox("Download Manager encountered an error while attempting to start the internal server multiple times and has stopped attempting to prevent unexpected behavior.\nSome functionality may not be available such as browser integration.\nPlease check your firewall and ports settings.\nFor more information, check the debug logs.", "Download Manager Internal Server Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    msg.ShowDialog();
+                    break;
+                }
+
                 string data = "";
                 byte[] bytes = new byte[2048];
+                Socket? client = null;
 
-                Log("Internal server ready. Listening for connections on port " + serverPort + ".", Color.Green);
-                Socket client = httpServer.Accept();
+                try
+                {
+                    Log("Internal server ready. Listening for connections on port " + serverPort + ".", Color.Green);
+                    client = httpServer.Accept();
+
+                }
+                catch (Exception ex)
+                {
+                    Log("Error while starting internal server:" + Environment.NewLine + ex.Message + ex.StackTrace, Color.Red);
+                    failureCount++;
+                    continue;
+                }
 
                 Log("Reading inbound connection data.", Color.Gray);
 
@@ -136,13 +163,28 @@ namespace DownloadManager
                     Log("Received empty request. Ignoring...", Color.Orange);
                     continue;
                 }
+
+                // TOOD: Temp debug logging
+                Log("--- Start Request ---", Color.White);
+                Log(data, Color.White);
+                Log("--- End Request ---", Color.White);
+
                 string url = splittedData[0].ToString().Replace("%22 HTTP/1.1", "");
 
-                if (url.StartsWith("GET /?url=%22"))
+                Log(url, Color.White);
+
+                if (url.EndsWith(" HTTP/1.1"))
                 {
-                    if (url.EndsWith("?ytdownload=True"))
+                    url = url.Remove(url.Length - 9, 9);
+                }
+
+                Log(url, Color.White);
+
+                if (url.StartsWith("GET /?url=%22") || url.StartsWith("GET /?url="))
+                {
+                    if (url.Contains("&ytdownload=True"))
                     {
-                        url = url.Replace("GET /?url=%22", "").Replace("?ytdownload=True", "");
+                        url = url.Replace("GET /?url=%22", "").Replace("GET /?url=", "").Replace("&ytdownload=True", "");
 
                         if (!url.Contains("favicon.ico"))
                         {
@@ -180,7 +222,7 @@ namespace DownloadManager
                                 }
                                 DownloadProgress downloadProgress = new DownloadProgress(url, Settings.Default.defaultDownload, DownloadType.Normal, null, "", 0);
                                 downloadProgress.Show();
-                          
+
                                 DownloadForm.downloadsList.Add(downloadProgress);
                                 DownloadForm.currentDownloads.RefreshList();
                                 //Log("--- Start Request ---", Color.White);
