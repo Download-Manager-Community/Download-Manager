@@ -14,7 +14,6 @@ namespace DownloadManager.Controls
 {
     public class DataGridViewProgressCell : DataGridViewImageCell
     {
-        internal System.Windows.Forms.Timer marqueeTimer = new System.Windows.Forms.Timer();
         internal Rectangle progressBarBounds = Rectangle.Empty;
         internal int marqueePosition = 0;
 
@@ -22,11 +21,7 @@ namespace DownloadManager.Controls
         {
             try
             {
-                this.Tag = 10;
-                // Create a timer to update the marquee position
-                marqueeTimer.Interval = 30;
-                marqueeTimer.Tick += MarqueeTimer_Tick;
-                //marqueeTimer.Start();
+                this.Tag = -1;
             }
             catch (Exception ex)
             {
@@ -39,35 +34,6 @@ namespace DownloadManager.Controls
                     Console.WriteLine($"[DataViewProgressColumnControl] {ex.Message} ({ex.GetType().FullName})\n{ex.StackTrace}");
                 }
             }
-        }
-
-        private void MarqueeTimer_Tick(object sender, EventArgs e)
-        {
-            /*try
-            {
-                if (System.ComponentModel.LicenseManager.UsageMode != System.ComponentModel.LicenseUsageMode.Designtime)
-                {
-                    if (progressBarBounds.Width != 0)
-                    {
-                        // Update the marquee position
-                        marqueePosition = (marqueePosition + 5) % (progressBarBounds.Width + progressBarBounds.Width / 3);
-
-                        // Redraw the control
-                        //this.DataGridView.Refresh();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                if (System.ComponentModel.LicenseManager.UsageMode != System.ComponentModel.LicenseUsageMode.Designtime)
-                {
-                    Logging.Log($"[DataViewProgressColumnControl] {ex.Message} ({ex.GetType().FullName})\n{ex.StackTrace}", Color.Red);
-                }
-                else
-                {
-                    Console.WriteLine($"[DataViewProgressColumnControl] {ex.Message} ({ex.GetType().FullName})\n{ex.StackTrace}");
-                }
-            }*/
         }
 
         // Override Paint method
@@ -83,9 +49,6 @@ namespace DownloadManager.Controls
                         {
                             // Update the marquee position
                             marqueePosition = (marqueePosition + 5) % (progressBarBounds.Width + progressBarBounds.Width / 3);
-
-                            // Redraw the control
-                            //this.DataGridView.Refresh();
                         }
                     }
                 }
@@ -114,8 +77,7 @@ namespace DownloadManager.Controls
                 if (progressVal >= 0)
                 {
                     // Draw the progress bar and the text
-                    int width = (int)(cellBounds.Width * ((int)Tag / 100));
-                    g.FillRectangle(Brushes.Blue, cellBounds.X, cellBounds.Y, width, cellBounds.Height);
+                    g.FillRectangle(new SolidBrush(Color.FromArgb(0, 0, 255)), cellBounds.X, cellBounds.Y + 2, Convert.ToInt32((percentage * cellBounds.Width - 4)), cellBounds.Height - 4);
 
                     // Draw the text
                     using (StringFormat format = new StringFormat())
@@ -129,9 +91,6 @@ namespace DownloadManager.Controls
                         // Draw the percentage text
                         g.DrawString(percent + "%", cellStyle.Font, Brushes.White, cellBounds, format);
                     }
-
-                    //g.FillRectangle(new SolidBrush(Color.FromArgb(0, 0, 255)), cellBounds.X, cellBounds.Y + 2, Convert.ToInt32((percentage * cellBounds.Width - 4)), cellBounds.Height - 4);
-                    //g.DrawString(progressVal.ToString() + "%", cellStyle.Font, foreColorBrush, cellBounds.X + (cellBounds.Width / 2) - 5, cellBounds.Y + 2);
                 }
                 else
                 {

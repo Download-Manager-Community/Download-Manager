@@ -64,6 +64,7 @@
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             progressGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            progressGridView.RowHeadersVisible = false;
             progressGridView.RowTemplate.Height = 25;
             progressGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             progressGridView.ShowCellErrors = false;

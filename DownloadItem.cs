@@ -16,12 +16,7 @@ namespace DownloadManager
         {
             this.progress = progress;
 
-            index = downloadsForm.progressGridView.Rows.Add(progress.fileName, progress.percentageDone, progress.url, "? Bytes");
-
-            if (progress.totalSize > 1)
-            {
-                downloadsForm.progressGridView.Rows[index].Cells[3].Value = progress.fileSize + " Bytes";
-            }
+            index = downloadsForm.progressGridView.Rows.Add(progress.fileName, progress.percentageDone, progress.url, "? B");
 
             timer.Tick += UpdateTimer_Tick;
             timer.Interval = 500;
@@ -48,7 +43,27 @@ namespace DownloadManager
                 }
                 else
                 {
-                    downloadsForm.progressGridView.Rows[index].Cells[3].Value = progress.fileSize + " Bytes";
+                    long bytes = progress.totalSize;
+                    long kilobytes = (progress.totalSize / 1024);
+                    long megabytes = ((progress.totalSize / 1024) / 1024);
+                    long gigabytes = (((progress.totalSize / 1024) / 1024) / 1024);
+
+                    if (gigabytes > 1)
+                    {
+                        downloadsForm.progressGridView.Rows[index].Cells[3].Value = $"{gigabytes} GB";
+                    }
+                    else if (megabytes > 1)
+                    {
+                        downloadsForm.progressGridView.Rows[index].Cells[3].Value = $"{megabytes} MB";
+                    }
+                    else if (kilobytes > 1)
+                    {
+                        downloadsForm.progressGridView.Rows[index].Cells[3].Value = $"{kilobytes} KB";
+                    }
+                    else
+                    {
+                        downloadsForm.progressGridView.Rows[index].Cells[3].Value = $"{bytes} B";
+                    }
                 }
 
                 if (progress.downloadType == DownloadProgress.DownloadType.YoutubePlaylist)
