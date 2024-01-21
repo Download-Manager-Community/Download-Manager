@@ -50,5 +50,8 @@
     <Setting Name="maxServerFailureCount" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">5</Value>
     </Setting>
+    <Setting Name="currentDownloadsSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">495, 519</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

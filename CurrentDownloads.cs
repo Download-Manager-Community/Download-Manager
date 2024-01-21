@@ -23,6 +23,15 @@ namespace DownloadManager
             DesktopWindowManager.EnableMicaIfSupported(this.Handle);
             DesktopWindowManager.ExtendFrameIntoClientArea(this.Handle);
 
+            // Resize the window based on the last saved size
+            this.Size = Settings.Default.currentDownloadsSize;
+
+            // Resize columns based on the new size
+            progressGridView.Columns[0].Width = this.Width - 287;
+
+            // Move the window to to correct location while resizing
+            CurrentDownloads_Move(new object(), new EventArgs());
+
             // Double buffer the progressGridView control
             typeof(DataGridView).InvokeMember("DoubleBuffered",
                 BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty,
@@ -142,9 +151,18 @@ namespace DownloadManager
 
         private void CurrentDownloads_Resize(object sender, EventArgs e)
         {
-            // Move the window to to correct location while resizing
+            // Resize columns based on the new size
             progressGridView.Columns[0].Width = this.Width - 287;
+
+            // Move the window to to correct location while resizing
             CurrentDownloads_Move(sender, e);
+        }
+
+        private void CurrentDownloads_ResizeEnd(object sender, EventArgs e)
+        {
+            // Save the size of the window
+            Settings.Default.currentDownloadsSize = this.Size;
+            Settings.Default.Save();
         }
     }
 }

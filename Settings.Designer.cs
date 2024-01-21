@@ -213,5 +213,17 @@ namespace DownloadManager {
                 this["maxServerFailureCount"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("495, 519")]
+        public global::System.Drawing.Size currentDownloadsSize {
+            get {
+                return ((global::System.Drawing.Size)(this["currentDownloadsSize"]));
+            }
+            set {
+                this["currentDownloadsSize"] = value;
+            }
+        }
     }
 }

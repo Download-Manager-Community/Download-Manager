@@ -130,6 +130,7 @@
             Text = "Donwload Manager | Current Downloads";
             FormClosing += CurrentDownloads_FormClosing;
             Shown += CurrentDownloads_Shown;
+            ResizeEnd += CurrentDownloads_ResizeEnd;
             Move += CurrentDownloads_Move;
             Resize += CurrentDownloads_Resize;
             ((System.ComponentModel.ISupportInitialize)progressGridView).EndInit();
