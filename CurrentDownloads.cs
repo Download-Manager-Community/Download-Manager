@@ -143,6 +143,7 @@ namespace DownloadManager
         private void CurrentDownloads_Resize(object sender, EventArgs e)
         {
             // Move the window to to correct location while resizing
+            progressGridView.Columns[0].Width = this.Width - 287;
             CurrentDownloads_Move(sender, e);
         }
     }

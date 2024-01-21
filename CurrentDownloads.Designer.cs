@@ -44,6 +44,7 @@
             // 
             progressGridView.AllowUserToAddRows = false;
             progressGridView.AllowUserToDeleteRows = false;
+            progressGridView.AllowUserToResizeColumns = false;
             progressGridView.AllowUserToResizeRows = false;
             progressGridView.BackgroundColor = Color.Black;
             progressGridView.BorderStyle = BorderStyle.None;
@@ -81,6 +82,7 @@
             FileNameColumn.Name = "FileNameColumn";
             FileNameColumn.ReadOnly = true;
             FileNameColumn.SortMode = DataGridViewColumnSortMode.Programmatic;
+            FileNameColumn.Width = 209;
             // 
             // ProgressColumn
             // 
@@ -95,6 +97,7 @@
             UrlColumn.Name = "UrlColumn";
             UrlColumn.ReadOnly = true;
             UrlColumn.SortMode = DataGridViewColumnSortMode.Programmatic;
+            UrlColumn.Width = 110;
             // 
             // SizeColumn
             // 
@@ -102,6 +105,7 @@
             SizeColumn.Name = "SizeColumn";
             SizeColumn.ReadOnly = true;
             SizeColumn.SortMode = DataGridViewColumnSortMode.Programmatic;
+            SizeColumn.Width = 60;
             // 
             // timer
             // 
@@ -121,6 +125,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;
+            MinimumSize = new Size(480, 400);
             Name = "CurrentDownloads";
             Text = "Donwload Manager | Current Downloads";
             FormClosing += CurrentDownloads_FormClosing;
@@ -136,11 +141,11 @@
         private Button refreshButton;
         private Splitter splitter1;
         public Panel panel1;
+        public DataGridView progressGridView;
+        private System.Windows.Forms.Timer timer;
         private DataGridViewTextBoxColumn FileNameColumn;
         private Controls.DataGridViewProgressColumn ProgressColumn;
         private DataGridViewLinkColumn UrlColumn;
         private DataGridViewTextBoxColumn SizeColumn;
-        public DataGridView progressGridView;
-        private System.Windows.Forms.Timer timer;
     }
 }
