@@ -71,7 +71,7 @@
             progressGridView.ShowCellToolTips = false;
             progressGridView.ShowEditingIcon = false;
             progressGridView.ShowRowErrors = false;
-            progressGridView.Size = new Size(452, 480);
+            progressGridView.Size = new Size(479, 480);
             progressGridView.TabIndex = 1;
             progressGridView.DataError += progressGridView_DataError;
             // 
@@ -114,10 +114,10 @@
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
-            ClientSize = new Size(452, 480);
+            ClientSize = new Size(479, 480);
             Controls.Add(progressGridView);
             ForeColor = Color.White;
-            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            FormBorderStyle = FormBorderStyle.SizableToolWindow;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;
@@ -126,6 +126,7 @@
             FormClosing += CurrentDownloads_FormClosing;
             Shown += CurrentDownloads_Shown;
             Move += CurrentDownloads_Move;
+            Resize += CurrentDownloads_Resize;
             ((System.ComponentModel.ISupportInitialize)progressGridView).EndInit();
             ResumeLayout(false);
         }

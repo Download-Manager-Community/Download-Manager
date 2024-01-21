@@ -139,5 +139,11 @@ namespace DownloadManager
         {
             progressGridView.Refresh();
         }
+
+        private void CurrentDownloads_Resize(object sender, EventArgs e)
+        {
+            // Move the window to to correct location while resizing
+            CurrentDownloads_Move(sender, e);
+        }
     }
 }
