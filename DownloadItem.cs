@@ -39,7 +39,7 @@ namespace DownloadManager
                 downloadsForm.progressGridView.Rows[index].Cells[2].Value = progress.url;
                 if (progress.totalSize < 1)
                 {
-                    downloadsForm.progressGridView.Rows[index].Cells[3].Value = "? Bytes";
+                    downloadsForm.progressGridView.Rows[index].Cells[3].Value = "? B";
                 }
                 else
                 {
