@@ -27,7 +27,7 @@ namespace DownloadManager
             this.Size = Settings.Default.currentDownloadsSize;
 
             // Resize columns based on the new size
-            progressGridView.Columns[0].Width = this.Width - 287;
+            progressGridView.Columns[0].Width = this.Width - 286;
 
             // Move the window to to correct location while resizing
             CurrentDownloads_Move(new object(), new EventArgs());
@@ -152,7 +152,7 @@ namespace DownloadManager
         private void CurrentDownloads_Resize(object sender, EventArgs e)
         {
             // Resize columns based on the new size
-            progressGridView.Columns[0].Width = this.Width - 287;
+            progressGridView.Columns[0].Width = this.Width - 286;
 
             // Move the window to to correct location while resizing
             CurrentDownloads_Move(sender, e);
