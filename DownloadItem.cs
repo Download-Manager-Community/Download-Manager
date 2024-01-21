@@ -35,68 +35,75 @@ namespace DownloadManager
             else
             {
                 // Update the values
-                downloadsForm.progressGridView.Rows[index].Cells[0].Value = progress.fileName;
-                downloadsForm.progressGridView.Rows[index].Cells[2].Value = progress.url;
-                if (progress.totalSize < 1)
+                try
                 {
-                    downloadsForm.progressGridView.Rows[index].Cells[3].Value = "? B";
-                }
-                else
-                {
-                    long bytes = progress.totalSize;
-                    long kilobytes = (progress.totalSize / 1024);
-                    long megabytes = ((progress.totalSize / 1024) / 1024);
-                    long gigabytes = (((progress.totalSize / 1024) / 1024) / 1024);
-
-                    if (gigabytes > 1)
+                    downloadsForm.progressGridView.Rows[index].Cells[0].Value = progress.fileName;
+                    downloadsForm.progressGridView.Rows[index].Cells[2].Value = progress.url;
+                    if (progress.totalSize < 1)
                     {
-                        downloadsForm.progressGridView.Rows[index].Cells[3].Value = $"{gigabytes} GB";
-                    }
-                    else if (megabytes > 1)
-                    {
-                        downloadsForm.progressGridView.Rows[index].Cells[3].Value = $"{megabytes} MB";
-                    }
-                    else if (kilobytes > 1)
-                    {
-                        downloadsForm.progressGridView.Rows[index].Cells[3].Value = $"{kilobytes} KB";
+                        downloadsForm.progressGridView.Rows[index].Cells[3].Value = "? B";
                     }
                     else
                     {
-                        downloadsForm.progressGridView.Rows[index].Cells[3].Value = $"{bytes} B";
-                    }
-                }
+                        long bytes = progress.totalSize;
+                        long kilobytes = (progress.totalSize / 1024);
+                        long megabytes = ((progress.totalSize / 1024) / 1024);
+                        long gigabytes = (((progress.totalSize / 1024) / 1024) / 1024);
 
-                if (progress.downloadType == DownloadProgress.DownloadType.YoutubePlaylist)
-                {
-                    // Update the progressBar
-                    downloadsForm.progressGridView.Rows[index].Cells[1].Value = (int)progress.progressLabel.Text.Replace("%", "").ToDouble();
-                }
-                else if (progress.downloadType == DownloadProgress.DownloadType.YoutubeVideo)
-                {
-                    downloadsForm.progressGridView.Rows[index].Cells[1].Tag = -1;
-                }
-                else
-                {
-                    // Update the progress bar
-                    if ((int)progress.percentageDone > 100)
-                    {
-                        Logging.Log("DownloadItem Progress is greater than 100%! The item has been removed to prevent a crash!", Color.Orange);
-                        Dispose();
+                        if (gigabytes > 1)
+                        {
+                            downloadsForm.progressGridView.Rows[index].Cells[3].Value = $"{gigabytes} GB";
+                        }
+                        else if (megabytes > 1)
+                        {
+                            downloadsForm.progressGridView.Rows[index].Cells[3].Value = $"{megabytes} MB";
+                        }
+                        else if (kilobytes > 1)
+                        {
+                            downloadsForm.progressGridView.Rows[index].Cells[3].Value = $"{kilobytes} KB";
+                        }
+                        else
+                        {
+                            downloadsForm.progressGridView.Rows[index].Cells[3].Value = $"{bytes} B";
+                        }
                     }
 
-                    if (progress.totalSize < 1)
+                    if (progress.downloadType == DownloadProgress.DownloadType.YoutubePlaylist)
                     {
-                        // If the total size is less than 1, then we cannot report progress
-                        // Update the progress bar
+                        // Update the progressBar
+                        downloadsForm.progressGridView.Rows[index].Cells[1].Value = (int)progress.progressLabel.Text.Replace("%", "").ToDouble();
+                    }
+                    else if (progress.downloadType == DownloadProgress.DownloadType.YoutubeVideo)
+                    {
                         downloadsForm.progressGridView.Rows[index].Cells[1].Tag = -1;
                     }
                     else
                     {
                         // Update the progress bar
-                        downloadsForm.progressGridView.Rows[index].Cells[1].Tag = (int)progress.progressLabel.Text.Replace("%", "").ToDouble();
-                    }
+                        if ((int)progress.percentageDone > 100)
+                        {
+                            Logging.Log("DownloadItem Progress is greater than 100%! The item has been removed to prevent a crash!", Color.Orange);
+                            Dispose();
+                        }
 
-                    //Logging.Log(((int)progress.progressLabel.Text.Replace("%", "").ToDouble()).ToString(), Color.Gray);
+                        if (progress.totalSize < 1)
+                        {
+                            // If the total size is less than 1, then we cannot report progress
+                            // Update the progress bar
+                            downloadsForm.progressGridView.Rows[index].Cells[1].Tag = -1;
+                        }
+                        else
+                        {
+                            // Update the progress bar
+                            downloadsForm.progressGridView.Rows[index].Cells[1].Tag = (int)progress.progressLabel.Text.Replace("%", "").ToDouble();
+                        }
+
+                        //Logging.Log(((int)progress.progressLabel.Text.Replace("%", "").ToDouble()).ToString(), Color.Gray);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logging.Log($"{ex.Message} ({ex.GetType().FullName})\n{ex.StackTrace}", Color.Red);
                 }
             }
         }
@@ -104,7 +111,14 @@ namespace DownloadManager
         public void Dispose()
         {
             downloadsForm.itemList.Remove(this);
-            downloadsForm.progressGridView.Rows.RemoveAt(index);
+            try
+            {
+                downloadsForm.progressGridView.Rows.RemoveAt(index);
+            }
+            catch (Exception ex)
+            {
+                Logging.Log($"{ex.Message} ({ex.GetType().FullName})\n{ex.StackTrace}", Color.Red);
+            }
 
             timer.Stop();
             timer.Dispose();
