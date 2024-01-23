@@ -30,6 +30,30 @@ namespace DownloadManager
                 Logging.Log("Download History is null. Performing first time setup.", Color.Orange);
                 Settings.Default.downloadHistory = new System.Collections.Specialized.StringCollection { };
             }
+
+            if (Settings.Default.currentDownloadsHiddenColumns == null)
+            {
+                Logging.Log("Current Downloads hidden columns is null. Performing first time setuo", Color.Orange);
+                Settings.Default.currentDownloadsHiddenColumns = new System.Collections.Specialized.StringCollection
+                {
+                    // Default hidden column ids go here
+                };
+            }
+
+            if (Settings.Default.currentDownloadsShownColumns == null)
+            {
+                Logging.Log("Current Downloads shown columns is null. Performing first time setuo", Color.Orange);
+                Settings.Default.currentDownloadsShownColumns = new System.Collections.Specialized.StringCollection
+                {
+                    // Default shown column ids go here
+                    "0",
+                    "1",
+                    "2",
+                    "3"
+                };
+            }
+
+            Settings.Default.Save();
             InitializeComponent();
 
             DesktopWindowManager.SetImmersiveDarkMode(this.Handle, true);

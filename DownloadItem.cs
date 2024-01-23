@@ -7,7 +7,7 @@ namespace DownloadManager
     {
         CurrentDownloads downloadsForm = CurrentDownloads._instance;
         Timer timer = new Timer();
-        DownloadProgress progress;
+        public DownloadProgress progress;
         int index = 0;
         bool isYtDownload = false;
         bool contentLengthIssue = false;

@@ -37,7 +37,15 @@
             UrlColumn = new DataGridViewLinkColumn();
             SizeColumn = new DataGridViewTextBoxColumn();
             timer = new System.Windows.Forms.Timer(components);
+            menuStrip1 = new MenuStrip();
+            columnsToolStripMenuItem = new ToolStripMenuItem();
+            selectColumnsToolStripMenuItem = new ToolStripMenuItem();
+            actionsToolStripMenuItem = new ToolStripMenuItem();
+            showSelectedDownloadToolStripMenuItem = new ToolStripMenuItem();
+            hideSelectedDownloadWindowToolStripMenuItem = new ToolStripMenuItem();
+            cancelSelectedDownloadToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)progressGridView).BeginInit();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // progressGridView
@@ -54,7 +62,8 @@
             progressGridView.Dock = DockStyle.Fill;
             progressGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
             progressGridView.GridColor = Color.Gray;
-            progressGridView.Location = new Point(0, 0);
+            progressGridView.Location = new Point(0, 24);
+            progressGridView.MultiSelect = false;
             progressGridView.Name = "progressGridView";
             progressGridView.ReadOnly = true;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -72,8 +81,9 @@
             progressGridView.ShowCellToolTips = false;
             progressGridView.ShowEditingIcon = false;
             progressGridView.ShowRowErrors = false;
-            progressGridView.Size = new Size(479, 480);
+            progressGridView.Size = new Size(479, 456);
             progressGridView.TabIndex = 1;
+            progressGridView.CellContentClick += progressGridView_CellContentClick;
             progressGridView.DataError += progressGridView_DataError;
             // 
             // FileNameColumn
@@ -113,6 +123,58 @@
             timer.Interval = 200;
             timer.Tick += timer_Tick;
             // 
+            // menuStrip1
+            // 
+            menuStrip1.Items.AddRange(new ToolStripItem[] { columnsToolStripMenuItem, actionsToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.RenderMode = ToolStripRenderMode.System;
+            menuStrip1.Size = new Size(479, 24);
+            menuStrip1.TabIndex = 2;
+            menuStrip1.Text = "menuStrip";
+            // 
+            // columnsToolStripMenuItem
+            // 
+            columnsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { selectColumnsToolStripMenuItem });
+            columnsToolStripMenuItem.Name = "columnsToolStripMenuItem";
+            columnsToolStripMenuItem.Size = new Size(67, 20);
+            columnsToolStripMenuItem.Text = "Columns";
+            // 
+            // selectColumnsToolStripMenuItem
+            // 
+            selectColumnsToolStripMenuItem.Name = "selectColumnsToolStripMenuItem";
+            selectColumnsToolStripMenuItem.Size = new Size(197, 22);
+            selectColumnsToolStripMenuItem.Text = "Add/Remove Columns";
+            selectColumnsToolStripMenuItem.Click += selectColumnsToolStripMenuItem_Click;
+            // 
+            // actionsToolStripMenuItem
+            // 
+            actionsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showSelectedDownloadToolStripMenuItem, hideSelectedDownloadWindowToolStripMenuItem, cancelSelectedDownloadToolStripMenuItem });
+            actionsToolStripMenuItem.Name = "actionsToolStripMenuItem";
+            actionsToolStripMenuItem.Size = new Size(59, 20);
+            actionsToolStripMenuItem.Text = "Actions";
+            // 
+            // showSelectedDownloadToolStripMenuItem
+            // 
+            showSelectedDownloadToolStripMenuItem.Name = "showSelectedDownloadToolStripMenuItem";
+            showSelectedDownloadToolStripMenuItem.Size = new Size(260, 22);
+            showSelectedDownloadToolStripMenuItem.Text = "Show Selected Download Window";
+            showSelectedDownloadToolStripMenuItem.Click += showSelectedDownloadToolStripMenuItem_Click;
+            // 
+            // hideSelectedDownloadWindowToolStripMenuItem
+            // 
+            hideSelectedDownloadWindowToolStripMenuItem.Name = "hideSelectedDownloadWindowToolStripMenuItem";
+            hideSelectedDownloadWindowToolStripMenuItem.Size = new Size(260, 22);
+            hideSelectedDownloadWindowToolStripMenuItem.Text = "Hide Selected Download Window";
+            hideSelectedDownloadWindowToolStripMenuItem.Click += hideSelectedDownloadWindowToolStripMenuItem_Click;
+            // 
+            // cancelSelectedDownloadToolStripMenuItem
+            // 
+            cancelSelectedDownloadToolStripMenuItem.Name = "cancelSelectedDownloadToolStripMenuItem";
+            cancelSelectedDownloadToolStripMenuItem.Size = new Size(260, 22);
+            cancelSelectedDownloadToolStripMenuItem.Text = "Cancel Selected Download";
+            cancelSelectedDownloadToolStripMenuItem.Click += cancelSelectedDownloadToolStripMenuItem_Click;
+            // 
             // CurrentDownloads
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
@@ -120,21 +182,27 @@
             BackColor = Color.Black;
             ClientSize = new Size(479, 480);
             Controls.Add(progressGridView);
+            Controls.Add(menuStrip1);
             ForeColor = Color.White;
             FormBorderStyle = FormBorderStyle.SizableToolWindow;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MainMenuStrip = menuStrip1;
             MaximizeBox = false;
             MinimizeBox = false;
-            MinimumSize = new Size(480, 400);
+            MinimumSize = new Size(495, 400);
             Name = "CurrentDownloads";
             Text = "Donwload Manager | Current Downloads";
             FormClosing += CurrentDownloads_FormClosing;
+            Load += CurrentDownloads_Load;
             Shown += CurrentDownloads_Shown;
             ResizeEnd += CurrentDownloads_ResizeEnd;
             Move += CurrentDownloads_Move;
             Resize += CurrentDownloads_Resize;
             ((System.ComponentModel.ISupportInitialize)progressGridView).EndInit();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -144,6 +212,13 @@
         public Panel panel1;
         public DataGridView progressGridView;
         private System.Windows.Forms.Timer timer;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem columnsToolStripMenuItem;
+        private ToolStripMenuItem selectColumnsToolStripMenuItem;
+        private ToolStripMenuItem actionsToolStripMenuItem;
+        private ToolStripMenuItem showSelectedDownloadToolStripMenuItem;
+        private ToolStripMenuItem hideSelectedDownloadWindowToolStripMenuItem;
+        private ToolStripMenuItem cancelSelectedDownloadToolStripMenuItem;
         private DataGridViewTextBoxColumn FileNameColumn;
         private Controls.DataGridViewProgressColumn ProgressColumn;
         private DataGridViewLinkColumn UrlColumn;

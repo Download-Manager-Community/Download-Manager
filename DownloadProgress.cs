@@ -110,6 +110,21 @@ namespace DownloadManager
             url = urlArg;
         }
 
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_SYSCOMMAND = 0x0112;
+            const int SC_MINIMIZE = 0xF020;
+
+            if (m.Msg == WM_SYSCOMMAND && (int)m.WParam == SC_MINIMIZE)
+            {
+                this.Hide(); // Hide the form
+                return; // Don't continue with the default processing
+            }
+
+            base.WndProc(ref m);
+        }
+
+
         private void progress_Load(object sender, EventArgs e)
         {
             Log("Preparing to start downloading...", Color.White);
@@ -2585,7 +2600,7 @@ namespace DownloadManager
             }
         }
 
-        private void cancelButton_Click(object sender, EventArgs e)
+        public void cancelButton_Click(object sender, EventArgs e)
         {
             // Close
             if (!downloading)

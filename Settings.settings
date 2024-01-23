@@ -53,5 +53,11 @@
     <Setting Name="currentDownloadsSize" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">495, 519</Value>
     </Setting>
+    <Setting Name="currentDownloadsHiddenColumns" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="currentDownloadsShownColumns" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>
