@@ -76,6 +76,7 @@
             progressGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
             progressGridView.RowHeadersVisible = false;
             progressGridView.RowTemplate.Height = 25;
+            progressGridView.ScrollBars = ScrollBars.None;
             progressGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             progressGridView.ShowCellErrors = false;
             progressGridView.ShowCellToolTips = false;
