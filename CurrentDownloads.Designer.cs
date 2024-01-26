@@ -35,6 +35,7 @@
             FileNameColumn = new DataGridViewTextBoxColumn();
             ProgressColumn = new Controls.DataGridViewProgressColumn();
             UrlColumn = new DataGridViewLinkColumn();
+            TotalReceived = new DataGridViewTextBoxColumn();
             SizeColumn = new DataGridViewTextBoxColumn();
             timer = new System.Windows.Forms.Timer(components);
             menuStrip1 = new MenuStrip();
@@ -58,7 +59,7 @@
             progressGridView.BorderStyle = BorderStyle.None;
             progressGridView.CellBorderStyle = DataGridViewCellBorderStyle.Sunken;
             progressGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            progressGridView.Columns.AddRange(new DataGridViewColumn[] { FileNameColumn, ProgressColumn, UrlColumn, SizeColumn });
+            progressGridView.Columns.AddRange(new DataGridViewColumn[] { FileNameColumn, ProgressColumn, UrlColumn, TotalReceived, SizeColumn });
             progressGridView.Dock = DockStyle.Fill;
             progressGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
             progressGridView.GridColor = Color.Gray;
@@ -76,7 +77,7 @@
             progressGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
             progressGridView.RowHeadersVisible = false;
             progressGridView.RowTemplate.Height = 25;
-            progressGridView.ScrollBars = ScrollBars.None;
+            progressGridView.ScrollBars = ScrollBars.Vertical;
             progressGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             progressGridView.ShowCellErrors = false;
             progressGridView.ShowCellToolTips = false;
@@ -84,7 +85,6 @@
             progressGridView.ShowRowErrors = false;
             progressGridView.Size = new Size(479, 456);
             progressGridView.TabIndex = 1;
-            progressGridView.CellContentClick += progressGridView_CellContentClick;
             progressGridView.DataError += progressGridView_DataError;
             // 
             // FileNameColumn
@@ -109,6 +109,13 @@
             UrlColumn.ReadOnly = true;
             UrlColumn.SortMode = DataGridViewColumnSortMode.Programmatic;
             UrlColumn.Width = 110;
+            // 
+            // TotalReceived
+            // 
+            TotalReceived.HeaderText = "Received";
+            TotalReceived.Name = "TotalReceived";
+            TotalReceived.ReadOnly = true;
+            TotalReceived.Width = 60;
             // 
             // SizeColumn
             // 
@@ -223,6 +230,7 @@
         private DataGridViewTextBoxColumn FileNameColumn;
         private Controls.DataGridViewProgressColumn ProgressColumn;
         private DataGridViewLinkColumn UrlColumn;
+        private DataGridViewTextBoxColumn TotalReceived;
         private DataGridViewTextBoxColumn SizeColumn;
     }
 }

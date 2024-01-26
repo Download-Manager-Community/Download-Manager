@@ -13,6 +13,7 @@ namespace DownloadManager
 
         public static bool firstShown = true;
         public static bool firstShownDataError = true;
+        public static bool triedRefresh = false;
         public int columnsSize = 0;
 
         public CurrentDownloads()
@@ -114,10 +115,9 @@ namespace DownloadManager
             fileName = 0,
             progress = 1,
             url = 2,
-            size = 3,
-            speed = 4,
-            receivedBytes = 5,
-            totalBytes = 6
+            received = 3,
+            size = 4,
+            speed = 5
         }
 
         public Task HideAfterFirstShow()
@@ -251,26 +251,32 @@ namespace DownloadManager
             Settings.Default.Save();
         }
 
-        private void progressGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // Check if the cell was a button
-            if (e.ColumnIndex == 4)
-            {
-                // Show the related form
-                itemList[e.RowIndex].progress.Show();
-            }
-            else
-            {
-                // Ignore
-                return;
-            }
-        }
-
         private void showSelectedDownloadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Show selected row associated download window
             if (progressGridView.SelectedRows.Count != 0)
-                itemList[progressGridView.SelectedRows[0].Index].progress.Show();
+                try
+                {
+                    itemList[progressGridView.SelectedRows[0].Index].progress.Show();
+                    triedRefresh = false;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    if (triedRefresh)
+                    {
+                        // Item is invalid
+                        Logging.Log($"Item in position ({progressGridView.SelectedRows[0].Index}) is invalid and will be removed.", Color.Orange);
+                        progressGridView.Rows.RemoveAt(progressGridView.SelectedRows[0].Index);
+                        return;
+                    }
+
+                    // Refresh the list and try again (a item may have finished and made the index out of range)
+                    RefreshList();
+                    triedRefresh = true;
+
+                    // Try again
+                    showSelectedDownloadToolStripMenuItem_Click(sender, e);
+                }
             else
                 new DarkMessageBox("There are no selected items!", "Download Manager", MessageBoxButtons.OK, MessageBoxIcon.Warning).ShowDialog();
         }
@@ -279,7 +285,28 @@ namespace DownloadManager
         {
             // Hide selected row associated download window
             if (progressGridView.SelectedRows.Count != 0)
-                itemList[progressGridView.SelectedRows[0].Index].progress.Hide();
+                try
+                {
+                    itemList[progressGridView.SelectedRows[0].Index].progress.Hide();
+                    triedRefresh = false;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    if (triedRefresh)
+                    {
+                        // Item is invalid
+                        Logging.Log($"Item in position ({progressGridView.SelectedRows[0].Index}) is invalid and will be removed.", Color.Orange);
+                        progressGridView.Rows.RemoveAt(progressGridView.SelectedRows[0].Index);
+                        return;
+                    }
+
+                    // Refresh the list and try again (a item may have finished and made the index out of range)
+                    RefreshList();
+                    triedRefresh = true;
+
+                    // Try again
+                    hideSelectedDownloadWindowToolStripMenuItem_Click(sender, e);
+                }
             else
                 new DarkMessageBox("There are no selected items!", "Download Manager", MessageBoxButtons.OK, MessageBoxIcon.Warning).ShowDialog();
         }
@@ -288,7 +315,30 @@ namespace DownloadManager
         {
             // Cancel the selected download
             if (progressGridView.SelectedRows.Count != 0)
-                itemList[progressGridView.SelectedRows[0].Index].progress.cancelButton_Click(this, new EventArgs());
+            {
+                try
+                {
+                    itemList[progressGridView.SelectedRows[0].Index].progress.cancelButton_Click(this, new EventArgs());
+                    triedRefresh = false;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    if (triedRefresh)
+                    {
+                        // Item is invalid
+                        Logging.Log($"Item in position ({progressGridView.SelectedRows[0].Index}) is invalid and will be removed.", Color.Orange);
+                        progressGridView.Rows.RemoveAt(progressGridView.SelectedRows[0].Index);
+                        return;
+                    }
+
+                    // Refresh the list and try again (a item may have finished and made the index out of range)
+                    RefreshList();
+                    triedRefresh = true;
+
+                    // Try again
+                    cancelSelectedDownloadToolStripMenuItem_Click(sender, e);
+                }
+            }
             else
                 new DarkMessageBox("There are no selected items!", "Download Manager", MessageBoxButtons.OK, MessageBoxIcon.Warning).ShowDialog();
         }

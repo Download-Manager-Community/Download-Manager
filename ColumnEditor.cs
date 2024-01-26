@@ -32,6 +32,9 @@ namespace DownloadManager
                         showList.Items.Add("URL");
                         break;
                     case "3":
+                        showList.Items.Add("Received");
+                        break;
+                    case "4":
                         showList.Items.Add("Size");
                         break;
                     default:
@@ -66,6 +69,9 @@ namespace DownloadManager
                         hideList.Items.Add("URL");
                         break;
                     case "3":
+                        hideList.Items.Add("Received");
+                        break;
+                    case "4":
                         hideList.Items.Add("Size");
                         break;
                     default:
@@ -99,6 +105,10 @@ namespace DownloadManager
                         shownColumns.Add(Column.url);
                         Settings.Default.currentDownloadsShownColumns.Add(((int)Column.url).ToString());
                         break;
+                    case "Received":
+                        shownColumns.Add(Column.received);
+                        Settings.Default.currentDownloadsShownColumns.Add(((int)Column.received).ToString());
+                        break;
                     case "Size":
                         shownColumns.Add(Column.size);
                         Settings.Default.currentDownloadsShownColumns.Add(((int)Column.size).ToString());
@@ -128,6 +138,10 @@ namespace DownloadManager
                     case "URL":
                         hiddenColumns.Add(Column.url);
                         Settings.Default.currentDownloadsHiddenColumns.Add(((int)Column.url).ToString());
+                        break;
+                    case "Received":
+                        hiddenColumns.Add(Column.received);
+                        Settings.Default.currentDownloadsHiddenColumns.Add(((int)Column.received).ToString());
                         break;
                     case "Size":
                         hiddenColumns.Add(Column.size);
@@ -170,6 +184,85 @@ namespace DownloadManager
 
             hideList.Items.Add(showList.Items[showList.SelectedIndex]);
             showList.Items.RemoveAt(showList.SelectedIndex);
+        }
+
+        private void resetButton_Click(object sender, EventArgs e)
+        {
+            DialogResult result = new DarkMessageBox("Are you sure you want to reset your column preferences?\nThis should only be used if new columns added in an update are not showing or you are experiencing issues with hiding/showing columns.", "Reset Column Preferences?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, false).ShowDialog();
+            if (result == DialogResult.Yes)
+            {
+                DownloadForm._instance.SetupColumnPrefs();
+
+                showList.Items.Clear();
+                hideList.Items.Clear();
+
+                foreach (string item in Settings.Default.currentDownloadsShownColumns)
+                {
+                    Application.DoEvents();
+                    switch (item)
+                    {
+                        case "0":
+                            showList.Items.Add("File Name");
+                            break;
+                        case "1":
+                            showList.Items.Add("Progress");
+                            break;
+                        case "2":
+                            showList.Items.Add("URL");
+                            break;
+                        case "3":
+                            showList.Items.Add("Received");
+                            break;
+                        case "4":
+                            showList.Items.Add("Size");
+                            break;
+                        default:
+                            // Invalid column
+                            Logging.Log("Found invalid column while creating list of shown columns!", Color.Red);
+                            showList.Items.Add("<unknown>");
+                            break;
+                    }
+                }
+
+                foreach (string item in Settings.Default.currentDownloadsHiddenColumns)
+                {
+                    Application.DoEvents();
+
+                    if (Settings.Default.currentDownloadsShownColumns.Contains(item))
+                    {
+                        Logging.Log("Duplicate column found in shown columns while making list of hidden columns. The item will be removed.", Color.Orange);
+                        Settings.Default.currentDownloadsHiddenColumns.Remove(item);
+                        Settings.Default.Save();
+                        break;
+                    }
+
+                    switch (item)
+                    {
+                        case "0":
+                            hideList.Items.Add("File Name");
+                            break;
+                        case "1":
+                            hideList.Items.Add("Progress");
+                            break;
+                        case "2":
+                            hideList.Items.Add("URL");
+                            break;
+                        case "3":
+                            hideList.Items.Add("Received");
+                            break;
+                        case "4":
+                            hideList.Items.Add("Size");
+                            break;
+                        default:
+                            // Invalid column
+                            Logging.Log("Found invalid column while creating list of shown columns!", Color.Red);
+                            hideList.Items.Add("<unknown>");
+                            break;
+                    }
+                }
+
+                downloads.HideColumns(new List<Column> { Column.received }, new List<Column> { Column.fileName, Column.progress, Column.size, Column.url });
+            }
         }
     }
 }

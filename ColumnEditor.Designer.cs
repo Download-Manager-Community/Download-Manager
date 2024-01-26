@@ -37,13 +37,14 @@
             showButton = new Button();
             hideButton = new Button();
             doneButton = new Button();
+            resetButton = new Button();
             SuspendLayout();
             // 
             // descLabel
             // 
             descLabel.Location = new Point(12, 9);
             descLabel.Name = "descLabel";
-            descLabel.Size = new Size(540, 55);
+            descLabel.Size = new Size(436, 55);
             descLabel.TabIndex = 0;
             descLabel.Text = "Use this dialogue to select all colunms to show or hide.\r\nTo show columns move them to the 'Show' side.\r\nTo hide columns move them to the 'Hide' side.";
             // 
@@ -128,11 +129,27 @@
             doneButton.UseVisualStyleBackColor = false;
             doneButton.Click += doneButton_Click;
             // 
+            // resetButton
+            // 
+            resetButton.BackColor = Color.Black;
+            resetButton.FlatAppearance.MouseDownBackColor = Color.Gray;
+            resetButton.FlatStyle = FlatStyle.Flat;
+            resetButton.ForeColor = Color.White;
+            resetButton.Location = new Point(464, 12);
+            resetButton.Margin = new Padding(4, 3, 4, 3);
+            resetButton.Name = "resetButton";
+            resetButton.Size = new Size(88, 29);
+            resetButton.TabIndex = 8;
+            resetButton.Text = "Reset";
+            resetButton.UseVisualStyleBackColor = false;
+            resetButton.Click += resetButton_Click;
+            // 
             // ColumnEditor
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(565, 361);
+            Controls.Add(resetButton);
             Controls.Add(doneButton);
             Controls.Add(hideButton);
             Controls.Add(showButton);
@@ -161,5 +178,6 @@
         private Button showButton;
         private Button hideButton;
         private Button doneButton;
+        private Button resetButton;
     }
 }

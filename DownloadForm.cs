@@ -31,26 +31,10 @@ namespace DownloadManager
                 Settings.Default.downloadHistory = new System.Collections.Specialized.StringCollection { };
             }
 
-            if (Settings.Default.currentDownloadsHiddenColumns == null)
+            if (Settings.Default.currentDownloadsHiddenColumns == null || Settings.Default.currentDownloadsShownColumns == null)
             {
-                Logging.Log("Current Downloads hidden columns is null. Performing first time setuo", Color.Orange);
-                Settings.Default.currentDownloadsHiddenColumns = new System.Collections.Specialized.StringCollection
-                {
-                    // Default hidden column ids go here
-                };
-            }
-
-            if (Settings.Default.currentDownloadsShownColumns == null)
-            {
-                Logging.Log("Current Downloads shown columns is null. Performing first time setuo", Color.Orange);
-                Settings.Default.currentDownloadsShownColumns = new System.Collections.Specialized.StringCollection
-                {
-                    // Default shown column ids go here
-                    "0",
-                    "1",
-                    "2",
-                    "3"
-                };
+                Logging.Log("One or more current downloads column settings are null. Performing first time setuo", Color.Orange);
+                SetupColumnPrefs();
             }
 
             Settings.Default.Save();
@@ -80,6 +64,25 @@ namespace DownloadManager
                     Process.Start(new ProcessStartInfo("https://github.com/Download-Manager-Community/Download-Manager/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml") { UseShellExecute = true });
                 }
             }
+        }
+
+        public void SetupColumnPrefs()
+        {
+            Settings.Default.currentDownloadsHiddenColumns = new System.Collections.Specialized.StringCollection
+                {
+                    // Default hidden column ids go here
+                    "3"
+                };
+            Settings.Default.currentDownloadsShownColumns = new System.Collections.Specialized.StringCollection
+                {
+                    // Default shown column ids go here
+                    "0",
+                    "1",
+                    "2",
+                    "4"
+                };
+            Settings.Default.Save();
+            Logging.Log("Column Preferences Reset!", Color.Orange);
         }
 
         private async void DownloadForm_Shown(object sender, EventArgs e)
