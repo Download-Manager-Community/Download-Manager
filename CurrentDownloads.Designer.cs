@@ -28,211 +28,217 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CurrentDownloads));
-            groupBox1 = new GroupBox();
-            progressBar1 = new ProgressBar();
-            label8 = new Label();
-            label7 = new Label();
-            label6 = new Label();
-            label5 = new Label();
-            label4 = new Label();
-            label3 = new Label();
-            label2 = new Label();
-            label1 = new Label();
-            panel1 = new Panel();
-            panel2 = new Panel();
-            splitter1 = new Splitter();
-            refreshButton = new Button();
-            groupBox1.SuspendLayout();
-            panel1.SuspendLayout();
-            panel2.SuspendLayout();
+            progressGridView = new DataGridView();
+            timer = new System.Windows.Forms.Timer(components);
+            menuStrip1 = new MenuStrip();
+            columnsToolStripMenuItem = new ToolStripMenuItem();
+            selectColumnsToolStripMenuItem = new ToolStripMenuItem();
+            actionsToolStripMenuItem = new ToolStripMenuItem();
+            showSelectedDownloadToolStripMenuItem = new ToolStripMenuItem();
+            hideSelectedDownloadWindowToolStripMenuItem = new ToolStripMenuItem();
+            cancelSelectedDownloadToolStripMenuItem = new ToolStripMenuItem();
+            FileNameColumn = new DataGridViewTextBoxColumn();
+            ProgressColumn = new Controls.DataGridViewProgressColumn();
+            Speed = new DataGridViewTextBoxColumn();
+            UrlColumn = new DataGridViewLinkColumn();
+            TotalReceived = new DataGridViewTextBoxColumn();
+            SizeColumn = new DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)progressGridView).BeginInit();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
-            // groupBox1
+            // progressGridView
             // 
-            groupBox1.Controls.Add(progressBar1);
-            groupBox1.Controls.Add(label8);
-            groupBox1.Controls.Add(label7);
-            groupBox1.Controls.Add(label6);
-            groupBox1.Controls.Add(label5);
-            groupBox1.Controls.Add(label4);
-            groupBox1.Controls.Add(label3);
-            groupBox1.Controls.Add(label2);
-            groupBox1.Controls.Add(label1);
-            groupBox1.Location = new Point(12, 13);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(428, 112);
-            groupBox1.TabIndex = 0;
-            groupBox1.TabStop = false;
-            groupBox1.Visible = false;
+            progressGridView.AllowUserToAddRows = false;
+            progressGridView.AllowUserToDeleteRows = false;
+            progressGridView.AllowUserToResizeColumns = false;
+            progressGridView.AllowUserToResizeRows = false;
+            progressGridView.BackgroundColor = Color.Black;
+            progressGridView.BorderStyle = BorderStyle.None;
+            progressGridView.CellBorderStyle = DataGridViewCellBorderStyle.Sunken;
+            progressGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            progressGridView.Columns.AddRange(new DataGridViewColumn[] { FileNameColumn, ProgressColumn, Speed, UrlColumn, TotalReceived, SizeColumn });
+            progressGridView.Dock = DockStyle.Fill;
+            progressGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
+            progressGridView.GridColor = Color.Gray;
+            progressGridView.Location = new Point(0, 24);
+            progressGridView.MultiSelect = false;
+            progressGridView.Name = "progressGridView";
+            progressGridView.ReadOnly = true;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.Black;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI Variable Small", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            progressGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            progressGridView.RowHeadersVisible = false;
+            progressGridView.RowTemplate.Height = 25;
+            progressGridView.ScrollBars = ScrollBars.Vertical;
+            progressGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            progressGridView.ShowCellErrors = false;
+            progressGridView.ShowCellToolTips = false;
+            progressGridView.ShowEditingIcon = false;
+            progressGridView.ShowRowErrors = false;
+            progressGridView.Size = new Size(479, 456);
+            progressGridView.TabIndex = 1;
+            progressGridView.DataError += progressGridView_DataError;
             // 
-            // progressBar1
+            // timer
             // 
-            progressBar1.Location = new Point(290, 46);
-            progressBar1.Name = "progressBar1";
-            progressBar1.Size = new Size(121, 25);
-            progressBar1.TabIndex = 1;
+            timer.Enabled = true;
+            timer.Interval = 200;
+            timer.Tick += timer_Tick;
             // 
-            // label8
+            // menuStrip1
             // 
-            label8.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label8.Location = new Point(121, 82);
-            label8.Name = "label8";
-            label8.Size = new Size(163, 16);
-            label8.TabIndex = 7;
-            label8.Text = "0%";
+            menuStrip1.Items.AddRange(new ToolStripItem[] { columnsToolStripMenuItem, actionsToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.RenderMode = ToolStripRenderMode.System;
+            menuStrip1.Size = new Size(479, 24);
+            menuStrip1.TabIndex = 2;
+            menuStrip1.Text = "menuStrip";
             // 
-            // label7
+            // columnsToolStripMenuItem
             // 
-            label7.AutoSize = true;
-            label7.Location = new Point(6, 82);
-            label7.Name = "label7";
-            label7.Size = new Size(114, 16);
-            label7.TabIndex = 6;
-            label7.Text = "Download Progress:";
+            columnsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { selectColumnsToolStripMenuItem });
+            columnsToolStripMenuItem.Name = "columnsToolStripMenuItem";
+            columnsToolStripMenuItem.Size = new Size(67, 20);
+            columnsToolStripMenuItem.Text = "Columns";
             // 
-            // label6
+            // selectColumnsToolStripMenuItem
             // 
-            label6.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label6.Location = new Point(96, 61);
-            label6.Name = "label6";
-            label6.Size = new Size(188, 16);
-            label6.TabIndex = 5;
-            label6.Text = "0 Bytes";
+            selectColumnsToolStripMenuItem.Name = "selectColumnsToolStripMenuItem";
+            selectColumnsToolStripMenuItem.Size = new Size(197, 22);
+            selectColumnsToolStripMenuItem.Text = "Add/Remove Columns";
+            selectColumnsToolStripMenuItem.Click += selectColumnsToolStripMenuItem_Click;
             // 
-            // label5
+            // actionsToolStripMenuItem
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(6, 61);
-            label5.Name = "label5";
-            label5.Size = new Size(91, 16);
-            label5.TabIndex = 4;
-            label5.Text = "Download Size:";
+            actionsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { showSelectedDownloadToolStripMenuItem, hideSelectedDownloadWindowToolStripMenuItem, cancelSelectedDownloadToolStripMenuItem });
+            actionsToolStripMenuItem.Name = "actionsToolStripMenuItem";
+            actionsToolStripMenuItem.Size = new Size(59, 20);
+            actionsToolStripMenuItem.Text = "Actions";
             // 
-            // label4
+            // showSelectedDownloadToolStripMenuItem
             // 
-            label4.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(97, 41);
-            label4.Name = "label4";
-            label4.Size = new Size(187, 16);
-            label4.TabIndex = 3;
-            label4.Text = "FileURL";
+            showSelectedDownloadToolStripMenuItem.Name = "showSelectedDownloadToolStripMenuItem";
+            showSelectedDownloadToolStripMenuItem.Size = new Size(260, 22);
+            showSelectedDownloadToolStripMenuItem.Text = "Show Selected Download Window";
+            showSelectedDownloadToolStripMenuItem.Click += showSelectedDownloadToolStripMenuItem_Click;
             // 
-            // label3
+            // hideSelectedDownloadWindowToolStripMenuItem
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(6, 41);
-            label3.Name = "label3";
-            label3.Size = new Size(89, 16);
-            label3.TabIndex = 2;
-            label3.Text = "Download URL:";
+            hideSelectedDownloadWindowToolStripMenuItem.Name = "hideSelectedDownloadWindowToolStripMenuItem";
+            hideSelectedDownloadWindowToolStripMenuItem.Size = new Size(260, 22);
+            hideSelectedDownloadWindowToolStripMenuItem.Text = "Hide Selected Download Window";
+            hideSelectedDownloadWindowToolStripMenuItem.Click += hideSelectedDownloadWindowToolStripMenuItem_Click;
             // 
-            // label2
+            // cancelSelectedDownloadToolStripMenuItem
             // 
-            label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(92, 20);
-            label2.Name = "label2";
-            label2.Size = new Size(192, 16);
-            label2.TabIndex = 1;
-            label2.Text = "FileName";
+            cancelSelectedDownloadToolStripMenuItem.Name = "cancelSelectedDownloadToolStripMenuItem";
+            cancelSelectedDownloadToolStripMenuItem.Size = new Size(260, 22);
+            cancelSelectedDownloadToolStripMenuItem.Text = "Cancel Selected Download";
+            cancelSelectedDownloadToolStripMenuItem.Click += cancelSelectedDownloadToolStripMenuItem_Click;
             // 
-            // label1
+            // FileNameColumn
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(6, 20);
-            label1.Name = "label1";
-            label1.Size = new Size(83, 15);
-            label1.TabIndex = 0;
-            label1.Text = "Downloading:";
+            FileNameColumn.HeaderText = "File Name";
+            FileNameColumn.Name = "FileNameColumn";
+            FileNameColumn.ReadOnly = true;
+            FileNameColumn.SortMode = DataGridViewColumnSortMode.Programmatic;
+            FileNameColumn.Width = 209;
             // 
-            // panel1
+            // ProgressColumn
             // 
-            panel1.AutoScroll = true;
-            panel1.Controls.Add(groupBox1);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(452, 427);
-            panel1.TabIndex = 1;
+            ProgressColumn.HeaderText = "Progress";
+            ProgressColumn.Name = "ProgressColumn";
+            ProgressColumn.ReadOnly = true;
+            ProgressColumn.SortMode = DataGridViewColumnSortMode.Programmatic;
             // 
-            // panel2
+            // Speed
             // 
-            panel2.Controls.Add(splitter1);
-            panel2.Controls.Add(refreshButton);
-            panel2.Dock = DockStyle.Bottom;
-            panel2.Location = new Point(0, 430);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(452, 50);
-            panel2.TabIndex = 2;
+            Speed.HeaderText = "Speed";
+            Speed.Name = "Speed";
+            Speed.ReadOnly = true;
             // 
-            // splitter1
+            // UrlColumn
             // 
-            splitter1.BackColor = Color.DimGray;
-            splitter1.Dock = DockStyle.Top;
-            splitter1.Enabled = false;
-            splitter1.Location = new Point(0, 0);
-            splitter1.MinExtra = 1;
-            splitter1.MinSize = 1;
-            splitter1.Name = "splitter1";
-            splitter1.Size = new Size(452, 1);
-            splitter1.TabIndex = 55;
-            splitter1.TabStop = false;
+            UrlColumn.HeaderText = "URL";
+            UrlColumn.Name = "UrlColumn";
+            UrlColumn.ReadOnly = true;
+            UrlColumn.SortMode = DataGridViewColumnSortMode.Programmatic;
+            UrlColumn.Width = 110;
             // 
-            // refreshButton
+            // TotalReceived
             // 
-            refreshButton.BackColor = Color.Transparent;
-            refreshButton.FlatAppearance.MouseDownBackColor = Color.Gray;
-            refreshButton.FlatStyle = FlatStyle.Flat;
-            refreshButton.ForeColor = Color.White;
-            refreshButton.Location = new Point(185, 13);
-            refreshButton.Name = "refreshButton";
-            refreshButton.Size = new Size(82, 25);
-            refreshButton.TabIndex = 54;
-            refreshButton.Text = "Refresh";
-            refreshButton.UseVisualStyleBackColor = false;
-            refreshButton.Click += refreshButton_Click;
+            TotalReceived.HeaderText = "Received";
+            TotalReceived.Name = "TotalReceived";
+            TotalReceived.ReadOnly = true;
+            TotalReceived.Width = 60;
+            // 
+            // SizeColumn
+            // 
+            SizeColumn.HeaderText = "Size";
+            SizeColumn.Name = "SizeColumn";
+            SizeColumn.ReadOnly = true;
+            SizeColumn.SortMode = DataGridViewColumnSortMode.Programmatic;
+            SizeColumn.Width = 60;
             // 
             // CurrentDownloads
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
-            ClientSize = new Size(452, 480);
-            Controls.Add(panel2);
-            Controls.Add(panel1);
+            ClientSize = new Size(479, 480);
+            Controls.Add(progressGridView);
+            Controls.Add(menuStrip1);
             ForeColor = Color.White;
-            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            FormBorderStyle = FormBorderStyle.SizableToolWindow;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MainMenuStrip = menuStrip1;
             MaximizeBox = false;
             MinimizeBox = false;
+            MinimumSize = new Size(495, 400);
             Name = "CurrentDownloads";
             Text = "Donwload Manager | Current Downloads";
             FormClosing += CurrentDownloads_FormClosing;
+            Load += CurrentDownloads_Load;
             Shown += CurrentDownloads_Shown;
+            ResizeEnd += CurrentDownloads_ResizeEnd;
             Move += CurrentDownloads_Move;
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
-            panel1.ResumeLayout(false);
-            panel2.ResumeLayout(false);
+            Resize += CurrentDownloads_Resize;
+            ((System.ComponentModel.ISupportInitialize)progressGridView).EndInit();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
-
-        private GroupBox groupBox1;
-        private ProgressBar progressBar1;
-        private Label label8;
-        private Label label7;
-        private Label label6;
-        private Label label5;
-        private Label label4;
-        private Label label3;
-        private Label label2;
-        private Label label1;
         private Panel panel2;
         private Button refreshButton;
         private Splitter splitter1;
         public Panel panel1;
+        public DataGridView progressGridView;
+        private System.Windows.Forms.Timer timer;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem columnsToolStripMenuItem;
+        private ToolStripMenuItem selectColumnsToolStripMenuItem;
+        private ToolStripMenuItem actionsToolStripMenuItem;
+        private ToolStripMenuItem showSelectedDownloadToolStripMenuItem;
+        private ToolStripMenuItem hideSelectedDownloadWindowToolStripMenuItem;
+        private ToolStripMenuItem cancelSelectedDownloadToolStripMenuItem;
+        private DataGridViewTextBoxColumn FileNameColumn;
+        private Controls.DataGridViewProgressColumn ProgressColumn;
+        private DataGridViewTextBoxColumn Speed;
+        private DataGridViewLinkColumn UrlColumn;
+        private DataGridViewTextBoxColumn TotalReceived;
+        private DataGridViewTextBoxColumn SizeColumn;
     }
 }

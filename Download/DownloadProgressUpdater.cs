@@ -48,6 +48,11 @@
                 double megabytesPerSecond = megabytesPerSecond0 + megabytesPerSecond1;
 
                 progressWindow.bytesLabel.Text = $"({totalRead} B / {totalLength} B)";
+                progressWindow.receivedBytes = totalRead;
+
+                progressWindow.bytesPerSecond = bytesPerSecond;
+                progressWindow.kilobytesPerSecond = kilobytesPerSecond;
+                progressWindow.megabytesPerSecond = megabytesPerSecond;
 
                 if (megabytesPerSecond > 1)
                 {

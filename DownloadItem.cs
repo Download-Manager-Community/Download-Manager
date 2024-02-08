@@ -1,4 +1,4 @@
-﻿using static DownloadManager.BetterProgressBar;
+﻿using AngleSharp.Text;
 using Timer = System.Windows.Forms.Timer;
 
 namespace DownloadManager
@@ -7,127 +7,16 @@ namespace DownloadManager
     {
         CurrentDownloads downloadsForm = CurrentDownloads._instance;
         Timer timer = new Timer();
-        DownloadProgress progress;
-        GroupBox groupBox;
+        public DownloadProgress progress;
+        int index = 0;
         bool isYtDownload = false;
         bool contentLengthIssue = false;
-
-        #region Predefined Controls
-        BetterProgressBar progressBar = new BetterProgressBar()
-        {
-            Location = new Point(290, 43),
-            Size = new Size(121, 23),
-            Style = ProgressBarStyle.Marquee,
-            MarqueeAnimationSpeed = 1,
-            MarqueeAnim = true,
-            BackColor = Color.FromArgb(20, 20, 20)
-        };
-
-        Label title1 = new Label()
-        {
-            AutoSize = false,
-            Size = new Size(83, 15),
-            Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, 0),
-            ForeColor = Color.White,
-            BackColor = Color.Transparent,
-            Location = new Point(6, 19),
-            Text = "Downloading:"
-        };
-        Label fileNameLabel = new Label()
-        {
-            AutoSize = false,
-            Size = new Size(192, 15),
-            Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, 0),
-            ForeColor = Color.White,
-            BackColor = Color.Transparent,
-            Location = new Point(92, 19),
-            Text = "fileName"
-        };
-        Label title2 = new Label()
-        {
-            AutoSize = false,
-            Size = new Size(88, 15),
-            Font = new Font("Segoe UI", 8F, FontStyle.Regular, GraphicsUnit.Point, 0),
-            ForeColor = Color.White,
-            BackColor = Color.Transparent,
-            Location = new Point(6, 38),
-            Text = "Download URL:"
-        };
-        Label fileUrlLabel = new Label()
-        {
-            AutoSize = false,
-            Size = new Size(187, 15),
-            Font = new Font("Segoe UI", 8F, FontStyle.Regular, GraphicsUnit.Point, 0),
-            ForeColor = Color.White,
-            BackColor = Color.Transparent,
-            Location = new Point(97, 38),
-            Text = "fileUrl"
-        };
-        Label title3 = new Label()
-        {
-            AutoSize = false,
-            Size = new Size(87, 15),
-            Font = new Font("Segoe UI", 8F, FontStyle.Regular, GraphicsUnit.Point, 0),
-            ForeColor = Color.White,
-            BackColor = Color.Transparent,
-            Location = new Point(6, 57),
-            Text = "Download Size:"
-        };
-        Label fileSizeLabel = new Label()
-        {
-            AutoSize = false,
-            Size = new Size(188, 15),
-            Font = new Font("Segoe UI", 8F, FontStyle.Regular, GraphicsUnit.Point, 0),
-            ForeColor = Color.White,
-            BackColor = Color.Transparent,
-            Location = new Point(96, 57),
-            Text = "0 Bytes"
-        };
-        Label title4 = new Label()
-        {
-            AutoSize = false,
-            Size = new Size(112, 15),
-            Font = new Font("Segoe UI", 8F, FontStyle.Regular, GraphicsUnit.Point, 0),
-            ForeColor = Color.White,
-            BackColor = Color.Transparent,
-            Location = new Point(6, 77),
-            Text = "Download Progress:"
-        };
-        Label fileProgressLabel = new Label()
-        {
-            AutoSize = false,
-            Size = new Size(163, 15),
-            Font = new Font("Segoe UI", 8F, FontStyle.Regular, GraphicsUnit.Point, 0),
-            ForeColor = Color.White,
-            BackColor = Color.Transparent,
-            Location = new Point(121, 77),
-            Text = "0%"
-        };
-        #endregion
 
         public void Initialize(DownloadProgress progress)
         {
             this.progress = progress;
 
-            this.groupBox = new GroupBox()
-            {
-                Anchor = AnchorStyles.Top,
-                Size = new Size(428, 105),
-                Location = new Point(12, CurrentDownloads.nextY),
-                Text = ""
-            };
-
-            downloadsForm.panel1.Controls.Add(groupBox);
-
-            groupBox.Controls.Add(progressBar);
-            groupBox.Controls.Add(title1);
-            groupBox.Controls.Add(fileNameLabel);
-            groupBox.Controls.Add(title2);
-            groupBox.Controls.Add(fileUrlLabel);
-            groupBox.Controls.Add(title3);
-            groupBox.Controls.Add(fileSizeLabel);
-            groupBox.Controls.Add(title4);
-            groupBox.Controls.Add(fileProgressLabel);
+            index = downloadsForm.progressGridView.Rows.Add(progress.fileName, progress.percentageDone, progress.url, "? B");
 
             timer.Tick += UpdateTimer_Tick;
             timer.Interval = 500;
@@ -145,122 +34,147 @@ namespace DownloadManager
             }
             else
             {
-                // Update the labels
-                fileNameLabel.Text = progress.fileName;
-                fileUrlLabel.Text = progress.url;
-                if (progress.totalSize < 1)
+                // Update the values
+                try
                 {
-                    fileSizeLabel.Text = "? Bytes";
-                }
-                else
-                {
-                    fileSizeLabel.Text = progress.fileSize + " Bytes";
-                }
-
-                if (progress.downloadType == DownloadProgress.DownloadType.YoutubePlaylist)
-                {
-                    // Update the progress bar
-                    progressBar.Style = ProgressBarStyle.Blocks;
-                    progressBar.Minimum = progress.totalProgressBar.Minimum;
-                    progressBar.Maximum = progress.totalProgressBar.Maximum;
-                    progressBar.Value = progress.totalProgressBar.Value;
-
-                    // Update the progress label
-                    int percent = (int)(((double)progressBar.Value / (double)progressBar.Maximum) * 100);
-                    fileProgressLabel.Text = $"{percent}%";
-                }
-                else if (progress.downloadType == DownloadProgress.DownloadType.YoutubeVideo)
-                {
-                    progressBar.Style = ProgressBarStyle.Marquee;
-                    progressBar.MarqueeAnim = true;
-                    progressBar.ShowText = false;
-                }
-                else
-                {
-                    // Update the progress bar
-                    if ((int)progress.percentageDone > 100)
-                    {
-                        Logging.Log("DownloadItem Progress is greater than 100%! The item has been removed to prevent a crash!", Color.Orange);
-                        Dispose();
-                    }
-
+                    downloadsForm.progressGridView.Rows[index].Cells[0].Value = progress.fileName;
+                    downloadsForm.progressGridView.Rows[index].Cells[3].Value = progress.url;
                     if (progress.totalSize < 1)
                     {
-                        // If the total size is less than 1, then we cannot report progress
-                        // Update the progress bar
-                        progressBar.Style = ProgressBarStyle.Marquee;
-                        progressBar.MarqueeAnim = true;
+                        downloadsForm.progressGridView.Rows[index].Cells[5].Value = "? B";
+                    }
+                    else
+                    {
+                        long totalBytes = progress.totalSize;
+                        long totalKilobytes = (progress.totalSize / 1024);
+                        long totalMegabytes = ((progress.totalSize / 1024) / 1024);
+                        float totalGigabytes = ((((float)progress.totalSize / 1024) / 1024) / 1024);
 
-                        // Update the progress label
-                        fileProgressLabel.Text = $"Progress report unavailable.";
+                        if (totalGigabytes > 1)
+                        {
+                            downloadsForm.progressGridView.Rows[index].Cells[5].Value = $"{totalGigabytes.ToString("0.00")} GB";
+                        }
+                        else if (totalMegabytes > 1)
+                        {
+                            downloadsForm.progressGridView.Rows[index].Cells[5].Value = $"{totalMegabytes.ToString("0.00")} MB";
+                        }
+                        else if (totalKilobytes > 1)
+                        {
+                            downloadsForm.progressGridView.Rows[index].Cells[5].Value = $"{totalKilobytes.ToString("0.00")} KB";
+                        }
+                        else
+                        {
+                            downloadsForm.progressGridView.Rows[index].Cells[5].Value = $"{totalBytes.ToString("0.00")} B";
+                        }
+
+                        long receivedBytes = (long)progress.receivedBytes;
+                        long receivedKilobytes = ((long)progress.receivedBytes / 1024);
+                        long receivedMegabytes = (((long)progress.receivedBytes / 1024) / 1024);
+                        float receivedGigabytes = ((((float)progress.receivedBytes / 1024) / 1024) / 1024);
+
+                        if (receivedGigabytes > 1)
+                        {
+                            downloadsForm.progressGridView.Rows[index].Cells[4].Value = receivedGigabytes.ToString("0.00") + " GB";
+                        }
+                        else if (receivedMegabytes > 1)
+                        {
+                            downloadsForm.progressGridView.Rows[index].Cells[4].Value = $"{receivedMegabytes.ToString("0.00")} MB";
+                        }
+                        else if (receivedKilobytes > 1)
+                        {
+                            downloadsForm.progressGridView.Rows[index].Cells[4].Value = $"{receivedKilobytes.ToString("0.00")} KB";
+                        }
+                        else
+                        {
+                            downloadsForm.progressGridView.Rows[index].Cells[4].Value = $"{receivedBytes.ToString("0.00")} B";
+                        }
+
+                        //Debug.WriteLine($"receivedBytes is {receivedBytes} which is:\n{receivedKilobytes}KB, {receivedMegabytes}MB and {receivedGigabytes}GB\n({progress.receivedBytes})");
+                    }
+
+                    // Display Speed
+                    double bps = progress.bytesPerSecond;
+                    double kbps = progress.kilobytesPerSecond;
+                    double mbps = progress.megabytesPerSecond;
+
+                    if (mbps > 1)
+                    {
+                        downloadsForm.progressGridView.Rows[index].Cells[2].Value = $"{mbps.ToString("0.00")} MB/s";
+                    }
+                    else if (kbps > 1)
+                    {
+                        downloadsForm.progressGridView.Rows[index].Cells[2].Value = $"{kbps.ToString("0.00")} KB/s";
+                    }
+                    else
+                    {
+                        downloadsForm.progressGridView.Rows[index].Cells[2].Value = $"{bps.ToString("0.00")} B/s";
+                    }
+
+                    if (progress.downloadType == DownloadProgress.DownloadType.YoutubePlaylist)
+                    {
+                        // Update the progressBar
+                        downloadsForm.progressGridView.Rows[index].Cells[1].Value = (int)progress.progressLabel.Text.Replace("%", "").ToDouble();
+                    }
+                    else if (progress.downloadType == DownloadProgress.DownloadType.YoutubeVideo)
+                    {
+                        downloadsForm.progressGridView.Rows[index].Cells[1].Tag = -1;
                     }
                     else
                     {
                         // Update the progress bar
-                        progressBar.Style = ProgressBarStyle.Blocks;
-                        progressBar.Minimum = 0;
-                        progressBar.Maximum = 100;
-                        progressBar.Value = progress.totalProgress;
+                        if ((int)progress.percentageDone > 100)
+                        {
+                            Logging.Log("DownloadItem Progress is greater than 100%! The item has been removed to prevent a crash!", Color.Orange);
+                            Dispose();
+                        }
 
-                        // Update the progress label
-                        int percent = (int)(((double)progressBar.Value / (double)progressBar.Maximum) * 100);
-                        fileProgressLabel.Text = $"{percent}%";
+                        if (progress.totalSize < 1)
+                        {
+                            // If the total size is less than 1, then we cannot report progress
+                            // Update the progress bar
+                            downloadsForm.progressGridView.Rows[index].Cells[1].Tag = -1;
+                        }
+                        else
+                        {
+                            // Update the progress bar
+                            downloadsForm.progressGridView.Rows[index].Cells[1].Tag = (int)progress.progressLabel.Text.Replace("%", "").ToDouble();
+                        }
+
+                        //Logging.Log(((int)progress.progressLabel.Text.Replace("%", "").ToDouble()).ToString(), Color.Gray);
                     }
                 }
-
-                // Bring all labels to front
-                fileNameLabel.BringToFront();
-                fileUrlLabel.BringToFront();
-                fileSizeLabel.BringToFront();
-                fileProgressLabel.BringToFront();
-            }
-
-            if (progress.isPaused)
-            {
-                progressBar.State = ProgressBarState.Warning;
-            }
-            else
-            {
-                progressBar.State = ProgressBarState.Normal;
+                catch (ArgumentOutOfRangeException)
+                {
+                    // Refresh the list, an item may have completed making the index out of range
+                    downloadsForm.RefreshList();
+                }
+                catch (Exception ex)
+                {
+                    Logging.Log($"{ex.Message} ({ex.GetType().FullName})\n{ex.StackTrace}", Color.Red);
+                }
             }
         }
 
         public void Dispose()
         {
             downloadsForm.itemList.Remove(this);
+            try
+            {
+                downloadsForm.progressGridView.Rows.RemoveAt(index);
+            }
+            catch (Exception ex)
+            {
+                Logging.Log($"{ex.Message} ({ex.GetType().FullName})\n{ex.StackTrace}", Color.Red);
+            }
 
             timer.Stop();
             timer.Dispose();
-
-            downloadsForm.Controls.Remove(groupBox);
-            groupBox.Dispose();
-            progressBar.Dispose();
-            title1.Dispose();
-            fileNameLabel.Dispose();
-            title2.Dispose();
-            fileUrlLabel.Dispose();
-            title3.Dispose();
-            fileSizeLabel.Dispose();
-            title4.Dispose();
-            fileProgressLabel.Dispose();
         }
 
         public void DisposeNoRemove()
         {
             timer.Stop();
             timer.Dispose();
-
-            downloadsForm.Controls.Remove(groupBox);
-            groupBox.Dispose();
-            progressBar.Dispose();
-            title1.Dispose();
-            fileNameLabel.Dispose();
-            title2.Dispose();
-            fileUrlLabel.Dispose();
-            title3.Dispose();
-            fileSizeLabel.Dispose();
-            title4.Dispose();
-            fileProgressLabel.Dispose();
         }
     }
 }

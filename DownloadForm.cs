@@ -30,6 +30,14 @@ namespace DownloadManager
                 Logging.Log("Download History is null. Performing first time setup.", Color.Orange);
                 Settings.Default.downloadHistory = new System.Collections.Specialized.StringCollection { };
             }
+
+            if (Settings.Default.currentDownloadsHiddenColumns == null || Settings.Default.currentDownloadsShownColumns == null)
+            {
+                Logging.Log("One or more current downloads column settings are null. Performing first time setuo", Color.Orange);
+                SetupColumnPrefs();
+            }
+
+            Settings.Default.Save();
             InitializeComponent();
 
             DesktopWindowManager.SetImmersiveDarkMode(this.Handle, true);
@@ -56,6 +64,26 @@ namespace DownloadManager
                     Process.Start(new ProcessStartInfo("https://github.com/Download-Manager-Community/Download-Manager/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml") { UseShellExecute = true });
                 }
             }
+        }
+
+        public void SetupColumnPrefs()
+        {
+            Settings.Default.currentDownloadsHiddenColumns = new System.Collections.Specialized.StringCollection
+                {
+                    // Default hidden column ids go here
+                    "3",
+                    "4"
+                };
+            Settings.Default.currentDownloadsShownColumns = new System.Collections.Specialized.StringCollection
+                {
+                    // Default shown column ids go here
+                    "0",
+                    "1",
+                    "2",
+                    "5"
+                };
+            Settings.Default.Save();
+            Logging.Log("Column Preferences Reset!", Color.Orange);
         }
 
         private async void DownloadForm_Shown(object sender, EventArgs e)
