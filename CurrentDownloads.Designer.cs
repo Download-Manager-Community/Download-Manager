@@ -32,11 +32,6 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CurrentDownloads));
             progressGridView = new DataGridView();
-            FileNameColumn = new DataGridViewTextBoxColumn();
-            ProgressColumn = new Controls.DataGridViewProgressColumn();
-            UrlColumn = new DataGridViewLinkColumn();
-            TotalReceived = new DataGridViewTextBoxColumn();
-            SizeColumn = new DataGridViewTextBoxColumn();
             timer = new System.Windows.Forms.Timer(components);
             menuStrip1 = new MenuStrip();
             columnsToolStripMenuItem = new ToolStripMenuItem();
@@ -45,6 +40,12 @@
             showSelectedDownloadToolStripMenuItem = new ToolStripMenuItem();
             hideSelectedDownloadWindowToolStripMenuItem = new ToolStripMenuItem();
             cancelSelectedDownloadToolStripMenuItem = new ToolStripMenuItem();
+            FileNameColumn = new DataGridViewTextBoxColumn();
+            ProgressColumn = new Controls.DataGridViewProgressColumn();
+            Speed = new DataGridViewTextBoxColumn();
+            UrlColumn = new DataGridViewLinkColumn();
+            TotalReceived = new DataGridViewTextBoxColumn();
+            SizeColumn = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)progressGridView).BeginInit();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -59,7 +60,7 @@
             progressGridView.BorderStyle = BorderStyle.None;
             progressGridView.CellBorderStyle = DataGridViewCellBorderStyle.Sunken;
             progressGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            progressGridView.Columns.AddRange(new DataGridViewColumn[] { FileNameColumn, ProgressColumn, UrlColumn, TotalReceived, SizeColumn });
+            progressGridView.Columns.AddRange(new DataGridViewColumn[] { FileNameColumn, ProgressColumn, Speed, UrlColumn, TotalReceived, SizeColumn });
             progressGridView.Dock = DockStyle.Fill;
             progressGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
             progressGridView.GridColor = Color.Gray;
@@ -86,44 +87,6 @@
             progressGridView.Size = new Size(479, 456);
             progressGridView.TabIndex = 1;
             progressGridView.DataError += progressGridView_DataError;
-            // 
-            // FileNameColumn
-            // 
-            FileNameColumn.HeaderText = "File Name";
-            FileNameColumn.Name = "FileNameColumn";
-            FileNameColumn.ReadOnly = true;
-            FileNameColumn.SortMode = DataGridViewColumnSortMode.Programmatic;
-            FileNameColumn.Width = 209;
-            // 
-            // ProgressColumn
-            // 
-            ProgressColumn.HeaderText = "Progress";
-            ProgressColumn.Name = "ProgressColumn";
-            ProgressColumn.ReadOnly = true;
-            ProgressColumn.SortMode = DataGridViewColumnSortMode.Programmatic;
-            // 
-            // UrlColumn
-            // 
-            UrlColumn.HeaderText = "URL";
-            UrlColumn.Name = "UrlColumn";
-            UrlColumn.ReadOnly = true;
-            UrlColumn.SortMode = DataGridViewColumnSortMode.Programmatic;
-            UrlColumn.Width = 110;
-            // 
-            // TotalReceived
-            // 
-            TotalReceived.HeaderText = "Received";
-            TotalReceived.Name = "TotalReceived";
-            TotalReceived.ReadOnly = true;
-            TotalReceived.Width = 60;
-            // 
-            // SizeColumn
-            // 
-            SizeColumn.HeaderText = "Size";
-            SizeColumn.Name = "SizeColumn";
-            SizeColumn.ReadOnly = true;
-            SizeColumn.SortMode = DataGridViewColumnSortMode.Programmatic;
-            SizeColumn.Width = 60;
             // 
             // timer
             // 
@@ -183,6 +146,50 @@
             cancelSelectedDownloadToolStripMenuItem.Text = "Cancel Selected Download";
             cancelSelectedDownloadToolStripMenuItem.Click += cancelSelectedDownloadToolStripMenuItem_Click;
             // 
+            // FileNameColumn
+            // 
+            FileNameColumn.HeaderText = "File Name";
+            FileNameColumn.Name = "FileNameColumn";
+            FileNameColumn.ReadOnly = true;
+            FileNameColumn.SortMode = DataGridViewColumnSortMode.Programmatic;
+            FileNameColumn.Width = 209;
+            // 
+            // ProgressColumn
+            // 
+            ProgressColumn.HeaderText = "Progress";
+            ProgressColumn.Name = "ProgressColumn";
+            ProgressColumn.ReadOnly = true;
+            ProgressColumn.SortMode = DataGridViewColumnSortMode.Programmatic;
+            // 
+            // Speed
+            // 
+            Speed.HeaderText = "Speed";
+            Speed.Name = "Speed";
+            Speed.ReadOnly = true;
+            // 
+            // UrlColumn
+            // 
+            UrlColumn.HeaderText = "URL";
+            UrlColumn.Name = "UrlColumn";
+            UrlColumn.ReadOnly = true;
+            UrlColumn.SortMode = DataGridViewColumnSortMode.Programmatic;
+            UrlColumn.Width = 110;
+            // 
+            // TotalReceived
+            // 
+            TotalReceived.HeaderText = "Received";
+            TotalReceived.Name = "TotalReceived";
+            TotalReceived.ReadOnly = true;
+            TotalReceived.Width = 60;
+            // 
+            // SizeColumn
+            // 
+            SizeColumn.HeaderText = "Size";
+            SizeColumn.Name = "SizeColumn";
+            SizeColumn.ReadOnly = true;
+            SizeColumn.SortMode = DataGridViewColumnSortMode.Programmatic;
+            SizeColumn.Width = 60;
+            // 
             // CurrentDownloads
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
@@ -229,6 +236,7 @@
         private ToolStripMenuItem cancelSelectedDownloadToolStripMenuItem;
         private DataGridViewTextBoxColumn FileNameColumn;
         private Controls.DataGridViewProgressColumn ProgressColumn;
+        private DataGridViewTextBoxColumn Speed;
         private DataGridViewLinkColumn UrlColumn;
         private DataGridViewTextBoxColumn TotalReceived;
         private DataGridViewTextBoxColumn SizeColumn;

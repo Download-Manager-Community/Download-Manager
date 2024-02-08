@@ -29,12 +29,15 @@ namespace DownloadManager
                         showList.Items.Add("Progress");
                         break;
                     case "2":
-                        showList.Items.Add("URL");
+                        showList.Items.Add("Speed");
                         break;
                     case "3":
-                        showList.Items.Add("Received");
+                        showList.Items.Add("URL");
                         break;
                     case "4":
+                        showList.Items.Add("Received");
+                        break;
+                    case "5":
                         showList.Items.Add("Size");
                         break;
                     default:
@@ -66,12 +69,15 @@ namespace DownloadManager
                         hideList.Items.Add("Progress");
                         break;
                     case "2":
-                        hideList.Items.Add("URL");
+                        hideList.Items.Add("Speed");
                         break;
                     case "3":
-                        hideList.Items.Add("Received");
+                        hideList.Items.Add("URL");
                         break;
                     case "4":
+                        hideList.Items.Add("Received");
+                        break;
+                    case "5":
                         hideList.Items.Add("Size");
                         break;
                     default:
@@ -100,6 +106,10 @@ namespace DownloadManager
                     case "Progress":
                         shownColumns.Add(Column.progress);
                         Settings.Default.currentDownloadsShownColumns.Add(((int)Column.progress).ToString());
+                        break;
+                    case "Speed":
+                        shownColumns.Add(Column.speed);
+                        Settings.Default.currentDownloadsShownColumns.Add(((int)Column.speed).ToString());
                         break;
                     case "URL":
                         shownColumns.Add(Column.url);
@@ -134,6 +144,10 @@ namespace DownloadManager
                     case "Progress":
                         hiddenColumns.Add(Column.progress);
                         Settings.Default.currentDownloadsHiddenColumns.Add(((int)Column.progress).ToString());
+                        break;
+                    case "Speed":
+                        hiddenColumns.Add(Column.speed);
+                        Settings.Default.currentDownloadsHiddenColumns.Add(((int)Column.speed).ToString());
                         break;
                     case "URL":
                         hiddenColumns.Add(Column.url);
@@ -196,6 +210,9 @@ namespace DownloadManager
                 showList.Items.Clear();
                 hideList.Items.Clear();
 
+                List<Column> shownColumns = new List<Column>();
+                List<Column> hiddenColumns = new List<Column>();
+
                 foreach (string item in Settings.Default.currentDownloadsShownColumns)
                 {
                     Application.DoEvents();
@@ -203,18 +220,27 @@ namespace DownloadManager
                     {
                         case "0":
                             showList.Items.Add("File Name");
+                            shownColumns.Add(Column.fileName);
                             break;
                         case "1":
                             showList.Items.Add("Progress");
+                            shownColumns.Add(Column.progress);
                             break;
                         case "2":
-                            showList.Items.Add("URL");
+                            showList.Items.Add("Speed");
+                            shownColumns.Add(Column.speed);
                             break;
                         case "3":
-                            showList.Items.Add("Received");
+                            showList.Items.Add("URL");
+                            shownColumns.Add(Column.url);
                             break;
                         case "4":
+                            showList.Items.Add("Received");
+                            shownColumns.Add(Column.received);
+                            break;
+                        case "5":
                             showList.Items.Add("Size");
+                            shownColumns.Add(Column.size);
                             break;
                         default:
                             // Invalid column
@@ -240,18 +266,27 @@ namespace DownloadManager
                     {
                         case "0":
                             hideList.Items.Add("File Name");
+                            hiddenColumns.Add(Column.fileName);
                             break;
                         case "1":
                             hideList.Items.Add("Progress");
+                            hiddenColumns.Add(Column.progress);
                             break;
                         case "2":
-                            hideList.Items.Add("URL");
+                            hideList.Items.Add("Speed");
+                            hiddenColumns.Add(Column.speed);
                             break;
                         case "3":
-                            hideList.Items.Add("Received");
+                            hideList.Items.Add("URL");
+                            hiddenColumns.Add(Column.url);
                             break;
                         case "4":
+                            hideList.Items.Add("Received");
+                            hiddenColumns.Add(Column.received);
+                            break;
+                        case "5":
                             hideList.Items.Add("Size");
+                            hiddenColumns.Add(Column.size);
                             break;
                         default:
                             // Invalid column
@@ -261,7 +296,7 @@ namespace DownloadManager
                     }
                 }
 
-                downloads.HideColumns(new List<Column> { Column.received }, new List<Column> { Column.fileName, Column.progress, Column.size, Column.url });
+                downloads.HideColumns(hiddenColumns, shownColumns);
             }
         }
     }

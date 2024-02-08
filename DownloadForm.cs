@@ -71,7 +71,8 @@ namespace DownloadManager
             Settings.Default.currentDownloadsHiddenColumns = new System.Collections.Specialized.StringCollection
                 {
                     // Default hidden column ids go here
-                    "3"
+                    "3",
+                    "4"
                 };
             Settings.Default.currentDownloadsShownColumns = new System.Collections.Specialized.StringCollection
                 {
@@ -79,7 +80,7 @@ namespace DownloadManager
                     "0",
                     "1",
                     "2",
-                    "4"
+                    "5"
                 };
             Settings.Default.Save();
             Logging.Log("Column Preferences Reset!", Color.Orange);

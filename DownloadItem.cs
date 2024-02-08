@@ -1,5 +1,4 @@
 ﻿using AngleSharp.Text;
-using System.Diagnostics;
 using Timer = System.Windows.Forms.Timer;
 
 namespace DownloadManager
@@ -39,10 +38,10 @@ namespace DownloadManager
                 try
                 {
                     downloadsForm.progressGridView.Rows[index].Cells[0].Value = progress.fileName;
-                    downloadsForm.progressGridView.Rows[index].Cells[2].Value = progress.url;
+                    downloadsForm.progressGridView.Rows[index].Cells[3].Value = progress.url;
                     if (progress.totalSize < 1)
                     {
-                        downloadsForm.progressGridView.Rows[index].Cells[4].Value = "? B";
+                        downloadsForm.progressGridView.Rows[index].Cells[5].Value = "? B";
                     }
                     else
                     {
@@ -53,19 +52,19 @@ namespace DownloadManager
 
                         if (totalGigabytes > 1)
                         {
-                            downloadsForm.progressGridView.Rows[index].Cells[4].Value = $"{totalGigabytes.ToString("F1")} GB";
+                            downloadsForm.progressGridView.Rows[index].Cells[5].Value = $"{totalGigabytes.ToString("0.00")} GB";
                         }
                         else if (totalMegabytes > 1)
                         {
-                            downloadsForm.progressGridView.Rows[index].Cells[4].Value = $"{totalMegabytes} MB";
+                            downloadsForm.progressGridView.Rows[index].Cells[5].Value = $"{totalMegabytes.ToString("0.00")} MB";
                         }
                         else if (totalKilobytes > 1)
                         {
-                            downloadsForm.progressGridView.Rows[index].Cells[4].Value = $"{totalKilobytes} KB";
+                            downloadsForm.progressGridView.Rows[index].Cells[5].Value = $"{totalKilobytes.ToString("0.00")} KB";
                         }
                         else
                         {
-                            downloadsForm.progressGridView.Rows[index].Cells[4].Value = $"{totalBytes} B";
+                            downloadsForm.progressGridView.Rows[index].Cells[5].Value = $"{totalBytes.ToString("0.00")} B";
                         }
 
                         long receivedBytes = (long)progress.receivedBytes;
@@ -75,22 +74,40 @@ namespace DownloadManager
 
                         if (receivedGigabytes > 1)
                         {
-                            downloadsForm.progressGridView.Rows[index].Cells[3].Value = receivedGigabytes.ToString("F1") + " GB";
+                            downloadsForm.progressGridView.Rows[index].Cells[4].Value = receivedGigabytes.ToString("0.00") + " GB";
                         }
                         else if (receivedMegabytes > 1)
                         {
-                            downloadsForm.progressGridView.Rows[index].Cells[3].Value = $"{receivedMegabytes} MB";
+                            downloadsForm.progressGridView.Rows[index].Cells[4].Value = $"{receivedMegabytes.ToString("0.00")} MB";
                         }
                         else if (receivedKilobytes > 1)
                         {
-                            downloadsForm.progressGridView.Rows[index].Cells[3].Value = $"{receivedKilobytes} KB";
+                            downloadsForm.progressGridView.Rows[index].Cells[4].Value = $"{receivedKilobytes.ToString("0.00")} KB";
                         }
                         else
                         {
-                            downloadsForm.progressGridView.Rows[index].Cells[3].Value = $"{receivedBytes} B";
+                            downloadsForm.progressGridView.Rows[index].Cells[4].Value = $"{receivedBytes.ToString("0.00")} B";
                         }
 
-                        Debug.WriteLine($"receivedBytes is {receivedBytes} which is:\n{receivedKilobytes}KB, {receivedMegabytes}MB and {receivedGigabytes}GB\n({progress.receivedBytes})");
+                        //Debug.WriteLine($"receivedBytes is {receivedBytes} which is:\n{receivedKilobytes}KB, {receivedMegabytes}MB and {receivedGigabytes}GB\n({progress.receivedBytes})");
+                    }
+
+                    // Display Speed
+                    double bps = progress.bytesPerSecond;
+                    double kbps = progress.kilobytesPerSecond;
+                    double mbps = progress.megabytesPerSecond;
+
+                    if (mbps > 1)
+                    {
+                        downloadsForm.progressGridView.Rows[index].Cells[2].Value = $"{mbps.ToString("0.00")} MB/s";
+                    }
+                    else if (kbps > 1)
+                    {
+                        downloadsForm.progressGridView.Rows[index].Cells[2].Value = $"{kbps.ToString("0.00")} KB/s";
+                    }
+                    else
+                    {
+                        downloadsForm.progressGridView.Rows[index].Cells[2].Value = $"{bps.ToString("0.00")} B/s";
                     }
 
                     if (progress.downloadType == DownloadProgress.DownloadType.YoutubePlaylist)

@@ -50,6 +50,10 @@
                 progressWindow.bytesLabel.Text = $"({totalRead} B / {totalLength} B)";
                 progressWindow.receivedBytes = totalRead;
 
+                progressWindow.bytesPerSecond = bytesPerSecond;
+                progressWindow.kilobytesPerSecond = kilobytesPerSecond;
+                progressWindow.megabytesPerSecond = megabytesPerSecond;
+
                 if (megabytesPerSecond > 1)
                 {
                     progressWindow.speedLabel.Text = $"{megabytesPerSecond.ToString("0.00")} MB/s";

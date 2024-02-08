@@ -114,10 +114,10 @@ namespace DownloadManager
         {
             fileName = 0,
             progress = 1,
-            url = 2,
-            received = 3,
-            size = 4,
-            speed = 5
+            speed = 2,
+            url = 3,
+            received = 4,
+            size = 5,
         }
 
         public Task HideAfterFirstShow()
