@@ -377,7 +377,12 @@ namespace DownloadManager
                             progressBar1.MarqueeAnim = false;
                             if (checkBox2.Checked == true)
                             {
-
+                                this.Close();
+                                this.Dispose();
+                                return;
+                            }
+                            else if (!this.Visible)
+                            {
                                 this.Close();
                                 this.Dispose();
                                 return;
@@ -461,7 +466,12 @@ namespace DownloadManager
                             progressBar1.MarqueeAnim = false;
                             if (checkBox2.Checked == true)
                             {
-
+                                this.Close();
+                                this.Dispose();
+                                return;
+                            }
+                            else if (!this.Visible)
+                            {
                                 this.Close();
                                 this.Dispose();
                                 return;
@@ -542,6 +552,12 @@ namespace DownloadManager
                             pauseButton.Enabled = false;
                             progressBar1.MarqueeAnim = false;
                             if (checkBox2.Checked == true)
+                            {
+                                this.Close();
+                                this.Dispose();
+                                return;
+                            }
+                            else if (!this.Visible)
                             {
                                 this.Close();
                                 this.Dispose();
@@ -735,7 +751,12 @@ namespace DownloadManager
                         totalProgressBar.MarqueeAnim = false;
                         if (checkBox2.Checked == true)
                         {
-
+                            this.Close();
+                            this.Dispose();
+                            return;
+                        }
+                        else if (!this.Visible)
+                        {
                             this.Close();
                             this.Dispose();
                             return;
@@ -839,7 +860,12 @@ namespace DownloadManager
                         totalProgressBar.MarqueeAnim = false;
                         if (checkBox2.Checked == true)
                         {
-
+                            this.Close();
+                            this.Dispose();
+                            return;
+                        }
+                        else if (!this.Visible)
+                        {
                             this.Close();
                             this.Dispose();
                             return;
@@ -971,7 +997,12 @@ namespace DownloadManager
                         totalProgressBar.MarqueeAnim = false;
                         if (checkBox2.Checked == true)
                         {
-
+                            this.Close();
+                            this.Dispose();
+                            return;
+                        }
+                        else if (!this.Visible)
+                        {
                             this.Close();
                             this.Dispose();
                             return;
@@ -1865,7 +1896,12 @@ namespace DownloadManager
                                                 totalProgressBar.MarqueeAnim = false;
                                                 if (checkBox2.Checked == true)
                                                 {
-
+                                                    this.Close();
+                                                    this.Dispose();
+                                                    return;
+                                                }
+                                                else if (!this.Visible)
+                                                {
                                                     this.Close();
                                                     this.Dispose();
                                                     return;
@@ -1991,7 +2027,12 @@ namespace DownloadManager
                                                 totalProgressBar.MarqueeAnim = false;
                                                 if (checkBox2.Checked == true)
                                                 {
-
+                                                    this.Close();
+                                                    this.Dispose();
+                                                    return;
+                                                }
+                                                else if (!this.Visible)
+                                                {
                                                     this.Close();
                                                     this.Dispose();
                                                     return;
@@ -2117,7 +2158,12 @@ namespace DownloadManager
                                                 totalProgressBar.MarqueeAnim = false;
                                                 if (checkBox2.Checked == true)
                                                 {
-
+                                                    this.Close();
+                                                    this.Dispose();
+                                                    return;
+                                                }
+                                                else if (!this.Visible)
+                                                {
                                                     this.Close();
                                                     this.Dispose();
                                                     return;
@@ -2243,7 +2289,12 @@ namespace DownloadManager
                                                 totalProgressBar.MarqueeAnim = false;
                                                 if (checkBox2.Checked == true)
                                                 {
-
+                                                    this.Close();
+                                                    this.Dispose();
+                                                    return;
+                                                }
+                                                else if (!this.Visible)
+                                                {
                                                     this.Close();
                                                     this.Dispose();
                                                     return;
@@ -2369,7 +2420,12 @@ namespace DownloadManager
                                                 totalProgressBar.MarqueeAnim = false;
                                                 if (checkBox2.Checked == true)
                                                 {
-
+                                                    this.Close();
+                                                    this.Dispose();
+                                                    return;
+                                                }
+                                                else if (!this.Visible)
+                                                {
                                                     this.Close();
                                                     this.Dispose();
                                                     return;
@@ -2518,7 +2574,12 @@ namespace DownloadManager
                                     totalProgressBar.MarqueeAnim = false;
                                     if (checkBox2.Checked == true)
                                     {
-
+                                        this.Close();
+                                        this.Dispose();
+                                        return;
+                                    }
+                                    else if (!this.Visible)
+                                    {
                                         this.Close();
                                         this.Dispose();
                                         return;
