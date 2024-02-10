@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "DownloadManager": {
+      "commandName": "Project"
+    },
+    "First-Time Setup": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Windows\\System32\\cmd.exe",
+      "commandLineArgs": "/c cd.. && cd.. && cd.. &&\r\necho %cd% && \r\nSetupProject.bat"
+    }
+  }
+}
