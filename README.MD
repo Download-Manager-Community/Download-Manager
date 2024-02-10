@@ -73,7 +73,9 @@ If you would like to contribute code you can do the following to get started:
 
 *To build Download Manager successfully you may have to build the application in the `Debug` build configuration as the `Release` configuration does not work.*
 
-| <img src=".github/images/SetupBuild.png" width="196.5px" height="246px"> |
+<!-- .github/images/SetupBuild.png -->
+
+| <img src="https://github.com/Download-Manager-Community/Download-Manager/blob/master/.github/images/SetupBuild.png" width="350px" height="auto"> |
 |----------|
 |*Figure 1*|
 
