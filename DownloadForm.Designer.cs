@@ -59,8 +59,26 @@
             panel1 = new Panel();
             button2 = new Button();
             progressBar1 = new BetterProgressBar();
+            videoDownloadOptions = new GroupBox();
+            playlistViewButton = new Button();
+            videoThumb = new Microsoft.Web.WebView2.WinForms.WebView2();
+            videoDownloadTypeComboBox = new ComboBox();
+            videoDurationLabel = new Label();
+            videoDateLabel = new Label();
+            videoChannelLabel = new Label();
+            videoTitleLabel = new Label();
+            videoDuration = new Label();
+            videoDate = new Label();
+            videoChannel = new Label();
+            videoTitle = new Label();
+            videoErrorBox = new GroupBox();
+            videoErrorText = new RichTextBox();
+            videoThumbErrorTip = new ToolTip(components);
             trayContextMenu.SuspendLayout();
             panel1.SuspendLayout();
+            videoDownloadOptions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)videoThumb).BeginInit();
+            videoErrorBox.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -288,6 +306,7 @@
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(907, 24);
             textBox1.TabIndex = 18;
+            textBox1.TextUpdate += textBox1_TextUpdate;
             // 
             // toolStripButton2
             // 
@@ -373,12 +392,176 @@
             progressBar1.Size = new Size(933, 11);
             progressBar1.TabIndex = 25;
             // 
+            // videoDownloadOptions
+            // 
+            videoDownloadOptions.Controls.Add(playlistViewButton);
+            videoDownloadOptions.Controls.Add(videoThumb);
+            videoDownloadOptions.Controls.Add(videoDownloadTypeComboBox);
+            videoDownloadOptions.Controls.Add(videoDurationLabel);
+            videoDownloadOptions.Controls.Add(videoDateLabel);
+            videoDownloadOptions.Controls.Add(videoChannelLabel);
+            videoDownloadOptions.Controls.Add(videoTitleLabel);
+            videoDownloadOptions.Controls.Add(videoDuration);
+            videoDownloadOptions.Controls.Add(videoDate);
+            videoDownloadOptions.Controls.Add(videoChannel);
+            videoDownloadOptions.Controls.Add(videoTitle);
+            videoDownloadOptions.Location = new Point(16, 245);
+            videoDownloadOptions.Name = "videoDownloadOptions";
+            videoDownloadOptions.Size = new Size(439, 121);
+            videoDownloadOptions.TabIndex = 26;
+            videoDownloadOptions.TabStop = false;
+            videoDownloadOptions.Text = "YouTube Download Options";
+            videoDownloadOptions.Visible = false;
+            // 
+            // playlistViewButton
+            // 
+            playlistViewButton.BackColor = Color.Transparent;
+            playlistViewButton.FlatAppearance.MouseDownBackColor = Color.Gray;
+            playlistViewButton.FlatStyle = FlatStyle.Flat;
+            playlistViewButton.Location = new Point(327, 88);
+            playlistViewButton.Name = "playlistViewButton";
+            playlistViewButton.Size = new Size(106, 25);
+            playlistViewButton.TabIndex = 38;
+            playlistViewButton.Text = "Playlist Viewer";
+            playlistViewButton.UseVisualStyleBackColor = false;
+            playlistViewButton.Visible = false;
+            playlistViewButton.Click += playlistViewButton_Click;
+            // 
+            // videoThumb
+            // 
+            videoThumb.AllowExternalDrop = true;
+            videoThumb.BackgroundImageLayout = ImageLayout.Zoom;
+            videoThumb.CreationProperties = null;
+            videoThumb.DefaultBackgroundColor = Color.Black;
+            videoThumb.Location = new Point(327, 22);
+            videoThumb.Name = "videoThumb";
+            videoThumb.Size = new Size(106, 64);
+            videoThumb.Source = new Uri("https://raw.githubusercontent.com/Soniczac7/Download-Manager/master/Resources/error.png", UriKind.Absolute);
+            videoThumb.TabIndex = 37;
+            videoThumb.ZoomFactor = 1D;
+            // 
+            // videoDownloadTypeComboBox
+            // 
+            videoDownloadTypeComboBox.BackColor = Color.Black;
+            videoDownloadTypeComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            videoDownloadTypeComboBox.FlatStyle = FlatStyle.Flat;
+            videoDownloadTypeComboBox.ForeColor = Color.White;
+            videoDownloadTypeComboBox.FormattingEnabled = true;
+            videoDownloadTypeComboBox.Items.AddRange(new object[] { "Audio", "Video", "Audio & Video" });
+            videoDownloadTypeComboBox.Location = new Point(7, 88);
+            videoDownloadTypeComboBox.Name = "videoDownloadTypeComboBox";
+            videoDownloadTypeComboBox.Size = new Size(112, 24);
+            videoDownloadTypeComboBox.TabIndex = 36;
+            videoDownloadTypeComboBox.SelectedIndexChanged += videoDownloadTypeComboBox_SelectedIndexChanged;
+            // 
+            // videoDurationLabel
+            // 
+            videoDurationLabel.AutoSize = true;
+            videoDurationLabel.Location = new Point(18, 69);
+            videoDurationLabel.Name = "videoDurationLabel";
+            videoDurationLabel.Size = new Size(57, 16);
+            videoDurationLabel.TabIndex = 34;
+            videoDurationLabel.Text = "Duration:";
+            // 
+            // videoDateLabel
+            // 
+            videoDateLabel.AutoSize = true;
+            videoDateLabel.Location = new Point(18, 53);
+            videoDateLabel.Name = "videoDateLabel";
+            videoDateLabel.Size = new Size(36, 16);
+            videoDateLabel.TabIndex = 33;
+            videoDateLabel.Text = "Date:";
+            // 
+            // videoChannelLabel
+            // 
+            videoChannelLabel.AutoSize = true;
+            videoChannelLabel.Location = new Point(18, 37);
+            videoChannelLabel.Name = "videoChannelLabel";
+            videoChannelLabel.Size = new Size(55, 16);
+            videoChannelLabel.TabIndex = 32;
+            videoChannelLabel.Text = "Channel:";
+            // 
+            // videoTitleLabel
+            // 
+            videoTitleLabel.AutoSize = true;
+            videoTitleLabel.Location = new Point(18, 21);
+            videoTitleLabel.Name = "videoTitleLabel";
+            videoTitleLabel.Size = new Size(68, 16);
+            videoTitleLabel.TabIndex = 31;
+            videoTitleLabel.Text = "Video Title:";
+            // 
+            // videoDuration
+            // 
+            videoDuration.AutoEllipsis = true;
+            videoDuration.Location = new Point(89, 69);
+            videoDuration.Name = "videoDuration";
+            videoDuration.Size = new Size(232, 16);
+            videoDuration.TabIndex = 30;
+            videoDuration.Text = "Duration";
+            // 
+            // videoDate
+            // 
+            videoDate.AutoEllipsis = true;
+            videoDate.Location = new Point(89, 53);
+            videoDate.Name = "videoDate";
+            videoDate.Size = new Size(232, 16);
+            videoDate.TabIndex = 29;
+            videoDate.Text = "Date Posted";
+            // 
+            // videoChannel
+            // 
+            videoChannel.AutoEllipsis = true;
+            videoChannel.Location = new Point(89, 37);
+            videoChannel.Name = "videoChannel";
+            videoChannel.Size = new Size(232, 16);
+            videoChannel.TabIndex = 28;
+            videoChannel.Text = "Channel Name";
+            // 
+            // videoTitle
+            // 
+            videoTitle.AutoEllipsis = true;
+            videoTitle.Location = new Point(89, 21);
+            videoTitle.Name = "videoTitle";
+            videoTitle.Size = new Size(232, 16);
+            videoTitle.TabIndex = 27;
+            videoTitle.Text = "Video Title";
+            // 
+            // videoErrorBox
+            // 
+            videoErrorBox.Controls.Add(videoErrorText);
+            videoErrorBox.Location = new Point(17, 245);
+            videoErrorBox.Name = "videoErrorBox";
+            videoErrorBox.Size = new Size(439, 121);
+            videoErrorBox.TabIndex = 39;
+            videoErrorBox.TabStop = false;
+            videoErrorBox.Text = "YouTube Download Options";
+            videoErrorBox.Visible = false;
+            // 
+            // videoErrorText
+            // 
+            videoErrorText.BorderStyle = BorderStyle.None;
+            videoErrorText.Dock = DockStyle.Fill;
+            videoErrorText.ForeColor = Color.Red;
+            videoErrorText.Location = new Point(3, 19);
+            videoErrorText.Name = "videoErrorText";
+            videoErrorText.ReadOnly = true;
+            videoErrorText.Size = new Size(433, 99);
+            videoErrorText.TabIndex = 0;
+            videoErrorText.Text = "An error occured while fetching the provided YouTube URL.\nCheck the debug log for more information.";
+            // 
+            // videoThumbErrorTip
+            // 
+            videoThumbErrorTip.IsBalloon = true;
+            videoThumbErrorTip.ToolTipIcon = ToolTipIcon.Error;
+            videoThumbErrorTip.ToolTipTitle = "Failed to fetch video thumbnail";
+            // 
             // DownloadForm
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
             ClientSize = new Size(933, 438);
+            Controls.Add(videoDownloadOptions);
             Controls.Add(progressBar1);
             Controls.Add(panel1);
             Controls.Add(textBox1);
@@ -388,6 +571,7 @@
             Controls.Add(label4);
             Controls.Add(linkLabel1);
             Controls.Add(label3);
+            Controls.Add(videoErrorBox);
             Controls.Add(button4);
             Controls.Add(button3);
             Controls.Add(textBox2);
@@ -405,6 +589,10 @@
             trayContextMenu.ResumeLayout(false);
             trayContextMenu.PerformLayout();
             panel1.ResumeLayout(false);
+            videoDownloadOptions.ResumeLayout(false);
+            videoDownloadOptions.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)videoThumb).EndInit();
+            videoErrorBox.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -439,5 +627,20 @@
         private Panel panel1;
         public Button button2;
         private BetterProgressBar progressBar1;
+        private GroupBox videoDownloadOptions;
+        private Button playlistViewButton;
+        private Microsoft.Web.WebView2.WinForms.WebView2 videoThumb;
+        private ComboBox videoDownloadTypeComboBox;
+        private Label videoDurationLabel;
+        private Label videoDateLabel;
+        private Label videoChannelLabel;
+        private Label videoTitleLabel;
+        private Label videoDuration;
+        private Label videoDate;
+        private Label videoChannel;
+        private Label videoTitle;
+        private GroupBox videoErrorBox;
+        private RichTextBox videoErrorText;
+        private ToolTip videoThumbErrorTip;
     }
 }

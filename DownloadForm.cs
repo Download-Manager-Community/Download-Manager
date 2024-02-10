@@ -1,6 +1,9 @@
 ﻿using DownloadManager.NativeMethods;
 using System.Diagnostics;
 using System.Reflection;
+using System.Text.RegularExpressions;
+using YoutubeExplode;
+using YoutubeExplode.Common;
 using static DownloadManager.DownloadProgress;
 
 namespace DownloadManager
@@ -17,6 +20,7 @@ namespace DownloadManager
         public static string downloadsFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop).Replace("Desktop", "Downloads") + "\\";
         public static List<DownloadProgress> downloadsList = new List<DownloadProgress>();
         public static CurrentDownloads currentDownloads = new CurrentDownloads();
+        YoutubeExplode.Playlists.Playlist? listMetadata = null;
 
         public static bool firstShown = true;
 
@@ -360,6 +364,164 @@ namespace DownloadManager
                     currentDownloads.Show(this);
                 }
                 catch { }
+            }
+        }
+
+        private void textBox1_TextUpdate(object sender, EventArgs e)
+        {
+            // Check if the URL is a YouTube URL
+            Regex regex = new Regex(@"^(https?\:\/\/)?((www\.)?youtube\.com|youtu\.be)\/.+$");
+
+            string url = textBox1.Text;
+            bool isPlaylist = false;
+
+            videoDownloadOptions.Show();
+
+            if (regex.IsMatch(url))
+            {
+                if (videoDownloadTypeComboBox.SelectedIndex == -1)
+                    button4.Enabled = false;
+
+                if (url.Contains("playlist?"))
+                {
+                    isPlaylist = true;
+                }
+
+                Thread thread = new Thread(delegate ()
+                {
+                    YoutubeClient client = new YoutubeClient();
+                    YoutubeExplode.Videos.Video? vidMetadata = null;
+
+                    Thread.CurrentThread.IsBackground = true;
+
+                    try
+                    {
+                        if (!isPlaylist)
+                        {
+                            vidMetadata = client.Videos.GetAsync(YoutubeExplode.Videos.VideoId.Parse(url)).Result;
+                        }
+                        else
+                        {
+                            listMetadata = client.Playlists.GetAsync(YoutubeExplode.Playlists.PlaylistId.Parse(url)).Result;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Log(ex.Message, Color.Red);
+                        this.Invoke(new MethodInvoker(delegate ()
+                        {
+                            videoErrorBox.Show();
+                            videoDownloadOptions.Hide();
+                        }));
+
+                        return;
+                    }
+
+                    this.Invoke(new MethodInvoker(delegate ()
+                    {
+                        if (vidMetadata != null)
+                        {
+                            videoDateLabel.Text = "Date: ";
+                            playlistViewButton.Visible = false;
+                            videoDuration.Visible = true;
+                            videoDurationLabel.Visible = true;
+                            videoTitle.Text = vidMetadata.Title;
+                            videoChannel.Text = vidMetadata.Author.ChannelTitle;
+                            videoDate.Text = vidMetadata.UploadDate.LocalDateTime.ToString();
+                            videoDuration.Text = vidMetadata.Duration.ToString();
+
+                            // Get Thumbnail
+                            Thumbnail thumbnail = vidMetadata.Thumbnails.GetWithHighestResolution();
+
+                            try
+                            {
+                                videoThumb.CoreWebView2.Navigate(thumbnail.Url);
+                            }
+                            catch (Exception ex)
+                            {
+                                this.Focus();
+
+                                Point loc = PointToScreen(videoThumb.Location);
+                                videoThumbErrorTip.Show("An error occurred while displaying the thumbnail.\n" + ex.Message, this, loc.X, loc.Y);
+                                /*DarkMessageBox msg = new DarkMessageBox("An error occurred while displaying the thumbnail.\n" + ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                                msg.ShowDialog();*/
+                            }
+                        }
+                        else if (listMetadata != null)
+                        {
+                            videoTitle.Text = listMetadata.Title;
+                            if (listMetadata.Author == null)
+                            {
+                                videoChannel.Text = "Unknown";
+                            }
+                            else
+                            {
+                                videoChannel.Text = listMetadata.Author.ChannelTitle;
+                            }
+                            videoDate.Text = listMetadata.Id;
+                            videoDateLabel.Text = "Id: ";
+                            videoDuration.Visible = false;
+                            videoDurationLabel.Visible = false;
+                            playlistViewButton.Visible = true;
+
+
+                            // Get Thumbnail
+                            Thumbnail thumbnail = listMetadata.Thumbnails.GetWithHighestResolution();
+
+                            try
+                            {
+                                videoThumb.CoreWebView2.Navigate(thumbnail.Url);
+                            }
+                            catch (Exception ex)
+                            {
+                                this.Focus();
+
+                                Point loc = PointToScreen(videoThumb.Location);
+                                videoThumbErrorTip.Show("An error occurred while displaying the thumbnail.\n" + ex.Message, this, loc.X, loc.Y);
+                                /*DarkMessageBox msg = new DarkMessageBox("An error occurred while displaying the thumbnail.\n" + ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                                msg.ShowDialog();*/
+                            }
+                        }
+                        else
+                        {
+                            Logging.Log("An error occurred while fetching the YouTube metadata.", Color.Red);
+                            this.Invoke(new MethodInvoker(delegate ()
+                            {
+                                videoErrorBox.Show();
+                                videoDownloadOptions.Hide();
+                            }));
+                        }
+                    }));
+                });
+                thread.Start();
+            }
+            else
+            {
+                videoDownloadOptions.BringToFront();
+                videoDownloadOptions.Hide();
+                videoErrorBox.Hide();
+            }
+        }
+
+        private void playlistViewButton_Click(object sender, EventArgs e)
+        {
+            // Open playlist viewer
+            YouTubePlaylistViewer playlistViewer = new YouTubePlaylistViewer(listMetadata);
+            playlistViewer.Show();
+        }
+
+        private void videoDownloadTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Check if there is an item selected
+            if (videoDownloadTypeComboBox.SelectedIndex == -1)
+            {
+                // There is no item selected so the download button should be disabled
+                button4.Enabled = false;
+            }
+            else
+            {
+                // There is an item selected so the download button can be enabled
+                button4.Enabled = true;
             }
         }
     }
