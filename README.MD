@@ -64,12 +64,19 @@ There are 3 different types of issues that can be opened on Download Manager.
 ### Option 2 (Contributing code)
 If you would like to contribute code you can do the following to get started:
 1) [Fork](https://github.com/Soniczac7/Download-Manager/fork) the repository.
-2) Create a [pull request](https://github.com/Soniczac7/Download-Manager/pulls) to the `master` branch.
-3) When you are ready request `Soniczac7` as a reviewer.
-4) If the pull request is ok it will be merged with the `master` branch.
-5) If there are improvements that need to be made before the branch can be merged, make them and request `Soniczac7` as a reviewer again.
+2) To be able to properly build Download Manager and have it behave correctly you must run the "First-Time Setup" debug option before building *(figure 1 below)*
+3) Make your changes
+4) Create a [pull request](https://github.com/Soniczac7/Download-Manager/pulls) to the `master` branch.
+5) When you are ready request `Soniczac7` as a reviewer.
+6) If the pull request is ok it will be merged with the `master` branch.
+7) If there are improvements that need to be made before the branch can be merged, make them and request `Soniczac7` as a reviewer again.
 
 *To build Download Manager successfully you may have to build the application in the `Debug` build configuration as the `Release` configuration does not work.*
+
+| <img src=".github/images/SetupBuild.png" width="196.5px" height="246px"> |
+|----------|
+|*Figure 1*|
+
 
 ### Option 3 (Sharing and starring)
 If you dont want to do any of the above but still want to contribute in some way, then leave a star on this repository and share it to others to help other people find this program.
