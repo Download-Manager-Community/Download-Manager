@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Windows.Media.AppBroadcasting;
 using YoutubeExplode;
 using YoutubeExplode.Common;
 using static DownloadManager.DownloadProgress;
@@ -194,11 +195,14 @@ namespace DownloadManager
                 return;
             }
 
-            if (textBox1.Text.StartsWith("http://youtube.com/") || textBox1.Text.StartsWith("https://youtube.com/") || textBox1.Text.StartsWith("http://www.youtube.com/") || textBox1.Text.StartsWith("https://www.youtube.com/"))
+            Regex ytRegex = new Regex(@"^(https?\:\/\/)?((www\.|m\.)?youtube\.com|youtu\.be)\/.+$");
+
+            if (ytRegex.IsMatch(textBox1.Text))
             {
-                YouTubeDownloadForm ytDownload = new YouTubeDownloadForm(textBox1.Text, textBox2.Text);
-                ytDownload.Show();
+                string url = textBox1.Text;
                 textBox1.Text = "";
+                textBox1_TextUpdate(sender, e);
+                // TODO: Add YouTube download code here
                 return;
             }
 
@@ -377,7 +381,7 @@ namespace DownloadManager
             }
         }
 
-        private void textBox1_TextUpdate(object sender, EventArgs e)
+        public void textBox1_TextUpdate(object sender, EventArgs e)
         {
             // Check if the URL is a YouTube URL
             Regex regex = new Regex(@"^(https?\:\/\/)?((www\.)?youtube\.com|youtu\.be)\/.+$");

@@ -193,9 +193,15 @@ namespace DownloadManager
                                 Log("Request received for URL: " + url, Color.White);
                                 Log("URL is a YouTube link. Opening the YouTube Download Form.", Color.White);
 
+                                // Open the download form
+                                DownloadForm._instance.Show();
+                                DownloadForm._instance.Focus();
+                                DownloadForm._instance.textBox1.Text = url;
+                                DownloadForm._instance.textBox1_TextUpdate(this, null);
+
                                 // Open the YouTube download window
-                                YouTubeDownloadForm youtubeDownloadForm = new YouTubeDownloadForm(url, Settings.Default.defaultDownload);
-                                youtubeDownloadForm.Show();
+                                /*YouTubeDownloadForm youtubeDownloadForm = new YouTubeDownloadForm(url, Settings.Default.defaultDownload);
+                                youtubeDownloadForm.Show();*/
 
                                 /*DownloadProgress downloadProgress = new DownloadProgress(url, Settings.Default.defaultDownload, DownloadType.Normal, null, "", 0);
                                 downloadProgress.Show();*/
