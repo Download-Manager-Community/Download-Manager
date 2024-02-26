@@ -164,7 +164,17 @@ namespace DownloadManager
                 // To set the currentDownloads window y position to the middle of the parent form:
                 currentDownloads.Location = new Point(this.Location.X + this.Width + 5, this.Location.Y + middleY - (currentDownloads.Height / 2));
 
-                currentDownloads.Show(this);
+                try
+                { 
+                    // Show current downloads window and set the parent as this form
+                    currentDownloads.Show(this);
+                }
+                catch
+                {
+                    // If the current downloads window is already open, hide it and show it again to set the parent
+                    currentDownloads.Hide();
+                    currentDownloads.Show(this);
+                }
             }
         }
 
