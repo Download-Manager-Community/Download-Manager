@@ -166,7 +166,7 @@ namespace DownloadManager
                 currentDownloads.Location = new Point(this.Location.X + this.Width + 5, this.Location.Y + middleY - (currentDownloads.Height / 2));
 
                 try
-                { 
+                {
                     // Show current downloads window and set the parent as this form
                     currentDownloads.Show(this);
                 }
@@ -195,23 +195,50 @@ namespace DownloadManager
                 return;
             }
 
-            Regex ytRegex = new Regex(@"^(https?\:\/\/)?((www\.|m\.)?youtube\.com|youtu\.be)\/.+$");
-
-            if (ytRegex.IsMatch(textBox1.Text))
-            {
-                string url = textBox1.Text;
-                textBox1.Text = "";
-                textBox1_TextUpdate(sender, e);
-                // TODO: Add YouTube download code here
-                return;
-            }
-
             if (!textBox1.Items.Contains(textBox1.Text))
             {
                 textBox1.Items.Add(textBox1.Text);
                 Settings.Default.downloadHistory.Add(textBox1.Text);
                 Settings.Default.Save();
             }
+
+            Regex ytRegex = new Regex(@"^(https?\:\/\/)?((www?\.|m?\.)?youtube\.com|^(https?\:\/\/)?(www?\.)?youtu\.be)\/.+$");
+
+            if (ytRegex.IsMatch(textBox1.Text))
+            {
+                string url = textBox1.Text;
+                textBox1.Text = "";
+                textBox1_TextUpdate(sender, e);
+
+                bool isPlaylist = false;
+
+                if (url.Contains("playlist?"))
+                {
+                    isPlaylist = true;
+                }
+
+                DownloadType downloadType;
+
+                switch (isPlaylist)
+                {
+                    case true:
+                        downloadType = DownloadType.YoutubePlaylist;
+                        break;
+                    case false:
+                        downloadType = DownloadType.YoutubeVideo;
+                        break;
+                }
+
+                YoutubeDownloadType ytDownloadType = (YoutubeDownloadType)Enum.ToObject(typeof(YoutubeDownloadType), videoDownloadTypeComboBox.SelectedIndex);
+
+                DownloadProgress progress = new DownloadProgress(url, textBox2.Text, downloadType, ytDownloadType, "", 0);
+                progress.Show();
+
+                DownloadForm.downloadsList.Add(progress);
+                DownloadForm.currentDownloads.RefreshList();
+                return;
+            }
+
             DownloadProgress downloadProgress = new DownloadProgress(textBox1.Text, textBox2.Text, DownloadType.Normal, null, textBox3.Text, comboBox1.SelectedIndex);
             downloadProgress.Show();
 
@@ -384,15 +411,16 @@ namespace DownloadManager
         public void textBox1_TextUpdate(object sender, EventArgs e)
         {
             // Check if the URL is a YouTube URL
-            Regex regex = new Regex(@"^(https?\:\/\/)?((www\.)?youtube\.com|youtu\.be)\/.+$");
+            // Regex test: https://regex101.com/r/thr1ui/1
+            Regex regex = new Regex(@"^(https?\:\/\/)?((www?\.|m?\.)?youtube\.com|^(https?\:\/\/)?(www?\.)?youtu\.be)\/.+$");
 
             string url = textBox1.Text;
             bool isPlaylist = false;
 
-            videoDownloadOptions.Show();
-
             if (regex.IsMatch(url))
             {
+                videoDownloadOptions.Show();
+
                 if (videoDownloadTypeComboBox.SelectedIndex == -1)
                     button4.Enabled = false;
 
@@ -515,6 +543,11 @@ namespace DownloadManager
                 videoDownloadOptions.Hide();
                 videoErrorBox.Hide();
             }
+        }
+
+        private void textBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            textBox1_TextUpdate(sender, e);
         }
 
         private void playlistViewButton_Click(object sender, EventArgs e)

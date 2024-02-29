@@ -306,6 +306,7 @@
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(907, 24);
             textBox1.TabIndex = 18;
+            textBox1.SelectedIndexChanged += textBox1_SelectedIndexChanged;
             textBox1.TextUpdate += textBox1_TextUpdate;
             // 
             // toolStripButton2
