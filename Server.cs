@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.RegularExpressions;
 using static DownloadManager.DownloadProgress;
 using static DownloadManager.Logging;
 
@@ -182,10 +183,12 @@ namespace DownloadManager
 
                 if (url.StartsWith("GET /?url=%22") || url.StartsWith("GET /?url="))
                 {
-                    if (url.Contains("&ytdownload=True"))
-                    {
-                        url = url.Replace("GET /?url=%22", "").Replace("GET /?url=", "").Replace("&ytdownload=True", "");
+                    url = url.Replace("GET /?url=%22", "");
 
+                    Regex ytRegex = new Regex(@"^(https?\:\/\/)?((www?\.|m?\.)?youtube\.com|^(https?\:\/\/)?(www?\.)?youtu\.be)\/.+$");
+
+                    if (ytRegex.IsMatch(url))
+                    {
                         if (!url.Contains("favicon.ico"))
                         {
                             DownloadForm._instance.Invoke((MethodInvoker)delegate
@@ -213,8 +216,6 @@ namespace DownloadManager
                     }
                     else
                     {
-                        url = url.Replace("GET /?url=%22", "");
-
                         if (!url.Contains("favicon.ico"))
                         {
                             DownloadForm._instance.Invoke((MethodInvoker)delegate
