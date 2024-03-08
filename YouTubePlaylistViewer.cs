@@ -74,7 +74,7 @@ namespace DownloadManager
             // Ensure a video is selected
             if (treeView1.SelectedNode.Index == 0 && treeView1.SelectedNode.Parent == null)
             {
-                DarkMessageBox msg = new DarkMessageBox("Cannot download the playlist from here.\nTo download the playlist click " + '"' + "Download" + '"' + "on the YouTube Downloader window.", "Download Manager - Playlist Downloader Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning, true);
+                DarkMessageBox msg = new DarkMessageBox("Cannot download the playlist from here.\nTo download the playlist click " + '"' + "Download" + '"' + "on the Main window.", "Download Manager - Playlist Downloader Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning, true);
                 msg.ShowDialog();
                 progressBar1.Visible = false;
                 return;
