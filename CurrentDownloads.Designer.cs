@@ -180,7 +180,7 @@
             TotalReceived.HeaderText = "Received";
             TotalReceived.Name = "TotalReceived";
             TotalReceived.ReadOnly = true;
-            TotalReceived.Width = 60;
+            TotalReceived.Width = 90;
             // 
             // SizeColumn
             // 
@@ -188,7 +188,7 @@
             SizeColumn.Name = "SizeColumn";
             SizeColumn.ReadOnly = true;
             SizeColumn.SortMode = DataGridViewColumnSortMode.Programmatic;
-            SizeColumn.Width = 60;
+            SizeColumn.Width = 90;
             // 
             // CurrentDownloads
             // 
