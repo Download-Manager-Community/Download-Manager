@@ -106,6 +106,9 @@ namespace DownloadManager
             DownloadProgress download = new DownloadProgress(video.Url, Settings.Default.defaultDownload, DownloadType.YoutubeVideo, type, "", 0);
             download.Show();
 
+            DownloadForm.downloadsList.Add(download);
+            DownloadForm.currentDownloads.RefreshList();
+
             progressBar1.Style = ProgressBarStyle.Blocks;
             progressBar1.MarqueeAnim = false;
         }
