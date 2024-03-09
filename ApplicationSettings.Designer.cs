@@ -43,10 +43,12 @@
             help1 = new Label();
             label19 = new Label();
             label20 = new Label();
+            label23 = new Label();
             folderBrowserDialog1 = new FolderBrowserDialog();
             label12 = new Label();
             button10 = new Button();
             generalPanel = new Panel();
+            numericUpDown3 = new NumericUpDown();
             checkBox10 = new CheckBox();
             label21 = new Label();
             label18 = new Label();
@@ -68,6 +70,7 @@
             numericUpDown1 = new NumericUpDown();
             label8 = new Label();
             label9 = new Label();
+            label22 = new Label();
             checkBox5 = new CheckBox();
             checkBox4 = new CheckBox();
             linkLabel6 = new LinkLabel();
@@ -89,16 +92,15 @@
             button2 = new Button();
             button3 = new Button();
             button4 = new Button();
-            label22 = new Label();
-            numericUpDown3 = new NumericUpDown();
-            label23 = new Label();
+            label24 = new Label();
+            linkLabel7 = new LinkLabel();
             generalPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             updatesPanel.SuspendLayout();
             soundsPanel.SuspendLayout();
             notificationsPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).BeginInit();
             SuspendLayout();
             // 
             // toolTip1
@@ -273,6 +275,20 @@
             label20.Text = "?";
             toolTip1.SetToolTip(label20, "When checked Download Manager (when the application is launched) will minimize to the system tray.");
             // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Cursor = Cursors.Help;
+            label23.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label23.ForeColor = Color.Gray;
+            label23.Location = new Point(227, 461);
+            label23.Margin = new Padding(4, 0, 4, 0);
+            label23.Name = "label23";
+            label23.Size = new Size(12, 15);
+            label23.TabIndex = 56;
+            label23.Text = "?";
+            toolTip1.SetToolTip(label23, resources.GetString("label23.ToolTip"));
+            // 
             // label12
             // 
             label12.AutoSize = true;
@@ -344,6 +360,19 @@
             generalPanel.Name = "generalPanel";
             generalPanel.Size = new Size(800, 396);
             generalPanel.TabIndex = 48;
+            // 
+            // numericUpDown3
+            // 
+            numericUpDown3.BackColor = Color.Black;
+            numericUpDown3.BorderStyle = BorderStyle.FixedSingle;
+            numericUpDown3.ForeColor = Color.White;
+            numericUpDown3.Location = new Point(7, 480);
+            numericUpDown3.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
+            numericUpDown3.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDown3.Name = "numericUpDown3";
+            numericUpDown3.Size = new Size(769, 23);
+            numericUpDown3.TabIndex = 55;
+            numericUpDown3.Value = new decimal(new int[] { 5, 0, 0, 0 });
             // 
             // checkBox10
             // 
@@ -581,6 +610,17 @@
             label9.TabIndex = 32;
             label9.Text = "Desktop Shortcut: null";
             // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.ForeColor = Color.White;
+            label22.Location = new Point(7, 461);
+            label22.Margin = new Padding(4, 0, 4, 0);
+            label22.Name = "label22";
+            label22.Size = new Size(219, 16);
+            label22.TabIndex = 54;
+            label22.Text = "Maximum Internal Server Failure Count";
+            // 
             // checkBox5
             // 
             checkBox5.AutoSize = true;
@@ -715,6 +755,8 @@
             // 
             updatesPanel.Anchor = AnchorStyles.Bottom;
             updatesPanel.BackColor = Color.Black;
+            updatesPanel.Controls.Add(linkLabel7);
+            updatesPanel.Controls.Add(label24);
             updatesPanel.Controls.Add(linkLabel6);
             updatesPanel.Controls.Add(label16);
             updatesPanel.Controls.Add(linkLabel5);
@@ -864,43 +906,29 @@
             button4.UseVisualStyleBackColor = true;
             button4.Click += button4_Click;
             // 
-            // label22
+            // label24
             // 
-            label22.AutoSize = true;
-            label22.ForeColor = Color.White;
-            label22.Location = new Point(7, 461);
-            label22.Margin = new Padding(4, 0, 4, 0);
-            label22.Name = "label22";
-            label22.Size = new Size(219, 16);
-            label22.TabIndex = 54;
-            label22.Text = "Maximum Internal Server Failure Count";
+            label24.AutoSize = true;
+            label24.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label24.Location = new Point(10, 109);
+            label24.Name = "label24";
+            label24.Size = new Size(44, 15);
+            label24.TabIndex = 50;
+            label24.Text = "Debug";
             // 
-            // numericUpDown3
+            // linkLabel7
             // 
-            numericUpDown3.BackColor = Color.Black;
-            numericUpDown3.BorderStyle = BorderStyle.FixedSingle;
-            numericUpDown3.ForeColor = Color.White;
-            numericUpDown3.Location = new Point(7, 480);
-            numericUpDown3.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
-            numericUpDown3.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            numericUpDown3.Name = "numericUpDown3";
-            numericUpDown3.Size = new Size(769, 23);
-            numericUpDown3.TabIndex = 55;
-            numericUpDown3.Value = new decimal(new int[] { 5, 0, 0, 0 });
-            // 
-            // label23
-            // 
-            label23.AutoSize = true;
-            label23.Cursor = Cursors.Help;
-            label23.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label23.ForeColor = Color.Gray;
-            label23.Location = new Point(227, 461);
-            label23.Margin = new Padding(4, 0, 4, 0);
-            label23.Name = "label23";
-            label23.Size = new Size(12, 15);
-            label23.TabIndex = 56;
-            label23.Text = "?";
-            toolTip1.SetToolTip(label23, resources.GetString("label23.ToolTip"));
+            linkLabel7.ActiveLinkColor = Color.Blue;
+            linkLabel7.AutoSize = true;
+            linkLabel7.LinkColor = Color.FromArgb(90, 90, 255);
+            linkLabel7.Location = new Point(9, 124);
+            linkLabel7.Name = "linkLabel7";
+            linkLabel7.Size = new Size(129, 16);
+            linkLabel7.TabIndex = 51;
+            linkLabel7.TabStop = true;
+            linkLabel7.Text = "YouTube Endpoint Test";
+            linkLabel7.VisitedLinkColor = Color.FromArgb(0, 195, 255);
+            linkLabel7.LinkClicked += linkLabel7_LinkClicked;
             // 
             // ApplicationSettings
             // 
@@ -912,10 +940,10 @@
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(button1);
+            Controls.Add(updatesPanel);
             Controls.Add(generalPanel);
             Controls.Add(notificationsPanel);
             Controls.Add(soundsPanel);
-            Controls.Add(updatesPanel);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
@@ -925,6 +953,7 @@
             Load += Settings_Load;
             generalPanel.ResumeLayout(false);
             generalPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown3).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             updatesPanel.ResumeLayout(false);
@@ -933,7 +962,6 @@
             soundsPanel.PerformLayout();
             notificationsPanel.ResumeLayout(false);
             notificationsPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).EndInit();
             ResumeLayout(false);
         }
 
@@ -1000,5 +1028,7 @@
         private Label label22;
         private NumericUpDown numericUpDown3;
         private Label label23;
+        private Label label24;
+        private LinkLabel linkLabel7;
     }
 }

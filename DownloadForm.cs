@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using Windows.Media.AppBroadcasting;
 using YoutubeExplode;
 using YoutubeExplode.Common;
 using static DownloadManager.DownloadProgress;

@@ -539,5 +539,11 @@ namespace DownloadManager
             Settings.Default.trayOnStartup = checkBox10.Checked;
             Settings.Default.Save();
         }
+
+        private void linkLabel7_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            YouTube.Debug.YouTubeEndpointTest endpointTest = new YouTube.Debug.YouTubeEndpointTest();
+            endpointTest.Show();
+        }
     }
 }
