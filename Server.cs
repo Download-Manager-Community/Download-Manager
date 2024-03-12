@@ -18,7 +18,7 @@ namespace DownloadManager
         public void StartServer()
         {
             _instance = this;
-            Log("Starting internal server...", Color.White);
+            Log(LogLevel.Info, "Starting internal server...");
             try
             {
                 thread = new Thread(new ThreadStart(ConnectionThreadMethod));
@@ -26,7 +26,7 @@ namespace DownloadManager
             }
             catch (Exception ex)
             {
-                Log("Error while starting internal server:" + Environment.NewLine + ex.Message + ex.StackTrace, Color.Red);
+                Log(LogLevel.Error, "Error while starting internal server:" + Environment.NewLine + ex.Message + ex.StackTrace);
             }
         }
 
@@ -42,7 +42,7 @@ namespace DownloadManager
             }
             catch (Exception ex)
             {
-                Log("Error while starting internal server:" + Environment.NewLine + ex.Message + ex.StackTrace, Color.Red);
+                Log(LogLevel.Error, "Error while starting internal server:" + Environment.NewLine + ex.Message + ex.StackTrace);
             }
         }
 
@@ -52,7 +52,7 @@ namespace DownloadManager
             {
                 if (failureCount >= Settings.Default.maxServerFailureCount)
                 {
-                    Log("The internal server has failed to start, some functionality of Download Manager may be limited.", Color.Orange);
+                    Log(LogLevel.Warning, "The internal server has failed to start, some functionality of Download Manager may be limited.");
                     DarkMessageBox msg = new DarkMessageBox("Download Manager encountered an error while attempting to start the internal server multiple times and has stopped attempting to prevent unexpected behavior.\nSome functionality may not be available such as browser integration.\nPlease check your firewall and ports settings.\nFor more information, check the debug logs.", "Download Manager Internal Server Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     msg.ShowDialog();
                     break;
@@ -64,18 +64,18 @@ namespace DownloadManager
 
                 try
                 {
-                    Log("Internal server ready. Listening for connections on port " + serverPort + ".", Color.Green);
+                    Log(LogLevel.Info, "Internal server ready. Listening for connections on port " + serverPort + ".");
                     client = httpServer.Accept();
 
                 }
                 catch (Exception ex)
                 {
-                    Log("Error while starting internal server:" + Environment.NewLine + ex.Message + ex.StackTrace, Color.Red);
+                    Log(LogLevel.Error, "Error while starting internal server:" + Environment.NewLine + ex.Message + ex.StackTrace);
                     failureCount++;
                     continue;
                 }
 
-                Log("Reading inbound connection data.", Color.Gray);
+                Log(LogLevel.Debug, "Reading inbound connection data.");
 
                 bool timeOut = false;
                 bool nullBytes = false;
@@ -85,7 +85,7 @@ namespace DownloadManager
                 {
                     if (client.Poll(1000, SelectMode.SelectWrite) == false)
                     {
-                        Log("No data is available to be read and will be ignored.", Color.Orange);
+                        Log(LogLevel.Warning, "No data is available to be read and will be ignored.");
                         break;
                     }
                     // Use a 5 second timeout
@@ -101,16 +101,16 @@ namespace DownloadManager
                         {
                             if (ex.Message == "An established connection was aborted by the software in your host machine.")
                             {
-                                Log("The connection was canceled by the browser!", Color.Orange);
+                                Log(LogLevel.Warning, "The connection was canceled by the browser!");
                             }
                             else
                             {
-                                Log(ex.Message + " (" + ex.GetType() + ")" + Environment.NewLine + ex.StackTrace, Color.Red);
+                                Log(LogLevel.Error, ex.Message + " (" + ex.GetType() + ")" + Environment.NewLine + ex.StackTrace);
                             }
                         }
                         catch (Exception ex)
                         {
-                            Log(ex.Message + " (" + ex.GetType() + ")" + Environment.NewLine + ex.StackTrace, Color.Red);
+                            Log(LogLevel.Error, ex.Message + " (" + ex.GetType() + ")" + Environment.NewLine + ex.StackTrace);
                         }
                     }));
                     thread.Start();
@@ -121,7 +121,7 @@ namespace DownloadManager
                             thread.Abort();
                         }
                         catch { }
-                        Log("Download Manager timed-out while reading inbound connection data. The connection will be ignored.", Color.Orange);
+                        Log(LogLevel.Warning, "Download Manager timed-out while reading inbound connection data. The connection will be ignored.");
                         timeOut = true;
                         break;
                     }
@@ -140,11 +140,11 @@ namespace DownloadManager
                     }
                 }
 
-                Log("Finished reading inbound connection data.", Color.Gray);
+                Log(LogLevel.Debug, "Finished reading inbound connection data.");
 
                 if (timeOut)
                 {
-                    Log("Failed to read inbound connection data. Receiving data timed-out!", Color.Red);
+                    Log(LogLevel.Error, "Failed to read inbound connection data. Receiving data timed-out!");
                     client.Close();
                     bytes = null;
                     continue;
@@ -152,7 +152,7 @@ namespace DownloadManager
 
                 if (nullBytes)
                 {
-                    Log("Failed to read inbound connection data. The number of bytes was null!", Color.Red);
+                    Log(LogLevel.Error, "Failed to read inbound connection data. The number of bytes was null!");
                     client.Close();
                     bytes = null;
                     continue;
@@ -161,25 +161,25 @@ namespace DownloadManager
                 string[] splittedData = data.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 if (splittedData.Length <= 0)
                 {
-                    Log("Received empty request. Ignoring...", Color.Orange);
+                    Log(LogLevel.Warning, "Received empty request. Ignoring...");
                     continue;
                 }
 
                 // TOOD: Temp debug logging
-                Log("--- Start Request ---", Color.White);
-                Log(data, Color.White);
-                Log("--- End Request ---", Color.White);
+                Log(LogLevel.Debug, "--- Start Request ---");
+                Log(LogLevel.Debug, data);
+                Log(LogLevel.Debug, "--- End Request ---");
 
                 string url = splittedData[0].ToString().Replace("%22 HTTP/1.1", "");
 
-                Log(url, Color.White);
+                Log(LogLevel.Debug, url);
 
                 if (url.EndsWith(" HTTP/1.1"))
                 {
                     url = url.Remove(url.Length - 9, 9);
                 }
 
-                Log(url, Color.White);
+                Log(LogLevel.Debug, url);
 
                 if (url.StartsWith("GET /?url=%22") || url.StartsWith("GET /?url="))
                 {
@@ -193,8 +193,8 @@ namespace DownloadManager
                         {
                             DownloadForm._instance.Invoke((MethodInvoker)delegate
                             {
-                                Log("Request received for URL: " + url, Color.White);
-                                Log("URL is a YouTube link. Opening the YouTube Download Form.", Color.White);
+                                Log(LogLevel.Info, "Request received for URL: " + url);
+                                Log(LogLevel.Info, "URL is a YouTube link. Opening the YouTube Download Form.");
 
                                 // Open the download form
                                 DownloadForm._instance.Show();
@@ -220,7 +220,7 @@ namespace DownloadManager
                         {
                             DownloadForm._instance.Invoke((MethodInvoker)delegate
                             {
-                                Log("Request received for URL: " + url, Color.White);
+                                Log(LogLevel.Warning, "Request received for URL: " + url);
                                 if (Settings.Default.downloadHistory.Contains(url) == false)
                                 {
                                     DownloadForm._instance.textBox1.Items.Add(url);
@@ -245,7 +245,7 @@ namespace DownloadManager
 
                     if (url.Contains("True"))
                     {
-                        Log("Request received to show download window.", Color.White);
+                        Log(LogLevel.Info, "Request received to show download window.");
                         DownloadForm._instance.Invoke((MethodInvoker)delegate
                         {
                             DownloadForm._instance.Show();
@@ -254,7 +254,7 @@ namespace DownloadManager
                     }
                     else if (url.Contains("False"))
                     {
-                        Log("Request received to hide download window.", Color.White);
+                        Log(LogLevel.Info, "Request received to hide download window.");
                         DownloadForm._instance.Invoke((MethodInvoker)delegate
                         {
                             DownloadForm._instance.Hide();
@@ -262,7 +262,7 @@ namespace DownloadManager
                     }
                     else
                     {
-                        Log("Malformed request received to show/hide download window. Ignoring...", Color.Orange);
+                        Log(LogLevel.Warning, "Malformed request received to show/hide download window. Ignoring...");
                     }
 
                     if (url.EndsWith("&ref=Instance"))

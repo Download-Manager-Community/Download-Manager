@@ -2,10 +2,10 @@
 using System.Diagnostics;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using Windows.Media.AppBroadcasting;
 using YoutubeExplode;
 using YoutubeExplode.Common;
 using static DownloadManager.DownloadProgress;
+using static DownloadManager.Logging;
 
 namespace DownloadManager
 {
@@ -14,7 +14,7 @@ namespace DownloadManager
         public static readonly string installationPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\";
         public static DownloadForm _instance;
         public Logging logging = new Logging();
-        ApplicationSettings settings = new ApplicationSettings();
+        public ApplicationSettings settings = new ApplicationSettings();
         Server browserIntercept = new Server();
         public static int downloadsAmount = 0;
         public static bool ytDownloading = false;
@@ -29,16 +29,27 @@ namespace DownloadManager
         {
             _instance = this;
 
-            Logging.Log("Downloads folder: " + downloadsFolder, Color.White);
+            if (Settings.Default.automaticLogSavingLocation == "")
+            {
+                Settings.Default.automaticLogSavingLocation = $"{installationPath}Logs\\";
+                Settings.Default.Save();
+            }
+
+            if (!Directory.Exists(Settings.Default.automaticLogSavingLocation))
+            {
+                Directory.CreateDirectory(Settings.Default.automaticLogSavingLocation);
+            }
+
+            Logging.Log(LogLevel.Debug, "Downloads folder: " + downloadsFolder);
             if (Settings.Default.downloadHistory == null)
             {
-                Logging.Log("Download History is null. Performing first time setup.", Color.Orange);
+                Logging.Log(LogLevel.Warning, "Download History is null. Performing first time setup.");
                 Settings.Default.downloadHistory = new System.Collections.Specialized.StringCollection { };
             }
 
             if (Settings.Default.currentDownloadsHiddenColumns == null || Settings.Default.currentDownloadsShownColumns == null)
             {
-                Logging.Log("One or more current downloads column settings are null. Performing first time setuo", Color.Orange);
+                Logging.Log(LogLevel.Warning, "One or more current downloads column settings are null. Performing first time setup");
                 SetupColumnPrefs();
             }
 
@@ -88,7 +99,7 @@ namespace DownloadManager
                     "5"
                 };
             Settings.Default.Save();
-            Logging.Log("Column Preferences Reset!", Color.Orange);
+            Logging.Log(LogLevel.Warning, "Column Preferences Reset!");
         }
 
         private async void DownloadForm_Shown(object sender, EventArgs e)
@@ -449,7 +460,7 @@ namespace DownloadManager
                     }
                     catch (Exception ex)
                     {
-                        Logging.Log(ex.Message, Color.Red);
+                        Logging.Log(LogLevel.Error, ex.Message);
                         this.Invoke(new MethodInvoker(delegate ()
                         {
                             videoErrorBox.Show();
@@ -526,7 +537,7 @@ namespace DownloadManager
                         }
                         else
                         {
-                            Logging.Log("An error occurred while fetching the YouTube metadata.", Color.Red);
+                            Logging.Log(LogLevel.Error, "An error occurred while fetching the YouTube metadata.");
                             this.Invoke(new MethodInvoker(delegate ()
                             {
                                 videoErrorBox.Show();

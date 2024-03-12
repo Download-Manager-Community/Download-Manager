@@ -140,9 +140,6 @@ The default option for this settings is ON.</value>
 If this option is unchecked then the downloads progress window will not close once the download has completed.
 The default option for this settings is OFF.</value>
   </data>
-  <metadata name="folderBrowserDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>114, 17</value>
-  </metadata>
   <data name="label23.ToolTip" xml:space="preserve">
     <value>The maximum number of times that the internal server of Download Manager is allowed to fail to start before the server starting is stopped and a warning is shown.
 The default value for this option is 5.
@@ -150,6 +147,14 @@ The minimum value for this option is 1.
 There is no maximum value for this option however higher values may cause unexpected behaviour.
 Do not change this setting unless you know what you are doing.</value>
   </data>
+  <data name="label27.ToolTip" xml:space="preserve">
+    <value>If this option is checked then the Download Manager log will be automatically saved to the disk. This is recommended as it can help to troubleshoot issues with Download Manager if any occurs.
+If this option is unchecked then the Download Manager log will not automatically save to the disk.
+The default option for this setting is ON.</value>
+  </data>
+  <metadata name="folderBrowserDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>114, 17</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

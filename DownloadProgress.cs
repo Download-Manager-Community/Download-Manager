@@ -127,7 +127,7 @@ namespace DownloadManager
 
         private void progress_Load(object sender, EventArgs e)
         {
-            Log("Preparing to start downloading...", Color.White);
+            Log(LogLevel.Info, "Preparing to start downloading...");
             checkBox2.Checked = Settings.Default.closeOnComplete;
             checkBox1.Checked = Settings.Default.keepOnTop;
             progressBar1.Visible = false;
@@ -137,7 +137,7 @@ namespace DownloadManager
             totalProgressBar.MarqueeAnim = true;
             if (doSafeMode)
             {
-                Log("Safe mode flag is set!", Color.Orange);
+                Log(LogLevel.Warning, "Safe mode flag is set!");
                 safeModeLabel.Visible = true;
 
                 thread = new Thread(new ThreadStart(StartSafeModeDownload));
@@ -356,7 +356,7 @@ namespace DownloadManager
                         downloading = false;
                         DownloadForm.downloadsAmount -= 1;
                         DownloadForm.ytDownloading = false;
-                        Log("Finished downloading file.", Color.White);
+                        Log(LogLevel.Info, "Finished downloading file.");
 
                         if (Settings.Default.notifyDone)
                         {
@@ -444,7 +444,7 @@ namespace DownloadManager
                         downloading = false;
                         DownloadForm.downloadsAmount -= 1;
                         DownloadForm.ytDownloading = false;
-                        Log("Finished downloading file.", Color.White);
+                        Log(LogLevel.Info, "Finished downloading file.");
 
                         if (Settings.Default.notifyDone)
                         {
@@ -533,7 +533,7 @@ namespace DownloadManager
                         downloading = false;
                         DownloadForm.downloadsAmount -= 1;
                         DownloadForm.ytDownloading = false;
-                        Log("Finished downloading file.", Color.White);
+                        Log(LogLevel.Info, "Finished downloading file.");
 
                         if (Settings.Default.notifyDone)
                         {
@@ -729,7 +729,7 @@ namespace DownloadManager
                     downloading = false;
                     DownloadForm.downloadsAmount -= 1;
                     DownloadForm.ytDownloading = false;
-                    Log("Finished downloading file.", Color.White);
+                    Log(LogLevel.Info, "Finished downloading file.");
 
                     if (Settings.Default.notifyDone)
                     {
@@ -838,7 +838,7 @@ namespace DownloadManager
                     downloading = false;
                     DownloadForm.downloadsAmount -= 1;
                     DownloadForm.ytDownloading = false;
-                    Log("Finished downloading file.", Color.White);
+                    Log(LogLevel.Info, "Finished downloading file.");
 
                     if (Settings.Default.notifyDone)
                     {
@@ -975,7 +975,7 @@ namespace DownloadManager
                     downloading = false;
                     DownloadForm.downloadsAmount -= 1;
                     DownloadForm.ytDownloading = false;
-                    Log("Finished downloading file.", Color.White);
+                    Log(LogLevel.Info, "Finished downloading file.");
 
                     if (Settings.Default.notifyDone)
                     {
@@ -1044,7 +1044,7 @@ namespace DownloadManager
 
         private void ConvertAudio(string fileName, string destFileName)
         {
-            Log("Beginning file conversion...", Color.White);
+            Log(LogLevel.Info, "Beginning file conversion...");
 
             ProcessStartInfo startInfo = new();
             startInfo.FileName = "ffmpeg.exe";
@@ -1055,8 +1055,8 @@ namespace DownloadManager
             startInfo.RedirectStandardError = true;
             Process process = new();
             process.StartInfo = startInfo;
-            process.OutputDataReceived += (sender, args) => Log("[ffmpeg.exe] " + args.Data, Color.White);
-            process.ErrorDataReceived += (sender, args) => Log("[ffmpeg.exe] " + args.Data, Color.White);
+            process.OutputDataReceived += (sender, args) => Log(LogLevel.Debug, "[ffmpeg] " + args.Data);
+            process.ErrorDataReceived += (sender, args) => Log(LogLevel.Debug, "[ffmpeg] " + args.Data);
             process.Start();
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
@@ -1068,7 +1068,7 @@ namespace DownloadManager
             }
             else
             {
-                Log("Finished file conversion.", Color.White);
+                Log(LogLevel.Info, "Finished file conversion.");
             }
         }
 
@@ -1093,7 +1093,7 @@ namespace DownloadManager
                 DownloadForm.downloadsAmount -= 1;
                 DownloadForm.downloadsList.Remove(this);
 
-                Logging.Log($"Failed to parse URI.\n{ex.Message} ({ex.GetType().FullName})\n{ex.StackTrace}", Color.Red);
+                Logging.Log(LogLevel.Error, $"Failed to parse URI.\n{ex.Message} ({ex.GetType().FullName})\n{ex.StackTrace}");
                 DarkMessageBox msg = new DarkMessageBox(ex.Message + $" ({ex.GetType().FullName})\n" + ex.StackTrace, "Failed to parse URI", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 msg.ShowDialog();
                 msg.Dispose();
@@ -1126,7 +1126,7 @@ namespace DownloadManager
                     DownloadForm.downloadsAmount -= 1;
 
                     cancellationToken.Cancel();
-                    Logging.Log("Download of " + fileName + " has been canceled.", Color.Orange);
+                    Logging.Log(LogLevel.Warning, "Download of " + fileName + " has been canceled.");
 
                     if (Settings.Default.notifyFail)
                     {
@@ -1246,7 +1246,7 @@ namespace DownloadManager
                         DownloadForm.downloadsAmount -= 1;
 
                         cancellationToken.Cancel();
-                        Logging.Log("Download of " + fileName + " has been canceled.", Color.Orange);
+                        Logging.Log(LogLevel.Warning, "Download of " + fileName + " has been canceled.");
 
                         if (Settings.Default.notifyFail)
                         {
@@ -1276,7 +1276,7 @@ namespace DownloadManager
                 progressBar2.Visible = true;
             }));
 
-            Log("Downloading file " + uri + " to " + location + fileName, Color.White);
+            Log(LogLevel.Info, "Downloading file " + uri + " to " + location + fileName);
             try
             {
                 await DownloadFileAsync(uri, cancellationToken.Token, Client_DownloadProgressChanged);
@@ -1291,11 +1291,11 @@ namespace DownloadManager
             }
             catch (System.Threading.Tasks.TaskCanceledException)
             {
-                Log("Download of " + url + "was canceled.", Color.White);
+                Log(LogLevel.Info, "Download of " + url + "was canceled.");
             }
             catch (OperationCanceledException ex)
             {
-                Log("Download of " + url + "was canceled.", Color.White);
+                Log(LogLevel.Info, "Download of " + url + "was canceled.");
 
                 fileStream0.Close();
                 fileStream1.Close();
@@ -1334,7 +1334,7 @@ namespace DownloadManager
                 }
                 catch { }
 
-                Log(ex.Message, Color.Red);
+                Log(LogLevel.Error, ex.Message);
                 DarkMessageBox msg = new DarkMessageBox(ex.Message + $" ({ex.GetType().FullName})\n{ex.StackTrace}", "Download Manager - Download Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
                 msg.ShowDialog();
                 downloading = false;
@@ -1367,7 +1367,7 @@ namespace DownloadManager
                 fileName0,
                 fileName1
             };
-            Logging.Log($"Number of files: {inputFilePaths.Length}.", Color.White);
+            Logging.Log(LogLevel.Info, $"Number of files: {inputFilePaths.Length}.");
             using (var outputStream = File.Create(outputFilePath))
             {
                 foreach (var inputFilePath in inputFilePaths)
@@ -1377,7 +1377,7 @@ namespace DownloadManager
                         // Buffer size can be passed as the second argument.
                         inputStream.CopyTo(outputStream);
                     }
-                    Logging.Log($"The file {inputFilePath} has been processed.", Color.White);
+                    Logging.Log(LogLevel.Info, $"The file {inputFilePath} has been processed.");
                 }
             }
 
@@ -1428,7 +1428,7 @@ namespace DownloadManager
                         cancelled = true;
                         DownloadForm.downloadsAmount -= 1;
 
-                        Logging.Log("Download of " + fileName + " has been canceled.", Color.Orange);
+                        Logging.Log(LogLevel.Warning, "Download of " + fileName + " has been canceled.");
 
                         if (Settings.Default.notifyFail)
                         {
@@ -1648,7 +1648,7 @@ namespace DownloadManager
                                 {
                                     isUrlInvalid = true;
                                     DownloadForm.downloadsAmount -= 1;
-                                    Log(ex.Message, Color.Red);
+                                    Log(LogLevel.Error, ex.Message);
                                     Invoke(new MethodInvoker(delegate
                                     {
                                         totalProgressBar.State = ProgressBarState.Error;
@@ -1704,7 +1704,7 @@ namespace DownloadManager
                             }
                             catch { }
                         }
-                        Log(ex.Message + Environment.NewLine + ex.StackTrace, Color.Red);
+                        Log(LogLevel.Error, ex.Message + Environment.NewLine + ex.StackTrace);
                     }
                 }
             }
@@ -1735,7 +1735,7 @@ namespace DownloadManager
                                 {
                                     isUrlInvalid = true;
                                     DownloadForm.downloadsAmount -= 1;
-                                    Log(ex.Message, Color.Red);
+                                    Log(LogLevel.Error, ex.Message);
                                     Invoke(new MethodInvoker(delegate
                                     {
                                         progressBar.State = ProgressBarState.Error;
@@ -1791,7 +1791,7 @@ namespace DownloadManager
                             }
                             catch { }
                         }
-                        Log(ex.Message + Environment.NewLine + ex.StackTrace, Color.Red);
+                        Log(LogLevel.Error, ex.Message + Environment.NewLine + ex.StackTrace);
                     }
                 }
             }
@@ -1849,10 +1849,10 @@ namespace DownloadManager
 
                                         if (result.ToString() == hash)
                                         {
-                                            Log("File verification OK.", Color.White);
+                                            Log(LogLevel.Info, "File verification OK.");
                                             downloading = false;
                                             DownloadForm.downloadsAmount -= 1;
-                                            Log("Finished downloading file.", Color.White);
+                                            Log(LogLevel.Info, "Finished downloading file.");
 
                                             if (Settings.Default.notifyDoneHashOk)
                                             {
@@ -1920,7 +1920,7 @@ namespace DownloadManager
                                                 totalProgressBar.Value = 100;
                                                 totalProgressBar.State = ProgressBarState.Error;
                                             }));
-                                            Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
+                                            Log(LogLevel.Error, "Failed to verify file. The file will be re-downloaded.");
 
                                             if (Settings.Default.notifyDoneHashNo)
                                             {
@@ -1980,7 +1980,7 @@ namespace DownloadManager
 
                                         if (result.ToString() == hash)
                                         {
-                                            Log("File verification OK.", Color.White);
+                                            Log(LogLevel.Info, "File verification OK.");
                                             downloading = false;
                                             DownloadForm.downloadsAmount -= 1;
 
@@ -1991,7 +1991,7 @@ namespace DownloadManager
                                                    .Show();
                                             }
 
-                                            Log("Finished downloading file.", Color.White);
+                                            Log(LogLevel.Info, "Finished downloading file.");
                                             if (Settings.Default.soundOnComplete == true)
                                                 complete.Play();
 
@@ -2051,7 +2051,7 @@ namespace DownloadManager
                                                 totalProgressBar.Value = 100;
                                                 totalProgressBar.State = ProgressBarState.Error;
                                             }));
-                                            Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
+                                            Log(LogLevel.Error, "Failed to verify file. The file will be re-downloaded.");
 
                                             if (Settings.Default.notifyDoneHashNo)
                                             {
@@ -2111,7 +2111,7 @@ namespace DownloadManager
 
                                         if (result.ToString() == hash)
                                         {
-                                            Log("File verification OK.", Color.White);
+                                            Log(LogLevel.Info, "File verification OK.");
                                             downloading = false;
                                             DownloadForm.downloadsAmount -= 1;
 
@@ -2122,7 +2122,7 @@ namespace DownloadManager
                                                 .Show();
                                             }
 
-                                            Log("Finished downloading file.", Color.White);
+                                            Log(LogLevel.Info, "Finished downloading file.");
                                             if (Settings.Default.soundOnComplete == true)
                                                 complete.Play();
 
@@ -2182,7 +2182,7 @@ namespace DownloadManager
                                                 totalProgressBar.Value = 100;
                                                 totalProgressBar.State = ProgressBarState.Error;
                                             }));
-                                            Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
+                                            Log(LogLevel.Error, "Failed to verify file. The file will be re-downloaded.");
 
                                             if (Settings.Default.notifyDoneHashNo)
                                             {
@@ -2242,7 +2242,7 @@ namespace DownloadManager
 
                                         if (result.ToString() == hash)
                                         {
-                                            Log("File verification OK.", Color.White);
+                                            Log(LogLevel.Info, "File verification OK.");
                                             downloading = false;
                                             DownloadForm.downloadsAmount -= 1;
 
@@ -2253,7 +2253,7 @@ namespace DownloadManager
                                                 .Show();
                                             }
 
-                                            Log("Finished downloading file.", Color.White);
+                                            Log(LogLevel.Info, "Finished downloading file.");
                                             if (Settings.Default.soundOnComplete == true)
                                                 complete.Play();
 
@@ -2313,7 +2313,7 @@ namespace DownloadManager
                                                 totalProgressBar.Value = 100;
                                                 totalProgressBar.State = ProgressBarState.Error;
                                             }));
-                                            Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
+                                            Log(LogLevel.Error, "Failed to verify file. The file will be re-downloaded.");
 
                                             if (Settings.Default.notifyDoneHashNo)
                                             {
@@ -2373,7 +2373,7 @@ namespace DownloadManager
 
                                         if (result.ToString() == hash)
                                         {
-                                            Log("File verification OK.", Color.White);
+                                            Log(LogLevel.Info, "File verification OK.");
                                             downloading = false;
                                             DownloadForm.downloadsAmount -= 1;
 
@@ -2384,7 +2384,7 @@ namespace DownloadManager
                                                 .Show();
                                             }
 
-                                            Log("Finished downloading file.", Color.White);
+                                            Log(LogLevel.Info, "Finished downloading file.");
                                             if (Settings.Default.soundOnComplete == true)
                                                 complete.Play();
 
@@ -2444,7 +2444,7 @@ namespace DownloadManager
                                                 totalProgressBar.Value = 100;
                                                 totalProgressBar.State = ProgressBarState.Error;
                                             }));
-                                            Log("Failed to verify file. The file will be re-downloaded.", Color.Red);
+                                            Log(LogLevel.Error, "Failed to verify file. The file will be re-downloaded.");
 
                                             if (Settings.Default.notifyDoneHashNo)
                                             {
@@ -2498,7 +2498,7 @@ namespace DownloadManager
                                             totalProgressBar.Value = 100;
                                             totalProgressBar.State = ProgressBarState.Error;
                                         }));
-                                        Log("Invalid hash type '" + hashType + "'. The file could not be verified.", Color.Red);
+                                        Log(LogLevel.Error, "Invalid hash type '" + hashType + "'. The file could not be verified.");
 
                                         if (Settings.Default.notifyDone)
                                         {
@@ -2530,7 +2530,7 @@ namespace DownloadManager
                                 totalProgressBar.MarqueeAnim = false;
                                 downloading = false;
                                 DownloadForm.downloadsAmount -= 1;
-                                Log("Finished downloading file.", Color.White);
+                                Log(LogLevel.Info, "Finished downloading file.");
 
                                 if (Settings.Default.notifyDone)
                                 {
@@ -2600,7 +2600,7 @@ namespace DownloadManager
                                 totalProgressBar.State = ProgressBarState.Error;
                             }));
 
-                            Log("Download failed.", Color.Red);
+                            Log(LogLevel.Error, "Download failed.");
 
                             if (Settings.Default.notifyFail)
                             {
@@ -2641,7 +2641,7 @@ namespace DownloadManager
                         return;
                     }));
 
-                    Log(ex.Message + Environment.NewLine + ex.StackTrace, Color.Red);
+                    Log(LogLevel.Error, ex.Message + Environment.NewLine + ex.StackTrace);
                     DarkMessageBox msg = new DarkMessageBox(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
                     msg.ShowDialog();
                 }
@@ -2683,7 +2683,7 @@ namespace DownloadManager
                         DownloadForm.downloadsList.Remove(this);
 
                         cancellationToken.Cancel();
-                        Logging.Log("Download of " + fileName + " has been canceled.", Color.Orange);
+                        Logging.Log(LogLevel.Warning, "Download of " + fileName + " has been canceled.");
 
                         try
                         {
@@ -2691,7 +2691,7 @@ namespace DownloadManager
                         }
                         catch (Exception ex)
                         {
-                            Logging.Log(ex.Message + Environment.NewLine + ex.StackTrace, Color.Red);
+                            Logging.Log(LogLevel.Error, ex.Message + Environment.NewLine + ex.StackTrace);
                         }
 
                         if (Settings.Default.notifyFail)
@@ -2738,7 +2738,7 @@ namespace DownloadManager
                     }
                     catch (Exception ex)
                     {
-                        Logging.Log(ex.Message + Environment.NewLine + ex.StackTrace, Color.Red);
+                        Logging.Log(LogLevel.Error, ex.Message + Environment.NewLine + ex.StackTrace);
                     }
 
                     this.Invoke(new MethodInvoker(delegate ()
@@ -2768,7 +2768,7 @@ namespace DownloadManager
                         cancelled = true;
 
                         cancellationToken.Cancel();
-                        Logging.Log("Download of " + fileName + " has been canceled.", Color.Orange);
+                        Logging.Log(LogLevel.Warning, "Download of " + fileName + " has been canceled.");
 
                         try
                         {
@@ -2776,7 +2776,7 @@ namespace DownloadManager
                         }
                         catch (Exception ex)
                         {
-                            Logging.Log(ex.Message + Environment.NewLine + ex.StackTrace, Color.Red);
+                            Logging.Log(LogLevel.Error, ex.Message + Environment.NewLine + ex.StackTrace);
                         }
 
                         if (Settings.Default.notifyFail)
@@ -2811,7 +2811,7 @@ namespace DownloadManager
                 }
                 catch (Exception ex)
                 {
-                    Logging.Log(ex.Message + Environment.NewLine + ex.StackTrace, Color.Red);
+                    Logging.Log(LogLevel.Error, ex.Message + Environment.NewLine + ex.StackTrace);
                 }
 
                 e.Cancel = false;
@@ -2836,7 +2836,7 @@ namespace DownloadManager
 
                 if (result == DialogResult.Yes)
                 {
-                    Log("Download of " + url + " has been paused.", Color.White);
+                    Log(LogLevel.Info, "Download of " + url + " has been paused.");
 
                     pauseButton.Text = "Resume";
 
@@ -2875,7 +2875,7 @@ namespace DownloadManager
                 }
                 catch (System.Threading.Tasks.TaskCanceledException ex)
                 {
-                    Log("Download of " + url + "was canceled.", Color.White);
+                    Log(LogLevel.Info, "Download of " + url + "was canceled.");
                     stream.Close();
                 }
                 catch (Exception ex)
@@ -2896,7 +2896,7 @@ namespace DownloadManager
                         totalProgressBar.State = ProgressBarState.Error;
                     }));
 
-                    Log(ex.Message, Color.Red);
+                    Log(LogLevel.Error, ex.Message);
                     DarkMessageBox msg = new DarkMessageBox(ex.Message, "Download Manager - Download Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
                     msg.ShowDialog();
                     downloading = false;

@@ -43,10 +43,19 @@
             help1 = new Label();
             label19 = new Label();
             label20 = new Label();
+            label23 = new Label();
+            label25 = new Label();
+            label27 = new Label();
             folderBrowserDialog1 = new FolderBrowserDialog();
             label12 = new Label();
             button10 = new Button();
             generalPanel = new Panel();
+            label24 = new Label();
+            textBox2 = new TextBox();
+            button13 = new Button();
+            label26 = new Label();
+            checkBox11 = new CheckBox();
+            numericUpDown3 = new NumericUpDown();
             checkBox10 = new CheckBox();
             label21 = new Label();
             label18 = new Label();
@@ -68,6 +77,7 @@
             numericUpDown1 = new NumericUpDown();
             label8 = new Label();
             label9 = new Label();
+            label22 = new Label();
             checkBox5 = new CheckBox();
             checkBox4 = new CheckBox();
             linkLabel6 = new LinkLabel();
@@ -89,16 +99,13 @@
             button2 = new Button();
             button3 = new Button();
             button4 = new Button();
-            label22 = new Label();
-            numericUpDown3 = new NumericUpDown();
-            label23 = new Label();
             generalPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             updatesPanel.SuspendLayout();
             soundsPanel.SuspendLayout();
             notificationsPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).BeginInit();
             SuspendLayout();
             // 
             // toolTip1
@@ -273,6 +280,46 @@
             label20.Text = "?";
             toolTip1.SetToolTip(label20, "When checked Download Manager (when the application is launched) will minimize to the system tray.");
             // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Cursor = Cursors.Help;
+            label23.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label23.ForeColor = Color.Gray;
+            label23.Location = new Point(227, 461);
+            label23.Margin = new Padding(4, 0, 4, 0);
+            label23.Name = "label23";
+            label23.Size = new Size(12, 15);
+            label23.TabIndex = 56;
+            label23.Text = "?";
+            toolTip1.SetToolTip(label23, resources.GetString("label23.ToolTip"));
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Cursor = Cursors.Help;
+            label25.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label25.ForeColor = Color.Gray;
+            label25.Location = new Point(109, 549);
+            label25.Name = "label25";
+            label25.Size = new Size(12, 15);
+            label25.TabIndex = 58;
+            label25.Text = "?";
+            toolTip1.SetToolTip(label25, "Determines the folder to write the Download Manager log to.");
+            // 
+            // label27
+            // 
+            label27.AutoSize = true;
+            label27.Cursor = Cursors.Help;
+            label27.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label27.ForeColor = Color.Gray;
+            label27.Location = new Point(180, 511);
+            label27.Name = "label27";
+            label27.Size = new Size(12, 15);
+            label27.TabIndex = 62;
+            label27.Text = "?";
+            toolTip1.SetToolTip(label27, resources.GetString("label27.ToolTip"));
+            // 
             // label12
             // 
             label12.AutoSize = true;
@@ -303,6 +350,13 @@
             generalPanel.Anchor = AnchorStyles.Bottom;
             generalPanel.AutoScroll = true;
             generalPanel.BackColor = Color.Black;
+            generalPanel.Controls.Add(label24);
+            generalPanel.Controls.Add(label25);
+            generalPanel.Controls.Add(textBox2);
+            generalPanel.Controls.Add(button13);
+            generalPanel.Controls.Add(label26);
+            generalPanel.Controls.Add(label27);
+            generalPanel.Controls.Add(checkBox11);
             generalPanel.Controls.Add(numericUpDown3);
             generalPanel.Controls.Add(label23);
             generalPanel.Controls.Add(label20);
@@ -344,6 +398,76 @@
             generalPanel.Name = "generalPanel";
             generalPanel.Size = new Size(800, 396);
             generalPanel.TabIndex = 48;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.ForeColor = Color.White;
+            label24.Location = new Point(10, 549);
+            label24.Name = "label24";
+            label24.Size = new Size(100, 16);
+            label24.TabIndex = 57;
+            label24.Text = "Logging Location";
+            // 
+            // textBox2
+            // 
+            textBox2.BackColor = Color.Black;
+            textBox2.BorderStyle = BorderStyle.FixedSingle;
+            textBox2.ForeColor = Color.White;
+            textBox2.Location = new Point(10, 569);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(733, 23);
+            textBox2.TabIndex = 59;
+            textBox2.TextChanged += textBox2_TextChanged;
+            // 
+            // button13
+            // 
+            button13.FlatAppearance.MouseDownBackColor = Color.Gray;
+            button13.FlatStyle = FlatStyle.Flat;
+            button13.ForeColor = Color.White;
+            button13.Location = new Point(750, 564);
+            button13.Margin = new Padding(4, 3, 4, 3);
+            button13.Name = "button13";
+            button13.Size = new Size(29, 29);
+            button13.TabIndex = 60;
+            button13.Text = "...";
+            button13.UseVisualStyleBackColor = true;
+            button13.Click += button13_Click;
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.ForeColor = Color.White;
+            label26.Location = new Point(10, 510);
+            label26.Name = "label26";
+            label26.Size = new Size(173, 16);
+            label26.TabIndex = 61;
+            label26.Text = "Automatically Save Log to Disk";
+            // 
+            // checkBox11
+            // 
+            checkBox11.AutoSize = true;
+            checkBox11.Checked = true;
+            checkBox11.CheckState = CheckState.Checked;
+            checkBox11.Location = new Point(14, 529);
+            checkBox11.Name = "checkBox11";
+            checkBox11.Size = new Size(15, 14);
+            checkBox11.TabIndex = 63;
+            checkBox11.UseVisualStyleBackColor = true;
+            checkBox11.CheckedChanged += checkBox11_CheckedChanged;
+            // 
+            // numericUpDown3
+            // 
+            numericUpDown3.BackColor = Color.Black;
+            numericUpDown3.BorderStyle = BorderStyle.FixedSingle;
+            numericUpDown3.ForeColor = Color.White;
+            numericUpDown3.Location = new Point(7, 480);
+            numericUpDown3.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
+            numericUpDown3.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDown3.Name = "numericUpDown3";
+            numericUpDown3.Size = new Size(769, 23);
+            numericUpDown3.TabIndex = 55;
+            numericUpDown3.Value = new decimal(new int[] { 5, 0, 0, 0 });
             // 
             // checkBox10
             // 
@@ -580,6 +704,17 @@
             label9.Size = new Size(127, 16);
             label9.TabIndex = 32;
             label9.Text = "Desktop Shortcut: null";
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.ForeColor = Color.White;
+            label22.Location = new Point(7, 461);
+            label22.Margin = new Padding(4, 0, 4, 0);
+            label22.Name = "label22";
+            label22.Size = new Size(219, 16);
+            label22.TabIndex = 54;
+            label22.Text = "Maximum Internal Server Failure Count";
             // 
             // checkBox5
             // 
@@ -864,44 +999,6 @@
             button4.UseVisualStyleBackColor = true;
             button4.Click += button4_Click;
             // 
-            // label22
-            // 
-            label22.AutoSize = true;
-            label22.ForeColor = Color.White;
-            label22.Location = new Point(7, 461);
-            label22.Margin = new Padding(4, 0, 4, 0);
-            label22.Name = "label22";
-            label22.Size = new Size(219, 16);
-            label22.TabIndex = 54;
-            label22.Text = "Maximum Internal Server Failure Count";
-            // 
-            // numericUpDown3
-            // 
-            numericUpDown3.BackColor = Color.Black;
-            numericUpDown3.BorderStyle = BorderStyle.FixedSingle;
-            numericUpDown3.ForeColor = Color.White;
-            numericUpDown3.Location = new Point(7, 480);
-            numericUpDown3.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
-            numericUpDown3.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            numericUpDown3.Name = "numericUpDown3";
-            numericUpDown3.Size = new Size(769, 23);
-            numericUpDown3.TabIndex = 55;
-            numericUpDown3.Value = new decimal(new int[] { 5, 0, 0, 0 });
-            // 
-            // label23
-            // 
-            label23.AutoSize = true;
-            label23.Cursor = Cursors.Help;
-            label23.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label23.ForeColor = Color.Gray;
-            label23.Location = new Point(227, 461);
-            label23.Margin = new Padding(4, 0, 4, 0);
-            label23.Name = "label23";
-            label23.Size = new Size(12, 15);
-            label23.TabIndex = 56;
-            label23.Text = "?";
-            toolTip1.SetToolTip(label23, resources.GetString("label23.ToolTip"));
-            // 
             // ApplicationSettings
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
@@ -925,6 +1022,7 @@
             Load += Settings_Load;
             generalPanel.ResumeLayout(false);
             generalPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown3).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             updatesPanel.ResumeLayout(false);
@@ -933,7 +1031,6 @@
             soundsPanel.PerformLayout();
             notificationsPanel.ResumeLayout(false);
             notificationsPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).EndInit();
             ResumeLayout(false);
         }
 
@@ -1000,5 +1097,12 @@
         private Label label22;
         private NumericUpDown numericUpDown3;
         private Label label23;
+        private Label label24;
+        private Label label25;
+        private TextBox textBox2;
+        private Button button13;
+        private Label label26;
+        private Label label27;
+        public CheckBox checkBox11;
     }
 }

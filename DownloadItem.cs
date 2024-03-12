@@ -1,4 +1,5 @@
 ﻿using AngleSharp.Text;
+using static DownloadManager.Logging;
 using Timer = System.Windows.Forms.Timer;
 
 namespace DownloadManager
@@ -124,7 +125,7 @@ namespace DownloadManager
                         // Update the progress bar
                         if ((int)progress.percentageDone > 100)
                         {
-                            Logging.Log("DownloadItem Progress is greater than 100%! The item has been removed to prevent a crash!", Color.Orange);
+                            Logging.Log(LogLevel.Warning, "DownloadItem Progress is greater than 100%! The item has been removed to prevent a crash!");
                             Dispose();
                         }
 
@@ -150,7 +151,7 @@ namespace DownloadManager
                 }
                 catch (Exception ex)
                 {
-                    Logging.Log($"{ex.Message} ({ex.GetType().FullName})\n{ex.StackTrace}", Color.Red);
+                    Logging.Log(LogLevel.Error, $"{ex.Message} ({ex.GetType().FullName})\n{ex.StackTrace}");
                 }
             }
         }
@@ -164,7 +165,7 @@ namespace DownloadManager
             }
             catch (Exception ex)
             {
-                Logging.Log($"{ex.Message} ({ex.GetType().FullName})\n{ex.StackTrace}", Color.Red);
+                Logging.Log(LogLevel.Error, $"{ex.Message} ({ex.GetType().FullName})\n{ex.StackTrace}");
             }
 
             timer.Stop();

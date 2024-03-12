@@ -1,5 +1,6 @@
 ﻿using DownloadManager.NativeMethods;
 using static DownloadManager.CurrentDownloads;
+using static DownloadManager.Logging;
 
 namespace DownloadManager
 {
@@ -42,7 +43,7 @@ namespace DownloadManager
                         break;
                     default:
                         // Invalid column
-                        Logging.Log("Found invalid column while creating list of shown columns!", Color.Red);
+                        Logging.Log(LogLevel.Error, "Found invalid column while creating list of shown columns!");
                         showList.Items.Add("<unknown>");
                         break;
                 }
@@ -54,7 +55,7 @@ namespace DownloadManager
 
                 if (Settings.Default.currentDownloadsShownColumns.Contains(item))
                 {
-                    Logging.Log("Duplicate column found in shown columns while making list of hidden columns. The item will be removed.", Color.Orange);
+                    Logging.Log(LogLevel.Warning, "Duplicate column found in shown columns while making list of hidden columns. The item will be removed.");
                     Settings.Default.currentDownloadsHiddenColumns.Remove(item);
                     Settings.Default.Save();
                     break;
@@ -82,7 +83,7 @@ namespace DownloadManager
                         break;
                     default:
                         // Invalid column
-                        Logging.Log("Found invalid column while creating list of shown columns!", Color.Red);
+                        Logging.Log(LogLevel.Error, "Found invalid column while creating list of shown columns!");
                         hideList.Items.Add("<unknown>");
                         break;
                 }
@@ -125,7 +126,7 @@ namespace DownloadManager
                         break;
                     default:
                         // Invalid column
-                        Logging.Log("Found invalid column while creating list of shown columns! The item will be ignored.", Color.Orange);
+                        Logging.Log(LogLevel.Warning, "Found invalid column while creating list of shown columns! The item will be ignored.");
                         break;
                 }
             }
@@ -163,7 +164,7 @@ namespace DownloadManager
                         break;
                     default:
                         // Invalid column
-                        Logging.Log("Found invalid column while creating list of hidden columns! The item will be ignored.", Color.Orange);
+                        Logging.Log(LogLevel.Warning, "Found invalid column while creating list of hidden columns! The item will be ignored.");
                         break;
                 }
             }
@@ -244,7 +245,7 @@ namespace DownloadManager
                             break;
                         default:
                             // Invalid column
-                            Logging.Log("Found invalid column while creating list of shown columns!", Color.Red);
+                            Logging.Log(LogLevel.Error, "Found invalid column while creating list of shown columns!");
                             showList.Items.Add("<unknown>");
                             break;
                     }
@@ -256,7 +257,7 @@ namespace DownloadManager
 
                     if (Settings.Default.currentDownloadsShownColumns.Contains(item))
                     {
-                        Logging.Log("Duplicate column found in shown columns while making list of hidden columns. The item will be removed.", Color.Orange);
+                        Logging.Log(LogLevel.Warning, "Duplicate column found in shown columns while making list of hidden columns. The item will be removed.");
                         Settings.Default.currentDownloadsHiddenColumns.Remove(item);
                         Settings.Default.Save();
                         break;
@@ -290,7 +291,7 @@ namespace DownloadManager
                             break;
                         default:
                             // Invalid column
-                            Logging.Log("Found invalid column while creating list of shown columns!", Color.Red);
+                            Logging.Log(LogLevel.Error, "Found invalid column while creating list of shown columns!");
                             hideList.Items.Add("<unknown>");
                             break;
                     }

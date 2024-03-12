@@ -2,6 +2,7 @@
 using DownloadManager.NativeMethods;
 using System.Diagnostics;
 using System.Reflection;
+using static DownloadManager.Logging;
 
 namespace DownloadManager
 {
@@ -47,7 +48,7 @@ namespace DownloadManager
                 int columnType = item.ToInteger(-1);
                 if (columnType == -1)
                 {
-                    Logging.Log("Setting 'currentDownloadsHiddenColumns' contains invalid values! Ignoring invalid values, some unexpected columns may be shown.", Color.Orange);
+                    Logging.Log(LogLevel.Warning, "Setting 'currentDownloadsHiddenColumns' contains invalid values! Ignoring invalid values, some unexpected columns may be shown.");
                 }
                 hiddenColumns.Add((Column)columnType);
             }
@@ -60,7 +61,7 @@ namespace DownloadManager
                 int columnType = item.ToInteger(-1);
                 if (columnType == -1)
                 {
-                    Logging.Log("Setting 'currentDownloadsShownColumns' contains invalid values! Ignoring invalid values, some unexpected columns may be hidden.", Color.Orange);
+                    Logging.Log(LogLevel.Warning, "Setting 'currentDownloadsShownColumns' contains invalid values! Ignoring invalid values, some unexpected columns may be hidden.");
                 }
                 shownColumns.Add((Column)columnType);
             }
@@ -217,7 +218,7 @@ namespace DownloadManager
             }
             else
             {
-                Logging.Log($"A data error was thrown in progressGridView. This is a bug, please report at https://downloadmanager.soniczac7.rf.gd/bugReport!\n{e.Exception.Message} ({e.Exception.GetType().FullName})\n{e.Exception.StackTrace}", Color.Red);
+                Logging.Log(LogLevel.Error, $"A data error was thrown in progressGridView. This is a bug, please report at https://downloadmanager.soniczac7.rf.gd/bugReport!\n{e.Exception.Message} ({e.Exception.GetType().FullName})\n{e.Exception.StackTrace}");
                 if (firstShownDataError)
                 {
                     firstShownDataError = false;
@@ -265,7 +266,7 @@ namespace DownloadManager
                     if (triedRefresh)
                     {
                         // Item is invalid
-                        Logging.Log($"Item in position ({progressGridView.SelectedRows[0].Index}) is invalid and will be removed.", Color.Orange);
+                        Logging.Log(LogLevel.Warning, $"Item in position ({progressGridView.SelectedRows[0].Index}) is invalid and will be removed.");
                         progressGridView.Rows.RemoveAt(progressGridView.SelectedRows[0].Index);
                         return;
                     }
@@ -295,7 +296,7 @@ namespace DownloadManager
                     if (triedRefresh)
                     {
                         // Item is invalid
-                        Logging.Log($"Item in position ({progressGridView.SelectedRows[0].Index}) is invalid and will be removed.", Color.Orange);
+                        Logging.Log(LogLevel.Warning, $"Item in position ({progressGridView.SelectedRows[0].Index}) is invalid and will be removed.");
                         progressGridView.Rows.RemoveAt(progressGridView.SelectedRows[0].Index);
                         return;
                     }
@@ -326,7 +327,7 @@ namespace DownloadManager
                     if (triedRefresh)
                     {
                         // Item is invalid
-                        Logging.Log($"Item in position ({progressGridView.SelectedRows[0].Index}) is invalid and will be removed.", Color.Orange);
+                        Logging.Log(LogLevel.Warning, $"Item in position ({progressGridView.SelectedRows[0].Index}) is invalid and will be removed.");
                         progressGridView.Rows.RemoveAt(progressGridView.SelectedRows[0].Index);
                         return;
                     }

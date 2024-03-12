@@ -1,4 +1,5 @@
 ﻿using System.Drawing.Drawing2D;
+using static DownloadManager.Logging;
 
 namespace DownloadManager.Controls
 {
@@ -27,7 +28,7 @@ namespace DownloadManager.Controls
             {
                 if (System.ComponentModel.LicenseManager.UsageMode != System.ComponentModel.LicenseUsageMode.Designtime)
                 {
-                    Logging.Log($"[DataViewProgressColumnControl] {ex.Message} ({ex.GetType().FullName})\n{ex.StackTrace}", Color.Red);
+                    Logging.Log(LogLevel.Error, $"[DataViewProgressColumnControl] {ex.Message} ({ex.GetType().FullName})\n{ex.StackTrace}");
                 }
                 else
                 {
@@ -56,7 +57,7 @@ namespace DownloadManager.Controls
                 {
                     if (System.ComponentModel.LicenseManager.UsageMode != System.ComponentModel.LicenseUsageMode.Designtime)
                     {
-                        Logging.Log($"[DataViewProgressColumnControl] {ex.Message} ({ex.GetType().FullName})\n{ex.StackTrace}", Color.Red);
+                        Logging.Log(LogLevel.Error, $"[DataViewProgressColumnControl] {ex.Message} ({ex.GetType().FullName})\n{ex.StackTrace}");
                     }
                     else
                     {
@@ -121,7 +122,7 @@ namespace DownloadManager.Controls
             {
                 if (System.ComponentModel.LicenseManager.UsageMode != System.ComponentModel.LicenseUsageMode.Designtime)
                 {
-                    Logging.Log($"[DataViewProgressColumnControl] {ex.Message} ({ex.GetType().FullName})\n{ex.StackTrace}", Color.Red);
+                    Logging.Log(LogLevel.Error, $"[DataViewProgressColumnControl] {ex.Message} ({ex.GetType().FullName})\n{ex.StackTrace}");
                 }
                 else
                 {

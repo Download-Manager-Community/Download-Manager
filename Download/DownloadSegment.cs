@@ -1,5 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.Notifications;
 using System.Diagnostics;
+using static DownloadManager.Logging;
 
 namespace DownloadManager.Download
 {
@@ -102,7 +103,7 @@ namespace DownloadManager.Download
                     {
                         contentLengthIssue = true;
 
-                        Logging.Log($"Progress of {progressWindow.fileName} is greater than 100%! Stopping the download to prevent a crash and restarting the download in safe mode.", Color.Orange);
+                        Logging.Log(LogLevel.Warning, $"Progress of {progressWindow.fileName} is greater than 100%! Stopping the download to prevent a crash and restarting the download in safe mode.");
 
                         progressWindow.forceCancel = true;
                         string url = progressWindow.url;
