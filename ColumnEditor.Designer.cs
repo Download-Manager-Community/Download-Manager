@@ -59,6 +59,8 @@
             // 
             // showList
             // 
+            showList.BackColor = Color.Black;
+            showList.ForeColor = Color.White;
             showList.FormattingEnabled = true;
             showList.ItemHeight = 16;
             showList.Location = new Point(12, 83);
@@ -68,6 +70,8 @@
             // 
             // hideList
             // 
+            hideList.BackColor = Color.Black;
+            hideList.ForeColor = Color.White;
             hideList.FormattingEnabled = true;
             hideList.ItemHeight = 16;
             hideList.Location = new Point(233, 83);
@@ -148,6 +152,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Black;
             ClientSize = new Size(565, 361);
             Controls.Add(resetButton);
             Controls.Add(doneButton);
@@ -158,6 +163,7 @@
             Controls.Add(showList);
             Controls.Add(showLabel);
             Controls.Add(descLabel);
+            ForeColor = Color.White;
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;

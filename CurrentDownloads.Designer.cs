@@ -1,4 +1,6 @@
-﻿namespace DownloadManager
+﻿using DownloadManager.Controls;
+
+namespace DownloadManager
 {
     partial class CurrentDownloads
     {
@@ -41,7 +43,7 @@
             hideSelectedDownloadWindowToolStripMenuItem = new ToolStripMenuItem();
             cancelSelectedDownloadToolStripMenuItem = new ToolStripMenuItem();
             FileNameColumn = new DataGridViewTextBoxColumn();
-            ProgressColumn = new Controls.DataGridViewProgressColumn();
+            ProgressColumn = new DataGridViewProgressColumn();
             Speed = new DataGridViewTextBoxColumn();
             UrlColumn = new DataGridViewLinkColumn();
             TotalReceived = new DataGridViewTextBoxColumn();
@@ -58,7 +60,6 @@
             progressGridView.AllowUserToResizeRows = false;
             progressGridView.BackgroundColor = Color.Black;
             progressGridView.BorderStyle = BorderStyle.None;
-            progressGridView.CellBorderStyle = DataGridViewCellBorderStyle.Sunken;
             progressGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             progressGridView.Columns.AddRange(new DataGridViewColumn[] { FileNameColumn, ProgressColumn, Speed, UrlColumn, TotalReceived, SizeColumn });
             progressGridView.Dock = DockStyle.Fill;
@@ -170,6 +171,7 @@
             // UrlColumn
             // 
             UrlColumn.HeaderText = "URL";
+            UrlColumn.LinkColor = Color.FromArgb(192, 255, 255);
             UrlColumn.Name = "UrlColumn";
             UrlColumn.ReadOnly = true;
             UrlColumn.SortMode = DataGridViewColumnSortMode.Programmatic;
@@ -235,7 +237,7 @@
         private ToolStripMenuItem hideSelectedDownloadWindowToolStripMenuItem;
         private ToolStripMenuItem cancelSelectedDownloadToolStripMenuItem;
         private DataGridViewTextBoxColumn FileNameColumn;
-        private Controls.DataGridViewProgressColumn ProgressColumn;
+        private DataGridViewProgressColumn ProgressColumn;
         private DataGridViewTextBoxColumn Speed;
         private DataGridViewLinkColumn UrlColumn;
         private DataGridViewTextBoxColumn TotalReceived;

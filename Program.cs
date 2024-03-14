@@ -5,7 +5,7 @@ namespace DownloadManager
 {
     internal static class Program
     {
-        private static bool DEBUG = false;
+        private const bool DEBUG = true;
 
         /// <summary>
         ///  The main entry point for the application.

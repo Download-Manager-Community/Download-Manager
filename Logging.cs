@@ -1,4 +1,5 @@
-﻿using DownloadManager.NativeMethods;
+﻿using DownloadManager.Controls;
+using DownloadManager.NativeMethods;
 using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -18,6 +19,7 @@ namespace DownloadManager
             _instance = this;
             InitializeComponent();
 
+            menuStrip1.Renderer = new DarkToolStripRenderer();
             DesktopWindowManager.SetImmersiveDarkMode(this.Handle, true);
             DesktopWindowManager.EnableMicaIfSupported(this.Handle);
             DesktopWindowManager.ExtendFrameIntoClientArea(this.Handle);

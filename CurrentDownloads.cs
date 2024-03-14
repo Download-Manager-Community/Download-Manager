@@ -1,4 +1,5 @@
 ﻿using AngleSharp.Text;
+using DownloadManager.Controls;
 using DownloadManager.NativeMethods;
 using System.Diagnostics;
 using System.Reflection;
@@ -22,6 +23,33 @@ namespace DownloadManager
             _instance = this;
             InitializeComponent();
             this.ForceActiveBar = true;
+            menuStrip1.Renderer = new DarkToolStripRenderer();
+
+            // Set the background color
+            progressGridView.BackgroundColor = Color.Black;
+
+            // Set the default cell style
+            progressGridView.DefaultCellStyle.BackColor = Color.Black;
+            progressGridView.DefaultCellStyle.ForeColor = Color.White;
+
+            // Set the selection background color
+            progressGridView.DefaultCellStyle.SelectionBackColor = Color.Blue;
+            progressGridView.RowHeadersDefaultCellStyle.SelectionBackColor = Color.Blue;
+
+            // Set the selection foreground color
+            progressGridView.DefaultCellStyle.SelectionForeColor = Color.White;
+            progressGridView.RowHeadersDefaultCellStyle.SelectionForeColor = Color.White;
+
+            // Set the header style
+            progressGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.Black;
+            progressGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+
+            // Set the row header style
+            progressGridView.RowHeadersDefaultCellStyle.BackColor = Color.Black;
+            progressGridView.RowHeadersDefaultCellStyle.ForeColor = Color.White;
+
+            progressGridView.EnableHeadersVisualStyles = false;
+
             DesktopWindowManager.SetImmersiveDarkMode(this.Handle, true);
             DesktopWindowManager.EnableMicaIfSupported(this.Handle);
             DesktopWindowManager.ExtendFrameIntoClientArea(this.Handle);

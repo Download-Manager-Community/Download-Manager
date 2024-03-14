@@ -178,12 +178,14 @@
             trayContextMenu.Items.AddRange(new ToolStripItem[] { toolStripTextBox1, toolStripSeparator1, toolStripMenuItem1, toolStripMenuItem2, toolStripMenuItem3 });
             trayContextMenu.Name = "contextMenuStrip1";
             trayContextMenu.RenderMode = ToolStripRenderMode.System;
-            trayContextMenu.Size = new Size(172, 94);
+            trayContextMenu.Size = new Size(181, 116);
             // 
             // toolStripTextBox1
             // 
+            toolStripTextBox1.BackColor = Color.Black;
             toolStripTextBox1.BorderStyle = BorderStyle.None;
             toolStripTextBox1.Enabled = false;
+            toolStripTextBox1.ForeColor = Color.White;
             toolStripTextBox1.Name = "toolStripTextBox1";
             toolStripTextBox1.ReadOnly = true;
             toolStripTextBox1.Size = new Size(111, 16);
@@ -192,13 +194,13 @@
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(168, 6);
+            toolStripSeparator1.Size = new Size(177, 6);
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Image = (Image)resources.GetObject("toolStripMenuItem1.Image");
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(171, 22);
+            toolStripMenuItem1.Size = new Size(180, 22);
             toolStripMenuItem1.Text = "Open";
             toolStripMenuItem1.Click += toolStripMenuItem1_Click;
             // 
@@ -206,7 +208,7 @@
             // 
             toolStripMenuItem2.Image = (Image)resources.GetObject("toolStripMenuItem2.Image");
             toolStripMenuItem2.Name = "toolStripMenuItem2";
-            toolStripMenuItem2.Size = new Size(171, 22);
+            toolStripMenuItem2.Size = new Size(180, 22);
             toolStripMenuItem2.Text = "Report a bug";
             toolStripMenuItem2.Click += toolStripMenuItem2_Click;
             // 
@@ -214,7 +216,7 @@
             // 
             toolStripMenuItem3.Image = (Image)resources.GetObject("toolStripMenuItem3.Image");
             toolStripMenuItem3.Name = "toolStripMenuItem3";
-            toolStripMenuItem3.Size = new Size(171, 22);
+            toolStripMenuItem3.Size = new Size(180, 22);
             toolStripMenuItem3.Text = "Exit";
             toolStripMenuItem3.Click += toolStripMenuItem3_Click;
             // 

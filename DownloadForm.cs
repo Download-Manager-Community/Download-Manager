@@ -1,4 +1,5 @@
-﻿using DownloadManager.NativeMethods;
+﻿using DownloadManager.Controls;
+using DownloadManager.NativeMethods;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -56,6 +57,7 @@ namespace DownloadManager
             Settings.Default.Save();
             InitializeComponent();
 
+            trayContextMenu.Renderer = new DarkToolStripRenderer();
             DesktopWindowManager.SetImmersiveDarkMode(this.Handle, true);
             DesktopWindowManager.EnableMicaIfSupported(this.Handle);
             DesktopWindowManager.ExtendFrameIntoClientArea(this.Handle);
