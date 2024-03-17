@@ -33,6 +33,8 @@ jobs:
       with:
         vs-prerelease: true
 
+    - name: Restore Project Dependencies
+      run: dotnet restore
     
     - name: Build
       run: MSBuild.exe /p:Configuration=Debug /t:Build
