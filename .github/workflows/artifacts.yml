@@ -35,7 +35,7 @@ jobs:
 
     
     - name: Build
-      run: dotnet build
+      run: MSBuild.exe /p:Configuration=Debug /t:Build
     
     - name: Upload Download Manager Artifacts
       uses: actions/upload-artifact@v3
