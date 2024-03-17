@@ -1,4 +1,4 @@
-name: "Build"
+name: "Build Artifacts"
 
 on:
   push:
@@ -27,6 +27,12 @@ jobs:
       with:
         dotnet-version: '6.0'
         include-prerelease: True
+
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v2
+      with:
+        vs-prerelease: true
+
     
     - name: Build
       run: dotnet build
