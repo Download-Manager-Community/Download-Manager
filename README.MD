@@ -1,6 +1,7 @@
 # Download Manager
 <p align="center">
 <img alt="CodeQL workflow status" src="https://img.shields.io/github/actions/workflow/status/Download-Manager-Community/Download-Manager/codeql-analysis.yml?branch=master&event=push">
+<img alt="Artifacts workflow status" src="https://github.com/Download-Manager-Community/Download-Manager/actions/workflows/artifacts.yml/badge.svg">
 <img alt="Open issues" src="https://img.shields.io/github/issues/Soniczac7/Download-Manager"> 
 <img alt="Total downloads" src="https://img.shields.io/github/downloads/Soniczac7/Download-Manager/total">
 <img alt="License" src="https://img.shields.io/github/license/Soniczac7/Download-Manager">
