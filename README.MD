@@ -25,13 +25,18 @@ If you are experiecing display issues, try updating your version of Download Man
 <img src=".github/images/CompatabilitySettings.png" width="196.5px" height="246px">
 
 ## Installation Instructions
-### winget
+### Winget Install
 1) Open a CMD or Powershell window.
 2) Type `winget install Soniczac7.DownloadManager`.
 3) Wait for installation to complete.
 4) You can also install the browser extention [here](https://microsoftedge.microsoft.com/addons/detail/download-manager/facopbimneimllhcabghncloejfeficd?hl=en-GB).
-### Manual Install
-1) Download the latest version from the [releases page](https://github.com/Soniczac7/Download-Manager/releases).
+### Manual Install (Portable)
+1) Download the latest portable version from the [releases page](https://github.com/Soniczac7/Download-Manager/releases).
+2) Run the installer
+3) Follow the on screen instructions.
+4) You can also install the browser extention [here](https://microsoftedge.microsoft.com/addons/detail/download-manager/facopbimneimllhcabghncloejfeficd?hl=en-GB). 
+### Manual Install (Zip)
+1) Download the latest unpacked installer version from the [releases page](https://github.com/Soniczac7/Download-Manager/releases).
 2) Extract the zip anywhere.
 4) Run the executable `DownloadManagerInstaller.exe`.
 5) Follow the on screen instructions.
