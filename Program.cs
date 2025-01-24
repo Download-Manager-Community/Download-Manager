@@ -87,6 +87,9 @@ namespace DownloadManager
                     MessageBox.Show("Download Manager failed to open CrashHandler and has reverted to fallback CrashHandler.\nPlease create a bug report.\n" + ex.Message + Environment.NewLine + ex.StackTrace, "Download Manager Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
+                // If a debugger is attached, break
+                Debugger.Break();
+
                 // Kill Download Manager
                 Process.GetCurrentProcess().Kill();
             }
