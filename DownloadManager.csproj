@@ -53,6 +53,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CrashHandler\CrashHandler.csproj">
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Installer\DownloadManagerInstaller.csproj">
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
