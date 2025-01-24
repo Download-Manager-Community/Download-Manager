@@ -392,3 +392,6 @@ FodyWeavers.xsd
 /.vs/DownloadManager/FileContentIndex/read.lock
 /ffmpeg.exe
 /ffmpeg.exe
+/DownloadManagerTestUI
+/--force
+/Download Manager/ffmpeg.exe

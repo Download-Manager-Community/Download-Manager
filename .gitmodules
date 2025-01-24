@@ -1,0 +1,6 @@
+[submodule "CrashHandler"]
+	path = CrashHandler
+	url = https://github.com/Download-Manager-Community/CrashHandler.git
+[submodule "Download-Manager-Installer"]
+	path = Download-Manager-Installer
+	url = https://github.com/Download-Manager-Community/Download-Manager-Installer.git
