@@ -1,8 +1,8 @@
-﻿using DownloadManager.Controls;
-using DownloadManager.NativeMethods;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
+using DownloadManager.Controls;
+using DownloadManager.NativeMethods;
 
 namespace DownloadManager
 {
@@ -13,6 +13,9 @@ namespace DownloadManager
 
         public Logging()
         {
+            if (!Directory.Exists(Settings.Default.automaticLogSavingLocation))
+                Directory.CreateDirectory(Settings.Default.automaticLogSavingLocation);
+
             fs = new FileStream($"{Settings.Default.automaticLogSavingLocation}{DateTime.Now.ToString("dd-MM-yyyy")}.log", FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read);
             fs.Position = fs.Length;
 
