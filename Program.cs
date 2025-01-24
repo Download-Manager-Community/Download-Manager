@@ -27,10 +27,17 @@ namespace DownloadManager
 
             if (Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length > 1)
             {
-                HttpClient client = new HttpClient();
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"http://localhost:{Settings.Default.serverPort}?show=True&ref=Instance");
-                client.Send(request);
-                Environment.Exit(45);
+                try
+                {
+                    HttpClient client = new HttpClient();
+                    HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"http://localhost:{Settings.Default.serverPort}?show=True&ref=Instance");
+                    client.Send(request);
+                    Environment.Exit(45);
+                }
+                catch (Exception ex)
+                {
+                    Logging.Log(Logging.LogLevel.Error, $"Open instance of Download Manager is not responding or could not be reached, not exiting. [{ex.Message} ({ex.GetType().FullName})]");
+                }
             }
 
             bool hasUpgraded = false;

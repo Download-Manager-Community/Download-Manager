@@ -95,6 +95,7 @@ namespace DownloadManager
             checkBox9.Checked = Settings.Default.notifyFail;
         }
 
+
         private void button5_Click(object sender, EventArgs e)
         {
             // Browse default download location
@@ -474,38 +475,6 @@ namespace DownloadManager
             // Sound on messagebox open
             Settings.Default.soundOnMessage = checkBox5.Checked;
             Settings.Default.Save();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            updatesPanel.Visible = false;
-            generalPanel.Visible = true;
-            soundsPanel.Visible = false;
-            notificationsPanel.Visible = false;
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            updatesPanel.Visible = false;
-            generalPanel.Visible = false;
-            soundsPanel.Visible = true;
-            notificationsPanel.Visible = false;
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            updatesPanel.Visible = true;
-            generalPanel.Visible = false;
-            soundsPanel.Visible = false;
-            notificationsPanel.Visible = false;
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            updatesPanel.Visible = false;
-            generalPanel.Visible = false;
-            soundsPanel.Visible = false;
-            notificationsPanel.Visible = true;
         }
 
         private void checkBox7_CheckedChanged(object sender, EventArgs e)

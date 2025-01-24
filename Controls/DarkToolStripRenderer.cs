@@ -1,5 +1,4 @@
-﻿
-namespace DownloadManager.Controls
+﻿namespace DownloadManager.Controls
 {
     internal class DarkToolStripRenderer : System.Windows.Forms.ToolStripRenderer
     {

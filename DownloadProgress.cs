@@ -1,12 +1,12 @@
-﻿using DownloadManager.Download;
-using DownloadManager.NativeMethods;
-using Microsoft.Toolkit.Uwp.Notifications;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Media;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using DownloadManager.Download;
+using DownloadManager.NativeMethods;
+using Microsoft.Toolkit.Uwp.Notifications;
 using YoutubeExplode;
 using YoutubeExplode.Videos.Streams;
 using static DownloadManager.BetterProgressBar;

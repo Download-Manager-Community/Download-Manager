@@ -33,8 +33,8 @@ namespace DownloadManager
             progressGridView.DefaultCellStyle.ForeColor = Color.White;
 
             // Set the selection background color
-            progressGridView.DefaultCellStyle.SelectionBackColor = Color.Blue;
-            progressGridView.RowHeadersDefaultCellStyle.SelectionBackColor = Color.Blue;
+            progressGridView.DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 0, 125);
+            progressGridView.RowHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 0, 125);
 
             // Set the selection foreground color
             progressGridView.DefaultCellStyle.SelectionForeColor = Color.White;
