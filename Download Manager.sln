@@ -25,13 +25,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{02EA
 		Download-Manager-Extention\scripts\settings.js = Download-Manager-Extention\scripts\settings.js
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "popup", "popup", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "popup", "popup", "{8AF8491B-8C6B-4662-AC94-BA37287D4E16}"
 	ProjectSection(SolutionItems) = preProject
 		Download-Manager-Extention\popup\popup.html = Download-Manager-Extention\popup\popup.html
 		Download-Manager-Extention\popup\settings.html = Download-Manager-Extention\popup\settings.html
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{8BF8417E-DB55-4CAF-9A1F-E7F67EF90DE4}"
 	ProjectSection(SolutionItems) = preProject
 		Download-Manager-Extention\images\ExtentionIcon.png = Download-Manager-Extention\images\ExtentionIcon.png
 		Download-Manager-Extention\images\ExtentionPromotionalTile.png = Download-Manager-Extention\images\ExtentionPromotionalTile.png
@@ -40,7 +40,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{02EA68
 		Download-Manager-Extention\images\Screenshot2.png = Download-Manager-Extention\images\Screenshot2.png
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "icons", "icons", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "icons", "icons", "{506EB37D-9E84-402A-997D-1E30CA9FB272}"
 	ProjectSection(SolutionItems) = preProject
 		Download-Manager-Extention\icons\icon.png = Download-Manager-Extention\icons\icon.png
 	EndProjectSection
@@ -111,6 +111,9 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {8B59540A-2E22-4EF9-8FFA-98E5AF6A7643}
+		{8AF8491B-8C6B-4662-AC94-BA37287D4E16} = {8B59540A-2E22-4EF9-8FFA-98E5AF6A7643}
+		{8BF8417E-DB55-4CAF-9A1F-E7F67EF90DE4} = {8B59540A-2E22-4EF9-8FFA-98E5AF6A7643}
+		{506EB37D-9E84-402A-997D-1E30CA9FB272} = {8B59540A-2E22-4EF9-8FFA-98E5AF6A7643}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F4249D9B-07B5-4DB2-A0CC-CBF4EE37C5D5}
