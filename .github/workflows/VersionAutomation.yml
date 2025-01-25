@@ -1,4 +1,4 @@
-name: Send new version number
+name: Version Update Automation
 
 on:
   workflow_dispatch:
