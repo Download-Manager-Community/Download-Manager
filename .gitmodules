@@ -4,3 +4,6 @@
 [submodule "Download-Manager-Installer"]
 	path = Download-Manager-Installer
 	url = https://github.com/Download-Manager-Community/Download-Manager-Installer.git
+[submodule "Download-Manager-Extention"]
+	path = Download-Manager-Extention
+	url = https://github.com/Download-Manager-Community/Download-Manager-Extention.git

@@ -7,45 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrashHandler", "CrashHandle
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DownloadManager", "Download Manager\DownloadManager.csproj", "{14AA53A5-771C-497F-89CC-CE52262E47B8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extention", "Extention", "{8B59540A-2E22-4EF9-8FFA-98E5AF6A7643}"
-EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Extention", "Extention\", "{B58561EE-3F18-43D1-8273-E642362CA278}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_53160"
-		Debug.AspNetCompiler.PhysicalPath = "Extention\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_53160\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_53160"
-		Release.AspNetCompiler.PhysicalPath = "Extention\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_53160\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "53160"
-	EndProjectSection
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_53160"
-		Debug.AspNetCompiler.PhysicalPath = "Extention\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_53160\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_53160"
-		Release.AspNetCompiler.PhysicalPath = "Extention\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_53160\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "53160"
-		SlnRelativePath = "Extention\"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Download-Manager-Extention", "Download-Manager-Extention", "{8B59540A-2E22-4EF9-8FFA-98E5AF6A7643}"
+	ProjectSection(SolutionItems) = preProject
+		Download-Manager-Extention\.gitignore = Download-Manager-Extention\.gitignore
+		Download-Manager-Extention\LICENSE = Download-Manager-Extention\LICENSE
+		Download-Manager-Extention\manifest.json = Download-Manager-Extention\manifest.json
+		Download-Manager-Extention\README.md = Download-Manager-Extention\README.md
+		Download-Manager-Extention\Web.config = Download-Manager-Extention\Web.config
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DownloadManagerTestUI", "DownloadManagerTestUI\DownloadManagerTestUI\DownloadManagerTestUI.csproj", "{5EDE058D-0A23-4888-8346-468955F6BE56}"
@@ -53,6 +21,33 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DownloadManagerTestUI.Core", "DownloadManagerTestUI\DownloadManagerTestUI.Core\DownloadManagerTestUI.Core.csproj", "{C2F23B28-C075-4DD3-BAB3-F0E86AC07D77}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DownloadManagerInstaller", "Download-Manager-Installer\DownloadManagerInstaller.csproj", "{C4E737C7-3A0A-1D2F-A404-877EF3B83738}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		Download-Manager-Extention\scripts\background.js = Download-Manager-Extention\scripts\background.js
+		Download-Manager-Extention\scripts\popup.js = Download-Manager-Extention\scripts\popup.js
+		Download-Manager-Extention\scripts\settings.js = Download-Manager-Extention\scripts\settings.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "popup", "popup", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		Download-Manager-Extention\popup\popup.html = Download-Manager-Extention\popup\popup.html
+		Download-Manager-Extention\popup\settings.html = Download-Manager-Extention\popup\settings.html
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		Download-Manager-Extention\images\ExtentionIcon.png = Download-Manager-Extention\images\ExtentionIcon.png
+		Download-Manager-Extention\images\ExtentionPromotionalTile.png = Download-Manager-Extention\images\ExtentionPromotionalTile.png
+		Download-Manager-Extention\images\LargePromotionalTile.png = Download-Manager-Extention\images\LargePromotionalTile.png
+		Download-Manager-Extention\images\Screenshot1.png = Download-Manager-Extention\images\Screenshot1.png
+		Download-Manager-Extention\images\Screenshot2.png = Download-Manager-Extention\images\Screenshot2.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "icons", "icons", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		Download-Manager-Extention\icons\icon.png = Download-Manager-Extention\icons\icon.png
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -98,22 +93,6 @@ Global
 		{14AA53A5-771C-497F-89CC-CE52262E47B8}.Release|x64.Build.0 = Release|Any CPU
 		{14AA53A5-771C-497F-89CC-CE52262E47B8}.Release|x86.ActiveCfg = Release|Any CPU
 		{14AA53A5-771C-497F-89CC-CE52262E47B8}.Release|x86.Build.0 = Release|Any CPU
-		{B58561EE-3F18-43D1-8273-E642362CA278}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B58561EE-3F18-43D1-8273-E642362CA278}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B58561EE-3F18-43D1-8273-E642362CA278}.Debug|arm64.ActiveCfg = Debug|Any CPU
-		{B58561EE-3F18-43D1-8273-E642362CA278}.Debug|arm64.Build.0 = Debug|Any CPU
-		{B58561EE-3F18-43D1-8273-E642362CA278}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{B58561EE-3F18-43D1-8273-E642362CA278}.Debug|x64.Build.0 = Debug|Any CPU
-		{B58561EE-3F18-43D1-8273-E642362CA278}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{B58561EE-3F18-43D1-8273-E642362CA278}.Debug|x86.Build.0 = Debug|Any CPU
-		{B58561EE-3F18-43D1-8273-E642362CA278}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{B58561EE-3F18-43D1-8273-E642362CA278}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{B58561EE-3F18-43D1-8273-E642362CA278}.Release|arm64.ActiveCfg = Debug|Any CPU
-		{B58561EE-3F18-43D1-8273-E642362CA278}.Release|arm64.Build.0 = Debug|Any CPU
-		{B58561EE-3F18-43D1-8273-E642362CA278}.Release|x64.ActiveCfg = Debug|Any CPU
-		{B58561EE-3F18-43D1-8273-E642362CA278}.Release|x64.Build.0 = Debug|Any CPU
-		{B58561EE-3F18-43D1-8273-E642362CA278}.Release|x86.ActiveCfg = Debug|Any CPU
-		{B58561EE-3F18-43D1-8273-E642362CA278}.Release|x86.Build.0 = Debug|Any CPU
 		{5EDE058D-0A23-4888-8346-468955F6BE56}.Debug|Any CPU.ActiveCfg = Debug|x64
 		{5EDE058D-0A23-4888-8346-468955F6BE56}.Debug|Any CPU.Build.0 = Debug|x64
 		{5EDE058D-0A23-4888-8346-468955F6BE56}.Debug|Any CPU.Deploy.0 = Debug|x64
@@ -175,7 +154,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{B58561EE-3F18-43D1-8273-E642362CA278} = {8B59540A-2E22-4EF9-8FFA-98E5AF6A7643}
+		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {8B59540A-2E22-4EF9-8FFA-98E5AF6A7643}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F4249D9B-07B5-4DB2-A0CC-CBF4EE37C5D5}
