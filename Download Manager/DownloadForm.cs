@@ -7,6 +7,7 @@ using YoutubeExplode;
 using YoutubeExplode.Common;
 using static DownloadManager.DownloadProgress;
 using static DownloadManager.Logging;
+using MethodInvoker = System.Windows.Forms.MethodInvoker;
 
 namespace DownloadManager
 {
@@ -28,20 +29,12 @@ namespace DownloadManager
 
         public DownloadForm(bool hasUpgraded)
         {
+            // Set instance variable
             _instance = this;
 
-            if (Settings.Default.automaticLogSavingLocation == "")
-            {
-                Settings.Default.automaticLogSavingLocation = $"{installationPath}Logs\\";
-                Settings.Default.Save();
-            }
-
-            if (!Directory.Exists(Settings.Default.automaticLogSavingLocation))
-            {
-                Directory.CreateDirectory(Settings.Default.automaticLogSavingLocation);
-            }
-
+            // Ensure downloads folder is set correctly
             Logging.Log(LogLevel.Debug, "Downloads folder: " + downloadsFolder);
+
             if (Settings.Default.downloadHistory == null)
             {
                 Logging.Log(LogLevel.Warning, "Download History is null. Performing first time setup.");
@@ -72,6 +65,15 @@ namespace DownloadManager
                     textBox1.Items.Add(item);
                 }
             }
+
+            // If the downloads folder setting is null or empty, set it to default
+            if (String.IsNullOrEmpty(Settings.Default.defaultDownload))
+            {
+                Settings.Default.defaultDownload = downloadsFolder;
+                Settings.Default.Save();
+            }
+
+            // Populate the download location
             textBox2.Text = Settings.Default.defaultDownload;
 
             if (hasUpgraded)

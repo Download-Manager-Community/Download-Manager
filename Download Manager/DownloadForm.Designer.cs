@@ -174,11 +174,11 @@
             // 
             // trayContextMenu
             // 
-            trayContextMenu.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            trayContextMenu.Font = new Font("Segoe UI", 9F);
             trayContextMenu.Items.AddRange(new ToolStripItem[] { toolStripTextBox1, toolStripSeparator1, toolStripMenuItem1, toolStripMenuItem2, toolStripMenuItem3 });
             trayContextMenu.Name = "contextMenuStrip1";
             trayContextMenu.RenderMode = ToolStripRenderMode.System;
-            trayContextMenu.Size = new Size(181, 116);
+            trayContextMenu.Size = new Size(172, 94);
             // 
             // toolStripTextBox1
             // 
@@ -194,13 +194,13 @@
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(177, 6);
+            toolStripSeparator1.Size = new Size(168, 6);
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Image = (Image)resources.GetObject("toolStripMenuItem1.Image");
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(180, 22);
+            toolStripMenuItem1.Size = new Size(171, 22);
             toolStripMenuItem1.Text = "Open";
             toolStripMenuItem1.Click += toolStripMenuItem1_Click;
             // 
@@ -208,7 +208,7 @@
             // 
             toolStripMenuItem2.Image = (Image)resources.GetObject("toolStripMenuItem2.Image");
             toolStripMenuItem2.Name = "toolStripMenuItem2";
-            toolStripMenuItem2.Size = new Size(180, 22);
+            toolStripMenuItem2.Size = new Size(171, 22);
             toolStripMenuItem2.Text = "Report a bug";
             toolStripMenuItem2.Click += toolStripMenuItem2_Click;
             // 
@@ -216,7 +216,7 @@
             // 
             toolStripMenuItem3.Image = (Image)resources.GetObject("toolStripMenuItem3.Image");
             toolStripMenuItem3.Name = "toolStripMenuItem3";
-            toolStripMenuItem3.Size = new Size(180, 22);
+            toolStripMenuItem3.Size = new Size(171, 22);
             toolStripMenuItem3.Text = "Exit";
             toolStripMenuItem3.Click += toolStripMenuItem3_Click;
             // 
@@ -263,7 +263,7 @@
             label5.AutoSize = true;
             label5.BackColor = Color.Black;
             label5.Cursor = Cursors.Help;
-            label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             label5.ForeColor = Color.Gray;
             label5.Location = new Point(66, 181);
             label5.Name = "label5";
