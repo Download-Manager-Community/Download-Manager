@@ -56,9 +56,7 @@
     <ProjectReference Include="..\CrashHandler\CrashHandler.csproj">
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Installer\DownloadManagerInstaller.csproj">
-      <Private>True</Private>
-    </ProjectReference>
+    <ProjectReference Include="..\Download-Manager-Installer\DownloadManagerInstaller.csproj" />
   </ItemGroup>
 
   <ItemGroup>
