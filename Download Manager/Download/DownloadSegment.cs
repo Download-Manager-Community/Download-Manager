@@ -108,8 +108,6 @@ namespace DownloadManager.Download
                         progressWindow.forceCancel = true;
                         string url = progressWindow.url;
                         string location = progressWindow.location;
-                        DownloadProgress.DownloadType downloadType = progressWindow.downloadType;
-                        DownloadProgress.YoutubeDownloadType? youtubeDownloadType = progressWindow.ytDownloadType;
                         string hashArg = progressWindow.hash;
                         int hashTypeArg = progressWindow.hashType;
                         int downloadAttempts = progressWindow.downloadAttempts;
@@ -124,7 +122,7 @@ namespace DownloadManager.Download
                                  .AddText($"The download of {progressWindow.fileName} failed to prevent a crash. The download will now restart in safe mode.")
                                  .Show();
 
-                        DownloadProgress safeDownload = new DownloadProgress(url, location, downloadType, youtubeDownloadType, hashArg, hashTypeArg, downloadAttempts, true);
+                        DownloadProgress safeDownload = new DownloadProgress(url, location, hashArg, hashTypeArg, downloadAttempts, true);
                         safeDownload.Show();
                     }
                 }

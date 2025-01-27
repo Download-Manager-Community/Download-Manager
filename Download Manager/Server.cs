@@ -2,7 +2,6 @@
 using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
-using static DownloadManager.DownloadProgress;
 using static DownloadManager.Logging;
 
 namespace DownloadManager
@@ -53,7 +52,7 @@ namespace DownloadManager
                 if (failureCount >= Settings.Default.maxServerFailureCount)
                 {
                     Log(LogLevel.Warning, "The internal server has failed to start, some functionality of Download Manager may be limited.");
-                    DarkMessageBox msg = new DarkMessageBox("Download Manager encountered an error while attempting to start the internal server multiple times and has stopped attempting to prevent unexpected behavior.\nSome functionality may not be available such as browser integration.\nPlease check your firewall and ports settings.\nFor more information, check the debug logs.", "Download Manager Internal Server Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DarkMessageBox msg = new DarkMessageBox("Download Manager encountered an error while attempting to start the internal server multiple times and has stopped attempting to prevent unexpected behaviour.\nSome functionality may not be available such as browser integration.\nPlease check your firewall and ports settings.\nFor more information, check the debug logs.", "Download Manager Internal Server Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     msg.ShowDialog();
                     break;
                 }
@@ -101,7 +100,7 @@ namespace DownloadManager
                         {
                             if (ex.Message == "An established connection was aborted by the software in your host machine.")
                             {
-                                Log(LogLevel.Warning, "The connection was canceled by the browser!");
+                                Log(LogLevel.Warning, "The connection was cancelled by the browser!");
                             }
                             else
                             {
@@ -194,23 +193,10 @@ namespace DownloadManager
                             DownloadForm._instance.Invoke((MethodInvoker)delegate
                             {
                                 Log(LogLevel.Info, "Request received for URL: " + url);
-                                Log(LogLevel.Info, "URL is a YouTube link. Opening the YouTube Download Form.");
+                                Log(LogLevel.Warning, "URL is a YouTube link. Which is unsupported by Download Manager!");
 
-                                // Open the download form
-                                DownloadForm._instance.Show();
-                                DownloadForm._instance.Focus();
-                                DownloadForm._instance.textBox1.Text = url;
-                                DownloadForm._instance.textBox1_TextUpdate(this, null);
-
-                                // Open the YouTube download window
-                                /*YouTubeDownloadForm youtubeDownloadForm = new YouTubeDownloadForm(url, Settings.Default.defaultDownload);
-                                youtubeDownloadForm.Show();*/
-
-                                /*DownloadProgress downloadProgress = new DownloadProgress(url, Settings.Default.defaultDownload, DownloadType.Normal, null, "", 0);
-                                downloadProgress.Show();*/
-                                //Log("--- Start Request ---", Color.White);
-                                //Log(data, Color.White);
-                                //Log("--- End Request ---", Color.White);
+                                DarkMessageBox msg = new DarkMessageBox("Download Manager does not support downloading YouTube videos.\nFor more information, check the release notes for version 6.0.0.0 at:\nhttps://github.com/Download-Manager-Community/Download-Manager/releases/tag/6.0.0.0", "Unsupported", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                msg.ShowDialog();
                             });
                         }
                     }
@@ -227,7 +213,7 @@ namespace DownloadManager
                                     Settings.Default.downloadHistory.Add(url);
                                     Settings.Default.Save();
                                 }
-                                DownloadProgress downloadProgress = new DownloadProgress(url, Settings.Default.defaultDownload, DownloadType.Normal, null, "", 0);
+                                DownloadProgress downloadProgress = new DownloadProgress(url, Settings.Default.defaultDownload, "", 0);
                                 downloadProgress.Show();
 
                                 DownloadForm.downloadsList.Add(downloadProgress);

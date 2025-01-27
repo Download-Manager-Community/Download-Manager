@@ -1,14 +1,12 @@
-﻿using System.Diagnostics;
+﻿using DownloadManager.Download;
+using DownloadManager.NativeMethods;
+using Microsoft.Toolkit.Uwp.Notifications;
+using System.Diagnostics;
 using System.Media;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
-using DownloadManager.Download;
-using DownloadManager.NativeMethods;
-using Microsoft.Toolkit.Uwp.Notifications;
-using YoutubeExplode;
-using YoutubeExplode.Videos.Streams;
 using static DownloadManager.BetterProgressBar;
 using static DownloadManager.Logging;
 
@@ -18,8 +16,6 @@ namespace DownloadManager
     {
         public static DownloadProgress _instance;
         Thread thread;
-        public DownloadType downloadType;
-        public YoutubeDownloadType? ytDownloadType;
         public string url;
         public string location;
         public string fileName;
@@ -56,21 +52,7 @@ namespace DownloadManager
         internal double kilobytesPerSecond = 0;
         internal double megabytesPerSecond = 0;
 
-        public enum DownloadType
-        {
-            Normal = 0,
-            YoutubeVideo = 1,
-            YoutubePlaylist = 2
-        };
-
-        public enum YoutubeDownloadType
-        {
-            Audio,
-            Video,
-            AudioVideo
-        };
-
-        public DownloadProgress(string urlArg, string locationArg, DownloadType downloadType, YoutubeDownloadType? ytDownloadType, string hashArg, int hashTypeArg, int downloadAttempts = 0, bool doSafeMode = false)
+        public DownloadProgress(string urlArg, string locationArg, string hashArg, int hashTypeArg, int downloadAttempts = 0, bool doSafeMode = false)
         {
             InitializeComponent();
             _instance = this;
@@ -82,9 +64,6 @@ namespace DownloadManager
             DesktopWindowManager.ExtendFrameIntoClientArea(this.Handle);
 
             this.downloadAttempts = downloadAttempts;
-
-            this.downloadType = downloadType;
-            this.ytDownloadType = ytDownloadType;
 
             hashType = hashTypeArg;
             hashType += 1;
@@ -143,19 +122,10 @@ namespace DownloadManager
                 thread = new Thread(new ThreadStart(StartSafeModeDownload));
                 thread.Start();
             }
-            else if (downloadType == DownloadType.Normal)
+            else
             {
+                // Normal download
                 thread = new Thread(new ThreadStart(StartNormalDownload));
-                thread.Start();
-            }
-            else if (downloadType == DownloadType.YoutubeVideo)
-            {
-                thread = new Thread(new ThreadStart(StartYoutubeVideoDownload));
-                thread.Start();
-            }
-            else if (downloadType == DownloadType.YoutubePlaylist)
-            {
-                thread = new Thread(new ThreadStart(StartYoutubePlaylistDownload));
                 thread.Start();
             }
         }
@@ -221,854 +191,6 @@ namespace DownloadManager
 
                 DarkMessageBox msg = new DarkMessageBox($"{ex.Message} ({ex.GetType()})\n{ex.StackTrace}", "Download Error [Safe Mode]", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
                 msg.ShowDialog();
-            }
-        }
-
-        private async void StartYoutubePlaylistDownload()
-        {
-            YoutubeClient client = new YoutubeClient();
-            YoutubeExplode.Playlists.Playlist listMetadata = client.Playlists.GetAsync(YoutubeExplode.Playlists.PlaylistId.Parse(url)).Result;
-
-            updateDisplayTimer.Stop();
-
-            this.Invoke(new MethodInvoker(delegate ()
-            {
-                fileName = listMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_");
-
-                this.Text = $"Downloading {listMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + @"\"}...";
-                urlLabel.Text = $"{listMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + @"\"} from youtube.com";
-                hashLabel.Text = "Downloading YouTube playlists does not support file verification.";
-                bytesLabel.Visible = false;
-                progressLabel.Visible = false;
-                totalProgressBar.Visible = true;
-                totalProgressBar.Style = ProgressBarStyle.Marquee;
-                totalProgressBar.Visible = true;
-                progressBar1.Visible = false;
-                progressBar2.Visible = false;
-
-                if (downloadType == DownloadType.YoutubeVideo || downloadType == DownloadType.YoutubePlaylist)
-                {
-                    if (DownloadForm.ytDownloading == true)
-                    {
-                        totalProgressBar.Style = ProgressBarStyle.Blocks;
-                        totalProgressBar.State = ProgressBarState.Error;
-                        totalProgressBar.ShowText = false;
-                        totalProgressBar.Value = 100;
-                        DarkMessageBox msg = new("Another YouTube download is currently in progress.\nPlease wait until the download is complete before attempting to download another.", "YouTube Download Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        msg.ShowDialog();
-                        downloading = false;
-                        DownloadForm.downloadsAmount -= 1;
-                        DownloadForm.downloadsList.Remove(this);
-                        this.Close();
-                        this.Dispose();
-                        return;
-                    }
-                }
-
-                DownloadForm.ytDownloading = true;
-            }));
-
-            if (downloading == false)
-            {
-                return;
-            }
-
-            if (ytDownloadType != null)
-            {
-                // Create a folder for the playlist
-                string playlistFolder = location + listMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + @"\";
-                System.IO.Directory.CreateDirectory(playlistFolder);
-
-                if (ytDownloadType == YoutubeDownloadType.Audio)
-                {
-                    // Audio Only
-                    Thread thread = new Thread(async delegate ()
-                    {
-                        // Check how many videos are in the playlist
-                        IAsyncEnumerable<YoutubeExplode.Playlists.PlaylistVideo> videosList = client.Playlists.GetVideosAsync(listMetadata.Id);
-                        int videoCount = 0;
-
-                        await foreach (YoutubeExplode.Playlists.PlaylistVideo video in client.Playlists.GetVideosAsync(listMetadata.Id))
-                        {
-                            videoCount += 1;
-                        }
-
-                        // Update progressbar with video count 
-                        this.Invoke(new MethodInvoker(delegate ()
-                        {
-                            totalProgressBar.Maximum = videoCount;
-                            totalProgressBar.Minimum = 0;
-                            totalProgressBar.Value = 0;
-                            totalProgressBar.Style = ProgressBarStyle.Blocks;
-                        }));
-
-                        // Download each video
-                        await foreach (YoutubeExplode.Playlists.PlaylistVideo video in client.Playlists.GetVideosAsync(listMetadata.Id))
-                        {
-                            var streamManifest = client.Videos.Streams.GetManifestAsync(video.Id);
-
-                            var streamInfo = streamManifest.Result.GetAudioOnlyStreams().TryGetWithHighestBitrate();
-
-                            await client.Videos.Streams.DownloadAsync(streamInfo, System.IO.Path.GetTempPath() + "temp.webm");
-
-                            try
-                            {
-                                ConvertAudio(System.IO.Path.GetTempPath() + "temp.webm", playlistFolder + video.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp3");
-                            }
-                            catch (Exception ex)
-                            {
-                                DarkMessageBox msgerr = new DarkMessageBox("Error while converting file format:\n" + ex.Message + Environment.NewLine + ex.StackTrace, "Download Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, false);
-                                DialogResult result = msgerr.ShowDialog();
-
-                                if (result == DialogResult.Retry)
-                                {
-                                    this.Invoke(new MethodInvoker(delegate ()
-                                    {
-                                        StartYoutubeVideoDownload();
-                                    }));
-
-                                    return;
-                                }
-                                else
-                                {
-                                    downloading = false;
-                                    DownloadForm.downloadsAmount -= 1;
-                                    DownloadForm.ytDownloading = false;
-                                    DownloadForm.downloadsList.Remove(this);
-                                    this.Invoke(new MethodInvoker(delegate ()
-                                    {
-                                        this.Close();
-                                        this.Dispose();
-                                    }));
-                                    return;
-                                }
-                            }
-
-                            this.Invoke(new MethodInvoker(delegate ()
-                            {
-                                totalProgressBar.Value += 1;
-
-                            }));
-                        }
-
-                        pictureBox1.Image = Properties.Resources.fileTransferDone;
-
-                        downloading = false;
-                        DownloadForm.downloadsAmount -= 1;
-                        DownloadForm.ytDownloading = false;
-                        Log(LogLevel.Info, "Finished downloading file.");
-
-                        if (Settings.Default.notifyDone)
-                        {
-                            new ToastContentBuilder()
-                             .AddText($"The download of {listMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")} is complete.")
-                             .Show();
-                        }
-
-                        if (Settings.Default.soundOnComplete == true)
-                            complete.Play();
-                        Invoke(new MethodInvoker(delegate ()
-                        {
-                            checkBox2.Enabled = false;
-                            cancelButton.Text = "Close";
-                            openButton.Enabled = true;
-                            pauseButton.Enabled = false;
-                            progressBar1.Style = ProgressBarStyle.Blocks;
-                            progressBar1.MarqueeAnim = false;
-                            if (checkBox2.Checked == true)
-                            {
-                                this.Close();
-                                this.Dispose();
-                                return;
-                            }
-                            else if (!this.Visible)
-                            {
-                                this.Close();
-                                this.Dispose();
-                                return;
-                            }
-                        }));
-                    });
-                    thread.Start();
-                }
-                else if (ytDownloadType == YoutubeDownloadType.Video)
-                {
-                    // Video Only
-                    Thread thread = new Thread(async delegate ()
-                    {
-                        // Check how many videos are in the playlist
-                        IAsyncEnumerable<YoutubeExplode.Playlists.PlaylistVideo> videosList = client.Playlists.GetVideosAsync(listMetadata.Id);
-                        int videoCount = 0;
-
-                        await foreach (YoutubeExplode.Playlists.PlaylistVideo video in client.Playlists.GetVideosAsync(listMetadata.Id))
-                        {
-                            videoCount += 1;
-                        }
-
-                        // Update progressbar with video count 
-                        this.Invoke(new MethodInvoker(delegate ()
-                        {
-                            totalProgressBar.Maximum = videoCount;
-                            totalProgressBar.Minimum = 0;
-                            totalProgressBar.Value = 0;
-                            totalProgressBar.Style = ProgressBarStyle.Blocks;
-                        }));
-
-                        // Download each video
-                        await foreach (YoutubeExplode.Playlists.PlaylistVideo video in client.Playlists.GetVideosAsync(listMetadata.Id))
-                        {
-                            var streamManifest = client.Videos.Streams.GetManifestAsync(video.Id);
-
-                            var streamInfo = streamManifest.Result.GetVideoOnlyStreams().TryGetWithHighestVideoQuality();
-
-                            await client.Videos.Streams.DownloadAsync(streamInfo, System.IO.Path.GetTempPath() + "temp.webm");
-
-                            try
-                            {
-                                File.Move(System.IO.Path.GetTempPath() + "temp.webm", playlistFolder + video.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".webm");
-                            }
-                            catch (Exception ex)
-                            {
-                                DarkMessageBox msg = new DarkMessageBox(ex.Message, "Error writing file", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
-                                msg.ShowDialog();
-                            }
-
-                            this.Invoke(new MethodInvoker(delegate ()
-                            {
-                                totalProgressBar.Value += 1;
-                            }));
-                        }
-
-                        pictureBox1.Image = Properties.Resources.fileTransferDone;
-
-                        downloading = false;
-                        DownloadForm.downloadsAmount -= 1;
-                        DownloadForm.ytDownloading = false;
-                        Log(LogLevel.Info, "Finished downloading file.");
-
-                        if (Settings.Default.notifyDone)
-                        {
-                            new ToastContentBuilder()
-                             .AddText($"The download of {listMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")} is complete.")
-                             .Show();
-                        }
-
-                        if (Settings.Default.soundOnComplete == true)
-                            complete.Play();
-                        Invoke(new MethodInvoker(delegate ()
-                        {
-                            checkBox2.Enabled = false;
-                            cancelButton.Text = "Close";
-                            openButton.Enabled = true;
-                            pauseButton.Enabled = false;
-                            progressBar1.Value = 100;
-                            progressBar1.Style = ProgressBarStyle.Blocks;
-                            progressBar1.MarqueeAnim = false;
-                            if (checkBox2.Checked == true)
-                            {
-                                this.Close();
-                                this.Dispose();
-                                return;
-                            }
-                            else if (!this.Visible)
-                            {
-                                this.Close();
-                                this.Dispose();
-                                return;
-                            }
-                        }));
-                    });
-                    thread.Start();
-                }
-                else if (ytDownloadType == YoutubeDownloadType.AudioVideo)
-                {
-                    // Audio & Video
-                    Thread thread = new Thread(async delegate ()
-                    {
-                        // Check how many videos are in the playlist
-                        IAsyncEnumerable<YoutubeExplode.Playlists.PlaylistVideo> videosList = client.Playlists.GetVideosAsync(listMetadata.Id);
-                        int videoCount = 0;
-
-                        await foreach (YoutubeExplode.Playlists.PlaylistVideo video in client.Playlists.GetVideosAsync(listMetadata.Id))
-                        {
-                            videoCount += 1;
-                        }
-
-                        // Update progressbar with video count 
-                        this.Invoke(new MethodInvoker(delegate ()
-                        {
-                            totalProgressBar.Maximum = videoCount;
-                            totalProgressBar.Minimum = 0;
-                            totalProgressBar.Value = 0;
-                            totalProgressBar.Style = ProgressBarStyle.Blocks;
-                        }));
-
-                        // Download each video
-                        await foreach (YoutubeExplode.Playlists.PlaylistVideo video in client.Playlists.GetVideosAsync(listMetadata.Id))
-                        {
-                            var streamManifest = client.Videos.Streams.GetManifestAsync(video.Id);
-
-                            var streamInfo = streamManifest.Result.GetMuxedStreams().TryGetWithHighestVideoQuality();
-
-                            await client.Videos.Streams.DownloadAsync(streamInfo, System.IO.Path.GetTempPath() + "temp.webm");
-
-                            try
-                            {
-                                File.Move(System.IO.Path.GetTempPath() + "temp.webm", playlistFolder + video.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".webm");
-                            }
-                            catch (Exception ex)
-                            {
-                                DarkMessageBox msg = new DarkMessageBox(ex.Message, "Error writing file", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
-                                msg.ShowDialog();
-                            }
-
-                            this.Invoke(new MethodInvoker(delegate ()
-                            {
-                                totalProgressBar.Value += 1;
-                            }));
-                        }
-
-                        pictureBox1.Image = Properties.Resources.fileTransferDone;
-
-                        downloading = false;
-                        DownloadForm.downloadsAmount -= 1;
-                        DownloadForm.ytDownloading = false;
-                        Log(LogLevel.Info, "Finished downloading file.");
-
-                        if (Settings.Default.notifyDone)
-                        {
-                            new ToastContentBuilder()
-                             .AddText($"The download of {listMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")} is complete.")
-                             .Show();
-                        }
-
-                        if (Settings.Default.soundOnComplete == true)
-                            complete.Play();
-                        Invoke(new MethodInvoker(delegate ()
-                        {
-                            checkBox2.Enabled = false;
-                            cancelButton.Text = "Close";
-                            openButton.Enabled = true;
-                            pauseButton.Enabled = false;
-                            progressBar1.MarqueeAnim = false;
-                            if (checkBox2.Checked == true)
-                            {
-                                this.Close();
-                                this.Dispose();
-                                return;
-                            }
-                            else if (!this.Visible)
-                            {
-                                this.Close();
-                                this.Dispose();
-                                return;
-                            }
-                        }));
-                    });
-                    thread.Start();
-                }
-                else
-                {
-                    if (Settings.Default.notifyFail)
-                    {
-                        new ToastContentBuilder()
-                           .AddText("An internal error has occurred preventing you from downloading this file.")
-                           .AddText("Please submit a bug report.")
-                           .Show();
-                    }
-
-                    DarkMessageBox msg = new("An internal error has occurred preventing you from downloading your file.\nPlease submit a bug report.\n\nDetails: ytDownloadType is null when attempting a YouTube Download.", "Internal Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, false);
-                    if (msg.ShowDialog() == DialogResult.Retry)
-                    {
-                        StartYoutubeVideoDownload();
-                        return;
-                    }
-                    else
-                    {
-                        downloading = false;
-                        DownloadForm.downloadsAmount -= 1;
-                        DownloadForm.downloadsList.Remove(this);
-                        DownloadForm.ytDownloading = false;
-
-                        this.Invoke(new MethodInvoker(delegate ()
-                        {
-                            this.Close();
-                            this.Dispose();
-                        }));
-                    }
-                }
-            }
-        }
-
-        private async void StartYoutubeVideoDownload()
-        {
-            if (ytDownloadType != null)
-            {
-                YoutubeClient client = new YoutubeClient();
-                YoutubeExplode.Videos.Video? vidMetadata = null;
-
-                vidMetadata = client.Videos.GetAsync(YoutubeExplode.Videos.VideoId.Parse(url)).Result;
-
-                updateDisplayTimer.Stop();
-
-                this.Invoke(new MethodInvoker(delegate ()
-                {
-                    updateDisplayTimer.Stop();
-                    bytesLabel.Visible = false;
-                    progressLabel.Text = "Downloading YouTube videos does not support progress callbacks.";
-                    hashLabel.Text = "Downloading YouTube videos does not support file verification.";
-                    pauseButton.Enabled = false;
-                    totalProgressBar.Visible = true;
-                    totalProgressBar.Style = ProgressBarStyle.Marquee;
-                    totalProgressBar.MarqueeAnim = true;
-                    totalProgressBar.ShowText = false;
-                    progressBar1.Visible = false;
-                    progressBar2.Visible = false;
-
-                    if (downloadType == DownloadType.YoutubeVideo || downloadType == DownloadType.YoutubePlaylist)
-                    {
-                        if (DownloadForm.ytDownloading == true)
-                        {
-                            totalProgressBar.Style = ProgressBarStyle.Blocks;
-                            totalProgressBar.State = ProgressBarState.Error;
-                            totalProgressBar.ShowText = false;
-                            totalProgressBar.Value = 100;
-                            DarkMessageBox msg = new("Another YouTube download is currently in progress.\nPlease wait until the download is complete before attempting to download another.", "YouTube Download Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            msg.ShowDialog();
-                            downloading = false;
-                            DownloadForm.downloadsAmount -= 1;
-                            DownloadForm.downloadsList.Remove(this);
-                            this.Close();
-                            this.Dispose();
-                            return;
-                        }
-                    }
-
-                    DownloadForm.ytDownloading = true;
-                }));
-
-
-                if (downloading == false)
-                {
-                    return;
-                }
-
-                if (ytDownloadType == YoutubeDownloadType.Audio)
-                {
-                    //
-                    // Audio
-                    //
-
-                    this.Invoke(new MethodInvoker(delegate ()
-                    {
-                        fileName = $"{vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.mp3";
-
-                        this.Text = $"Downloading {vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.mp3...";
-                        urlLabel.Text = $"{vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.mp3 from youtube.com";
-                    }));
-
-                    var streamManifest = client.Videos.Streams.GetManifestAsync(vidMetadata.Id);
-
-                    var streamInfo = streamManifest.Result.GetAudioOnlyStreams().GetWithHighestBitrate();
-
-                    await client.Videos.Streams.DownloadAsync(streamInfo, System.IO.Path.GetTempPath() + "temp.webm");
-
-                    string newName = vidMetadata.Title;
-                    int charsReplaced = 0;
-
-                    foreach (char badChar in Path.GetInvalidFileNameChars())
-                    {
-                        if (newName.Contains(badChar))
-                        {
-                            newName.Replace(badChar, '_');
-                            charsReplaced += 1;
-                        }
-                    }
-
-                    if (charsReplaced >= 1)
-                    {
-                        DarkMessageBox msgerr = new DarkMessageBox("Video title contains " + charsReplaced + " illegal characters.\nThe characters will be replaced with '_' in the file name.", "YouTube Download Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning, true);
-                        msgerr.ShowDialog();
-                    }
-
-                    try
-                    {
-                        ConvertAudio(System.IO.Path.GetTempPath() + "temp.webm", location + vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".mp3");
-                    }
-                    catch (Exception ex)
-                    {
-                        DarkMessageBox msgerr = new DarkMessageBox("Error while converting file format:\n" + ex.Message + Environment.NewLine + ex.StackTrace, "Download Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, false);
-                        DialogResult result = msgerr.ShowDialog();
-
-                        if (result == DialogResult.Retry)
-                        {
-                            this.Invoke(new MethodInvoker(delegate ()
-                            {
-                                StartYoutubeVideoDownload();
-                            }));
-
-                            return;
-                        }
-                        else
-                        {
-                            downloading = false;
-                            DownloadForm.downloadsAmount -= 1;
-                            DownloadForm.ytDownloading = false;
-                            DownloadForm.downloadsList.Remove(this);
-                            this.Invoke(new MethodInvoker(delegate ()
-                            {
-                                this.Close();
-                                this.Dispose();
-                            }));
-                            return;
-                        }
-                    }
-
-                    pictureBox1.Image = Properties.Resources.fileTransferDone;
-
-                    downloading = false;
-                    DownloadForm.downloadsAmount -= 1;
-                    DownloadForm.ytDownloading = false;
-                    Log(LogLevel.Info, "Finished downloading file.");
-
-                    if (Settings.Default.notifyDone)
-                    {
-                        new ToastContentBuilder()
-                         .AddText($"The download of {vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.mp3 is complete.")
-                         .Show();
-                    }
-
-                    if (Settings.Default.soundOnComplete == true)
-                        complete.Play();
-                    Invoke(new MethodInvoker(delegate ()
-                    {
-                        checkBox2.Enabled = false;
-                        cancelButton.Text = "Close";
-                        openButton.Enabled = true;
-                        pauseButton.Enabled = false;
-                        totalProgressBar.Value = 100;
-                        totalProgressBar.Style = ProgressBarStyle.Blocks;
-                        totalProgressBar.MarqueeAnim = false;
-                        if (checkBox2.Checked == true)
-                        {
-                            this.Close();
-                            this.Dispose();
-                            return;
-                        }
-                        else if (!this.Visible)
-                        {
-                            this.Close();
-                            this.Dispose();
-                            return;
-                        }
-                    }));
-                }
-                else if (ytDownloadType == YoutubeDownloadType.Video)
-                {
-                    //
-                    // Video
-                    //
-                    var streamManifest = client.Videos.Streams.GetManifestAsync(vidMetadata.Id);
-
-                    var streamInfo = streamManifest.Result.GetVideoStreams().GetWithHighestVideoQuality();
-
-                    await client.Videos.Streams.DownloadAsync(streamInfo, System.IO.Path.GetTempPath() + "temp.webm");
-
-                    this.Invoke(new MethodInvoker(delegate ()
-                    {
-                        fileName = $"{vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.webm";
-
-                        this.Text = $"Downloading {vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.webm...";
-                        urlLabel.Text = $"{vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.webm from youtube.com";
-                    }));
-
-                    string newName = vidMetadata.Title;
-                    int charsReplaced = 0;
-
-                    foreach (char badChar in Path.GetInvalidFileNameChars())
-                    {
-                        if (newName.Contains(badChar))
-                        {
-                            newName.Replace(badChar, '_');
-                            charsReplaced += 1;
-                        }
-                    }
-
-                    if (charsReplaced >= 1)
-                    {
-                        DarkMessageBox msgerr = new DarkMessageBox("Video title contains " + charsReplaced + " illegal characters.\nThe characters will be replaced with '_' in the file name.", "YouTube Download Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning, true);
-                        msgerr.ShowDialog();
-                    }
-
-                    try
-                    {
-                        File.Move(System.IO.Path.GetTempPath() + "temp.webm", location + vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".webm");
-                    }
-                    catch (Exception ex)
-                    {
-                        DarkMessageBox msgerr = new DarkMessageBox("Error while writing file:\n" + ex.Message + Environment.NewLine + ex.StackTrace, "Download Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, false);
-                        DialogResult result = msgerr.ShowDialog();
-
-                        if (result == DialogResult.Retry)
-                        {
-                            this.Invoke(new MethodInvoker(delegate ()
-                            {
-                                StartYoutubeVideoDownload();
-                            }));
-
-                            return;
-                        }
-                        else
-                        {
-                            this.Invoke(new MethodInvoker(delegate ()
-                            {
-                                downloading = false;
-                                DownloadForm.downloadsAmount -= 1;
-                                DownloadForm.ytDownloading = false;
-                                DownloadForm.downloadsList.Remove(this);
-                                this.Close();
-                                this.Dispose();
-                            }));
-                            return;
-                        }
-                    }
-
-                    pictureBox1.Image = Properties.Resources.fileTransferDone;
-
-                    downloading = false;
-                    DownloadForm.downloadsAmount -= 1;
-                    DownloadForm.ytDownloading = false;
-                    Log(LogLevel.Info, "Finished downloading file.");
-
-                    if (Settings.Default.notifyDone)
-                    {
-                        new ToastContentBuilder()
-                         .AddText($"The download of {vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.webm is complete.")
-                         .Show();
-                    }
-
-                    if (Settings.Default.soundOnComplete == true)
-                        complete.Play();
-                    Invoke(new MethodInvoker(delegate ()
-                    {
-                        checkBox2.Enabled = false;
-                        cancelButton.Text = "Close";
-                        openButton.Enabled = true;
-                        pauseButton.Enabled = false;
-                        totalProgressBar.Value = 100;
-                        totalProgressBar.Style = ProgressBarStyle.Blocks;
-                        totalProgressBar.MarqueeAnim = false;
-                        if (checkBox2.Checked == true)
-                        {
-                            this.Close();
-                            this.Dispose();
-                            return;
-                        }
-                        else if (!this.Visible)
-                        {
-                            this.Close();
-                            this.Dispose();
-                            return;
-                        }
-                    }));
-                }
-                else
-                {
-                    //
-                    // AudioVideo
-                    //
-                    var streamManifest = client.Videos.Streams.GetManifestAsync(vidMetadata.Id);
-
-                    var streamInfo = streamManifest.Result.GetMuxedStreams().GetWithHighestVideoQuality();
-
-                    this.Invoke(new MethodInvoker(delegate ()
-                    {
-                        fileName = $"{vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.webm";
-
-                        this.Text = $"Downloading {vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.webm...";
-                        urlLabel.Text = $"{vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.webm from youtube.com";
-                    }));
-
-                    try
-                    {
-                        await client.Videos.Streams.DownloadAsync(streamInfo, System.IO.Path.GetTempPath() + "temp.webm");
-                    }
-                    catch (Exception ex)
-                    {
-                        DarkMessageBox msg = new($"{ex.Message} ({ex.GetType().FullName})\n{ex.StackTrace}");
-                        msg.ShowDialog();
-
-                        if (Settings.Default.notifyFail)
-                        {
-                            new ToastContentBuilder()
-                               .AddText($"The download of {vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.webm has failed.")
-                               .Show();
-                        }
-
-                        downloading = false;
-                        DownloadForm.downloadsAmount -= 1;
-                        DownloadForm.ytDownloading = false;
-                        DownloadForm.downloadsList.Remove(this);
-
-                        this.Invoke(new MethodInvoker(delegate ()
-                        {
-                            this.Close();
-                            this.Dispose();
-                        }));
-                        return;
-                    }
-
-                    string newName = vidMetadata.Title;
-                    int charsReplaced = 0;
-
-                    foreach (char badChar in Path.GetInvalidFileNameChars())
-                    {
-                        if (newName.Contains(badChar))
-                        {
-                            newName.Replace(badChar, '_');
-                            charsReplaced += 1;
-                        }
-                    }
-
-                    if (charsReplaced >= 1)
-                    {
-                        DarkMessageBox msgerr = new DarkMessageBox("Video title contains " + charsReplaced + " illegal characters.\nThe characters will be replaced with '_' in the file name.", "YouTube Download Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning, true);
-                        msgerr.ShowDialog();
-                    }
-
-                    try
-                    {
-                        File.Move(System.IO.Path.GetTempPath() + "temp.webm", location + vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_") + ".webm");
-                    }
-                    catch (Exception ex)
-                    {
-                        DarkMessageBox msgerr = new DarkMessageBox("Error while writing file:\n" + ex.Message + Environment.NewLine + ex.StackTrace, "Download Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, false);
-                        DialogResult result = msgerr.ShowDialog();
-
-                        if (result == DialogResult.Retry)
-                        {
-                            this.Invoke(new MethodInvoker(delegate ()
-                            {
-                                StartYoutubeVideoDownload();
-                            }));
-
-                            return;
-                        }
-                        else
-                        {
-                            this.Invoke(new MethodInvoker(delegate ()
-                            {
-                                downloading = false;
-                                DownloadForm.downloadsAmount -= 1;
-                                DownloadForm.ytDownloading = false;
-                                DownloadForm.downloadsList.Remove(this);
-                                this.Close();
-                                this.Dispose();
-                            }));
-
-                            return;
-                        }
-                    }
-
-                    pictureBox1.Image = Properties.Resources.fileTransferDone;
-
-                    downloading = false;
-                    DownloadForm.downloadsAmount -= 1;
-                    DownloadForm.ytDownloading = false;
-                    Log(LogLevel.Info, "Finished downloading file.");
-
-                    if (Settings.Default.notifyDone)
-                    {
-                        new ToastContentBuilder()
-                         .AddText($"The download of {vidMetadata.Title.Replace(":", "_").Replace("<", "_").Replace(">", "_").Replace('"', '_').Replace("/", "_").Replace(@"\", "_").Replace("|", "_").Replace("?", "_").Replace("*", "_")}.webm is complete.")
-                         .Show();
-                    }
-
-                    if (Settings.Default.soundOnComplete == true)
-                        complete.Play();
-                    Invoke(new MethodInvoker(delegate ()
-                    {
-                        checkBox2.Enabled = false;
-                        cancelButton.Text = "Close";
-                        openButton.Enabled = true;
-                        pauseButton.Enabled = false;
-                        totalProgressBar.Value = 100;
-                        totalProgressBar.Style = ProgressBarStyle.Blocks;
-                        totalProgressBar.MarqueeAnim = false;
-                        if (checkBox2.Checked == true)
-                        {
-                            this.Close();
-                            this.Dispose();
-                            return;
-                        }
-                        else if (!this.Visible)
-                        {
-                            this.Close();
-                            this.Dispose();
-                            return;
-                        }
-                    }));
-                }
-            }
-            else
-            {
-                if (Settings.Default.notifyFail)
-                {
-                    new ToastContentBuilder()
-                       .AddText("An internal error has occurred preventing you from downloading this file.")
-                       .AddText("Please submit a bug report.")
-                       .Show();
-                }
-
-                DarkMessageBox msg = new("An internal error has occurred preventing you from downloading your file.\nPlease submit a bug report.\n\nDetails: ytDownloadType is null when attempting a YouTube Download.", "Internal Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error, false);
-                if (msg.ShowDialog() == DialogResult.Retry)
-                {
-                    StartYoutubeVideoDownload();
-                    return;
-                }
-                else
-                {
-                    downloading = false;
-                    DownloadForm.downloadsAmount -= 1;
-                    DownloadForm.ytDownloading = false;
-                    DownloadForm.downloadsList.Remove(this);
-
-                    this.Invoke(new MethodInvoker(delegate ()
-                    {
-                        this.Close();
-                        this.Dispose();
-                    }));
-                }
-            }
-        }
-
-        private void ConvertAudio(string fileName, string destFileName)
-        {
-            Log(LogLevel.Info, "Beginning file conversion...");
-
-            ProcessStartInfo startInfo = new();
-            startInfo.FileName = "ffmpeg.exe";
-            startInfo.Arguments = $"-i \"{fileName}\" -vn -y \"{destFileName}\"";
-            startInfo.CreateNoWindow = true;
-            startInfo.UseShellExecute = false;
-            startInfo.RedirectStandardOutput = true;
-            startInfo.RedirectStandardError = true;
-            Process process = new();
-            process.StartInfo = startInfo;
-            process.OutputDataReceived += (sender, args) => Log(LogLevel.Debug, "[ffmpeg] " + args.Data);
-            process.ErrorDataReceived += (sender, args) => Log(LogLevel.Debug, "[ffmpeg] " + args.Data);
-            process.Start();
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
-            process.WaitForExit();
-
-            if (process.ExitCode != 0)
-            {
-                throw new Exception("ffmpeg.exe failed to convert file with exit code " + process.ExitCode + ".");
-            }
-            else
-            {
-                Log(LogLevel.Info, "Finished file conversion.");
             }
         }
 
@@ -1942,7 +1064,7 @@ namespace DownloadManager
 
                                                 if (downloadAttempts != Settings.Default.autoDownloadAttempts - 1)
                                                 {
-                                                    DownloadProgress download = new DownloadProgress(url, location, DownloadType.Normal, null, hash, hashType, downloadAttempts + 1);
+                                                    DownloadProgress download = new DownloadProgress(url, location, hash, hashType, downloadAttempts + 1);
                                                     download.Show();
 
                                                     DownloadForm.downloadsList.Add(download);
@@ -2073,7 +1195,7 @@ namespace DownloadManager
 
                                                 if (downloadAttempts != Settings.Default.autoDownloadAttempts - 1)
                                                 {
-                                                    DownloadProgress download = new DownloadProgress(url, location, DownloadType.Normal, null, hash, hashType, downloadAttempts + 1);
+                                                    DownloadProgress download = new DownloadProgress(url, location, hash, hashType, downloadAttempts + 1);
                                                     download.Show();
 
                                                     DownloadForm.downloadsList.Add(download);
@@ -2204,7 +1326,7 @@ namespace DownloadManager
 
                                                 if (downloadAttempts != Settings.Default.autoDownloadAttempts - 1)
                                                 {
-                                                    DownloadProgress download = new DownloadProgress(url, location, DownloadType.Normal, null, hash, hashType, downloadAttempts + 1);
+                                                    DownloadProgress download = new DownloadProgress(url, location, hash, hashType, downloadAttempts + 1);
                                                     download.Show();
 
                                                     DownloadForm.downloadsList.Add(download);
@@ -2335,7 +1457,7 @@ namespace DownloadManager
 
                                                 if (downloadAttempts != Settings.Default.autoDownloadAttempts - 1)
                                                 {
-                                                    DownloadProgress download = new DownloadProgress(url, location, DownloadType.Normal, null, hash, hashType, downloadAttempts + 1);
+                                                    DownloadProgress download = new DownloadProgress(url, location, hash, hashType, downloadAttempts + 1);
                                                     download.Show();
 
                                                     DownloadForm.downloadsList.Add(download);
@@ -2466,7 +1588,7 @@ namespace DownloadManager
 
                                                 if (downloadAttempts != Settings.Default.autoDownloadAttempts - 1)
                                                 {
-                                                    DownloadProgress download = new DownloadProgress(url, location, DownloadType.Normal, null, hash, hashType, downloadAttempts + 1);
+                                                    DownloadProgress download = new DownloadProgress(url, location, hash, hashType, downloadAttempts + 1);
                                                     download.Show();
 
                                                     DownloadForm.downloadsList.Add(download);
@@ -2875,7 +1997,7 @@ namespace DownloadManager
                 }
                 catch (System.Threading.Tasks.TaskCanceledException ex)
                 {
-                    Log(LogLevel.Info, "Download of " + url + "was canceled.");
+                    Log(LogLevel.Info, "Download of " + url + "was cancelled.");
                     stream.Close();
                 }
                 catch (Exception ex)

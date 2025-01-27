@@ -10,8 +10,6 @@ namespace DownloadManager
         Timer timer = new Timer();
         public DownloadProgress progress;
         int index = 0;
-        bool isYtDownload = false;
-        bool contentLengthIssue = false;
 
         public void Initialize(DownloadProgress progress)
         {
@@ -111,38 +109,26 @@ namespace DownloadManager
                         downloadsForm.progressGridView.Rows[index].Cells[2].Value = $"{bps.ToString("0.00")} B/s";
                     }
 
-                    if (progress.downloadType == DownloadProgress.DownloadType.YoutubePlaylist)
+                    // Update the progress bar
+                    if ((int)progress.percentageDone > 100)
                     {
-                        // Update the progressBar
-                        downloadsForm.progressGridView.Rows[index].Cells[1].Value = (int)progress.progressLabel.Text.Replace("%", "").ToDouble();
+                        Logging.Log(LogLevel.Warning, "DownloadItem Progress is greater than 100%! The item has been removed to prevent a crash!");
+                        Dispose();
                     }
-                    else if (progress.downloadType == DownloadProgress.DownloadType.YoutubeVideo)
+
+                    if (progress.totalSize < 1)
                     {
+                        // If the total size is less than 1, then we cannot report progress
+                        // Update the progress bar
                         downloadsForm.progressGridView.Rows[index].Cells[1].Tag = -1;
                     }
                     else
                     {
                         // Update the progress bar
-                        if ((int)progress.percentageDone > 100)
-                        {
-                            Logging.Log(LogLevel.Warning, "DownloadItem Progress is greater than 100%! The item has been removed to prevent a crash!");
-                            Dispose();
-                        }
-
-                        if (progress.totalSize < 1)
-                        {
-                            // If the total size is less than 1, then we cannot report progress
-                            // Update the progress bar
-                            downloadsForm.progressGridView.Rows[index].Cells[1].Tag = -1;
-                        }
-                        else
-                        {
-                            // Update the progress bar
-                            downloadsForm.progressGridView.Rows[index].Cells[1].Tag = (int)progress.progressLabel.Text.Replace("%", "").ToDouble();
-                        }
-
-                        //Logging.Log(((int)progress.progressLabel.Text.Replace("%", "").ToDouble()).ToString(), Color.Gray);
+                        downloadsForm.progressGridView.Rows[index].Cells[1].Tag = (int)progress.progressLabel.Text.Replace("%", "").ToDouble();
                     }
+
+                    //Logging.Log(((int)progress.progressLabel.Text.Replace("%", "").ToDouble()).ToString(), Color.Gray);
                 }
                 catch (ArgumentOutOfRangeException)
                 {
