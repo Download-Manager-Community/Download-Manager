@@ -270,11 +270,6 @@ If you do have a file hash ensure the combo-box has the correct value or file ve
   <metadata name="videoThumbErrorTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 34</value>
   </metadata>
-  <data name="videoErrorText.Text" xml:space="preserve">
-    <value>Download Manager does not support downloading YouTube videos.
-For more information, check the release notes for version 6.0.0.0 at:
-https://github.com/Download-Manager-Community/Download-Manager/releases/tag/6.0.0.0</value>
-  </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>71</value>
   </metadata>

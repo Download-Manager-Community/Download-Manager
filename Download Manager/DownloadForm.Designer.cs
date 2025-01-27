@@ -60,11 +60,8 @@
             button2 = new Button();
             progressBar1 = new BetterProgressBar();
             videoThumbErrorTip = new ToolTip(components);
-            videoErrorText = new RichTextBox();
-            videoErrorBox = new GroupBox();
             trayContextMenu.SuspendLayout();
             panel1.SuspendLayout();
-            videoErrorBox.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -385,29 +382,6 @@
             videoThumbErrorTip.ToolTipIcon = ToolTipIcon.Error;
             videoThumbErrorTip.ToolTipTitle = "Failed to fetch video thumbnail";
             // 
-            // videoErrorText
-            // 
-            videoErrorText.BorderStyle = BorderStyle.None;
-            videoErrorText.Dock = DockStyle.Fill;
-            videoErrorText.ForeColor = Color.Red;
-            videoErrorText.Location = new Point(3, 19);
-            videoErrorText.Name = "videoErrorText";
-            videoErrorText.ReadOnly = true;
-            videoErrorText.Size = new Size(433, 99);
-            videoErrorText.TabIndex = 0;
-            videoErrorText.Text = resources.GetString("videoErrorText.Text");
-            // 
-            // videoErrorBox
-            // 
-            videoErrorBox.Controls.Add(videoErrorText);
-            videoErrorBox.Location = new Point(17, 245);
-            videoErrorBox.Name = "videoErrorBox";
-            videoErrorBox.Size = new Size(439, 121);
-            videoErrorBox.TabIndex = 39;
-            videoErrorBox.TabStop = false;
-            videoErrorBox.Text = "Error";
-            videoErrorBox.Visible = false;
-            // 
             // DownloadForm
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
@@ -423,7 +397,6 @@
             Controls.Add(label4);
             Controls.Add(linkLabel1);
             Controls.Add(label3);
-            Controls.Add(videoErrorBox);
             Controls.Add(button4);
             Controls.Add(button3);
             Controls.Add(textBox2);
@@ -441,7 +414,6 @@
             trayContextMenu.ResumeLayout(false);
             trayContextMenu.PerformLayout();
             panel1.ResumeLayout(false);
-            videoErrorBox.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -477,7 +449,5 @@
         public Button button2;
         private BetterProgressBar progressBar1;
         private ToolTip videoThumbErrorTip;
-        private RichTextBox videoErrorText;
-        private GroupBox videoErrorBox;
     }
 }
