@@ -10,7 +10,7 @@
 </p>
 
 A fast download manager for Windows to download your files.
-Download Manager now contains a browser extention to help you download your files as easily as possible.
+Download Manager now contains a [browser extention](https://microsoftedge.microsoft.com/addons/detail/download-manager/facopbimneimllhcabghncloejfeficd) to help you download your files as easily as possible.
 Just install the extention and download a file!
 For requests for file extentions please make a [Feature Request](https://github.com/Soniczac7/Download-Manager/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=).
 
