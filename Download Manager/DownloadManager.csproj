@@ -17,8 +17,8 @@
     <Company>Soniczac7</Company>
     <Product>Download Manager</Product>
     <PackageProjectUrl>http://downloadmanager.soniczac7.rf.gd/</PackageProjectUrl>
-    <AssemblyVersion>5.2.0.0</AssemblyVersion>
-    <FileVersion>5.2.0.0</FileVersion>
+    <AssemblyVersion>6.0.0.0</AssemblyVersion>
+    <FileVersion>$(AssemblyVersion)</FileVersion>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Copyright>©Soniczac7</Copyright>
     <NeutralLanguage>en-GB</NeutralLanguage>
