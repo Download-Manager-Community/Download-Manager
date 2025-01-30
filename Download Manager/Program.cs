@@ -5,7 +5,8 @@ namespace DownloadManager
 {
     internal static class Program
     {
-        private const bool DEBUG = true;
+        public const bool DEBUG = true;
+        public static bool allowBypassCrashHandler = true;
 
         /// <summary>
         ///  The main entry point for the application.
@@ -56,12 +57,18 @@ namespace DownloadManager
             }
             catch (Exception ex)
             {
+                if (Debugger.IsAttached && allowBypassCrashHandler)
+                {
+                    throw;
+                }
+
                 // Define exception information
                 string exceptionType = Convert.ToString(ex.GetType());
                 string exceptionMessage = ex.Message;
                 string[] exceptionStackTraceOld = ex.StackTrace.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 StringBuilder exceptionStackTraceNew = new StringBuilder();
 
+                // Stacktrace
                 foreach (string line in exceptionStackTraceOld)
                 {
                     // Append new StackTrace line to new StackTrace
