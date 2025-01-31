@@ -49,17 +49,18 @@
             md5Box.BackColor = Color.Black;
             md5Box.BorderStyle = BorderStyle.FixedSingle;
             md5Box.ForeColor = Color.White;
-            md5Box.Location = new Point(17, 90);
+            md5Box.Location = new Point(17, 97);
             md5Box.Margin = new Padding(4, 3, 4, 3);
+            md5Box.Multiline = true;
             md5Box.Name = "md5Box";
             md5Box.ReadOnly = true;
-            md5Box.Size = new Size(432, 23);
+            md5Box.Size = new Size(618, 37);
             md5Box.TabIndex = 12;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(13, 69);
+            label2.Location = new Point(13, 76);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new Size(86, 16);
@@ -73,9 +74,11 @@
             fileNameBox.ForeColor = Color.White;
             fileNameBox.Location = new Point(17, 29);
             fileNameBox.Margin = new Padding(4, 3, 4, 3);
+            fileNameBox.Multiline = true;
             fileNameBox.Name = "fileNameBox";
             fileNameBox.ReadOnly = true;
-            fileNameBox.Size = new Size(432, 23);
+            fileNameBox.ScrollBars = ScrollBars.Vertical;
+            fileNameBox.Size = new Size(618, 37);
             fileNameBox.TabIndex = 10;
             // 
             // label1
@@ -93,17 +96,18 @@
             sha1Box.BackColor = Color.Black;
             sha1Box.BorderStyle = BorderStyle.FixedSingle;
             sha1Box.ForeColor = Color.White;
-            sha1Box.Location = new Point(17, 151);
+            sha1Box.Location = new Point(17, 164);
             sha1Box.Margin = new Padding(4, 3, 4, 3);
+            sha1Box.Multiline = true;
             sha1Box.Name = "sha1Box";
             sha1Box.ReadOnly = true;
-            sha1Box.Size = new Size(432, 23);
+            sha1Box.Size = new Size(618, 37);
             sha1Box.TabIndex = 15;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(13, 131);
+            label3.Location = new Point(13, 144);
             label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
             label3.Size = new Size(93, 16);
@@ -115,17 +119,18 @@
             sha256Box.BackColor = Color.Black;
             sha256Box.BorderStyle = BorderStyle.FixedSingle;
             sha256Box.ForeColor = Color.White;
-            sha256Box.Location = new Point(17, 214);
+            sha256Box.Location = new Point(17, 231);
             sha256Box.Margin = new Padding(4, 3, 4, 3);
+            sha256Box.Multiline = true;
             sha256Box.Name = "sha256Box";
             sha256Box.ReadOnly = true;
-            sha256Box.Size = new Size(432, 23);
+            sha256Box.Size = new Size(618, 37);
             sha256Box.TabIndex = 17;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(13, 194);
+            label4.Location = new Point(13, 211);
             label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
             label4.Size = new Size(109, 16);
@@ -137,17 +142,18 @@
             sha512Box.BackColor = Color.Black;
             sha512Box.BorderStyle = BorderStyle.FixedSingle;
             sha512Box.ForeColor = Color.White;
-            sha512Box.Location = new Point(17, 337);
+            sha512Box.Location = new Point(17, 364);
             sha512Box.Margin = new Padding(4, 3, 4, 3);
+            sha512Box.Multiline = true;
             sha512Box.Name = "sha512Box";
             sha512Box.ReadOnly = true;
-            sha512Box.Size = new Size(432, 23);
+            sha512Box.Size = new Size(618, 37);
             sha512Box.TabIndex = 19;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(13, 318);
+            label5.Location = new Point(13, 345);
             label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
             label5.Size = new Size(107, 16);
@@ -159,17 +165,18 @@
             sha384Box.BackColor = Color.Black;
             sha384Box.BorderStyle = BorderStyle.FixedSingle;
             sha384Box.ForeColor = Color.White;
-            sha384Box.Location = new Point(17, 277);
+            sha384Box.Location = new Point(17, 298);
             sha384Box.Margin = new Padding(4, 3, 4, 3);
+            sha384Box.Multiline = true;
             sha384Box.Name = "sha384Box";
             sha384Box.ReadOnly = true;
-            sha384Box.Size = new Size(432, 23);
+            sha384Box.Size = new Size(618, 37);
             sha384Box.TabIndex = 21;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(13, 257);
+            label6.Location = new Point(13, 278);
             label6.Margin = new Padding(4, 0, 4, 0);
             label6.Name = "label6";
             label6.Size = new Size(109, 16);
@@ -179,11 +186,11 @@
             // progressBar
             // 
             progressBar.Dock = DockStyle.Bottom;
-            progressBar.Location = new Point(0, 375);
+            progressBar.Location = new Point(0, 416);
             progressBar.MarqueeAnim = true;
             progressBar.Name = "progressBar";
             progressBar.ShowText = false;
-            progressBar.Size = new Size(462, 10);
+            progressBar.Size = new Size(648, 10);
             progressBar.Style = ProgressBarStyle.Marquee;
             progressBar.TabIndex = 22;
             // 
@@ -192,7 +199,7 @@
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
-            ClientSize = new Size(462, 385);
+            ClientSize = new Size(648, 426);
             Controls.Add(progressBar);
             Controls.Add(sha384Box);
             Controls.Add(label6);

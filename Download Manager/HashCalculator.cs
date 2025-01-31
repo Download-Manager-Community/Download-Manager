@@ -17,7 +17,7 @@ namespace DownloadManager
             DesktopWindowManager.EnableMicaIfSupported(this.Handle);
             DesktopWindowManager.ExtendFrameIntoClientArea(this.Handle);
 
-            this.Size = new System.Drawing.Size(478, 424);
+            this.Size = new System.Drawing.Size(664, 465);
             fileNameBox.Text = file;
             if (File.Exists(file))
             {
@@ -175,12 +175,12 @@ namespace DownloadManager
                     if (show)
                     {
                         progressBar.Visible = true;
-                        this.Size = new System.Drawing.Size(478, 424);
+                        this.Size = new System.Drawing.Size(664, 465);
                     }
                     else
                     {
                         progressBar.Visible = false;
-                        this.Size = new System.Drawing.Size(478, 414);
+                        this.Size = new System.Drawing.Size(664, 454);
                     }
                 }));
             }
