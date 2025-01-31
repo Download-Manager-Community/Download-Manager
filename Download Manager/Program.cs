@@ -1,3 +1,4 @@
+using DownloadManager.Components.Extentions;
 using System.Diagnostics;
 using System.Text;
 
@@ -21,7 +22,7 @@ namespace DownloadManager
             // Enable hardware acceleration
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
 
-            if (DEBUG == true)
+            if (!Debugger.IsAttached && DEBUG == true)
             {
                 MessageBox.Show("Debug mode is on. You can now attach a debugger.\nTo turn it off, go to Program.cs and set DEBUG to false.\nPress OK to continue...", "Download Manager - DEBUG", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -63,17 +64,45 @@ namespace DownloadManager
                 }
 
                 // Define exception information
-                string exceptionType = Convert.ToString(ex.GetType());
-                string exceptionMessage = ex.Message;
+                string exceptionType = ex.GetType().FullName;
+                string exceptionMessage = ex.Message.Replace(Environment.NewLine, "\\n");
                 string[] exceptionStackTraceOld = ex.StackTrace.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 StringBuilder exceptionStackTraceNew = new StringBuilder();
 
-                // Stacktrace
+                // Append exception message and type to the new StackTrace
                 foreach (string line in exceptionStackTraceOld)
                 {
                     // Append new StackTrace line to new StackTrace
-                    exceptionStackTraceNew.Append('"' + line + '"' + " ");
+                    exceptionStackTraceNew.Append('"' + line + "\" ");
                 }
+
+                // Inner exceptions
+                if (ex.InnerException != null)
+                {
+                    // Append inner exceptions header to the new StackTrace
+                    exceptionStackTraceNew.Append("\n\"Inner Exceptions:\"\n\"======================\" ");
+
+                    // Use GetInnerExceptions extension method to get all inner exceptions and add them to the new StackTrace
+                    foreach (Exception innerException in ex.GetInnerExceptions())
+                    {
+                        // Append inner exception message and type to the new StackTrace
+                        exceptionStackTraceNew.Append('"' + innerException.Message + $"({innerException.GetType().FullName})\" ");
+
+                        // Append inner exception StackTrace to the new (if it exists)
+                        if (innerException.StackTrace != null)
+                        {
+                            // Split the inner exception StackTrace into lines
+                            string[] oldInnerStackTrace = innerException.StackTrace.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+                            // Append each line of the inner exception StackTrace to the new
+                            foreach (string line in oldInnerStackTrace)
+                            {
+                                exceptionStackTraceNew.Append('"' + line + "\" ");
+                            }
+                        }
+                    }
+                }
+
 
                 // Create CrashHandler process
                 ProcessStartInfo crashInfo = new ProcessStartInfo();
