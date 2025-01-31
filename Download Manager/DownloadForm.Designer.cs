@@ -404,12 +404,14 @@
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            KeyPreview = true;
             Margin = new Padding(4, 3, 4, 3);
             MaximizeBox = false;
             Name = "DownloadForm";
             Text = "Download Manager";
             FormClosing += DownloadForm_FormClosing;
             Shown += DownloadForm_Shown;
+            KeyDown += DownloadForm_KeyDown;
             Move += DownloadForm_Move;
             trayContextMenu.ResumeLayout(false);
             trayContextMenu.PerformLayout();

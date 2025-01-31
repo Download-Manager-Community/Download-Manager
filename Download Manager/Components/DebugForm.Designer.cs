@@ -34,10 +34,10 @@ namespace DownloadManager.Components
             pictureBox1 = new PictureBox();
             darkTabControl = new DownloadManager.Controls.DarkTabControl();
             crashHandlerPage = new TabPage();
+            checkBox1 = new CheckBox();
             button2 = new Button();
             button1 = new Button();
             tabPage2 = new TabPage();
-            checkBox1 = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             darkTabControl.SuspendLayout();
             crashHandlerPage.SuspendLayout();
@@ -94,6 +94,19 @@ namespace DownloadManager.Components
             crashHandlerPage.Text = "CrashHandler";
             crashHandlerPage.UseVisualStyleBackColor = true;
             // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Checked = true;
+            checkBox1.CheckState = CheckState.Checked;
+            checkBox1.Location = new Point(6, 35);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(212, 20);
+            checkBox1.TabIndex = 2;
+            checkBox1.Text = "Program.allowBypassCrashHandler";
+            checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
+            // 
             // button2
             // 
             button2.Location = new Point(87, 6);
@@ -102,6 +115,7 @@ namespace DownloadManager.Components
             button2.TabIndex = 1;
             button2.Text = "Test Crash Ext";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // button1
             // 
@@ -122,19 +136,6 @@ namespace DownloadManager.Components
             tabPage2.TabIndex = 1;
             tabPage2.Text = "tabPage2";
             tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox1
-            // 
-            checkBox1.AutoSize = true;
-            checkBox1.Checked = true;
-            checkBox1.CheckState = CheckState.Checked;
-            checkBox1.Location = new Point(6, 35);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(212, 20);
-            checkBox1.TabIndex = 2;
-            checkBox1.Text = "Program.allowBypassCrashHandler";
-            checkBox1.UseVisualStyleBackColor = true;
-            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
             // 
             // DebugForm
             // 

@@ -190,11 +190,16 @@ namespace DownloadManager.Controls
 
         protected override void Dispose(bool disposing)
         {
-            _backBrush.Dispose();
-            _tabBackBrush.Dispose();
-            _tabForeBrush.Dispose();
+            try
+            {
+                _backBrush.Dispose();
+                _tabBackBrush.Dispose();
+                _tabForeBrush.Dispose();
 
-            base.Dispose(disposing);
+                base.Dispose(disposing);
+            }
+            catch (ObjectDisposedException) { }
+            catch (NullReferenceException) { }
         }
 
         private StringFormat _tabTextFormat = new StringFormat();
