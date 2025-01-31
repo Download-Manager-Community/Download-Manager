@@ -392,5 +392,15 @@ namespace DownloadManager
                 catch { }
             }
         }
+
+        private void DownloadForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            // If CRTL+ALT+F3 is pressed and debug mode is enabled
+            if (e.Control && e.Alt && e.KeyCode == Keys.F3 && Program.DEBUG)
+            {
+                Components.DebugForm debugForm = new Components.DebugForm();
+                debugForm.Show();
+            }
+        }
     }
 }
