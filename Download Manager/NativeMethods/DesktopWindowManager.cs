@@ -120,4 +120,15 @@ public static class DesktopWindowManager
             throw Marshal.GetExceptionForHR(result);
         }
     }
+
+    /// <summary>
+    /// Set the default window style for the target form.
+    /// </summary>
+    /// <param name="hWnd">The target form's handle.</param>
+    public static void SetWindowStyle(IntPtr hWnd)
+    {
+        DesktopWindowManager.SetImmersiveDarkMode(hWnd, true);
+        DesktopWindowManager.EnableMicaIfSupported(hWnd);
+        DesktopWindowManager.ExtendFrameIntoClientArea(hWnd);
+    }
 }
