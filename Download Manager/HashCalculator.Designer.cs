@@ -29,207 +29,208 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HashCalculator));
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.SuspendLayout();
+            md5Box = new TextBox();
+            label2 = new Label();
+            fileNameBox = new TextBox();
+            label1 = new Label();
+            sha1Box = new TextBox();
+            label3 = new Label();
+            sha256Box = new TextBox();
+            label4 = new Label();
+            sha512Box = new TextBox();
+            label5 = new Label();
+            sha384Box = new TextBox();
+            label6 = new Label();
+            progressBar = new BetterProgressBar();
+            SuspendLayout();
             // 
-            // textBox2
+            // md5Box
             // 
-            this.textBox2.BackColor = System.Drawing.Color.Black;
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox2.ForeColor = System.Drawing.Color.White;
-            this.textBox2.Location = new System.Drawing.Point(17, 84);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(432, 23);
-            this.textBox2.TabIndex = 12;
+            md5Box.BackColor = Color.Black;
+            md5Box.BorderStyle = BorderStyle.FixedSingle;
+            md5Box.ForeColor = Color.White;
+            md5Box.Location = new Point(17, 90);
+            md5Box.Margin = new Padding(4, 3, 4, 3);
+            md5Box.Name = "md5Box";
+            md5Box.ReadOnly = true;
+            md5Box.Size = new Size(432, 23);
+            md5Box.TabIndex = 12;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 65);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(83, 15);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "File MD5 Hash";
+            label2.AutoSize = true;
+            label2.Location = new Point(13, 69);
+            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(86, 16);
+            label2.TabIndex = 11;
+            label2.Text = "File MD5 Hash";
             // 
-            // textBox1
+            // fileNameBox
             // 
-            this.textBox1.BackColor = System.Drawing.Color.Black;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.ForeColor = System.Drawing.Color.White;
-            this.textBox1.Location = new System.Drawing.Point(17, 27);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(432, 23);
-            this.textBox1.TabIndex = 10;
+            fileNameBox.BackColor = Color.Black;
+            fileNameBox.BorderStyle = BorderStyle.FixedSingle;
+            fileNameBox.ForeColor = Color.White;
+            fileNameBox.Location = new Point(17, 29);
+            fileNameBox.Margin = new Padding(4, 3, 4, 3);
+            fileNameBox.Name = "fileNameBox";
+            fileNameBox.ReadOnly = true;
+            fileNameBox.Size = new Size(432, 23);
+            fileNameBox.TabIndex = 10;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 9);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 15);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "File Name";
+            label1.AutoSize = true;
+            label1.Location = new Point(13, 10);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(62, 16);
+            label1.TabIndex = 9;
+            label1.Text = "File Name";
             // 
-            // textBox3
+            // sha1Box
             // 
-            this.textBox3.BackColor = System.Drawing.Color.Black;
-            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox3.ForeColor = System.Drawing.Color.White;
-            this.textBox3.Location = new System.Drawing.Point(17, 142);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(432, 23);
-            this.textBox3.TabIndex = 15;
+            sha1Box.BackColor = Color.Black;
+            sha1Box.BorderStyle = BorderStyle.FixedSingle;
+            sha1Box.ForeColor = Color.White;
+            sha1Box.Location = new Point(17, 151);
+            sha1Box.Margin = new Padding(4, 3, 4, 3);
+            sha1Box.Name = "sha1Box";
+            sha1Box.ReadOnly = true;
+            sha1Box.Size = new Size(432, 23);
+            sha1Box.TabIndex = 15;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 123);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(92, 15);
-            this.label3.TabIndex = 14;
-            this.label3.Text = "File SHA-1 Hash";
+            label3.AutoSize = true;
+            label3.Location = new Point(13, 131);
+            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(93, 16);
+            label3.TabIndex = 14;
+            label3.Text = "File SHA-1 Hash";
             // 
-            // textBox4
+            // sha256Box
             // 
-            this.textBox4.BackColor = System.Drawing.Color.Black;
-            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox4.ForeColor = System.Drawing.Color.White;
-            this.textBox4.Location = new System.Drawing.Point(17, 201);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(432, 23);
-            this.textBox4.TabIndex = 17;
+            sha256Box.BackColor = Color.Black;
+            sha256Box.BorderStyle = BorderStyle.FixedSingle;
+            sha256Box.ForeColor = Color.White;
+            sha256Box.Location = new Point(17, 214);
+            sha256Box.Margin = new Padding(4, 3, 4, 3);
+            sha256Box.Name = "sha256Box";
+            sha256Box.ReadOnly = true;
+            sha256Box.Size = new Size(432, 23);
+            sha256Box.TabIndex = 17;
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 182);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(104, 15);
-            this.label4.TabIndex = 16;
-            this.label4.Text = "File SHA-256 Hash";
+            label4.AutoSize = true;
+            label4.Location = new Point(13, 194);
+            label4.Margin = new Padding(4, 0, 4, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(109, 16);
+            label4.TabIndex = 16;
+            label4.Text = "File SHA-256 Hash";
             // 
-            // textBox5
+            // sha512Box
             // 
-            this.textBox5.BackColor = System.Drawing.Color.Black;
-            this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox5.ForeColor = System.Drawing.Color.White;
-            this.textBox5.Location = new System.Drawing.Point(17, 316);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.ReadOnly = true;
-            this.textBox5.Size = new System.Drawing.Size(432, 23);
-            this.textBox5.TabIndex = 19;
+            sha512Box.BackColor = Color.Black;
+            sha512Box.BorderStyle = BorderStyle.FixedSingle;
+            sha512Box.ForeColor = Color.White;
+            sha512Box.Location = new Point(17, 337);
+            sha512Box.Margin = new Padding(4, 3, 4, 3);
+            sha512Box.Name = "sha512Box";
+            sha512Box.ReadOnly = true;
+            sha512Box.Size = new Size(432, 23);
+            sha512Box.TabIndex = 19;
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 298);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(104, 15);
-            this.label5.TabIndex = 18;
-            this.label5.Text = "File SHA-512 Hash";
+            label5.AutoSize = true;
+            label5.Location = new Point(13, 318);
+            label5.Margin = new Padding(4, 0, 4, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(107, 16);
+            label5.TabIndex = 18;
+            label5.Text = "File SHA-512 Hash";
             // 
-            // textBox6
+            // sha384Box
             // 
-            this.textBox6.BackColor = System.Drawing.Color.Black;
-            this.textBox6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox6.ForeColor = System.Drawing.Color.White;
-            this.textBox6.Location = new System.Drawing.Point(17, 260);
-            this.textBox6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.ReadOnly = true;
-            this.textBox6.Size = new System.Drawing.Size(432, 23);
-            this.textBox6.TabIndex = 21;
+            sha384Box.BackColor = Color.Black;
+            sha384Box.BorderStyle = BorderStyle.FixedSingle;
+            sha384Box.ForeColor = Color.White;
+            sha384Box.Location = new Point(17, 277);
+            sha384Box.Margin = new Padding(4, 3, 4, 3);
+            sha384Box.Name = "sha384Box";
+            sha384Box.ReadOnly = true;
+            sha384Box.Size = new Size(432, 23);
+            sha384Box.TabIndex = 21;
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(13, 241);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(104, 15);
-            this.label6.TabIndex = 20;
-            this.label6.Text = "File SHA-384 Hash";
+            label6.AutoSize = true;
+            label6.Location = new Point(13, 257);
+            label6.Margin = new Padding(4, 0, 4, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(109, 16);
+            label6.TabIndex = 20;
+            label6.Text = "File SHA-384 Hash";
             // 
-            // progressBar1
+            // progressBar
             // 
-            this.progressBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.progressBar1.Location = new System.Drawing.Point(0, 351);
-            this.progressBar1.MarqueeAnimationSpeed = 1;
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(462, 10);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.progressBar1.TabIndex = 22;
+            progressBar.Dock = DockStyle.Bottom;
+            progressBar.Location = new Point(0, 375);
+            progressBar.MarqueeAnim = true;
+            progressBar.Name = "progressBar";
+            progressBar.ShowText = false;
+            progressBar.Size = new Size(462, 10);
+            progressBar.Style = ProgressBarStyle.Marquee;
+            progressBar.TabIndex = 22;
             // 
             // HashCalculator
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(462, 361);
-            this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label1);
-            this.ForeColor = System.Drawing.Color.White;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.Name = "HashCalculator";
-            this.Text = "Hash Calculator";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(7F, 16F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Black;
+            ClientSize = new Size(462, 385);
+            Controls.Add(progressBar);
+            Controls.Add(sha384Box);
+            Controls.Add(label6);
+            Controls.Add(sha512Box);
+            Controls.Add(label5);
+            Controls.Add(sha256Box);
+            Controls.Add(label4);
+            Controls.Add(sha1Box);
+            Controls.Add(label3);
+            Controls.Add(md5Box);
+            Controls.Add(label2);
+            Controls.Add(fileNameBox);
+            Controls.Add(label1);
+            ForeColor = Color.White;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            Name = "HashCalculator";
+            Text = "Hash Calculator";
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 
         #endregion
 
-        public TextBox textBox2;
+        public TextBox md5Box;
         private Label label2;
-        private TextBox textBox1;
+        private TextBox fileNameBox;
         private Label label1;
-        public TextBox textBox3;
+        public TextBox sha1Box;
         private Label label3;
-        public TextBox textBox4;
+        public TextBox sha256Box;
         private Label label4;
-        public TextBox textBox5;
+        public TextBox sha512Box;
         private Label label5;
-        public TextBox textBox6;
+        public TextBox sha384Box;
         private Label label6;
-        private ProgressBar progressBar1;
+        private BetterProgressBar progressBar;
     }
 }

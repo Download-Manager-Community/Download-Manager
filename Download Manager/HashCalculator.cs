@@ -17,8 +17,8 @@ namespace DownloadManager
             DesktopWindowManager.EnableMicaIfSupported(this.Handle);
             DesktopWindowManager.ExtendFrameIntoClientArea(this.Handle);
 
-            this.Size = new System.Drawing.Size(478, 400);
-            textBox1.Text = file;
+            this.Size = new System.Drawing.Size(478, 424);
+            fileNameBox.Text = file;
             if (File.Exists(file))
             {
                 Thread thread = new Thread(() =>
@@ -42,12 +42,12 @@ namespace DownloadManager
                         {
                             result.Append(myHash[i].ToString(false ? "X2" : "x2"));
                         }
-                        Action action = () => textBox2.Text = result.ToString();
+                        Action action = () => md5Box.Text = result.ToString();
                         if (this.IsHandleCreated) { _instance.Invoke(action); }
                     }
                     catch (Exception ex)
                     {
-                        Action action = () => textBox2.Text = ex.Message;
+                        Action action = () => md5Box.Text = ex.Message;
                         if (this.IsHandleCreated) { _instance.Invoke(action); }
                     }
 
@@ -68,12 +68,12 @@ namespace DownloadManager
                         {
                             result.Append(myHash[i].ToString(false ? "X2" : "x2"));
                         }
-                        Action action = () => textBox3.Text = result.ToString();
+                        Action action = () => sha1Box.Text = result.ToString();
                         if (this.IsHandleCreated) { _instance.Invoke(action); }
                     }
                     catch (Exception ex)
                     {
-                        Action action = () => textBox3.Text = ex.Message;
+                        Action action = () => sha1Box.Text = ex.Message;
                         if (this.IsHandleCreated) { _instance.Invoke(action); }
                     }
 
@@ -94,12 +94,12 @@ namespace DownloadManager
                         {
                             result.Append(myHash[i].ToString(false ? "X2" : "x2"));
                         }
-                        Action action = () => textBox4.Text = result.ToString();
+                        Action action = () => sha256Box.Text = result.ToString();
                         if (this.IsHandleCreated) { _instance.Invoke(action); }
                     }
                     catch (Exception ex)
                     {
-                        Action action = () => textBox4.Text = ex.Message;
+                        Action action = () => sha256Box.Text = ex.Message;
                         if (this.IsHandleCreated) { _instance.Invoke(action); }
                     }
 
@@ -120,12 +120,12 @@ namespace DownloadManager
                         {
                             result.Append(myHash[i].ToString(false ? "X2" : "x2"));
                         }
-                        Action action = () => textBox6.Text = result.ToString();
+                        Action action = () => sha384Box.Text = result.ToString();
                         if (this.IsHandleCreated) { _instance.Invoke(action); }
                     }
                     catch (Exception ex)
                     {
-                        Action action = () => textBox6.Text = ex.Message;
+                        Action action = () => sha384Box.Text = ex.Message;
                         if (this.IsHandleCreated) { _instance.Invoke(action); }
                     }
 
@@ -146,12 +146,12 @@ namespace DownloadManager
                         {
                             result.Append(myHash[i].ToString(false ? "X2" : "x2"));
                         }
-                        Action action = () => textBox5.Text = result.ToString();
+                        Action action = () => sha512Box.Text = result.ToString();
                         if (this.IsHandleCreated) { _instance.Invoke(action); }
                     }
                     catch (Exception ex)
                     {
-                        Action action = () => textBox5.Text = ex.Message;
+                        Action action = () => sha512Box.Text = ex.Message;
                         if (this.IsHandleCreated) { _instance.Invoke(action); }
                     }
                     ShowProgressBar(false);
@@ -168,27 +168,21 @@ namespace DownloadManager
 
         internal void ShowProgressBar(bool show)
         {
-            if (show)
+            if (this.IsHandleCreated)
             {
-                if (this.IsHandleCreated)
+                Invoke(new MethodInvoker(delegate ()
                 {
-                    Invoke(new MethodInvoker(delegate ()
+                    if (show)
                     {
-                        progressBar1.Visible = true;
-                        this.Size = new System.Drawing.Size(478, 400);
-                    }));
-                }
-            }
-            else
-            {
-                if (this.IsHandleCreated)
-                {
-                    Invoke(new MethodInvoker(delegate ()
+                        progressBar.Visible = true;
+                        this.Size = new System.Drawing.Size(478, 424);
+                    }
+                    else
                     {
-                        progressBar1.Visible = false;
-                        this.Size = new System.Drawing.Size(478, 390);
-                    }));
-                }
+                        progressBar.Visible = false;
+                        this.Size = new System.Drawing.Size(478, 414);
+                    }
+                }));
             }
         }
     }
