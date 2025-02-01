@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.Notifications;
+﻿using DownloadManager.Components;
+using Microsoft.Toolkit.Uwp.Notifications;
 using System.Diagnostics;
 using static DownloadManager.Logging;
 
@@ -77,8 +78,7 @@ namespace DownloadManager.Download
         {
             if (!div0 && contentLength == 0)
             {
-                DarkMessageBox errMsg = new DarkMessageBox($"contentLength is 0, this will cause a DivideByZeroException.\nThe file will still download but progress reporting will be unavailable.\nDebug Information:\ntotalRead = {totalRead}\ncontentLength = {contentLength}", "Download Manager - Progress Callback", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                errMsg.ShowDialog();
+                DarkMessageBox.Show($"contentLength is 0, this will cause a DivideByZeroException.\nThe file will still download but progress reporting will be unavailable.\nDebug Information:\ntotalRead = {totalRead}\ncontentLength = {contentLength}", "Download Manager - Progress Callback", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 div0 = true;
                 return;
             }

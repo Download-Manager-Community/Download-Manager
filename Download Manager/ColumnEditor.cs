@@ -1,4 +1,5 @@
-﻿using DownloadManager.NativeMethods;
+﻿using DownloadManager.Components;
+using DownloadManager.NativeMethods;
 using static DownloadManager.CurrentDownloads;
 using static DownloadManager.Logging;
 
@@ -203,7 +204,7 @@ namespace DownloadManager
 
         private void resetButton_Click(object sender, EventArgs e)
         {
-            DialogResult result = new DarkMessageBox("Are you sure you want to reset your column preferences?\nThis should only be used if new columns added in an update are not showing or you are experiencing issues with hiding/showing columns.", "Reset Column Preferences?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, false).ShowDialog();
+            DialogResult result = DarkMessageBox.Show("Are you sure you want to reset your column preferences?\nThis should only be used if new columns added in an update are not showing or you are experiencing issues with hiding/showing columns.", "Reset Column Preferences?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, false);
             if (result == DialogResult.Yes)
             {
                 DownloadForm._instance.SetupColumnPrefs();

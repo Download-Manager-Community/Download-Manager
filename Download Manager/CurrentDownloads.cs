@@ -1,4 +1,5 @@
 ﻿using AngleSharp.Text;
+using DownloadManager.Components;
 using DownloadManager.Controls;
 using DownloadManager.NativeMethods;
 using System.Diagnostics;
@@ -307,7 +308,7 @@ namespace DownloadManager
                     showSelectedDownloadToolStripMenuItem_Click(sender, e);
                 }
             else
-                new DarkMessageBox("There are no selected items!", "Download Manager", MessageBoxButtons.OK, MessageBoxIcon.Warning).ShowDialog();
+                DarkMessageBox.Show("There are no selected items!", "Download Manager", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void hideSelectedDownloadWindowToolStripMenuItem_Click(object sender, EventArgs e)
@@ -337,7 +338,7 @@ namespace DownloadManager
                     hideSelectedDownloadWindowToolStripMenuItem_Click(sender, e);
                 }
             else
-                new DarkMessageBox("There are no selected items!", "Download Manager", MessageBoxButtons.OK, MessageBoxIcon.Warning).ShowDialog();
+                DarkMessageBox.Show("There are no selected items!", "Download Manager", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void cancelSelectedDownloadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -369,7 +370,7 @@ namespace DownloadManager
                 }
             }
             else
-                new DarkMessageBox("There are no selected items!", "Download Manager", MessageBoxButtons.OK, MessageBoxIcon.Warning).ShowDialog();
+                DarkMessageBox.Show("There are no selected items!", "Download Manager", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void selectColumnsToolStripMenuItem_Click(object sender, EventArgs e)

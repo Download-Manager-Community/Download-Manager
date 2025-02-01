@@ -1,4 +1,5 @@
-﻿using DownloadManager.Download;
+﻿using DownloadManager.Components;
+using DownloadManager.Download;
 using DownloadManager.NativeMethods;
 using Microsoft.Toolkit.Uwp.Notifications;
 using System.Diagnostics;
@@ -189,8 +190,7 @@ namespace DownloadManager
                        .Show();
                 }
 
-                DarkMessageBox msg = new DarkMessageBox($"{ex.Message} ({ex.GetType()})\n{ex.StackTrace}", "Download Error [Safe Mode]", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
-                msg.ShowDialog();
+                DarkMessageBox.Show($"{ex.Message} ({ex.GetType()})\n{ex.StackTrace}", "Download Error [Safe Mode]", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
             }
         }
 
@@ -216,9 +216,8 @@ namespace DownloadManager
                 DownloadForm.downloadsList.Remove(this);
 
                 Logging.Log(LogLevel.Error, $"Failed to parse URI.\n{ex.Message} ({ex.GetType().FullName})\n{ex.StackTrace}");
-                DarkMessageBox msg = new DarkMessageBox(ex.Message + $" ({ex.GetType().FullName})\n" + ex.StackTrace, "Failed to parse URI", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                msg.ShowDialog();
-                msg.Dispose();
+                DarkMessageBox.Show(ex.Message + $" ({ex.GetType().FullName})\n" + ex.StackTrace, "Failed to parse URI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 this.Invoke(new MethodInvoker(delegate ()
                 {
                     this.Close();
@@ -238,8 +237,7 @@ namespace DownloadManager
 
             if (!fileName.Contains("."))
             {
-                DarkMessageBox msg = new DarkMessageBox($"The file you are attempting to download ({fileName}) does not have a file extension.\nThis may be because the site uses redirection to download files.\nPress Cancel to cancel the download.\nPress Retry to rename the file.\nPress Continue to continue downloading the file anyway. ", "Download Warning", MessageBoxButtons.CancelTryContinue, MessageBoxIcon.Warning, false);
-                DialogResult result = msg.ShowDialog();
+                DialogResult result = DarkMessageBox.Show($"The file you are attempting to download ({fileName}) does not have a file extension.\nThis may be because the site uses redirection to download files.\nPress Cancel to cancel the download.\nPress Retry to rename the file.\nPress Continue to continue downloading the file anyway. ", "Download Warning", MessageBoxButtons.CancelTryContinue, MessageBoxIcon.Warning, false);
 
                 if (result == DialogResult.Cancel)
                 {
@@ -296,8 +294,7 @@ namespace DownloadManager
                             progressBar1.State = ProgressBarState.Error;
                         }));
 
-                        DarkMessageBox msg2 = new DarkMessageBox("Failed to obtain results from save file dialog.\nfileDialog was null!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        msg2.ShowDialog();
+                        DarkMessageBox.Show("Failed to obtain results from save file dialog.\nfileDialog was null!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                         if (stream != null)
                         {
@@ -335,8 +332,7 @@ namespace DownloadManager
                             progressBar1.State = ProgressBarState.Error;
                         }));
 
-                        DarkMessageBox msg2 = new DarkMessageBox("Failed to obtain results from save file dialog.\nDialogResult was null!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        msg2.ShowDialog();
+                        DarkMessageBox.Show("Failed to obtain results from save file dialog.\nDialogResult was null!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                         if (stream != null)
                         {
@@ -457,8 +453,7 @@ namespace DownloadManager
                 catch { }
 
                 Log(LogLevel.Error, ex.Message);
-                DarkMessageBox msg = new DarkMessageBox(ex.Message + $" ({ex.GetType().FullName})\n{ex.StackTrace}", "Download Manager - Download Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
-                msg.ShowDialog();
+                DarkMessageBox.Show(ex.Message + $" ({ex.GetType().FullName})\n{ex.StackTrace}", "Download Manager - Download Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
                 downloading = false;
                 Invoke(new MethodInvoker(delegate ()
                 {
@@ -539,7 +534,7 @@ namespace DownloadManager
             {
                 if (File.Exists(location + fileName))
                 {
-                    DialogResult result = new DarkMessageBox("The file already exists.\nWould you like to overwrite the file?", "Download Manager - File Exists", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, false).ShowDialog();
+                    DialogResult result = DarkMessageBox.Show("The file already exists.\nWould you like to overwrite the file?", "Download Manager - File Exists", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, false);
                     if (result == DialogResult.Yes)
                     {
                         File.Delete(location + fileName);
@@ -775,8 +770,7 @@ namespace DownloadManager
                                     {
                                         totalProgressBar.State = ProgressBarState.Error;
                                     }));
-                                    DarkMessageBox msg = new DarkMessageBox(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
-                                    msg.ShowDialog();
+                                    DarkMessageBox.Show(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
                                     downloading = false;
 
                                     if (Settings.Default.notifyFail)
@@ -862,8 +856,7 @@ namespace DownloadManager
                                     {
                                         progressBar.State = ProgressBarState.Error;
                                     }));
-                                    DarkMessageBox msg = new DarkMessageBox(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
-                                    msg.ShowDialog();
+                                    DarkMessageBox.Show(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
                                     downloading = false;
 
                                     if (Settings.Default.notifyFail)
@@ -998,9 +991,7 @@ namespace DownloadManager
                                                 }
                                                 catch (Exception ex)
                                                 {
-                                                    DarkMessageBox msg = new DarkMessageBox(ex.Message + $" ({ex.GetType().FullName})" + ex.StackTrace, "Failed to start process", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                    msg.ShowDialog();
-                                                    msg.Dispose();
+                                                    DarkMessageBox.Show(ex.Message + $" ({ex.GetType().FullName})" + ex.StackTrace, "Failed to start process", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                                 }
                                             }
 
@@ -1129,9 +1120,7 @@ namespace DownloadManager
                                                 }
                                                 catch (Exception ex)
                                                 {
-                                                    DarkMessageBox msg = new DarkMessageBox(ex.Message + $" ({ex.GetType().FullName})" + ex.StackTrace, "Failed to start process", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                    msg.ShowDialog();
-                                                    msg.Dispose();
+                                                    DarkMessageBox.Show(ex.Message + $" ({ex.GetType().FullName})" + ex.StackTrace, "Failed to start process", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                                 }
                                             }
 
@@ -1260,9 +1249,7 @@ namespace DownloadManager
                                                 }
                                                 catch (Exception ex)
                                                 {
-                                                    DarkMessageBox msg = new DarkMessageBox(ex.Message + $" ({ex.GetType().FullName})" + ex.StackTrace, "Failed to start process", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                    msg.ShowDialog();
-                                                    msg.Dispose();
+                                                    DarkMessageBox.Show(ex.Message + $" ({ex.GetType().FullName})" + ex.StackTrace, "Failed to start process", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                                 }
                                             }
 
@@ -1391,9 +1378,7 @@ namespace DownloadManager
                                                 }
                                                 catch (Exception ex)
                                                 {
-                                                    DarkMessageBox msg = new DarkMessageBox(ex.Message + $" ({ex.GetType().FullName})" + ex.StackTrace, "Failed to start process", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                    msg.ShowDialog();
-                                                    msg.Dispose();
+                                                    DarkMessageBox.Show(ex.Message + $" ({ex.GetType().FullName})" + ex.StackTrace, "Failed to start process", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                                 }
                                             }
 
@@ -1522,9 +1507,7 @@ namespace DownloadManager
                                                 }
                                                 catch (Exception ex)
                                                 {
-                                                    DarkMessageBox msg = new DarkMessageBox(ex.Message + $" ({ex.GetType().FullName})" + ex.StackTrace, "Failed to start process", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                    msg.ShowDialog();
-                                                    msg.Dispose();
+                                                    DarkMessageBox.Show(ex.Message + $" ({ex.GetType().FullName})" + ex.StackTrace, "Failed to start process", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                                 }
                                             }
 
@@ -1629,7 +1612,7 @@ namespace DownloadManager
                                                 .Show();
                                         }
 
-                                        DarkMessageBox msg = new DarkMessageBox("Invalid hash type '" + hashType + "'. The file could not be verified.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
+                                        DarkMessageBox.Show("Invalid hash type '" + hashType + "'. The file could not be verified.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
                                         Invoke(new MethodInvoker(delegate ()
                                         {
                                             downloading = false;
@@ -1676,9 +1659,7 @@ namespace DownloadManager
                                     }
                                     catch (Exception ex)
                                     {
-                                        DarkMessageBox msg = new DarkMessageBox(ex.Message + $" ({ex.GetType().FullName})" + ex.StackTrace, "Failed to start process", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        msg.ShowDialog();
-                                        msg.Dispose();
+                                        DarkMessageBox.Show(ex.Message + $" ({ex.GetType().FullName})" + ex.StackTrace, "Failed to start process", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     }
                                 }
 
@@ -1764,8 +1745,7 @@ namespace DownloadManager
                     }));
 
                     Log(LogLevel.Error, ex.Message + Environment.NewLine + ex.StackTrace);
-                    DarkMessageBox msg = new DarkMessageBox(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
-                    msg.ShowDialog();
+                    DarkMessageBox.Show(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
                 }
             }
         }
@@ -1795,8 +1775,7 @@ namespace DownloadManager
             {
                 if (!forceCancel)
                 {
-                    DarkMessageBox msg = new DarkMessageBox("Are you sure you want to cancel the download?", "Download Manager", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, false);
-                    DialogResult result = msg.ShowDialog();
+                    DialogResult result = DarkMessageBox.Show("Are you sure you want to cancel the download?", "Download Manager", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, false);
                     if (result == DialogResult.Yes)
                     {
                         downloading = false;
@@ -1880,8 +1859,8 @@ namespace DownloadManager
             {
                 if (!forceCancel)
                 {
-                    DarkMessageBox msg = new DarkMessageBox("Are you sure you want to cancel the download?", "Download Manager", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, false);
-                    DialogResult result = msg.ShowDialog();
+                    DialogResult result = DarkMessageBox.Show("Are you sure you want to cancel the download?", "Download Manager", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, false);
+
                     if (result == DialogResult.Yes)
                     {
                         DownloadForm.downloadsList.Remove(this);
@@ -1953,8 +1932,7 @@ namespace DownloadManager
 
             if (isPaused)
             {
-                DarkMessageBox msg = new DarkMessageBox("Are you sure you want to pause this download?\nThis will make the download start again when the download has been resumed.", "Pause Download?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, false);
-                DialogResult result = msg.ShowDialog();
+                DialogResult result = DarkMessageBox.Show("Are you sure you want to pause this download?\nThis will make the download start again when the download has been resumed.", "Pause Download?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, false);
 
                 if (result == DialogResult.Yes)
                 {
@@ -2019,8 +1997,7 @@ namespace DownloadManager
                     }));
 
                     Log(LogLevel.Error, ex.Message);
-                    DarkMessageBox msg = new DarkMessageBox(ex.Message, "Download Manager - Download Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
-                    msg.ShowDialog();
+                    DarkMessageBox.Show(ex.Message, "Download Manager - Download Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
                     downloading = false;
                     Invoke(new MethodInvoker(delegate ()
                     {
@@ -2055,9 +2032,7 @@ namespace DownloadManager
             }
             catch (Exception ex)
             {
-                DarkMessageBox msg = new DarkMessageBox(ex.Message + $" ({ex.GetType().FullName})" + ex.StackTrace, "Failed to start process", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                msg.ShowDialog();
-                msg.Dispose();
+                DarkMessageBox.Show(ex.Message + $" ({ex.GetType().FullName})" + ex.StackTrace, "Failed to start process", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

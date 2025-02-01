@@ -1,4 +1,5 @@
-﻿using DownloadManager.NativeMethods;
+﻿using DownloadManager.Components;
+using DownloadManager.NativeMethods;
 
 namespace DownloadManager
 {
@@ -34,8 +35,7 @@ namespace DownloadManager
             }
             catch (Exception ex)
             {
-                DarkMessageBox msg = new DarkMessageBox(ex.ToString() + ": " + ex.Message + Environment.NewLine + ex.StackTrace, "WebView Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
-                msg.ShowDialog();
+                DarkMessageBox.Show(ex.ToString() + ": " + ex.Message + Environment.NewLine + ex.StackTrace, "WebView Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
                 webView.BackgroundImage = Properties.Resources.error;
                 webView.BackgroundImageLayout = ImageLayout.Stretch;
             }
@@ -100,8 +100,7 @@ namespace DownloadManager
             // Back
             if (webView.CoreWebView2 == null)
             {
-                DarkMessageBox msg = new DarkMessageBox("CoreWebView2 is null - WebView is not properly initialized.\nPlease wait a few seconds and if the problem persists, restart the application.", "WebView Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
-                msg.ShowDialog();
+                DarkMessageBox.Show("CoreWebView2 is null - WebView is not properly initialized.\nPlease wait a few seconds and if the problem persists, restart the application.", "WebView Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
             }
             else
             {
@@ -114,8 +113,7 @@ namespace DownloadManager
             // Forward
             if (webView.CoreWebView2 == null)
             {
-                DarkMessageBox msg = new DarkMessageBox("CoreWebView2 is null - WebView is not properly initialized.\nPlease wait a few seconds and if the problem persists, restart the application.", "WebView Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
-                msg.ShowDialog();
+                DarkMessageBox.Show("CoreWebView2 is null - WebView is not properly initialized.\nPlease wait a few seconds and if the problem persists, restart the application.", "WebView Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
             }
             else
             {
@@ -128,8 +126,7 @@ namespace DownloadManager
             // Refresh
             if (webView.CoreWebView2 == null)
             {
-                DarkMessageBox msg = new DarkMessageBox("CoreWebView2 is null - WebView is not properly initialized.\nPlease wait a few seconds and if the problem persists, restart the application.", "WebView Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
-                msg.ShowDialog();
+                DarkMessageBox.Show("CoreWebView2 is null - WebView is not properly initialized.\nPlease wait a few seconds and if the problem persists, restart the application.", "WebView Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
             }
             else
             {

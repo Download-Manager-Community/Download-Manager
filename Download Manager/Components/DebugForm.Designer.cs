@@ -33,13 +33,20 @@ namespace DownloadManager.Components
             richTextBox1 = new RichTextBox();
             pictureBox1 = new PictureBox();
             darkTabControl = new DownloadManager.Controls.DarkTabControl();
+            msgBoxPage = new TabPage();
+            checkBox2 = new CheckBox();
+            label1 = new Label();
+            button3 = new Button();
+            listBox2 = new ListBox();
+            listBox1 = new ListBox();
             crashHandlerPage = new TabPage();
             checkBox1 = new CheckBox();
             button2 = new Button();
             button1 = new Button();
-            tabPage2 = new TabPage();
+            button4 = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             darkTabControl.SuspendLayout();
+            msgBoxPage.SuspendLayout();
             crashHandlerPage.SuspendLayout();
             SuspendLayout();
             // 
@@ -69,8 +76,8 @@ namespace DownloadManager.Components
             // 
             // darkTabControl
             // 
+            darkTabControl.Controls.Add(msgBoxPage);
             darkTabControl.Controls.Add(crashHandlerPage);
-            darkTabControl.Controls.Add(tabPage2);
             darkTabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
             darkTabControl.Location = new Point(12, 62);
             darkTabControl.Name = "darkTabControl";
@@ -80,6 +87,72 @@ namespace DownloadManager.Components
             darkTabControl.TabForeColor = Color.FromArgb(241, 241, 241);
             darkTabControl.TabIndex = 1002;
             darkTabControl.TextAlign = ContentAlignment.TopLeft;
+            // 
+            // msgBoxPage
+            // 
+            msgBoxPage.Controls.Add(button4);
+            msgBoxPage.Controls.Add(checkBox2);
+            msgBoxPage.Controls.Add(label1);
+            msgBoxPage.Controls.Add(button3);
+            msgBoxPage.Controls.Add(listBox2);
+            msgBoxPage.Controls.Add(listBox1);
+            msgBoxPage.Location = new Point(4, 25);
+            msgBoxPage.Name = "msgBoxPage";
+            msgBoxPage.Padding = new Padding(3);
+            msgBoxPage.Size = new Size(768, 347);
+            msgBoxPage.TabIndex = 1;
+            msgBoxPage.Text = "DarkMessageBox";
+            msgBoxPage.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Checked = true;
+            checkBox2.CheckState = CheckState.Checked;
+            checkBox2.Location = new Point(258, 6);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(95, 20);
+            checkBox2.TabIndex = 1007;
+            checkBox2.Text = "Enable Close";
+            checkBox2.UseVisualStyleBackColor = true;
+            checkBox2.CheckedChanged += checkBox2_CheckedChanged;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(6, 122);
+            label1.Name = "label1";
+            label1.Size = new Size(147, 16);
+            label1.TabIndex = 1006;
+            label1.Text = "Result: DialogResult.None";
+            // 
+            // button3
+            // 
+            button3.Location = new Point(6, 96);
+            button3.Name = "button3";
+            button3.Size = new Size(75, 23);
+            button3.TabIndex = 1005;
+            button3.Text = "Test";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
+            // listBox2
+            // 
+            listBox2.FormattingEnabled = true;
+            listBox2.Items.AddRange(new object[] { "None", "Information", "Question", "Warning", "Error" });
+            listBox2.Location = new Point(132, 6);
+            listBox2.Name = "listBox2";
+            listBox2.Size = new Size(120, 84);
+            listBox2.TabIndex = 1004;
+            // 
+            // listBox1
+            // 
+            listBox1.FormattingEnabled = true;
+            listBox1.Items.AddRange(new object[] { "OK", "OKCancel", "AbortRetryIgnore", "YesNoCancel", "YesNo", "RetryCancel", "CancelTryContinue" });
+            listBox1.Location = new Point(6, 6);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(120, 84);
+            listBox1.TabIndex = 1003;
             // 
             // crashHandlerPage
             // 
@@ -127,15 +200,15 @@ namespace DownloadManager.Components
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
-            // tabPage2
+            // button4
             // 
-            tabPage2.Location = new Point(4, 25);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(768, 347);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "tabPage2";
-            tabPage2.UseVisualStyleBackColor = true;
+            button4.Location = new Point(87, 96);
+            button4.Name = "button4";
+            button4.Size = new Size(75, 23);
+            button4.TabIndex = 1008;
+            button4.Text = "Close";
+            button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
             // 
             // DebugForm
             // 
@@ -151,6 +224,8 @@ namespace DownloadManager.Components
             Text = "DebugForm";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             darkTabControl.ResumeLayout(false);
+            msgBoxPage.ResumeLayout(false);
+            msgBoxPage.PerformLayout();
             crashHandlerPage.ResumeLayout(false);
             crashHandlerPage.PerformLayout();
             ResumeLayout(false);
@@ -162,9 +237,15 @@ namespace DownloadManager.Components
         private PictureBox pictureBox1;
         private Controls.DarkTabControl darkTabControl;
         private TabPage crashHandlerPage;
-        private TabPage tabPage2;
+        private TabPage msgBoxPage;
         private Button button2;
         private Button button1;
         private CheckBox checkBox1;
+        private ListBox listBox1;
+        private ListBox listBox2;
+        private Button button3;
+        private Label label1;
+        private CheckBox checkBox2;
+        private Button button4;
     }
 }

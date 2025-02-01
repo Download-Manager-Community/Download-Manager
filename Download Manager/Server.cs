@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using DownloadManager.Components;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -52,8 +53,7 @@ namespace DownloadManager
                 if (failureCount >= Settings.Default.maxServerFailureCount)
                 {
                     Log(LogLevel.Warning, "The internal server has failed to start, some functionality of Download Manager may be limited.");
-                    DarkMessageBox msg = new DarkMessageBox("Download Manager encountered an error while attempting to start the internal server multiple times and has stopped attempting to prevent unexpected behaviour.\nSome functionality may not be available such as browser integration.\nPlease check your firewall and ports settings.\nFor more information, check the debug logs.", "Download Manager Internal Server Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    msg.ShowDialog();
+                    DarkMessageBox.Show("Download Manager encountered an error while attempting to start the internal server multiple times and has stopped attempting to prevent unexpected behaviour.\nSome functionality may not be available such as browser integration.\nPlease check your firewall and ports settings.\nFor more information, check the debug logs.", "Download Manager Internal Server Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
                 }
 
@@ -195,8 +195,7 @@ namespace DownloadManager
                                 Log(LogLevel.Info, "Request received for URL: " + url);
                                 Log(LogLevel.Warning, "URL is a YouTube link. Which is unsupported by Download Manager!");
 
-                                DarkMessageBox msg = new DarkMessageBox("Download Manager does not support downloading YouTube videos.\nFor more information, check the release notes for version 6.0.0.0 at:\nhttps://github.com/Download-Manager-Community/Download-Manager/releases/tag/6.0.0.0", "Unsupported", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                msg.ShowDialog();
+                                DarkMessageBox.Show("Download Manager does not support downloading YouTube videos.\nFor more information, check the release notes for version 6.0.0.0 at:\nhttps://github.com/Download-Manager-Community/Download-Manager/releases/tag/6.0.0.0", "Unsupported", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             });
                         }
                     }
@@ -253,8 +252,7 @@ namespace DownloadManager
 
                     if (url.EndsWith("&ref=Instance"))
                     {
-                        DarkMessageBox msg = new DarkMessageBox("Only one instance of Download Manager can run at a time!", "Download Manager", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        msg.Show();
+                        DarkMessageBox.Show("Only one instance of Download Manager can run at a time!", "Download Manager", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
 

@@ -1,4 +1,5 @@
-﻿using DownloadManager.NativeMethods;
+﻿using DownloadManager.Components;
+using DownloadManager.NativeMethods;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -64,8 +65,7 @@ namespace DownloadManager
             else
             {
                 // If the file does not exist, show an error message and close the form
-                DarkMessageBox msg = new DarkMessageBox("File not found!", "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
-                msg.ShowDialog();
+                DarkMessageBox.Show("File not found!", "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
                 this.Close();
             }
         }

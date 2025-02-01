@@ -1,4 +1,5 @@
-﻿using DownloadManager.Controls;
+﻿using DownloadManager.Components;
+using DownloadManager.Controls;
 using DownloadManager.NativeMethods;
 using System.Diagnostics;
 using System.Reflection;
@@ -73,8 +74,8 @@ namespace DownloadManager
 
             if (hasUpgraded)
             {
-                DarkMessageBox msg = new DarkMessageBox("You have upgraded your version of Download Manager so your settings file has been automatically upgraded.\nIf you have deleted the configuration file or this is the first time startup you can ignore this message.\nIf you have not upgraded Download Manager and you are getting this message, please create a bug report.\nIf you would like to create a bug report, click Yes.\nIf you would like to continue without making a bug report, click No.", "Download Manager - Settings Upgraded", MessageBoxButtons.YesNo, MessageBoxIcon.Information, false);
-                if (msg.ShowDialog() == DialogResult.Yes)
+                DialogResult result = DarkMessageBox.Show("You have upgraded your version of Download Manager so your settings file has been automatically upgraded.\nIf you have deleted the configuration file or this is the first time startup you can ignore this message.\nIf you have not upgraded Download Manager and you are getting this message, please create a bug report.\nIf you would like to create a bug report, click Yes.\nIf you would like to continue without making a bug report, click No.", "Download Manager - Settings Upgraded", MessageBoxButtons.YesNo, MessageBoxIcon.Information, false);
+                if (result == DialogResult.Yes)
                 {
                     Process.Start(new ProcessStartInfo("https://github.com/Download-Manager-Community/Download-Manager/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml") { UseShellExecute = true });
                 }
@@ -193,15 +194,13 @@ namespace DownloadManager
         {
             if (textBox1.Text == "" || textBox1.Text.Contains(" "))
             {
-                DarkMessageBox msg = new DarkMessageBox("Please enter a valid URL.", "Enter a valid URL", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                msg.ShowDialog();
+                DarkMessageBox.Show("Please enter a valid URL.", "Enter a valid URL", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (textBox2.Text == "")
             {
-                DarkMessageBox msg = new DarkMessageBox("Please enter a valid download location.\nIf this is not filled out with your user download location automatically, go to Settings > Default downloads location to change your default download location.", "Enter a download location", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                msg.ShowDialog();
+                DarkMessageBox.Show("Please enter a valid download location.\nIf this is not filled out with your user download location automatically, go to Settings > Default downloads location to change your default download location.", "Enter a download location", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -211,9 +210,7 @@ namespace DownloadManager
             {
                 textBox1.Text = "";
 
-                DarkMessageBox msg = new DarkMessageBox("Download Manager does not support downloading YouTube videos.\nFor more information, check the release notes for version 6.0.0.0 at:\nhttps://github.com/Download-Manager-Community/Download-Manager/releases/tag/6.0.0.0", "Unsupported", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                msg.ShowDialog();
-
+                DarkMessageBox.Show("Download Manager does not support downloading YouTube videos.\nFor more information, check the release notes for version 6.0.0.0 at:\nhttps://github.com/Download-Manager-Community/Download-Manager/releases/tag/6.0.0.0", "Unsupported", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -284,8 +281,7 @@ namespace DownloadManager
                 }
                 catch (Exception ex)
                 {
-                    DarkMessageBox msg = new DarkMessageBox(ex.Message + Environment.NewLine + ex.StackTrace, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
-                    msg.ShowDialog();
+                    DarkMessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
                 }
             }
         }

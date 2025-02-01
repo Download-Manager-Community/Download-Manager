@@ -58,6 +58,7 @@ namespace DownloadManager
             }
             catch (Exception ex)
             {
+                // If a debugger is attached and is not testing the crash handler, throw the exception
                 if (Debugger.IsAttached && allowBypassCrashHandler)
                 {
                     throw;

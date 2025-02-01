@@ -1,4 +1,5 @@
-﻿using DownloadManager.Controls;
+﻿using DownloadManager.Components;
+using DownloadManager.Controls;
 using DownloadManager.NativeMethods;
 using System.Diagnostics;
 using System.Text;
@@ -58,8 +59,7 @@ namespace DownloadManager
                     }
                     catch (Exception err)
                     {
-                        DarkMessageBox msg = new DarkMessageBox("A error occurred and logging cannot continue.\nError Details:\n" + err.Message + "\n" + err.StackTrace, "Download Manager - Logging - Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
-                        msg.ShowDialog();
+                        DarkMessageBox.Show("A error occurred and logging cannot continue.\nError Details:\n" + err.Message + "\n" + err.StackTrace, "Download Manager - Logging - Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
                         return;
                     }
                 }

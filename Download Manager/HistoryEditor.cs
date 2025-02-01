@@ -1,4 +1,5 @@
-﻿using DownloadManager.NativeMethods;
+﻿using DownloadManager.Components;
+using DownloadManager.NativeMethods;
 
 namespace DownloadManager
 {
@@ -27,13 +28,11 @@ namespace DownloadManager
             // Remove Item
             if (listBox1.Items.Count < 1)
             {
-                DarkMessageBox msg = new DarkMessageBox("Cannot remove an item that does not exist!", "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
-                msg.ShowDialog();
+                DarkMessageBox.Show("Cannot remove an item that does not exist!", "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
             }
             else if (listBox1.SelectedIndex == -1)
             {
-                DarkMessageBox msg = new DarkMessageBox("No item selected.", "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
-                msg.ShowDialog();
+                DarkMessageBox.Show("No item selected.", "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error, true);
             }
             else
             {
