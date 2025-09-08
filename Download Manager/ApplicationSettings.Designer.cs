@@ -49,7 +49,7 @@
             folderBrowserDialog1 = new FolderBrowserDialog();
             label12 = new Label();
             button10 = new Button();
-            tabControl = new Controls.DarkTabControl();
+            tabControl = new DownloadManager.Controls.DarkTabControl();
             generalTabPage = new TabPage();
             checkBox11 = new CheckBox();
             label24 = new Label();
@@ -88,6 +88,8 @@
             checkBox5 = new CheckBox();
             checkBox4 = new CheckBox();
             aboutTabPage = new TabPage();
+            addonsList = new ListBox();
+            label28 = new Label();
             linkLabel6 = new LinkLabel();
             label16 = new Label();
             linkLabel1 = new LinkLabel();
@@ -174,7 +176,7 @@
             // 
             label13.AutoSize = true;
             label13.Cursor = Cursors.Help;
-            label13.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label13.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             label13.ForeColor = Color.Gray;
             label13.Location = new Point(109, 363);
             label13.Name = "label13";
@@ -187,7 +189,7 @@
             // 
             label11.AutoSize = true;
             label11.Cursor = Cursors.Help;
-            label11.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label11.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             label11.ForeColor = Color.Gray;
             label11.Location = new Point(90, 322);
             label11.Margin = new Padding(4, 0, 4, 0);
@@ -201,7 +203,7 @@
             // 
             label6.AutoSize = true;
             label6.Cursor = Cursors.Help;
-            label6.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             label6.ForeColor = Color.Gray;
             label6.Location = new Point(118, 208);
             label6.Margin = new Padding(4, 0, 4, 0);
@@ -215,7 +217,7 @@
             // 
             label4.AutoSize = true;
             label4.Cursor = Cursors.Help;
-            label4.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label4.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             label4.ForeColor = Color.Gray;
             label4.Location = new Point(169, 118);
             label4.Name = "label4";
@@ -228,7 +230,7 @@
             // 
             label2.AutoSize = true;
             label2.Cursor = Cursors.Help;
-            label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             label2.ForeColor = Color.Gray;
             label2.Location = new Point(262, 67);
             label2.Name = "label2";
@@ -241,7 +243,7 @@
             // 
             help1.AutoSize = true;
             help1.Cursor = Cursors.Help;
-            help1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            help1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             help1.ForeColor = Color.Gray;
             help1.Location = new Point(158, 9);
             help1.Name = "help1";
@@ -254,7 +256,7 @@
             // 
             label19.AutoSize = true;
             label19.Cursor = Cursors.Help;
-            label19.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label19.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             label19.ForeColor = Color.Gray;
             label19.Location = new Point(182, 415);
             label19.Margin = new Padding(4, 0, 4, 0);
@@ -268,7 +270,7 @@
             // 
             label20.AutoSize = true;
             label20.Cursor = Cursors.Help;
-            label20.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label20.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             label20.ForeColor = Color.Gray;
             label20.Location = new Point(198, 166);
             label20.Margin = new Padding(4, 0, 4, 0);
@@ -282,7 +284,7 @@
             // 
             label23.AutoSize = true;
             label23.Cursor = Cursors.Help;
-            label23.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label23.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             label23.ForeColor = Color.Gray;
             label23.Location = new Point(227, 464);
             label23.Margin = new Padding(4, 0, 4, 0);
@@ -296,7 +298,7 @@
             // 
             label25.AutoSize = true;
             label25.Cursor = Cursors.Help;
-            label25.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label25.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             label25.ForeColor = Color.Gray;
             label25.Location = new Point(109, 552);
             label25.Name = "label25";
@@ -309,7 +311,7 @@
             // 
             label27.AutoSize = true;
             label27.Cursor = Cursors.Help;
-            label27.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label27.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             label27.ForeColor = Color.Gray;
             label27.Location = new Point(180, 514);
             label27.Name = "label27";
@@ -839,6 +841,8 @@
             // aboutTabPage
             // 
             aboutTabPage.BackColor = Color.Black;
+            aboutTabPage.Controls.Add(addonsList);
+            aboutTabPage.Controls.Add(label28);
             aboutTabPage.Controls.Add(linkLabel6);
             aboutTabPage.Controls.Add(label16);
             aboutTabPage.Controls.Add(linkLabel1);
@@ -855,6 +859,24 @@
             aboutTabPage.Size = new Size(810, 445);
             aboutTabPage.TabIndex = 3;
             aboutTabPage.Text = "About & Updates";
+            // 
+            // addonsList
+            // 
+            addonsList.FormattingEnabled = true;
+            addonsList.Location = new Point(7, 125);
+            addonsList.Name = "addonsList";
+            addonsList.Size = new Size(143, 148);
+            addonsList.TabIndex = 51;
+            // 
+            // label28
+            // 
+            label28.AutoSize = true;
+            label28.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label28.Location = new Point(7, 107);
+            label28.Name = "label28";
+            label28.Size = new Size(101, 15);
+            label28.TabIndex = 50;
+            label28.Text = "Addons Available";
             // 
             // linkLabel6
             // 
@@ -873,7 +895,7 @@
             // label16
             // 
             label16.AutoSize = true;
-            label16.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label16.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             label16.Location = new Point(7, 2);
             label16.Name = "label16";
             label16.Size = new Size(48, 15);
@@ -925,7 +947,7 @@
             // label17
             // 
             label17.AutoSize = true;
-            label17.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label17.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             label17.Location = new Point(7, 52);
             label17.Name = "label17";
             label17.Size = new Size(74, 15);
@@ -1056,5 +1078,7 @@
         private TabPage notificationsTabPage;
         private TabPage soundsTabPage;
         private TabPage aboutTabPage;
+        private Label label28;
+        public ListBox addonsList;
     }
 }

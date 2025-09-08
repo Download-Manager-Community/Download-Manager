@@ -2,7 +2,7 @@
 
 namespace DownloadManager.NativeMethods
 {
-    internal class User32
+    public class User32
     {
         public const int WM_ACTIVATE = 0x006;
         public const int WM_ACTIVATEAPP = 0x01C;

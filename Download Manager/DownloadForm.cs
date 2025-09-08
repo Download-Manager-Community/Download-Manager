@@ -1,4 +1,5 @@
 ﻿using DownloadManager.Components;
+using DownloadManager.Components.Addons;
 using DownloadManager.Controls;
 using DownloadManager.NativeMethods;
 using System.Diagnostics;
@@ -80,6 +81,9 @@ namespace DownloadManager
                     Process.Start(new ProcessStartInfo("https://github.com/Download-Manager-Community/Download-Manager/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml") { UseShellExecute = true });
                 }
             }
+
+            // Load addons
+            AddonHandler.LoadAddons();
         }
 
         public void SetupColumnPrefs()
@@ -208,8 +212,6 @@ namespace DownloadManager
 
             if (ytRegex.IsMatch(textBox1.Text))
             {
-                textBox1.Text = "";
-
                 DarkMessageBox.Show("Download Manager does not support downloading YouTube videos.\nFor more information, check the release notes for version 6.0.0.0 at:\nhttps://github.com/Download-Manager-Community/Download-Manager/releases/tag/6.0.0.0", "Unsupported", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }

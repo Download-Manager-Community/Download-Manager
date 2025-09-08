@@ -28,6 +28,33 @@ namespace DownloadManager
         public bool ShowText { get; set; } = true;
 
         /// <summary>
+        /// Define custom progress bar text. Leave blank for none.
+        /// </summary>
+        [Browsable(true)]
+        [Category("Appearance")]
+        [DefaultValue("")]
+        [Description("Define custom progress bar text. Leave blank for none.")]
+        public string CustomText { get; set; } = "";
+
+        /// <summary>
+        /// The orientation for text on the progress bar.
+        /// </summary>
+        [Browsable(true)]
+        [Category("Appearance")]
+        [DefaultValue(StringAlignment.Center)]
+        [Description("The orientation for text on the progress bar.")]
+        public StringAlignment TextAlign { get; set; } = StringAlignment.Center;
+
+        /// <summary>
+        /// Whether or not the text should ignore if the progress bar is currently running in Marquee.
+        /// </summary>
+        [Browsable(true)]
+        [Category("Appearance")]
+        [DefaultValue(false)]
+        [Description("Whether or not the text should ignore if the progress bar is currently running in Marquee.")]
+        public bool TextIgnoresMarquee { get; set; } = false;
+
+        /// <summary>
         /// Indicates the state of the progress bar.
         /// </summary>
         [Browsable(true)]
@@ -46,6 +73,13 @@ namespace DownloadManager
             Normal,
             Warning,
             Error
+        }
+
+        public enum BarTextAlign
+        {
+            Left,
+            Center,
+            Right
         }
 
         public BetterProgressBar()
@@ -90,6 +124,31 @@ namespace DownloadManager
                 int x = marqueePosition - width;
                 // Draw the marquee-style progress bar
                 e.Graphics.FillRectangle(Brushes.Blue, x, 0, width, Height);
+
+                // Show the text if it should ignore the marquee
+                if (this.ShowText && this.TextIgnoresMarquee)
+                {
+                    using (StringFormat format = new StringFormat())
+                    {
+                        format.Alignment = TextAlign;
+                        format.LineAlignment = StringAlignment.Center;
+
+                        // Calculate the percentage of the progress bar
+                        int percent = (int)(((double)this.Value / (double)this.Maximum) * 100);
+
+                        // Draw the text
+                        if (CustomText != "")
+                        {
+                            // Draw the custom text in the center of the progress bar
+                            e.Graphics.DrawString(CustomText, this.Font, Brushes.White, this.ClientRectangle, format);
+                        }
+                        else
+                        {
+                            // Draw the percentage text in the center of the progress bar
+                            e.Graphics.DrawString(percent + "%", this.Font, Brushes.White, this.ClientRectangle, format);
+                        }
+                    }
+                }
             }
             else
             {
@@ -115,14 +174,23 @@ namespace DownloadManager
                 {
                     using (StringFormat format = new StringFormat())
                     {
-                        format.Alignment = StringAlignment.Center;
+                        format.Alignment = TextAlign;
                         format.LineAlignment = StringAlignment.Center;
 
                         // Calculate the percentage of the progress bar
                         int percent = (int)(((double)this.Value / (double)this.Maximum) * 100);
 
-                        // Draw the percentage text
-                        e.Graphics.DrawString(percent + "%", this.Font, Brushes.White, this.ClientRectangle, format);
+                        // Draw the text
+                        if (CustomText != "")
+                        {
+                            // Draw the custom text in the center of the progress bar
+                            e.Graphics.DrawString(CustomText, this.Font, Brushes.White, this.ClientRectangle, format);
+                        }
+                        else
+                        {
+                            // Draw the percentage text in the center of the progress bar
+                            e.Graphics.DrawString(percent + "%", this.Font, Brushes.White, this.ClientRectangle, format);
+                        }
                     }
                 }
             }

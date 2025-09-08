@@ -60,6 +60,7 @@
             button2 = new Button();
             progressBar1 = new BetterProgressBar();
             videoThumbErrorTip = new ToolTip(components);
+            ytLink = new LinkLabel();
             trayContextMenu.SuspendLayout();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -382,12 +383,28 @@
             videoThumbErrorTip.ToolTipIcon = ToolTipIcon.Error;
             videoThumbErrorTip.ToolTipTitle = "Failed to fetch video thumbnail";
             // 
+            // ytLink
+            // 
+            ytLink.ActiveLinkColor = Color.Blue;
+            ytLink.AutoSize = true;
+            ytLink.BackColor = Color.Black;
+            ytLink.LinkColor = Color.FromArgb(90, 90, 255);
+            ytLink.Location = new Point(618, 392);
+            ytLink.Name = "ytLink";
+            ytLink.Size = new Size(198, 16);
+            ytLink.TabIndex = 26;
+            ytLink.TabStop = true;
+            ytLink.Text = "Download a YouTube Video/Playlist";
+            ytLink.Visible = false;
+            ytLink.VisitedLinkColor = Color.FromArgb(0, 195, 255);
+            // 
             // DownloadForm
             // 
             AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
             ClientSize = new Size(933, 438);
+            Controls.Add(ytLink);
             Controls.Add(progressBar1);
             Controls.Add(panel1);
             Controls.Add(textBox1);
@@ -451,5 +468,6 @@
         public Button button2;
         private BetterProgressBar progressBar1;
         private ToolTip videoThumbErrorTip;
+        public LinkLabel ytLink;
     }
 }
