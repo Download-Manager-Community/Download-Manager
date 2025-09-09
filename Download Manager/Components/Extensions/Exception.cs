@@ -1,4 +1,4 @@
-﻿namespace DownloadManager.Components.Extentions
+﻿namespace DownloadManager.Components.Extensions
 {
     public static class ExceptionExt
     {

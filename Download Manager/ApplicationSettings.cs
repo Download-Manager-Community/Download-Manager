@@ -452,7 +452,7 @@ namespace DownloadManager
 
         private void linkLabel6_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            // Browser extention page
+            // Browser extension page
             Process.Start(new ProcessStartInfo("https://microsoftedge.microsoft.com/addons/detail/download-manager/facopbimneimllhcabghncloejfeficd?hl=en-GB") { UseShellExecute = true });
         }
 

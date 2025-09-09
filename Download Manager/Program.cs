@@ -1,4 +1,4 @@
-using DownloadManager.Components.Extentions;
+using DownloadManager.Components.Extensions;
 using System.Diagnostics;
 using System.Text;
 

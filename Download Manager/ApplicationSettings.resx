@@ -127,7 +127,7 @@ You can clear your whole history or remove specific items of your history with t
   </data>
   <data name="label6.ToolTip" xml:space="preserve">
     <value>The port for the internal server to be hosted locally.
-The extention must also be set up with your specified port number for the extention to properly communicate to Download Manager.
+The extension must also be set up with your specified port number for the extension to properly communicate to Download Manager.
 The default value for this setting is 65535.</value>
   </data>
   <data name="label4.ToolTip" xml:space="preserve">

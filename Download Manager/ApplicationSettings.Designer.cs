@@ -888,7 +888,7 @@
             linkLabel6.Size = new Size(104, 16);
             linkLabel6.TabIndex = 49;
             linkLabel6.TabStop = true;
-            linkLabel6.Text = "Browser Extention";
+            linkLabel6.Text = "Browser Extension";
             linkLabel6.VisitedLinkColor = Color.FromArgb(0, 195, 255);
             linkLabel6.LinkClicked += linkLabel6_LinkClicked;
             // 

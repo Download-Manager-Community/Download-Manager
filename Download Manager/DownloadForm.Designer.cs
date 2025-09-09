@@ -215,7 +215,7 @@
             linkLabel1.Size = new Size(138, 16);
             linkLabel1.TabIndex = 13;
             linkLabel1.TabStop = true;
-            linkLabel1.Text = "Install Browser Extention";
+            linkLabel1.Text = "Install Browser Extension";
             linkLabel1.VisitedLinkColor = Color.FromArgb(0, 195, 255);
             linkLabel1.LinkClicked += linkLabel1_LinkClicked;
             // 
