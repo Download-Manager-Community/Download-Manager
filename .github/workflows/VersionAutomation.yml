@@ -16,6 +16,6 @@ jobs:
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
-          repository: Soniczac7/app-update
+          repository: Lilyy2565/app-update
           event-type: release
           client-payload: '{"version": "${{ steps.get_version.outputs.version }}"}'

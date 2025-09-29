@@ -11,16 +11,16 @@
     <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
     <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/Soniczac7/Download-Manager</RepositoryUrl>
+    <RepositoryUrl>https://github.com/Lilyy2565/Download-Manager</RepositoryUrl>
     <PackageLicenseFile>D:\DownloadManager\LICENSE.txt</PackageLicenseFile>
-    <Authors>Soniczac7</Authors>
-    <Company>Soniczac7</Company>
+    <Authors>Lilyy2565</Authors>
+    <Company>Lilyy2565</Company>
     <Product>Download Manager</Product>
     <PackageProjectUrl>http://downloadmanager.soniczac7.rf.gd/</PackageProjectUrl>
     <AssemblyVersion>6.0.0.0</AssemblyVersion>
     <FileVersion>$(AssemblyVersion)</FileVersion>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <Copyright>©Soniczac7</Copyright>
+    <Copyright>©Lilyy2565</Copyright>
     <NeutralLanguage>en-GB</NeutralLanguage>
   </PropertyGroup>
 

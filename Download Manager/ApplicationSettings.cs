@@ -420,19 +420,19 @@ namespace DownloadManager
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             // Report a bug
-            Process.Start(new ProcessStartInfo("https://github.com/Soniczac7/Download-Manager/issues/new?assignees=&labels=bug&template=bug_report.yml") { UseShellExecute = true });
+            Process.Start(new ProcessStartInfo("https://github.com/Lilyy2565/Download-Manager/issues/new?assignees=&labels=bug&template=bug_report.yml") { UseShellExecute = true });
         }
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             // Request a feature
-            Process.Start(new ProcessStartInfo("https://github.com/Soniczac7/Download-Manager/issues/new?assignees=&labels=feature&template=feature_request.yml") { UseShellExecute = true });
+            Process.Start(new ProcessStartInfo("https://github.com/Lilyy2565/Download-Manager/issues/new?assignees=&labels=feature&template=feature_request.yml") { UseShellExecute = true });
         }
 
         private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             // Open contributors webView window
-            WebViewWindow webView = new WebViewWindow("https://github.com/Soniczac7/Download-Manager/graphs/contributors", "Download Manager Contributors");
+            WebViewWindow webView = new WebViewWindow("https://github.com/Lilyy2565/Download-Manager/graphs/contributors", "Download Manager Contributors");
             webView.Show();
         }
 

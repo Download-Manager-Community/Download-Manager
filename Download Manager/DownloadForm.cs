@@ -304,7 +304,7 @@ namespace DownloadManager
             // Report a bug
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
-                FileName = "https://github.com/Soniczac7/Download-Manager/issues/new?assignees=&labels=bug&template=bug_report.yml&title=",
+                FileName = "https://github.com/Lilyy2565/Download-Manager/issues/new?assignees=&labels=bug&template=bug_report.yml&title=",
                 Arguments = "",
                 UseShellExecute = true,
                 RedirectStandardOutput = false,

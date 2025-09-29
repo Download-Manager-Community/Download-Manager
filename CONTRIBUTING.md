@@ -12,11 +12,11 @@ There are 3 different types of issues that can be opened on Download Manager.
 
 ### Option 2 (Contributing code)
 If you would like to contribute code you can do the following to get started:
-1) [Fork](https://github.com/Soniczac7/Download-Manager/fork) the repository.
-2) Create a [pull request](https://github.com/Soniczac7/Download-Manager/pulls) to the `master` branch.
-3) When you are ready request `Soniczac7` as a reviewer.
+1) [Fork](https://github.com/Lilyy2565/Download-Manager/fork) the repository.
+2) Create a [pull request](https://github.com/Lilyy2565/Download-Manager/pulls) to the `master` branch.
+3) When you are ready request `Lilyy2565` as a reviewer.
 4) If the pull request is ok it will be merged with the `master` branch.
-5) If there are improvements that need to be made before the branch can be merged, make them and request `Soniczac7` as a reviewer again.
+5) If there are improvements that need to be made before the branch can be merged, make them and request `Lilyy2565` as a reviewer again.
 
 *To build Download Manager successfully you may have to build the application in the `Debug` build configuration as the `Release` configuration does not work.*
 

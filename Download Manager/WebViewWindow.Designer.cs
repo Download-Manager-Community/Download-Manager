@@ -49,7 +49,7 @@
             this.webView.Location = new System.Drawing.Point(0, 39);
             this.webView.Name = "webView";
             this.webView.Size = new System.Drawing.Size(798, 410);
-            this.webView.Source = new System.Uri("https://raw.githubusercontent.com/Soniczac7/Download-Manager/master/Resources/err" +
+            this.webView.Source = new System.Uri("https://raw.githubusercontent.com/Lilyy2565/Download-Manager/master/Resources/err" +
         "or.png", System.UriKind.Absolute);
             this.webView.TabIndex = 0;
             this.webView.ZoomFactor = 1D;
