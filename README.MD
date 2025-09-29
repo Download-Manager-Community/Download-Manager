@@ -2,21 +2,21 @@
 <p align="center">
 <img alt="CodeQL workflow status" src="https://img.shields.io/github/actions/workflow/status/Download-Manager-Community/Download-Manager/codeql-analysis.yml?branch=master&event=push">
 <img alt="Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/Download-Manager-Community/Download-Manager/dotnet-desktop.yml?label=Artifacts%20Build">
-<img alt="Open issues" src="https://img.shields.io/github/issues/Lilyy2565/Download-Manager"> 
-<img alt="Total downloads" src="https://img.shields.io/github/downloads/Lilyy2565/Download-Manager/total">
-<img alt="License" src="https://img.shields.io/github/license/Lilyy2565/Download-Manager">
-<img alt="GitHub Sponsors" src="https://img.shields.io/github/sponsors/Lilyy2565">
+<img alt="Open issues" src="https://img.shields.io/github/issues/Download-Manager-Community/Download-Manager"> 
+<img alt="Total downloads" src="https://img.shields.io/github/downloads/Download-Manager-Community/Download-Manager/total">
+<img alt="License" src="https://img.shields.io/github/license/Download-Manager-Community/Download-Manager">
+<img alt="GitHub Sponsors" src="https://img.shields.io/github/sponsors/Download-Manager-Community">
 <img alt="Commit activity" src="https://img.shields.io/github/commit-activity/m/Download-Manager-Community/Download-Manager">
 </p>
 
 A fast download manager for Windows to download your files.
 Download Manager now contains a [browser extention](https://microsoftedge.microsoft.com/addons/detail/download-manager/facopbimneimllhcabghncloejfeficd) to help you download your files as easily as possible.
 Just install the extention and download a file!
-For requests for file extentions please make a [Feature Request](https://github.com/Lilyy2565/Download-Manager/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=).
+For requests for file extentions please make a [Feature Request](https://github.com/Download-Manager-Community/Download-Manager/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=).
 
-If you have any issues with Download Manager please make an [issue](https://github.com/Lilyy2565/Download-Manager/issues/new/choose).
+If you have any issues with Download Manager please make an [issue](https://github.com/Download-Manager-Community/Download-Manager/issues/new/choose).
 
-*To check for any updates regarding the next update of Download Manager go to the [Discussions](https://github.com/Lilyy2565/Download-Manager/discussions) page.*
+*To check for any updates regarding the next update of Download Manager go to the [Discussions](https://github.com/Download-Manager-Community/Download-Manager/discussions) page.*
 
 ## Compatability
 Older versions of Download Manager do not support high DPI monitors.
@@ -27,16 +27,16 @@ If you are experiecing display issues, try updating your version of Download Man
 ## Installation Instructions
 ### Winget Install
 1) Open a CMD or Powershell window.
-2) Type `winget install Lilyy2565.DownloadManager`.
+2) Type `winget install Soniczac7.DownloadManager`.
 3) Wait for installation to complete.
 4) You can also install the browser extention [here](https://microsoftedge.microsoft.com/addons/detail/download-manager/facopbimneimllhcabghncloejfeficd?hl=en-GB).
 ### Manual Install (Portable)
-1) Download the latest portable version from the [releases page](https://github.com/Lilyy2565/Download-Manager/releases).
+1) Download the latest portable version from the [releases page](https://github.com/Download-Manager-Community/Download-Manager/releases).
 2) Run the installer
 3) Follow the on screen instructions.
 4) You can also install the browser extention [here](https://microsoftedge.microsoft.com/addons/detail/download-manager/facopbimneimllhcabghncloejfeficd?hl=en-GB). 
 ### Manual Install (Zip)
-1) Download the latest unpacked installer version from the [releases page](https://github.com/Lilyy2565/Download-Manager/releases).
+1) Download the latest unpacked installer version from the [releases page](https://github.com/Download-Manager-Community/Download-Manager/releases).
 2) Extract the zip anywhere.
 4) Run the executable `DownloadManagerInstaller.exe`.
 5) Follow the on screen instructions.
@@ -75,10 +75,10 @@ There are 3 different types of issues that can be opened on Download Manager.
 
 ### Option 2 (Contributing code)
 If you would like to contribute code you can do the following to get started:
-1) [Fork](https://github.com/Lilyy2565/Download-Manager/fork) the repository.
+1) [Fork](https://github.com/Download-Manager-Community/Download-Manager/fork) the repository.
 2) To be able to properly build Download Manager and have it behave correctly you must run the "First-Time Setup" debug option before building *(figure 1 below)*
 3) Make your changes
-4) Create a [pull request](https://github.com/Lilyy2565/Download-Manager/pulls) to the `master` branch.
+4) Create a [pull request](https://github.com/Download-Manager-Community/Download-Manager/pulls) to the `master` branch.
 5) When you are ready request `Lilyy2565` as a reviewer.
 6) If the pull request is ok it will be merged with the `master` branch.
 7) If there are improvements that need to be made before the branch can be merged, make them and request `Lilyy2565` as a reviewer again.
